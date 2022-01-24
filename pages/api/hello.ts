@@ -20,7 +20,7 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
+  connection.query('SELECT * FROM t2 AS solution', function (error, results, fields) {
 
     if (error) {
       res.status(500).json({ error: String(error) })

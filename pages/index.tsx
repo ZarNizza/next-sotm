@@ -1,9 +1,25 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from "next/link";
+import { useEffect, useState } from 'react';
 import styles from '../styles/Home.module.css'
 
+export interface User {
+  id: number,
+  name:string
+}
+
 const Home: NextPage = () => {
+const [users, setUsers]  = useState<string[]>([]);
+useEffect(()=>{
+  fetch('/api/users').then((res)=>res.json()).then((res:{data:User[]})=>{
+    console.log("res=", res);
+    setUsers(res.data.map(el=>el.name));
+  })
+},[]
+)
+
   return (
     <div className={styles.container}>
       <Head>
@@ -14,56 +30,38 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Go to <Link href="/db"><a>DB Connect!</a></Link>
         </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
-
+{users.map(user=><div>{user}</div>)}
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
+          <a href="/db" className={styles.card}>
+            <h2>DB Connect &rarr;</h2>
+            <p>Select * from t2</p>
           </a>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+          <Link href="/bar"><a className={styles.card}>
+            <h2>BAR &rarr;</h2>
+            <p>/bar/index.tsx</p>
+          </a></Link>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+          <Link href="/bar/foo"><a className={styles.card}>
+            <h2>BAR/foo &rarr;</h2>
+            <p>/bar/foo.tsx</p>
+          </a></Link>
 
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+          <Link href="/db"><a className={styles.card}>
+            <h2>DB &rarr;</h2>
+            <p>/db</p>
+          </a></Link>
         </div>
       </main>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+      <footer className={styles.footer}>        <Link href="/">Back to the Future</Link>
+
           Powered by{' '}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
-        </a>
       </footer>
     </div>
   )
