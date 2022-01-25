@@ -18,7 +18,7 @@ const Home: NextPage = () => {
       .then((res) => res.json())
       .then((res: { data: User[] }) => {
         console.log("res=", res);
-        setUsers(res.data.map((el) => el.name));
+        setUsers((res.data || []).map((el) => el.name));
       });
   }, []);
 

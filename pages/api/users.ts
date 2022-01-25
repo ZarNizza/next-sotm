@@ -39,7 +39,7 @@ export default function handler(
         res.status(500).json({ error: String(error) });
       }
       console.log(results);
-      res.status(200).json({ data: results as User[] });
+      res.status(200).json({ data: (results as User[]) || [] });
       return;
     });
   }
