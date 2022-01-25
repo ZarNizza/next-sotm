@@ -34,6 +34,16 @@ const Home: NextPage = () => {
         console.log("showTables = OK", res);
       });
   }
+  function inputChangeHandler() {
+    return;
+  }
+  function addUserHandler() {
+    fetch("/api/customers", { method: "POST", body: "showTables" })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("showTables = OK", res);
+      });
+  }
 
   return (
     <Layout>
@@ -45,7 +55,8 @@ const Home: NextPage = () => {
 
         <main className={styles.main}>
           <div className={styles.sysButton}>
-            <button onClick={resetUsersHandler}>! reset Users table !</button>
+            <input onChange={inputChangeHandler} className={styles.userInput} />
+            <button onClick={addUserHandler}>+ Add User +</button>
           </div>
           <div className={styles.sysButton}>
             <button onClick={restoreSalesHandler}>restore SALES table</button>
@@ -55,6 +66,9 @@ const Home: NextPage = () => {
           </div>
           <div className={styles.sysButton}>
             <button onClick={showTablesHandler}>SHOW TABLES</button>
+          </div>
+          <div className={styles.sysButton}>
+            <button onClick={resetUsersHandler}>! reset Users table !</button>
           </div>
         </main>
 
