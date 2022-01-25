@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import mysql from "mysql2";
-import type { User } from "../../pages/index";
+import type { User } from "../index";
 
 type Data = {
   data?: User[];

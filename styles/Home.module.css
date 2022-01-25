@@ -114,3 +114,7 @@
     flex-direction: column;
   }
 }
+
+.sysButton {
+  margin: 10px;
+}
