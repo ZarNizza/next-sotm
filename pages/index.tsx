@@ -34,7 +34,7 @@ const Home: NextPage = () => {
           <h2>Users</h2>
           <ol>
             {users.map((user) => (
-              <li>{user}</li>
+              <li key={user}>{user}</li>
             ))}
           </ol>
         </main>
