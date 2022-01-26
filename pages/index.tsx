@@ -7,19 +7,23 @@ import styles from "../styles/Home.module.css";
 import Layout from "../components/layout";
 
 export interface User {
-  id: number;
-  name: string;
+  cid: number;
+  cname: string;
+  cphone: string | null;
+  gooid: string | null;
 }
 
 const Home: NextPage = () => {
-  const [users, setUsers] = useState<string[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   useEffect(() => {
     fetch("/api/users")
       .then((res) => res.json())
       .then((res: { data: User[] }) => {
-        console.log("res=", res);
-        setUsers((res.data || []).map((el) => el.name));
-      });
+        setUsers(res.data || []);
+      })
+      .catch((error) =>
+        console.log("! frontend fetch error - ", error.message)
+      );
   }, []);
 
   return (
@@ -31,16 +35,19 @@ const Home: NextPage = () => {
         </Head>
 
         <main className={styles.main}>
-          <h2>Users</h2>
-          <ol>
-            {users.map((user) => (
-              <li key={user}>{user}</li>
+          <h2>Users:</h2>
+          <ul>
+            {users.map((user: User) => (
+              <li key={user.cid}>
+                {user.cname}
+                {", "}
+                {user.cphone} {user.gooid}
+              </li>
             ))}
-          </ol>
+          </ul>
         </main>
 
         <footer className={styles.footer}>
-          <Link href="/">&lt;&lt; Back to the Future</Link>{" "}
           <Link href="/sys">SystemPage &gt;&gt;</Link>
         </footer>
       </div>
