@@ -127,16 +127,34 @@
 .login {
   margin: 20px auto;
 }
+.loginForm {
+  border: 1px solid #2b2;
+  border-radius: 5px;
+  margin: 20px;
+  padding: 20px;
+}
 .loginButton {
   background-color: #8f8;
   color: #303;
   border: 1px solid #2b2;
   border-radius: 5px;
-  margin: 0 10px;
+  margin: 10px;
   padding: 10px;
 }
 .loginButton:hover {
   background-color: #2f2;
+  cursor: pointer;
+}
+.logoutButton {
+  /* background-color: #8f8; */
+  color: #303;
+  /* border: 1px solid #2b2; */
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+}
+.logoutButton:hover {
+  /* background-color: #2f2; */
   cursor: pointer;
 }
 .guestButton {

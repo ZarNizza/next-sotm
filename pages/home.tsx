@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 import Layout from "../components/layout";
+import LoggedStatus from "../components/LoggedStatus";
 
 export interface User {
   cid: number;
@@ -34,6 +35,7 @@ const Home: NextPage = () => {
       </Head>
 
       <div className={styles.container}>
+        <LoggedStatus />
         <main className={styles.main}>
           <h2>Users:</h2>
           <ul>
@@ -46,7 +48,6 @@ const Home: NextPage = () => {
             ))}
           </ul>
         </main>
-
         <footer className={styles.footer}>
           <Link href="/">
             <a className={styles.footerLink}>&lt;&lt; WelcomePage </a>

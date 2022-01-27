@@ -1,15 +1,18 @@
 import type { NextPage } from "next";
+// import type { AppProps } from "next/app";
 import Head from "next/head";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 import Layout from "../components/layout";
+import LoggedStatus from "../components/LoggedStatus";
 
 const Home: NextPage = () => {
   function guestLoginHandler() {
     console.log("------------- LoginButton ---------");
   }
+
   return (
     <Layout>
       <Head>
@@ -19,6 +22,7 @@ const Home: NextPage = () => {
 
       <div className={styles.container}>
         <h2>be Happy!</h2>
+
         <main className={styles.main}>
           <h3>
             Welcome to <span style={{ color: "#d0d" }}>beHappy!</span>
@@ -29,17 +33,20 @@ const Home: NextPage = () => {
             Just write every event here. <br />
             You can get statistics at any time!
           </p>
-          <div className={styles.login}>
-            <button onClick={guestLoginHandler} className={styles.loginButton}>
-              LogIn with your Google account
-            </button>
-            <button onClick={guestLoginHandler} className={styles.guestButton}>
-              LogIn as Guest
-            </button>
+          <div className={styles.loginForm}>
+            <LoggedStatus />
           </div>
         </main>
 
-        <footer className={styles.footer}>Samara, 2022</footer>
+        <footer className={styles.footer}>
+          <Link href="/home">
+            <a className={styles.footerLink}>HomePage &gt;&gt;</a>
+          </Link>{" "}
+          <span> Samara, 2022 </span>
+          <Link href="/sys">
+            <a className={styles.footerLink}>SystemPage &gt;&gt;</a>
+          </Link>
+        </footer>
       </div>
     </Layout>
   );
