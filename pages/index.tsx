@@ -6,50 +6,40 @@ import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 import Layout from "../components/layout";
 
-export interface User {
-  cid: number;
-  cname: string;
-  cphone: string | null;
-  gooid: string | null;
-}
-
 const Home: NextPage = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  useEffect(() => {
-    fetch("/api/users")
-      .then((res) => res.json())
-      .then((res: { data: User[] }) => {
-        setUsers(res.data || []);
-      })
-      .catch((error) =>
-        console.log("! frontend fetch error - ", error.message)
-      );
-  }, []);
-
+  function guestLoginHandler() {
+    console.log("------------- LoginButton ---------");
+  }
   return (
     <Layout>
-      <div className={styles.container}>
-        <Head>
-          <title>SOTM Next App</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+      <Head>
+        <title>SOTM Next App</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
+      <div className={styles.container}>
+        <h2>be Happy!</h2>
         <main className={styles.main}>
-          <h2>Users:</h2>
-          <ul>
-            {users.map((user: User) => (
-              <li key={user.cid}>
-                {user.cname}
-                {", "}
-                {user.cphone} {user.gooid}
-              </li>
-            ))}
-          </ul>
+          <h3>
+            Welcome to <span style={{ color: "#d0d" }}>beHappy!</span>
+            SalesOnTheMove
+          </h3>
+          <p>
+            This app help you keep in-order your incomes & payments. <br />
+            Just write every event here. <br />
+            You can get statistics at any time!
+          </p>
+          <div className={styles.login}>
+            <button onClick={guestLoginHandler} className={styles.loginButton}>
+              LogIn with your Google account
+            </button>
+            <button onClick={guestLoginHandler} className={styles.guestButton}>
+              LogIn as Guest
+            </button>
+          </div>
         </main>
 
-        <footer className={styles.footer}>
-          <Link href="/sys">SystemPage &gt;&gt;</Link>
-        </footer>
+        <footer className={styles.footer}>Samara, 2022</footer>
       </div>
     </Layout>
   );

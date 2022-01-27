@@ -3,7 +3,7 @@
 }
 
 .main {
-  min-height: 90vh;
+  min-height: 80vh;
   padding: 4rem 0;
   flex: 1;
   display: flex;
@@ -120,4 +120,34 @@
 }
 .userInput {
   margin-right: 10px;
+}
+.footerLink {
+  margin-right: 10px;
+}
+.login {
+  margin: 20px auto;
+}
+.loginButton {
+  background-color: #8f8;
+  color: #303;
+  border: 1px solid #2b2;
+  border-radius: 5px;
+  margin: 0 10px;
+  padding: 10px;
+}
+.loginButton:hover {
+  background-color: #2f2;
+  cursor: pointer;
+}
+.guestButton {
+  background-color: #fafafa;
+  color: #888;
+  border: 1px solid #888;
+  border-radius: 5px;
+  margin: 0 10px;
+  padding: 10px;
+}
+.guestButton:hover {
+  background-color: #eee;
+  cursor: pointer;
 }
