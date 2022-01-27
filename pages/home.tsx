@@ -1,11 +1,10 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 import Layout from "../components/layout";
-import LoggedStatus from "../components/LoggedStatus";
 
 export interface User {
   cid: number;
@@ -30,12 +29,11 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <Head>
-        <title>SOTM Next App</title>
+        <title>SOTM Home</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <div className={styles.container}>
-        <LoggedStatus />
         <main className={styles.main}>
           <h2>Users:</h2>
           <ul>

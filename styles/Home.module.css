@@ -1,9 +1,18 @@
+.flexContainer {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
 .container {
   padding: 0 2rem;
 }
-
+.rowElem {
+  margin: 0 2rem;
+}
 .main {
-  min-height: 80vh;
+  height: 80vh;
   padding: 4rem 0;
   flex: 1;
   display: flex;
@@ -12,9 +21,15 @@
   align-items: center;
 }
 
+.header {
+  display: flex;
+  padding: 0;
+  border-top: 1px solid #eaeaea;
+  justify-content: space-between;
+  align-items: center;
+}
 .footer {
   display: flex;
-  flex: 1;
   padding: 2rem 0;
   border-top: 1px solid #eaeaea;
   justify-content: center;

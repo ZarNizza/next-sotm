@@ -84,7 +84,6 @@ const Home: NextPage = () => {
       <div className={styles.container}>
         <Head>
           <title>System page</title>
-          <link rel="icon" href="/favicon.ico" />
         </Head>
 
         <main className={styles.main}>
@@ -123,10 +122,6 @@ const Home: NextPage = () => {
             <button onClick={resetSalesHandler}>! RESET sales TABLE !</button>
           </div>
         </main>
-
-        <footer className={styles.footer}>
-          <Link href="/">&lt;&lt; Back to the Future</Link>
-        </footer>
       </div>
     </Layout>
   );

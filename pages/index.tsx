@@ -6,48 +6,39 @@ import Link from "next/link";
 // import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 import Layout from "../components/layout";
+import { useSession } from "next-auth/react";
 import LoggedStatus from "../components/LoggedStatus";
 
 const Home: NextPage = () => {
-  function guestLoginHandler() {
-    console.log("------------- LoginButton ---------");
-  }
-
-  return (
+  const { data: session } = useSession();
+  return session ? (
     <Layout>
       <Head>
         <title>SOTM Next App</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <div className={styles.container}>
-        <h2>be Happy!</h2>
-
-        <main className={styles.main}>
-          <h3>
-            Welcome to <span style={{ color: "#d0d" }}>beHappy!</span>
-            SalesOnTheMove
-          </h3>
-          <p>
-            This app help you keep in-order your incomes & payments. <br />
-            Just write every event here. <br />
-            You can get statistics at any time!
-          </p>
-          <div className={styles.loginForm}>
-            <LoggedStatus />
-          </div>
-        </main>
-
-        <footer className={styles.footer}>
-          <Link href="/home">
-            <a className={styles.footerLink}>HomePage &gt;&gt;</a>
-          </Link>{" "}
-          <span> Samara, 2022 </span>
-          <Link href="/sys">
-            <a className={styles.footerLink}>SystemPage &gt;&gt;</a>
-          </Link>
-        </footer>
-      </div>
+      <main className={styles.main}>
+        <h3>Welcome!</h3>
+      </main>
+    </Layout>
+  ) : (
+    <Layout>
+      <Head>
+        <title>SOTM Next App</title>
+      </Head>
+      <main className={styles.main}>
+        <h3>
+          Welcome to <span style={{ color: "#d0d" }}>beHappy!</span>
+          SalesOnTheMove
+        </h3>
+        <p>
+          This app help you keep in-order your incomes & payments. <br />
+          Just write every event here. <br />
+          You can get statistics at any time!
+        </p>
+        <div className={styles.loginForm}>
+          <LoggedStatus />
+        </div>
+      </main>
     </Layout>
   );
 };
