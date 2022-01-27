@@ -17,13 +17,31 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         pool.getConnection(function (err, connection) {
           if (err) throw err; // not connected!
           connection.query(
-            "SELECT * FROM users",
+            "DELETE FROM customers WHERE 1",
             function (error, results, fields) {
               connection.release();
               if (error) {
                 res
                   .status(500)
-                  .json({ error: String("! reset_Users:" + error) });
+                  .json({ error: String("!api reset_Users err:" + error) });
+              }
+              res.status(203).json({ data: results });
+              return;
+            }
+          );
+        });
+        break;
+      case "reset_Sales":
+        pool.getConnection(function (err, connection) {
+          if (err) throw err; // not connected!
+          connection.query(
+            "DELETE FROM sales WHERE 1",
+            function (error, results, fields) {
+              connection.release();
+              if (error) {
+                res
+                  .status(500)
+                  .json({ error: String("!api reset_Sales err:" + error) });
               }
               res.status(203).json({ data: results });
               return;
@@ -39,7 +57,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
             function (error, results, fields) {
               connection.release();
               if (error) {
-                res.status(500).json({ error: String("! restSales:" + error) });
+                res
+                  .status(500)
+                  .json({ error: String("!api restoreSales err:" + error) });
               }
               res.status(207).json({ data: results });
               return;
@@ -55,7 +75,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
             function (error, results, fields) {
               connection.release();
               if (error) {
-                res.status(500).json({ error: String("! restCust:" + error) });
+                res
+                  .status(500)
+                  .json({ error: String("!api restoreCust err:" + error) });
               }
               res.status(207).json({ data: results });
               return;
@@ -69,7 +91,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           connection.query("SHOW TABLES", function (error, results, fields) {
             connection.release();
             if (error) {
-              res.status(500).json({ error: String("! showTables:" + error) });
+              res
+                .status(500)
+                .json({ error: String("!api showTables err:" + error) });
             }
             res.status(200).json({ data: results });
             return;
@@ -77,7 +101,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         });
         break;
       default:
-        res.status(404).json({ data: "! default case" });
+        res.status(404).json({ data: "!api default case" });
         break;
     }
   }

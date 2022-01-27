@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import mysql from "mysql2";
 import type { User } from "../index";
 
-type Data = {
+type ApiData = {
   data?: User[];
   error?: string;
 };
@@ -15,16 +15,15 @@ const connection = mysql.createConnection({
   database: process.env.DB_NAME,
 });
 
-// connection.connect();
-
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<ApiData>
 ) {
   if (req.method === "POST") {
+    const parsedReq = JSON.parse(req.body);
     connection.query(
-      "INSERT INTO users (name) VALUES (?)",
-      req.body,
+      "INSERT INTO customers (cname, cphone) VALUES (?, ?)",
+      [parsedReq.cname, parsedReq.cphone],
       function (error, results, fields) {
         if (error) {
           res.status(500).json({ error: String(error) });
@@ -34,15 +33,15 @@ export default function handler(
       }
     );
   } else if (req.method === "GET") {
-    connection.query("SELECT * FROM users", function (error, results, fields) {
-      if (error) {
-        res.status(500).json({ error: String(error) });
+    connection.query(
+      "SELECT * FROM customers",
+      function (error, results, fields) {
+        if (error) {
+          res.status(500).json({ error: String(error) });
+        }
+        res.status(200).json({ data: (results as User[]) || [] });
+        return;
       }
-      console.log(results);
-      res.status(200).json({ data: (results as User[]) || [] });
-      return;
-    });
+    );
   }
-  // res.status(404).end();
-  // connection.end();
 }

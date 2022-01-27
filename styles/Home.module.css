@@ -1,9 +1,18 @@
+.flexContainer {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
 .container {
   padding: 0 2rem;
 }
-
+.rowElem {
+  margin: 0 2rem;
+}
 .main {
-  min-height: 90vh;
+  height: 80vh;
   padding: 4rem 0;
   flex: 1;
   display: flex;
@@ -12,9 +21,15 @@
   align-items: center;
 }
 
+.header {
+  display: flex;
+  padding: 0;
+  border-top: 1px solid #eaeaea;
+  justify-content: space-between;
+  align-items: center;
+}
 .footer {
   display: flex;
-  flex: 1;
   padding: 2rem 0;
   border-top: 1px solid #eaeaea;
   justify-content: center;
@@ -27,7 +42,76 @@
   align-items: center;
   flex-grow: 1;
 }
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.square0 {
+  display: flex;
+  flex-direction: column;
+  height: 10rem;
+  width: 10rem;
+  border: none;
+  margin: 1rem;
+}
+.square_plus,
+.square_stat,
+.square_sys {
+  display: flex;
+  height: 10rem;
+  width: 10rem;
+  border: 1px solid #282;
+  border-radius: 10px;
+  margin: 1rem;
+}
+.square_plus:hover {
+  background-color: orange;
+  cursor: pointer;
+}
+.square_stat:hover {
+  background-color: yellowgreen;
+  cursor: pointer;
+}
+.square_sys:hover {
+  background-color: violet;
+  cursor: pointer;
+}
+.halfsquare_top {
+  display: flex;
+  height: 5rem;
+  width: 10rem;
+  border: 1px solid #282;
+  border-radius: 10px;
+  margin: 0 0 0.5rem 0;
+}
+.halfsquare_top:hover {
+  background-color: yellow;
+  cursor: pointer;
+}
+.halfsquare_bottom {
+  display: flex;
+  height: 5rem;
+  width: 10rem;
+  border: 1px solid #282;
+  border-radius: 10px;
+  margin: 0.5rem 0 0 0;
+}
+.halfsquare_bottom:hover {
+  background-color: steelblue;
+  cursor: pointer;
+}
 
+.square_plus p,
+.square_stat p,
+.square_sys p,
+.halfsquare_top p,
+.halfsquare_bottom p {
+  margin: auto;
+  font-size: 2rem;
+  padding-bottom: 0.5rem;
+}
 .title a {
   color: #0070f3;
   text-decoration: none;
@@ -117,4 +201,55 @@
 
 .sysButton {
   margin: 10px;
+}
+.userInput {
+  margin-right: 10px;
+}
+.footerLink {
+  margin-right: 10px;
+}
+.login {
+  margin: 20px auto;
+}
+.loginForm {
+  border: 1px solid #2b2;
+  border-radius: 5px;
+  margin: 20px;
+  padding: 20px;
+}
+.loginButton {
+  background-color: #8f8;
+  color: #303;
+  border: 1px solid #2b2;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+}
+.loginButton:hover {
+  background-color: #2f2;
+  cursor: pointer;
+}
+.logoutButton {
+  /* background-color: #8f8; */
+  color: #303;
+  /* border: 1px solid #2b2; */
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+}
+.logoutButton:hover {
+  /* background-color: #2f2; */
+  cursor: pointer;
+}
+.guestButton {
+  background-color: #fafafa;
+  color: #888;
+  border: 1px solid #888;
+  border-radius: 5px;
+  margin: 0 10px;
+  padding: 10px;
+}
+.guestButton:hover {
+  background-color: #eee;
+  cursor: pointer;
 }
