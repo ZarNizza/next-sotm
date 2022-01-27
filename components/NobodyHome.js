@@ -1,13 +1,13 @@
-import LoggedStatus from "../components/LoggedStatus";
+import LoggedStatus from "./LoggedStatus";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Layout from "./layout";
 
-export default function HomeNobody() {
+export default function NobodyHome() {
   return (
     <Layout>
       <Head>
-        <title>SOTM Next App</title>
+        <title>Welcome, login!</title>
       </Head>
       <main className={styles.main}>
         <h3>

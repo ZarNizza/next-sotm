@@ -9,8 +9,8 @@ export default function Footer() {
       <Link href="/">
         <a className={styles.footerLink}>&lt;&lt; WelcomePage </a>
       </Link>
-      <Link href="/home">
-        <a className={styles.footerLink}>HomePage</a>
+      <Link href="/users">
+        <a className={styles.footerLink}>UsersPage</a>
       </Link>
       <Link href="/sys">
         <a className={styles.footerLink}>SystemPage &gt;&gt;</a>

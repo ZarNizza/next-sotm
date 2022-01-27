@@ -29,7 +29,7 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <Head>
-        <title>SOTM Home</title>
+        <title>Users</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -46,14 +46,6 @@ const Home: NextPage = () => {
             ))}
           </ul>
         </main>
-        <footer className={styles.footer}>
-          <Link href="/">
-            <a className={styles.footerLink}>&lt;&lt; WelcomePage </a>
-          </Link>
-          <Link href="/sys">
-            <a className={styles.footerLink}>SystemPage &gt;&gt;</a>
-          </Link>
-        </footer>
       </div>
     </Layout>
   );
