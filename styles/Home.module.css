@@ -30,6 +30,7 @@
 }
 .footer {
   display: flex;
+  flex-wrap: wrap;
   padding: 2rem 0;
   border-top: 1px solid #eaeaea;
   justify-content: center;
