@@ -13,7 +13,7 @@ const pool = mysql.createPool({
 export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     switch (req.body) {
-      case "reset_Users":
+      case "clear_Users":
         pool.getConnection(function (err, connection) {
           if (err) throw err; // not connected!
           connection.query(
@@ -23,7 +23,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
               if (error) {
                 res
                   .status(500)
-                  .json({ error: String("!api reset_Users err:" + error) });
+                  .json({ error: String("!api clear_Users err:" + error) });
               }
               res.status(203).json({ data: results });
               return;
@@ -31,7 +31,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           );
         });
         break;
-      case "reset_Sales":
+      case "clear_Sales":
         pool.getConnection(function (err, connection) {
           if (err) throw err; // not connected!
           connection.query(
@@ -41,7 +41,25 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
               if (error) {
                 res
                   .status(500)
-                  .json({ error: String("!api reset_Sales err:" + error) });
+                  .json({ error: String("!api clear_Sales err:" + error) });
+              }
+              res.status(203).json({ data: results });
+              return;
+            }
+          );
+        });
+        break;
+      case "clear_Prod":
+        pool.getConnection(function (err, connection) {
+          if (err) throw err; // not connected!
+          connection.query(
+            "DELETE FROM prod WHERE 1",
+            function (error, results, fields) {
+              connection.release();
+              if (error) {
+                res
+                  .status(500)
+                  .json({ error: String("!api clear_Products err:" + error) });
               }
               res.status(203).json({ data: results });
               return;
@@ -53,7 +71,8 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         pool.getConnection(function (err, connection) {
           if (err) throw err; // not connected!
           connection.query(
-            "CREATE TABLE IF NOT EXISTS sales (sid INT AUTO_INCREMENT PRIMARY KEY, sdate DATETIME, cust SMALLINT, ptype ENUM('Маникюр', 'Маникюр+Лак', 'Маникюр+Гель', 'Педикюр', 'Педикюр+Лак', 'Педикюр+Гель', 'Бровки', 'Реснички'), sum SMALLINT)",
+            // "CREATE TABLE IF NOT EXISTS sales (sid INT AUTO_INCREMENT PRIMARY KEY, sdate DATETIME, cust SMALLINT, ptype ENUM('Маникюр', 'Маникюр+Лак', 'Маникюр+Гель', 'Педикюр', 'Педикюр+Лак', 'Педикюр+Гель', 'Бровки', 'Реснички'), sum SMALLINT)",
+            "CREATE TABLE IF NOT EXISTS sales (sid INT AUTO_INCREMENT PRIMARY KEY, sdate DATETIME, cust SMALLINT, prod SMALLINT, sum SMALLINT)",
             function (error, results, fields) {
               connection.release();
               if (error) {
@@ -85,6 +104,24 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           );
         });
         break;
+      case "restProd":
+        pool.getConnection(function (err, connection) {
+          if (err) throw err; // not connected!
+          connection.query(
+            "CREATE TABLE IF NOT EXISTS prod (pid SMALLINT AUTO_INCREMENT PRIMARY KEY, pname VARCHAR(50), psymbol VARCHAR(7))",
+            function (error, results, fields) {
+              connection.release();
+              if (error) {
+                res
+                  .status(500)
+                  .json({ error: String("!api restoreProducts err:" + error) });
+              }
+              res.status(207).json({ data: results });
+              return;
+            }
+          );
+        });
+        break;
       case "showTables":
         pool.getConnection(function (err, connection) {
           if (err) throw err; // not connected!
@@ -98,6 +135,60 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
             res.status(200).json({ data: results });
             return;
           });
+        });
+        break;
+      case "showUsers":
+        pool.getConnection(function (err, connection) {
+          if (err) throw err; // not connected!
+          connection.query(
+            "SELECT * FROM customers",
+            function (error, results, fields) {
+              connection.release();
+              if (error) {
+                res
+                  .status(500)
+                  .json({ error: String("!api showUsers err:" + error) });
+              }
+              res.status(200).json({ data: results });
+              return;
+            }
+          );
+        });
+        break;
+      case "showSales":
+        pool.getConnection(function (err, connection) {
+          if (err) throw err; // not connected!
+          connection.query(
+            "SELECT * FROM sales",
+            function (error, results, fields) {
+              connection.release();
+              if (error) {
+                res
+                  .status(500)
+                  .json({ error: String("!api showSales err:" + error) });
+              }
+              res.status(200).json({ data: results });
+              return;
+            }
+          );
+        });
+        break;
+      case "showProds":
+        pool.getConnection(function (err, connection) {
+          if (err) throw err; // not connected!
+          connection.query(
+            "SELECT * FROM prod",
+            function (error, results, fields) {
+              connection.release();
+              if (error) {
+                res
+                  .status(500)
+                  .json({ error: String("!api showProducts err:" + error) });
+              }
+              res.status(200).json({ data: results });
+              return;
+            }
+          );
         });
         break;
       default:
