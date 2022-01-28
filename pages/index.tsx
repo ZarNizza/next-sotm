@@ -6,7 +6,8 @@ import NobodyHome from "../components/NobodyHome";
 
 const Home: NextPage = () => {
   const { data: session } = useSession();
-  return session ? <WelcomeHome /> : <NobodyHome />;
+  // return session ? <WelcomeHome /> : <NobodyHome />;
+  return <WelcomeHome />;
 };
 
 export default Home;

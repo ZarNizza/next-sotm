@@ -19,6 +19,10 @@ export default function NobodyHome() {
           Just write every event here. <br />
           You can get statistics at any time!
         </p>
+        <p>
+          ! Authentification with Google account works local only - because
+          restrictions Google ID for this app ((( I try to fix it asap.
+        </p>
         <div className={styles.loginForm}>
           <LoggedStatus />
         </div>
