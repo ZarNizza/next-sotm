@@ -113,7 +113,7 @@ const Home: NextPage = () => {
           or practices of any third-party sites or services.
         </p>{" "}
         <p>
-          <strong>Children&lsquo;s Privacy</strong>
+          <strong>Childrens Privacy</strong>
         </p>{" "}
         <div>
           <p>
