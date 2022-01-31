@@ -12,7 +12,7 @@ export function RadioButton(props) {
         className={styles.chk}
         hidden
       />
-      <div className={styles.inputlabel}>{props.text}</div>
+      <div className={styles.inputLabel}>{props.text}</div>
     </label>
   );
 }
