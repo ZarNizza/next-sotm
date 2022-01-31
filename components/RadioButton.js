@@ -1,4 +1,4 @@
-import styles from "./RadioButton.module.css";
+import styles from "./RadioButton.module.scss";
 
 export function RadioButton(props) {
   // console.log("props=", props);
