@@ -3,7 +3,6 @@ import Head from 'next/head'
 import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
 import { RadioButton } from '../components/RadioButton'
-import { MouseEventHandler, useEffect } from 'react'
 import { useState } from 'react'
 
 interface ProductItem {
@@ -21,9 +20,6 @@ const Home: NextPage = () => {
     { pid: 6, pname: 'Бровки', psymbol: 'Брови' },
     { pid: 7, pname: 'Реснички', psymbol: 'ЛамРес' }
   ]
-  const [productList, setProductList] = useState<ProductItem[]>([
-    { pid: 0, psum: 0 }
-  ])
 
   const [selectedProducts, setSelectedProducts] = useState<
     ProductItem['pid'][]
@@ -52,23 +48,23 @@ const Home: NextPage = () => {
   }
 
   function ProductList() {
-    const qqq = productList.map((item) => (
-      <li key={item.pid}>
+    console.log('selectedProducts', selectedProducts)
+    const qqq = selectedProducts.map((pid) => (
+      <li key={pid}>
         {' '}
-        pid= {item.pid}, psum = {item.psum}{' '}
+        pid= {pid} text=
+        {(prod.find((item) => item.pid === pid) ?? { pname: 'xxx' }).pname}
       </li>
     ))
     return (
       <div>
         <p>ProductList</p>
-        <ul>{qqq}</ul>
+        <ul>
+          <li>{qqq}</li>
+        </ul>
       </div>
     )
   }
-  //
-  //
-  // this component do not post, setProduct(useState) do not update product, useEffect do not sniff change
-  //
 
   return (
     <Layout>
