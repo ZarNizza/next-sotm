@@ -1,8 +1,14 @@
-.flexContainer {
+.flexColumnContainer {
   height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-flow: column wrap;
   justify-content: space-between;
+  align-items: center;
+}
+.flexRowContainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
   align-items: center;
 }
 .container {
@@ -12,7 +18,7 @@
   margin: 0 2rem;
 }
 .main {
-  height: 80vh;
+  min-height: 80vh;
   padding: 4rem 0;
   flex: 1;
   display: flex;
