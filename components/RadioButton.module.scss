@@ -5,8 +5,13 @@
   border: 1px solid #448;
   border-radius: 10px;
   margin: 5px;
+
+  &:hover {
+    background-color: orange;
+  }
 }
-.inputlabel {
+
+.inputLabel {
   height: 100%;
   width: 100%;
   display: flex;
@@ -14,9 +19,6 @@
   align-items: center;
   /* transition: 0.25s ease; */
   border-radius: 10px;
-}
-.rb:hover {
-  background-color: orange;
 }
 
 .chk:checked ~ div {
