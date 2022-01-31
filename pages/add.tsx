@@ -25,45 +25,29 @@ const Home: NextPage = () => {
     { pid: 0, psum: 0 }
   ])
 
-  function radioHandler(e: any) {
-    const name = e.target.name
-    const value = e.target.value * 1
-    const checked = e.target.checked
-
-    console.log(
-      '--------- checked',
-      checked,
-      name,
-      value,
-      '(',
-      typeof value,
-      ')'
-      // productList
-    )
-    const pIndex: number = productList.findIndex((item) => item.pid === value)
-    const inList = pIndex === -1 ? false : true
-    if (checked && !inList) {
-      const tmpList = productList.slice()
-      tmpList.push({ pid: value, psum: 0 })
-      setProductList(() => tmpList)
-    }
-    if (!checked && inList) {
-      // setProductList((prevState) => prevState.splice(pIndex, 1));
-    }
-
-    return
-  }
+  const [selectedProducts, setSelectedProducts] = useState<
+    ProductItem['pid'][]
+  >([])
 
   function ProdSet() {
-    const prodSet = prod.map((item) => (
-      <RadioButton
-        key={item.pid}
-        // name={"prod"}
-        text={item.psymbol}
-        value={item.pid}
-        handler={radioHandler}
-      />
-    ))
+    const prodSet = prod.map((item) => {
+      function handler() {
+        setSelectedProducts((prevSelectedProducts) => {
+          return prevSelectedProducts.includes(item.pid)
+            ? prevSelectedProducts.filter((product) => product !== item.pid)
+            : [...prevSelectedProducts, item.pid]
+        })
+      }
+
+      return (
+        <RadioButton
+          key={item.pid}
+          text={item.psymbol}
+          onClick={handler}
+          checked={selectedProducts.includes(item.pid)}
+        />
+      )
+    })
     return <div className={styles.flexRowContainer}>{prodSet}</div>
   }
 
