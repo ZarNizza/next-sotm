@@ -3,12 +3,14 @@ import Head from 'next/head'
 import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
 import { CheckBoxButton } from '../components/CheckBoxButton'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-interface ProductItem {
+export interface Product {
   pid: number
-  psum: number
+  pname: string
+  psymbol: string
 }
+
 export interface Sale {
   sid: number
   data: Date
@@ -18,19 +20,26 @@ export interface Sale {
 }
 
 const Home: NextPage = () => {
-  const prod = [
-    { pid: 1, pname: 'Маникюр', psymbol: 'М' },
-    { pid: 2, pname: 'Маникюр +Гель', psymbol: 'М+Г' },
-    { pid: 3, pname: 'Педикюр', psymbol: 'П' },
-    { pid: 4, pname: 'Педикюр +Гель', psymbol: 'П+Г' },
-    { pid: 5, pname: 'Подология', psymbol: 'Подолог' },
-    { pid: 6, pname: 'Бровки', psymbol: 'Брови' },
-    { pid: 7, pname: 'Реснички', psymbol: 'ЛамРес' }
-  ]
+  // const prod = [
+  //   { pid: 1, pname: 'Маникюр', psymbol: 'М' },
+  //   { pid: 2, pname: 'Маникюр +Гель', psymbol: 'М+Г' },
+  //   { pid: 3, pname: 'Педикюр', psymbol: 'П' },
+  //   { pid: 4, pname: 'Педикюр +Гель', psymbol: 'П+Г' },
+  //   { pid: 5, pname: 'Подология', psymbol: 'Подолог' },
+  //   { pid: 6, pname: 'Бровки', psymbol: 'Брови' },
+  //   { pid: 7, pname: 'Реснички', psymbol: 'ЛамРес' }
+  // ]
+  const [prod, setProd] = useState<Product[]>([])
+  useEffect(() => {
+    fetch('/api/products')
+      .then((res) => res.json())
+      .then((res: { data: Product[] }) => {
+        setProd(res.data || [])
+      })
+      .catch((error) => console.log('! frontend fetch error - ', error.message))
+  }, [])
 
-  const [selectedProducts, setSelectedProducts] = useState<
-    ProductItem['pid'][]
-  >([])
+  const [selectedProducts, setSelectedProducts] = useState<Product['pid'][]>([])
 
   function ProdSet() {
     const prodSet = prod.map((item) => {
@@ -92,7 +101,6 @@ const Home: NextPage = () => {
 
       selectedProducts.map((item, i) => {
         const sale = { customer: customer, prod: item, sum: qList[i].value }
-        console.log('arr i=', i)
         fetch('/api/sales', {
           method: 'POST',
           body: JSON.stringify(sale)
@@ -100,6 +108,7 @@ const Home: NextPage = () => {
           .then((res) => res.json())
           .then((res) => {
             console.log('SYS: saveSale = OK', res)
+            setSelectedProducts([])
           })
           .catch((error) =>
             console.log('! SYS: saveSale error - ', error.message)
