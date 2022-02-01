@@ -4,6 +4,7 @@ import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
 import { CheckBoxButton } from '../components/CheckBoxButton'
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 export interface Product {
   pid: number
@@ -118,7 +119,18 @@ const Home: NextPage = () => {
     return (
       <div className={styles.productList}>
         {qqq.length === 0 ? (
-          <p>select product</p>
+          <>
+            <p>select product</p>
+            <p>or</p>
+            <p>
+              <Link href="/">
+                <a className={styles.footerLink}>
+                  &lt; &lt; &lt; &nbsp;&nbsp;Return to StartPage&nbsp;&nbsp;
+                  &gt; &gt; &gt;
+                </a>
+              </Link>
+            </p>
+          </>
         ) : (
           <>
             <h3>ProductList</h3>
