@@ -9,6 +9,13 @@ interface ProductItem {
   pid: number
   psum: number
 }
+export interface Sale {
+  sid: number
+  data: Date
+  customer: number
+  prod: number
+  sum: number
+}
 
 const Home: NextPage = () => {
   const prod = [
@@ -75,26 +82,43 @@ const Home: NextPage = () => {
     ))
     function setHandler() {
       const qList: HTMLInputElement[] = document.getElementsByName('pSum')
-      console.log('qList=', qList)
-      console.log(qList[0].value, qList[1].value)
-      // selectedProducts.map((item, i)=>{return {pid:item, psum:Number(qList[i].value)}})
       //  inputValue = (<HTMLInputElement>document.getElementById(elementId)).value;
       //  inputElement = <HTMLInputElement>document.getElementById('greet');
       //  const inputElement: HTMLInputElement = document.getElementById('greet')
       //  const inputElement = document.getElementById('greet') as HTMLInputElement
       //////  const inputValue = inputElement.value
+
+      const customer = 0
+
+      selectedProducts.map((item, i) => {
+        const sale = { customer: customer, prod: item, sum: qList[i].value }
+        console.log('arr i=', i)
+        fetch('/api/sales', {
+          method: 'POST',
+          body: JSON.stringify(sale)
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            console.log('SYS: saveSale = OK', res)
+          })
+          .catch((error) =>
+            console.log('! SYS: saveSale error - ', error.message)
+          )
+      })
     }
     return (
       <div className={styles.productList}>
-        <h3>ProductList</h3>
-        <ul>{qqq.length === 0 ? 'select product' : qqq}</ul>
         {qqq.length === 0 ? (
-          ''
+          <p>select product</p>
         ) : (
-          <button onClick={setHandler} className={styles.buttonOk}>
-            {' '}
-            Sale it!{' '}
-          </button>
+          <>
+            <h3>ProductList</h3>
+            <ul>{qqq}</ul>
+            <button onClick={setHandler} className={styles.buttonOk}>
+              {' '}
+              Sale it!{' '}
+            </button>
+          </>
         )}
       </div>
     )

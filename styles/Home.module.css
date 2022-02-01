@@ -262,12 +262,15 @@
   min-width: 25rem;
   background-color: #eee;
   margin: 2rem;
-  padding: 2rem;
+  padding: 1rem 2rem;
   border: 1px solid #aaa;
   border-radius: 10px;
 }
+.productList p {
+  text-align: center;
+}
 .productList h3 {
-  margin-left: 0;
+  margin: 0;
 }
 .productList ul {
   padding-left: 0;
@@ -288,8 +291,14 @@
   border-radius: 10px;
 }
 .dropButton {
-  height: 3rem;
-  width: 3rem;
+  height: 2rem;
+  width: 2rem;
   border-radius: 50%;
   background-color: #ccc;
+  float: right;
+  margin-top: 1.5rem;
+  margin-left: 1rem;
+}
+.dropButton:hover {
+  background-color: crimson;
 }
