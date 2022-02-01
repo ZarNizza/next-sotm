@@ -258,3 +258,38 @@
   background-color: #eee;
   cursor: pointer;
 }
+.productList{
+background-color: #eee;
+margin: 2rem;
+padding: 2rem;
+border: 1px solid #aaa;
+border-radius: 10px;
+}
+.productList h3 {
+  margin-left: 0;
+}
+.productList ul {
+  padding-left: 0;
+}
+.productList ul li {
+  list-style-type: none;
+  margin-left: 0;
+}
+.inputSum {
+  height: 3rem;
+  padding: 1rem;
+  margin: 1rem 1rem 1rem 0;
+}
+.buttonOk {
+  padding: 1rem 5rem;
+  margin: 1rem 0;
+  background-color: darkorange;
+  border-radius: 10px;
+
+}
+.dropButton {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  background-color: #ccc;
+}

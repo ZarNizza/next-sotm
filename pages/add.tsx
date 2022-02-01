@@ -48,20 +48,33 @@ const Home: NextPage = () => {
   }
 
   function ProductList() {
-    console.log('selectedProducts', selectedProducts)
+    function dropHandler(e:any) {
+      setSelectedProducts((prevSelectedProducts) => {
+        return prevSelectedProducts.filter((product) => product !== Number(e.target.value))
+      })
+    }
+    function inputChange(e:any) {
+      console.log('inputChange', e.target.name, e.target.value)
+    }
     const qqq = selectedProducts.map((pid) => (
       <li key={pid}>
-        {' '}
-        pid= {pid} text=
-        {(prod.find((item) => item.pid === pid) ?? { pname: 'xxx' }).pname}
+     <input type='text' name='pSum' onChange={inputChange} className={styles.inputSum}/> {(prod.find((item) => item.pid === pid) ?? { pname: 'xxx' }).pname} <button value={pid} onClick={dropHandler} className={styles.dropButton}> X </button>
       </li>
     ))
+    function setHandler() {
+      const qList = document.getElementsByName('pSum')
+      console.log('qList=', qList)
+// ! add this functionality
+
+
+    }
     return (
-      <div>
-        <p>ProductList</p>
+      <div className={styles.productList}>
+        <h3>ProductList</h3>
         <ul>
-          <li>{qqq}</li>
+        {qqq.length === 0 ? 'select product' : qqq}
         </ul>
+        <button onClick={setHandler} className={styles.buttonOk}> Sale it! </button>
       </div>
     )
   }
