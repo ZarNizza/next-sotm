@@ -1,5 +1,5 @@
 import { DetailedHTMLProps, InputHTMLAttributes } from 'react'
-import styles from './RadioButton.module.scss'
+import styles from './CheckBoxButton.module.scss'
 
 interface Props
   extends Pick<
@@ -9,12 +9,13 @@ interface Props
   text: string
 }
 
-export function RadioButton(props: Props) {
+export function CheckBoxButton(props: Props) {
   return (
     <label className={styles.rb}>
       <input
         type="checkbox"
         onClick={props.onClick}
+        onChange={()=>{}}
         className={styles.chk}
         hidden
         checked={props.checked}

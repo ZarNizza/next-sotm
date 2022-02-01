@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
-import { RadioButton } from '../components/RadioButton'
+import { CheckBoxButton } from '../components/CheckBoxButton'
 import { useState } from 'react'
 
 interface ProductItem {
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
       }
 
       return (
-        <RadioButton
+        <CheckBoxButton
           key={item.pid}
           text={item.psymbol}
           onClick={handler}
@@ -75,7 +75,6 @@ const Home: NextPage = () => {
         <h3>Add Income</h3>
         <ProdSet />
         <div className={styles.flexColumnContainer}>
-          - - ItemList - -
           <ProductList />
         </div>
       </main>
