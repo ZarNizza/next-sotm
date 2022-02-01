@@ -62,11 +62,15 @@ const Home: NextPage = () => {
       </li>
     ))
     function setHandler() {
-      const qList = document.getElementsByName('pSum')
+      const qList:HTMLInputElement[] = document.getElementsByName('pSum')
       console.log('qList=', qList)
-// ! add this functionality
-
-
+      console.log(qList[0].value, qList[1].value)
+      // selectedProducts.map((item, i)=>{return {pid:item, psum:Number(qList[i].value)}})
+//  inputValue = (<HTMLInputElement>document.getElementById(elementId)).value;
+//  inputElement = <HTMLInputElement>document.getElementById('greet');
+//  const inputElement: HTMLInputElement = document.getElementById('greet')
+//  const inputElement = document.getElementById('greet') as HTMLInputElement
+//////  const inputValue = inputElement.value
     }
     return (
       <div className={styles.productList}>
