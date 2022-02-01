@@ -258,12 +258,13 @@
   background-color: #eee;
   cursor: pointer;
 }
-.productList{
-background-color: #eee;
-margin: 2rem;
-padding: 2rem;
-border: 1px solid #aaa;
-border-radius: 10px;
+.productList {
+  min-width: 25rem;
+  background-color: #eee;
+  margin: 2rem;
+  padding: 2rem;
+  border: 1px solid #aaa;
+  border-radius: 10px;
 }
 .productList h3 {
   margin-left: 0;
@@ -285,7 +286,6 @@ border-radius: 10px;
   margin: 1rem 0;
   background-color: darkorange;
   border-radius: 10px;
-
 }
 .dropButton {
   height: 3rem;

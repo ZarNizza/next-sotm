@@ -48,37 +48,54 @@ const Home: NextPage = () => {
   }
 
   function ProductList() {
-    function dropHandler(e:any) {
+    function dropHandler(e: any) {
       setSelectedProducts((prevSelectedProducts) => {
-        return prevSelectedProducts.filter((product) => product !== Number(e.target.value))
+        return prevSelectedProducts.filter(
+          (product) => product !== Number(e.target.value)
+        )
       })
     }
-    function inputChange(e:any) {
+    function inputChange(e: any) {
       console.log('inputChange', e.target.name, e.target.value)
     }
     const qqq = selectedProducts.map((pid) => (
       <li key={pid}>
-     <input type='text' name='pSum' onChange={inputChange} className={styles.inputSum}/> {(prod.find((item) => item.pid === pid) ?? { pname: 'xxx' }).pname} <button value={pid} onClick={dropHandler} className={styles.dropButton}> X </button>
+        <input
+          type="text"
+          name="pSum"
+          onChange={inputChange}
+          className={styles.inputSum}
+        />{' '}
+        {(prod.find((item) => item.pid === pid) ?? { pname: 'xxx' }).pname}{' '}
+        <button value={pid} onClick={dropHandler} className={styles.dropButton}>
+          {' '}
+          X{' '}
+        </button>
       </li>
     ))
     function setHandler() {
-      const qList:HTMLInputElement[] = document.getElementsByName('pSum')
+      const qList: HTMLInputElement[] = document.getElementsByName('pSum')
       console.log('qList=', qList)
       console.log(qList[0].value, qList[1].value)
       // selectedProducts.map((item, i)=>{return {pid:item, psum:Number(qList[i].value)}})
-//  inputValue = (<HTMLInputElement>document.getElementById(elementId)).value;
-//  inputElement = <HTMLInputElement>document.getElementById('greet');
-//  const inputElement: HTMLInputElement = document.getElementById('greet')
-//  const inputElement = document.getElementById('greet') as HTMLInputElement
-//////  const inputValue = inputElement.value
+      //  inputValue = (<HTMLInputElement>document.getElementById(elementId)).value;
+      //  inputElement = <HTMLInputElement>document.getElementById('greet');
+      //  const inputElement: HTMLInputElement = document.getElementById('greet')
+      //  const inputElement = document.getElementById('greet') as HTMLInputElement
+      //////  const inputValue = inputElement.value
     }
     return (
       <div className={styles.productList}>
         <h3>ProductList</h3>
-        <ul>
-        {qqq.length === 0 ? 'select product' : qqq}
-        </ul>
-        <button onClick={setHandler} className={styles.buttonOk}> Sale it! </button>
+        <ul>{qqq.length === 0 ? 'select product' : qqq}</ul>
+        {qqq.length === 0 ? (
+          ''
+        ) : (
+          <button onClick={setHandler} className={styles.buttonOk}>
+            {' '}
+            Sale it!{' '}
+          </button>
+        )}
       </div>
     )
   }
