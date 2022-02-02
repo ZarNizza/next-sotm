@@ -42,6 +42,36 @@ const Home: NextPage = () => {
         console.log('! SYS: DB-P-reset error - ', error.message)
       )
   }
+  function dropUsersHandler() {
+    fetch('/api/sys', { method: 'POST', body: 'drop_Users' })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('SYS: DB-C-drop = OK', res)
+      })
+      .catch((error) =>
+        console.log('! SYS: DB-C-drop error - ', error.message)
+      )
+  }
+  function dropSalesHandler() {
+    fetch('/api/sys', { method: 'POST', body: 'drop_Sales' })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('SYS: DB-S-drop = OK', res)
+      })
+      .catch((error) =>
+        console.log('! SYS: DB-S-drop error - ', error.message)
+      )
+  }
+  function dropProductHandler() {
+    fetch('/api/sys', { method: 'POST', body: 'drop_Prod' })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('SYS: DB-P-drop = OK', res)
+      })
+      .catch((error) =>
+        console.log('! SYS: DB-PROD-DROP error - ', error.message)
+      )
+  }
   function restoreSalesHandler() {
     fetch('/api/sys', { method: 'POST', body: 'restSales' })
       .then((res) => res.json())
@@ -213,6 +243,15 @@ const Home: NextPage = () => {
               ! CLEAR product TABLE !
             </button>{' '}
             <button onClick={clearSalesHandler}>! CLEAR sales TABLE !</button>
+          </div>
+          <div className={styles.sysButton}>
+            <button onClick={dropUsersHandler}>
+              ! DROP customers TABLE !
+            </button>{' '}
+            <button onClick={dropProductHandler}>
+              ! DROP product TABLE !
+            </button>{' '}
+            <button onClick={dropSalesHandler}>! DROP sales TABLE !</button>
           </div>
         </main>
         <Link href="/users"> - Customers List - </Link>{' '}

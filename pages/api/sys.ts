@@ -67,6 +67,60 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           );
         });
         break;
+      case "drop_Users":
+        pool.getConnection(function (err, connection) {
+          if (err) throw err; // not connected!
+          connection.query(
+            "DROP TABLE customers",
+            function (error, results, fields) {
+              connection.release();
+              if (error) {
+                res
+                  .status(500)
+                  .json({ error: String("!api drop_Users err:" + error) });
+              }
+              res.status(203).json({ data: results });
+              return;
+            }
+          );
+        });
+        break;
+      case "drop_Sales":
+        pool.getConnection(function (err, connection) {
+          if (err) throw err; // not connected!
+          connection.query(
+            "DROP TABLE sales",
+            function (error, results, fields) {
+              connection.release();
+              if (error) {
+                res
+                  .status(500)
+                  .json({ error: String("!api drop_Sales err:" + error) });
+              }
+              res.status(203).json({ data: results });
+              return;
+            }
+          );
+        });
+        break;
+      case "drop_Prod":
+        pool.getConnection(function (err, connection) {
+          if (err) throw err; // not connected!
+          connection.query(
+            "DROP TABLE prod",
+            function (error, results, fields) {
+              connection.release();
+              if (error) {
+                res
+                  .status(500)
+                  .json({ error: String("!api drop_Products err:" + error) });
+              }
+              res.status(203).json({ data: results });
+              return;
+            }
+          );
+        });
+        break;
       case "restSales":
         pool.getConnection(function (err, connection) {
           if (err) throw err; // not connected!
