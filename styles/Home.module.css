@@ -261,7 +261,7 @@
 .productList,
 .custList {
   min-width: 25rem;
-  background-color: #eee;
+  background-color: #fbfff2;
   margin: 2rem;
   padding: 1rem 2rem;
   border: 1px solid #aaa;
@@ -298,15 +298,20 @@
   background-color: darkorange;
   border-radius: 10px;
 }
+.buttonOk:hover {
+  background-color: gold;
+  transition: 0.25s ease;
+}
 .dropButton {
   height: 2rem;
   width: 2rem;
   border-radius: 50%;
-  background-color: #ccc;
+  background-color: #faffea;
   float: right;
   margin-top: 1.5rem;
   margin-left: 1rem;
 }
 .dropButton:hover {
-  background-color: crimson;
+  background-color: #ffaabb;
+  transition: 0.25s ease;
 }
