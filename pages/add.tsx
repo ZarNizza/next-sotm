@@ -6,6 +6,12 @@ import { CheckBoxButton } from '../components/CheckBoxButton'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
+export interface Customer {
+  cid: number
+  cname: string
+  cphone: string | null
+  gooid: string | null
+}
 export interface Product {
   pid: number
   pname: string
@@ -21,23 +27,80 @@ export interface Sale {
 }
 
 const Home: NextPage = () => {
-  // const prod = [
-  //   { pid: 1, pname: 'Маникюр', psymbol: 'М' },
-  //   { pid: 2, pname: 'Маникюр +Гель', psymbol: 'М+Г' },
-  //   { pid: 3, pname: 'Педикюр', psymbol: 'П' },
-  //   { pid: 4, pname: 'Педикюр +Гель', psymbol: 'П+Г' },
-  //   { pid: 5, pname: 'Подология', psymbol: 'Подолог' },
-  //   { pid: 6, pname: 'Бровки', psymbol: 'Брови' },
-  //   { pid: 7, pname: 'Реснички', psymbol: 'ЛамРес' }
-  // ]
+  const [customer, setCustomer] = useState<Customer[]>([])
+  useEffect(() => {
+    fetch('/api/customers')
+      .then((res) => res.json())
+      .then((res: { data: Customer[] }) => {
+        setCustomer(() => res.data || [])
+        console.log('customers:', customer)
+        console.log('res.data:', res.data)
+      })
+      .catch((error) =>
+        console.log('! frontend fetch Customer error - ', error.message)
+      )
+  }, [])
+
+  function CustomerSelect() {
+    console.log('customers:', customer)
+    function liveSearch() {
+      // https://daily-dev-tips.com/posts/vanilla-javascript-live-search/
+      const search = document.getElementById('custSearch')
+      const results = document.getElementById('custSearchResults')
+      let search_term = ''
+      if (results !== null) {
+        const showList = () => {
+          results.innerHTML = ''
+          customer
+            .filter((item) => {
+              return item.cname.toLowerCase().includes(search_term)
+            })
+            .forEach((e) => {
+              const li = document.createElement('li')
+              li.innerHTML = e.cname
+              results.appendChild(li)
+            })
+        }
+
+        showList()
+        if (search !== null) {
+          search.addEventListener('input', (event) => {
+            if (event !== null) {
+              search_term = event.target.value.toLowerCase()
+              showList()
+            } else {
+              results.innerHTML = '!err - no searchElement'
+            }
+          })
+        }
+      }
+    }
+    return (
+      <>
+        <p>Select Customer</p>
+        <input
+          type="search"
+          id="custSearch"
+          placeholder="Search for a Customer"
+          name="customerName"
+          onChange={liveSearch}
+          className={styles.inputSum}
+        />
+        <ul id="custSearchResults"></ul>
+      </>
+    )
+  }
+
   const [prod, setProd] = useState<Product[]>([])
   useEffect(() => {
     fetch('/api/products')
       .then((res) => res.json())
       .then((res: { data: Product[] }) => {
-        setProd(res.data || [])
+        setProd(() => res.data || [])
       })
-      .catch((error) => console.log('! frontend fetch error - ', error.message))
+      .catch((error) =>
+        console.log('! frontend fetch Prod error - ', error.message)
+      )
   }, [])
 
   const [selectedProducts, setSelectedProducts] = useState<Product['pid'][]>([])
@@ -151,9 +214,10 @@ const Home: NextPage = () => {
         <title>Add Income</title>
       </Head>
       <main className={styles.main}>
-        <h3>Add Income</h3>
-        <ProdSet />
         <div className={styles.flexColumnContainer}>
+          <CustomerSelect />
+          <h3>Add Income</h3>
+          <ProdSet />
           <ProductList />
         </div>
       </main>
