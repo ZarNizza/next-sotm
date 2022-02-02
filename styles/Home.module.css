@@ -275,17 +275,46 @@
 .custList h3 {
   margin: 0;
 }
-.productList ul,
-.custList ul {
+.productList ul {
   padding-left: 0;
 }
-.productList ul li,
-.custList ul li {
+.productList ul {
   list-style-type: none;
   margin-left: 0;
 }
-.custList input {
+.custList ul li {
+  list-style-type: none;
+}
+.custList input,
+.custList select {
   min-width: 20rem;
+}
+.custList select {
+  height: 12rem;
+}
+.custList option {
+  min-height: 3rem;
+  padding: 1rem;
+}
+.custList option:hover {
+  background-color: palegreen;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+.custList option:nth-child(odd) {
+  background-color: honeydew;
+}
+.custList option:nth-child(odd):hover {
+  background-color: palegreen;
+  transition: 0.25s ease;
+}
+/* .custList option:nth-child(even) {
+  background-color: #ffffff;
+} */
+.inputCust {
+  height: 3rem;
+  padding: 1rem;
+  margin: 1rem;
 }
 .inputSum {
   height: 3rem;

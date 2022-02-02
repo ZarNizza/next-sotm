@@ -27,14 +27,16 @@ export interface Sale {
 }
 
 const Home: NextPage = () => {
-  const [customer, setCustomer] = useState<Customer[]>([])
+  const [customers, setCustomers] = useState<Customer[]>([])
+  const [currentCustomer, setCurrentCustomer] = useState<number>(0)
+  const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
     fetch('/api/customers')
       .then((res) => res.json())
       .then((res: { data: Customer[] }) => {
-        setCustomer(() => res.data || [])
-        console.log('customers:', customer)
+        setCustomers(() => res.data || [])
+        console.log('customers:', customers)
         console.log('res.data:', res.data)
       })
       .catch((error) =>
@@ -44,41 +46,64 @@ const Home: NextPage = () => {
 
   function CustomerSelect() {
     const [searchTerm, setSearchTerm] = useState('')
-    const csResults = document.getElementById('custSearchResults')
+    const csInput: HTMLInputElement | null = document.getElementById(
+      'cSearchInput'
+    ) as HTMLInputElement
+    const csResultsList = document.getElementById('cSearchResultsList')
 
     useEffect(() => {
-      console.log('useEffect')
-      if (csResults !== null) {
-        console.log('useEffect - inside IF')
-        csResults.innerHTML = ''
-        customer
+      if (csResultsList !== null) {
+        csResultsList.innerHTML = ''
+        customers
           .filter((item) => {
             return item.cname.toLowerCase().includes(searchTerm)
           })
           .forEach((e) => {
-            const li = document.createElement('li')
-            li.innerHTML = e.cname
-            csResults.appendChild(li)
+            const opt = new Option(e.cname, String(e.cid))
+            csResultsList.appendChild(opt)
           })
       }
     }, [searchTerm])
 
     function liveSearch(e: any) {
       const st = e.target.value.toLowerCase()
-      console.log('liveSearch', st, e)
       setSearchTerm(() => st)
+      // setCurrentCustomer(() => 0)
+    }
+
+    function liveST(e: any) {
+      const indexST = e.target.value
+      const st = customers.filter((item) => {
+        return item.cid === Number(indexST)
+      })
+      // console.log('liveST filtered, lenght=', st.length, st[0].cname, st)
+      if (st.length === 1) {
+        console.log('setCurrCust ', st[0].cid, st[0].cname)
+        setCurrentCustomer(() => Number(st[0].cid))
+        if (csInput !== null) csInput.value = st[0].cname
+      }
     }
 
     return (
       <div className={styles.custList}>
         <p>Select Customer</p>
-        <input
-          type="search"
-          placeholder="Search for a Customer"
-          onChange={liveSearch}
-          className={styles.inputSum}
-        />
-        <ul id="custSearchResults"></ul>
+        <p>
+          <input
+            type="search"
+            id="cSearchInput"
+            placeholder="Search for a Customer"
+            onChange={liveSearch}
+            className={styles.inputCust}
+          />
+        </p>
+        <p>
+          <select
+            id="cSearchResultsList"
+            size={4}
+            onChange={liveST}
+            hidden={searchTerm === ''}
+          ></select>
+        </p>
       </div>
     )
   }
@@ -153,10 +178,14 @@ const Home: NextPage = () => {
       //  const inputElement = document.getElementById('greet') as HTMLInputElement
       //////  const inputValue = inputElement.value
 
-      const customer = 0
+      // const currentCustomer = 0
 
       selectedProducts.map((item, i) => {
-        const sale = { customer: customer, prod: item, sum: qList[i].value }
+        const sale = {
+          customer: currentCustomer,
+          prod: item,
+          sum: qList[i].value
+        }
         fetch('/api/sales', {
           method: 'POST',
           body: JSON.stringify(sale)
@@ -208,6 +237,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
           <CustomerSelect />
+          <p>customer {currentCustomer}</p>
           <h3>Add Income</h3>
           <ProdSet />
           <ProductList />
