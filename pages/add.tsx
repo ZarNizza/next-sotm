@@ -28,6 +28,7 @@ export interface Sale {
 
 const Home: NextPage = () => {
   const [customer, setCustomer] = useState<Customer[]>([])
+
   useEffect(() => {
     fetch('/api/customers')
       .then((res) => res.json())
@@ -42,52 +43,43 @@ const Home: NextPage = () => {
   }, [])
 
   function CustomerSelect() {
-    console.log('customers:', customer)
-    function liveSearch() {
-      // https://daily-dev-tips.com/posts/vanilla-javascript-live-search/
-      const search = document.getElementById('custSearch')
-      const results = document.getElementById('custSearchResults')
-      let search_term = ''
-      if (results !== null) {
-        const showList = () => {
-          results.innerHTML = ''
-          customer
-            .filter((item) => {
-              return item.cname.toLowerCase().includes(search_term)
-            })
-            .forEach((e) => {
-              const li = document.createElement('li')
-              li.innerHTML = e.cname
-              results.appendChild(li)
-            })
-        }
+    const [searchTerm, setSearchTerm] = useState('')
+    const csResults = document.getElementById('custSearchResults')
 
-        showList()
-        if (search !== null) {
-          search.addEventListener('input', (event) => {
-            if (event !== null) {
-              search_term = event.target.value.toLowerCase()
-              showList()
-            } else {
-              results.innerHTML = '!err - no searchElement'
-            }
+    useEffect(() => {
+      console.log('useEffect')
+      if (csResults !== null) {
+        console.log('useEffect - inside IF')
+        csResults.innerHTML = ''
+        customer
+          .filter((item) => {
+            return item.cname.toLowerCase().includes(searchTerm)
           })
-        }
+          .forEach((e) => {
+            const li = document.createElement('li')
+            li.innerHTML = e.cname
+            csResults.appendChild(li)
+          })
       }
+    }, [searchTerm])
+
+    function liveSearch(e: any) {
+      const st = e.target.value.toLowerCase()
+      console.log('liveSearch', st, e)
+      setSearchTerm(() => st)
     }
+
     return (
-      <>
+      <div className={styles.custList}>
         <p>Select Customer</p>
         <input
           type="search"
-          id="custSearch"
           placeholder="Search for a Customer"
-          name="customerName"
           onChange={liveSearch}
           className={styles.inputSum}
         />
         <ul id="custSearchResults"></ul>
-      </>
+      </div>
     )
   }
 

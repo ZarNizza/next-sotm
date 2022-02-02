@@ -258,7 +258,8 @@
   background-color: #eee;
   cursor: pointer;
 }
-.productList {
+.productList,
+.custList {
   min-width: 25rem;
   background-color: #eee;
   margin: 2rem;
@@ -266,18 +267,25 @@
   border: 1px solid #aaa;
   border-radius: 10px;
 }
-.productList p {
+.productList p,
+.custList p {
   text-align: center;
 }
-.productList h3 {
+.productList h3,
+.custList h3 {
   margin: 0;
 }
-.productList ul {
+.productList ul,
+.custList ul {
   padding-left: 0;
 }
-.productList ul li {
+.productList ul li,
+.custList ul li {
   list-style-type: none;
   margin-left: 0;
+}
+.custList input {
+  min-width: 20rem;
 }
 .inputSum {
   height: 3rem;
