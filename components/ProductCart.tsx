@@ -11,9 +11,14 @@ export default function ProductCart(props: any) {
       )
     })
   }
-  function inputChange(e: any) {
-    console.log('inputChange', e.target.name, e.target.value)
+
+  function inputChange() {
+    const qList: any[] = Array.from(document.getElementsByName('pSum'))
+    const gSum = qList.reduce((prev, curr) => prev + Number(curr.value), 0)
+    const gS = document.getElementById('grossSum')
+    if (gS !== null) gS.innerHTML = gSum.toLocaleString('ru-RU')
   }
+
   const qqq = props.selectedProducts.map((pid: Product['pid']) => (
     <li key={pid}>
       <input
@@ -36,16 +41,9 @@ export default function ProductCart(props: any) {
       </button>
     </li>
   ))
+
   function setHandler() {
     const qList: any[] = Array.from(document.getElementsByName('pSum'))
-    //  inputValue = (<HTMLInputElement>document.getElementById(elementId)).value;
-    //  inputElement = <HTMLInputElement>document.getElementById('greet');
-    //  const inputElement: HTMLInputElement = document.getElementById('greet')
-    //  const inputElement = document.getElementById('greet') as HTMLInputElement
-    //////  const inputValue = inputElement.value
-
-    // const currentCustomer = 0
-
     props.selectedProducts.map((item: Product, i: number) => {
       const sale = {
         customer: props.currentCustomer,
@@ -66,7 +64,7 @@ export default function ProductCart(props: any) {
         )
     })
   }
-  const grossSum = 9999
+
   return (
     <div className={styles.productList}>
       {qqq.length === 0 ? (
@@ -85,8 +83,8 @@ export default function ProductCart(props: any) {
           <h3>&#9825; ProductCart</h3>
           <ul>{qqq}</ul>
           <div className={styles.flexRow}>
-            <span className={styles.grossSum}>
-              {grossSum.toLocaleString('ru-RU')}
+            <span className={styles.grossSum} id="grossSum">
+              {/* {grossSum.toLocaleString('ru-RU')} */}
             </span>
             <button onClick={setHandler} className={styles.buttonOk}>
               {' '}
