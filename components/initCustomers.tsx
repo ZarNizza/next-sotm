@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import type { Customer } from '../pages/add'
 
-export default function InitCustomers(setCustomers) {
+export default function InitCustomers(setCustomers: Function) {
   useEffect(() => {
     fetch('/api/customers')
       .then((res) => res.json())

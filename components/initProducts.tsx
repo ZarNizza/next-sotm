@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import type { Product } from '../pages/add'
 
-export default function InitProducts(setProducts) {
+export default function InitProducts(setProducts: Function) {
   useEffect(() => {
     fetch('/api/products')
       .then((res) => res.json())
