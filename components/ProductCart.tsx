@@ -1,9 +1,10 @@
+import type { Product } from '../pages/add'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
 
-export default function ProductCart(props) {
+export default function ProductCart(props: any) {
   function dropHandler(e: any) {
-    props.setSelectedProducts((prevSelectedProducts) => {
+    props.setSelectedProducts((prevSelectedProducts: [Product['pid']]) => {
       return prevSelectedProducts.filter(
         (product) => product !== Number(e.target.value)
       )
@@ -12,7 +13,7 @@ export default function ProductCart(props) {
   function inputChange(e: any) {
     console.log('inputChange', e.target.name, e.target.value)
   }
-  const qqq = props.selectedProducts.map((pid) => (
+  const qqq = props.selectedProducts.map((pid: Product['pid']) => (
     <li key={pid}>
       <input
         type="text"
@@ -21,8 +22,11 @@ export default function ProductCart(props) {
         className={styles.inputSum}
       />{' '}
       {
-        (props.products.find((item) => item.pid === pid) ?? { pname: 'xxx' })
-          .pname
+        (
+          props.products.find((item: Product) => item.pid === pid) ?? {
+            pname: 'xxx'
+          }
+        ).pname
       }{' '}
       <button value={pid} onClick={dropHandler} className={styles.dropButton}>
         {' '}
@@ -31,7 +35,7 @@ export default function ProductCart(props) {
     </li>
   ))
   function setHandler() {
-    const qList: HTMLInputElement[] = document.getElementsByName('pSum')
+    const qList: any[] = Array.from(document.getElementsByName('pSum'))
     //  inputValue = (<HTMLInputElement>document.getElementById(elementId)).value;
     //  inputElement = <HTMLInputElement>document.getElementById('greet');
     //  const inputElement: HTMLInputElement = document.getElementById('greet')
@@ -40,7 +44,7 @@ export default function ProductCart(props) {
 
     // const currentCustomer = 0
 
-    props.selectedProducts.map((item, i) => {
+    props.selectedProducts.map((item: Product, i: number) => {
       const sale = {
         customer: props.currentCustomer,
         prod: item,
