@@ -66,6 +66,7 @@ export default function ProductCart(props: any) {
         )
     })
   }
+  const grossSum = 9999
   return (
     <div className={styles.productList}>
       {qqq.length === 0 ? (
@@ -83,10 +84,13 @@ export default function ProductCart(props: any) {
         <>
           <h3>&#9825; ProductCart</h3>
           <ul>{qqq}</ul>
-          <button onClick={setHandler} className={styles.buttonOk}>
-            {' '}
-            Sale it!{' '}
-          </button>
+          <div className={styles.flexRow}>
+            <span className={styles.grossSum}>{grossSum}</span>
+            <button onClick={setHandler} className={styles.buttonOk}>
+              {' '}
+              Sale it!{' '}
+            </button>
+          </div>
         </>
       )}
     </div>

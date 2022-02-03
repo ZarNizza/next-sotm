@@ -23,16 +23,7 @@
   background-color: #ffaabb;
   transition: 0.25s ease;
 }
-.buttonOk {
-  padding: 1rem 5rem;
-  margin: 1rem 0;
-  background-color: darkorange;
-  border-radius: 10px;
-}
-.buttonOk:hover {
-  background-color: gold;
-  transition: 0.25s ease;
-}
+
 .productList {
   min-width: 25rem;
   background-color: #fbfff2;
@@ -57,4 +48,30 @@
 .productList ul {
   list-style-type: none;
   margin-left: 0;
+}
+
+.flexRow {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.buttonOk {
+  padding: 1rem 5rem;
+  margin: 1rem 0;
+  background-color: darkorange;
+  border-radius: 10px;
+}
+.buttonOk:hover {
+  background-color: gold;
+  transition: 0.25s ease;
+}
+.grossSum {
+  height: 3rem;
+  width: 40%;
+  padding: 0.6rem 1rem;
+  margin: 1rem 1rem 1rem 0;
+  font-size: large;
+  border: 2px solid darkorange;
+  text-align: right;
 }
