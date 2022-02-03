@@ -26,7 +26,7 @@ export default function CustomerSelect(props: any) {
   function liveSearch(e: any) {
     const st = e.target.value.toLowerCase()
     setSearchTerm(() => st)
-    // setCurrentCustomer(() => 0)
+    props.setCurrentCustomer(() => 0)
   }
 
   function liveST(e: any) {
@@ -34,9 +34,7 @@ export default function CustomerSelect(props: any) {
     const st = props.customers.filter((item: Customer) => {
       return item.cid === Number(indexST)
     })
-    // console.log('liveST filtered, lenght=', st.length, st[0].cname, st)
     if (st.length === 1) {
-      console.log('setCurrCust ', st[0].cid, st[0].cname)
       props.setCurrentCustomer(() => [Number(st[0].cid), st[0].cname])
       if (csInput !== null) csInput.value = st[0].cname
     }
@@ -59,7 +57,7 @@ export default function CustomerSelect(props: any) {
           id="cSearchResultsList"
           size={4}
           onChange={liveST}
-          hidden={searchTerm === ''}
+          hidden={searchTerm === '' || props.currentCustomer[0] > 0}
         ></select>
       </p>
     </div>
