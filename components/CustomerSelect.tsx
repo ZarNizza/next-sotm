@@ -36,7 +36,7 @@ export default function CustomerSelect(props) {
     // console.log('liveST filtered, lenght=', st.length, st[0].cname, st)
     if (st.length === 1) {
       console.log('setCurrCust ', st[0].cid, st[0].cname)
-      props.setCurrentCustomer(() => Number(st[0].cid))
+      props.setCurrentCustomer(() => [Number(st[0].cid), st[0].cname])
       if (csInput !== null) csInput.value = st[0].cname
     }
   }

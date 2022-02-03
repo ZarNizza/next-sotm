@@ -31,7 +31,9 @@ export interface Sale {
 
 const Home: NextPage = () => {
   const [customers, setCustomers] = useState<Customer[]>([])
-  const [currentCustomer, setCurrentCustomer] = useState<number>(0)
+  const [currentCustomer, setCurrentCustomer] = useState<
+    [Customer['cid'], Customer['cname']]
+  >([0, ''])
   const [products, setProducts] = useState<Product[]>([])
   const [selectedProducts, setSelectedProducts] = useState<Product['pid'][]>([])
   // const [searchTerm, setSearchTerm] = useState('')
@@ -50,7 +52,7 @@ const Home: NextPage = () => {
             customers={customers}
             setCurrentCustomer={setCurrentCustomer}
           />
-          <p>customer {currentCustomer}</p>
+          <p>customer {currentCustomer[1]}</p>
           <h3>Add Income</h3>
           <ProductStore
             products={products}
