@@ -85,7 +85,9 @@ export default function ProductCart(props: any) {
           <h3>&#9825; ProductCart</h3>
           <ul>{qqq}</ul>
           <div className={styles.flexRow}>
-            <span className={styles.grossSum}>{grossSum}</span>
+            <span className={styles.grossSum}>
+              {grossSum.toLocaleString('ru-RU')}
+            </span>
             <button onClick={setHandler} className={styles.buttonOk}>
               {' '}
               Sale it!{' '}
