@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
+import type { Customer } from '../pages/add'
 import styles from '../styles/Home.module.css'
 
-export default function CustomerSelect(props) {
+export default function CustomerSelect(props: any) {
   const [searchTerm, setSearchTerm] = useState('')
   const csInput: HTMLInputElement | null = document.getElementById(
     'cSearchInput'
@@ -12,11 +13,11 @@ export default function CustomerSelect(props) {
     if (csResultsList !== null) {
       csResultsList.innerHTML = ''
       props.customers
-        .filter((item) => {
+        .filter((item: Customer) => {
           return item.cname.toLowerCase().includes(searchTerm)
         })
-        .forEach((e) => {
-          const opt = new Option(e.cname, String(e.cid))
+        .forEach((item: Customer) => {
+          const opt = new Option(item.cname, String(item.cid))
           csResultsList.appendChild(opt)
         })
     }
@@ -30,7 +31,7 @@ export default function CustomerSelect(props) {
 
   function liveST(e: any) {
     const indexST = e.target.value
-    const st = props.customers.filter((item) => {
+    const st = props.customers.filter((item: Customer) => {
       return item.cid === Number(indexST)
     })
     // console.log('liveST filtered, lenght=', st.length, st[0].cname, st)
