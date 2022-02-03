@@ -1,0 +1,60 @@
+.inputSum {
+  height: 3rem;
+  width: 40%;
+  padding: 1rem;
+  margin: 1rem 1rem 1rem 0;
+  font-size: large;
+}
+.inputSum::placeholder {
+  color: lawngreen;
+  font-weight: 100;
+  font-size: medium;
+}
+.dropButton {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  background-color: #faffea;
+  float: right;
+  margin-top: 1.5rem;
+  margin-left: 1rem;
+}
+.dropButton:hover {
+  background-color: #ffaabb;
+  transition: 0.25s ease;
+}
+.buttonOk {
+  padding: 1rem 5rem;
+  margin: 1rem 0;
+  background-color: darkorange;
+  border-radius: 10px;
+}
+.buttonOk:hover {
+  background-color: gold;
+  transition: 0.25s ease;
+}
+.productList {
+  min-width: 25rem;
+  background-color: #fbfff2;
+  margin: 2rem;
+  padding: 1rem 2rem;
+  border: 1px solid #aaa;
+  border-radius: 10px;
+}
+
+.productList p {
+  text-align: center;
+}
+
+.productList h3 {
+  margin: 0;
+  color: darkolivegreen;
+}
+
+.productList ul {
+  padding-left: 0;
+}
+.productList ul {
+  list-style-type: none;
+  margin-left: 0;
+}

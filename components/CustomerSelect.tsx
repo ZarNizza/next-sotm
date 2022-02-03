@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { Customer } from '../pages/add'
-import styles from '../styles/Home.module.css'
+import styles from './CustomerSelect.module.scss'
 
 export default function CustomerSelect(props: any) {
   const [searchTerm, setSearchTerm] = useState('')
@@ -42,8 +42,8 @@ export default function CustomerSelect(props: any) {
 
   return (
     <div className={styles.custList}>
-      <p>Select Customer</p>
       <p>
+        <div className={styles.title}>Customer</div>
         <input
           type="search"
           id="cSearchInput"

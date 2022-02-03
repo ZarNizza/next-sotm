@@ -1,0 +1,60 @@
+.title {
+  margin-top: -1rem;
+  color: darkolivegreen;
+}
+.inputCust {
+  height: 3rem;
+  padding: 1rem;
+  margin: 1rem;
+  font-size: large;
+}
+.inputCust::placeholder {
+  color: lawngreen;
+  font-weight: 100;
+  font-size: medium;
+}
+.custList {
+  min-width: 25rem;
+  background-color: #fbfff2;
+  margin: 2rem;
+  padding: 1rem 2rem;
+  border: 1px solid #aaa;
+  border-radius: 10px;
+}
+.custList p {
+  text-align: center;
+}
+.custList h3 {
+  margin: 0;
+}
+.custList ul li {
+  list-style-type: none;
+}
+.custList input,
+.custList select {
+  min-width: 20rem;
+}
+.custList select {
+  margin-bottom: 1rem;
+  height: 12rem;
+}
+.custList option {
+  min-height: 3rem;
+  padding: 1rem;
+  font-size: large;
+}
+.custList option:hover {
+  background-color: palegreen;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+.custList option:nth-child(odd) {
+  background-color: honeydew;
+}
+.custList option:nth-child(odd):hover {
+  background-color: palegreen;
+  transition: 0.25s ease;
+}
+/* .custList option:nth-child(even) {
+  background-color: #ffffff;
+} */

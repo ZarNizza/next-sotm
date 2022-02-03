@@ -1,5 +1,6 @@
 import type { Product } from '../pages/add'
-import styles from '../styles/Home.module.css'
+import styles from './ProductCart.module.scss'
+
 import Link from 'next/link'
 
 export default function ProductCart(props: any) {
@@ -20,6 +21,7 @@ export default function ProductCart(props: any) {
         name="pSum"
         onChange={inputChange}
         className={styles.inputSum}
+        placeholder="price"
       />{' '}
       {
         (
@@ -72,16 +74,14 @@ export default function ProductCart(props: any) {
           <p>or</p>
           <p>
             <Link href="/">
-              <a className={styles.footerLink}>
-                &lt; &lt; &lt; &nbsp;&nbsp;Return to StartPage&nbsp;&nbsp; &gt;
-                &gt; &gt;
-              </a>
+              &lt; &lt; &lt; &nbsp;&nbsp;Return to StartPage&nbsp;&nbsp; &gt;
+              &gt; &gt;
             </Link>
           </p>
         </>
       ) : (
         <>
-          <h3>ProductCart</h3>
+          <h3>&#9825; ProductCart</h3>
           <ul>{qqq}</ul>
           <button onClick={setHandler} className={styles.buttonOk}>
             {' '}

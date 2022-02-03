@@ -53,8 +53,7 @@ const Home: NextPage = () => {
             setCurrentCustomer={setCurrentCustomer}
             currentCustomer={currentCustomer}
           />
-          <p>customer {currentCustomer[1]}</p>
-          <h3>Add Income</h3>
+          <h3>collect Products, set Costs and submit Sale</h3>
           <ProductStore
             products={products}
             setSelectedProducts={setSelectedProducts}
