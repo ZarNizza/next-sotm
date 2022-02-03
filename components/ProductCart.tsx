@@ -46,10 +46,11 @@ export default function ProductCart(props: any) {
     const qList: any[] = Array.from(document.getElementsByName('pSum'))
     props.selectedProducts.map((item: Product, i: number) => {
       const sale = {
-        customer: props.currentCustomer,
+        customer: props.currentCustomer[0],
         prod: item,
         sum: qList[i].value
       }
+      console.log('sale=', sale)
       fetch('/api/sales', {
         method: 'POST',
         body: JSON.stringify(sale)
@@ -83,9 +84,7 @@ export default function ProductCart(props: any) {
           <h3>&#9825; ProductCart</h3>
           <ul>{qqq}</ul>
           <div className={styles.flexRow}>
-            <span className={styles.grossSum} id="grossSum">
-              {/* {grossSum.toLocaleString('ru-RU')} */}
-            </span>
+            <span className={styles.grossSum} id="grossSum"></span>
             <button onClick={setHandler} className={styles.buttonOk}>
               {' '}
               Sale it!{' '}
