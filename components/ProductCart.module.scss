@@ -49,7 +49,19 @@
   list-style-type: none;
   margin-left: 0;
 }
-
+.productList span {
+  color: olivedrab;
+}
+.productList a {
+  border: 1px solid olivedrab;
+  border-radius: 5px;
+  padding: 10px;
+  // background-color: #eafab7;
+}
+.productList a:hover {
+  background-color: yellowgreen;
+  transition: 0.25s ease;
+}
 .flexRow {
   display: flex;
   flex-flow: row wrap;
@@ -57,7 +69,7 @@
   align-items: center;
 }
 .buttonOk {
-  padding: 1rem 5rem;
+  padding: 1rem 4rem;
   margin: 1rem 0;
   background-color: darkorange;
   border-radius: 10px;

@@ -70,12 +70,17 @@ export default function ProductCart(props: any) {
     <div className={styles.productList}>
       {qqq.length === 0 ? (
         <>
-          <p>select product</p>
+          <p>
+            <span>&uarr; &uarr; &uarr;&nbsp;&nbsp;</span> select product{' '}
+            <span>&nbsp;&nbsp;&uarr; &uarr; &uarr;</span>
+          </p>
           <p>or</p>
           <p>
             <Link href="/">
-              &lt; &lt; &lt; &nbsp;&nbsp;Return to StartPage&nbsp;&nbsp; &gt;
-              &gt; &gt;
+              <a>
+                <span>&lt; &lt; &lt; &nbsp;&nbsp;</span> Return to StartPage
+                <span>&nbsp;&nbsp; &gt; &gt; &gt;</span>
+              </a>
             </Link>
           </p>
         </>
