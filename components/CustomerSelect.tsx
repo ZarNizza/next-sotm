@@ -43,7 +43,7 @@ export default function CustomerSelect(props: any) {
   return (
     <>
       <div className={styles.custList}>
-        <div className={styles.title}>Customer</div>
+        <p className={styles.title}>Customer</p>
         <input
           type="search"
           id="cSearchInput"
