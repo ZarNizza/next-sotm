@@ -48,9 +48,7 @@ const Home: NextPage = () => {
       .then((res) => {
         console.log('SYS: DB-C-drop = OK', res)
       })
-      .catch((error) =>
-        console.log('! SYS: DB-C-drop error - ', error.message)
-      )
+      .catch((error) => console.log('! SYS: DB-C-drop error - ', error.message))
   }
   function dropSalesHandler() {
     fetch('/api/sys', { method: 'POST', body: 'drop_Sales' })
@@ -58,9 +56,7 @@ const Home: NextPage = () => {
       .then((res) => {
         console.log('SYS: DB-S-drop = OK', res)
       })
-      .catch((error) =>
-        console.log('! SYS: DB-S-drop error - ', error.message)
-      )
+      .catch((error) => console.log('! SYS: DB-S-drop error - ', error.message))
   }
   function dropProductHandler() {
     fetch('/api/sys', { method: 'POST', body: 'drop_Prod' })
@@ -245,17 +241,14 @@ const Home: NextPage = () => {
             <button onClick={clearSalesHandler}>! CLEAR sales TABLE !</button>
           </div>
           <div className={styles.sysButton}>
-            <button onClick={dropUsersHandler}>
-              ! DROP customers TABLE !
-            </button>{' '}
-            <button onClick={dropProductHandler}>
-              ! DROP product TABLE !
-            </button>{' '}
+            <button onClick={dropUsersHandler}>! DROP customers TABLE !</button>{' '}
+            <button onClick={dropProductHandler}>! DROP product TABLE !</button>{' '}
             <button onClick={dropSalesHandler}>! DROP sales TABLE !</button>
           </div>
         </main>
         <Link href="/users"> - Customers List - </Link>{' '}
         <Link href="/products"> - Products List - </Link>
+        <Link href="/sys2"> - SYSTEM-2 - </Link>
         <p> </p>
       </div>
     </Layout>
