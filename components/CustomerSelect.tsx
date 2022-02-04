@@ -4,9 +4,10 @@ import styles from './CustomerSelect.module.scss'
 
 export default function CustomerSelect(props: any) {
   const [searchTerm, setSearchTerm] = useState('')
-  const csInput: HTMLInputElement | null = document.getElementById(
+  // if (typeof document === 'undefined') return null
+  const csInput = document.getElementById(
     'cSearchInput'
-  ) as HTMLInputElement
+  ) as HTMLInputElement | null
   const csResultsList = document.getElementById('cSearchResultsList')
 
   useEffect(() => {
