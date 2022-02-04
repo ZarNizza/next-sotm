@@ -129,8 +129,8 @@
   display: flex;
 }
 
-.sysButton {
-  margin: 10px;
+.sysButton button {
+  margin: 5px;
 }
 .userInput {
   margin-right: 10px;
