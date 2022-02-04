@@ -41,8 +41,8 @@ export default function CustomerSelect(props: any) {
   }
 
   return (
-    <div className={styles.custList}>
-      <p>
+    <>
+      <div className={styles.custList}>
         <div className={styles.title}>Customer</div>
         <input
           type="search"
@@ -51,15 +51,15 @@ export default function CustomerSelect(props: any) {
           onChange={liveSearch}
           className={styles.inputCust}
         />
-      </p>
-      <p>
-        <select
-          id="cSearchResultsList"
-          size={4}
-          onChange={liveST}
-          hidden={searchTerm === '' || props.currentCustomer[0] > 0}
-        ></select>
-      </p>
-    </div>
+      </div>
+      <div
+        className={styles.floatWrapper}
+        hidden={searchTerm === '' || props.currentCustomer[0] > 0}
+      >
+        <div className={styles.custSelect}>
+          <select id="cSearchResultsList" size={4} onChange={liveST}></select>
+        </div>
+      </div>
+    </>
   )
 }
