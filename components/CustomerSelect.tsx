@@ -3,6 +3,7 @@ import {
   Dispatch,
   SetStateAction,
   useEffect,
+  useRef,
   useState
 } from 'react'
 import type { Customer } from '../pages/add'
@@ -16,9 +17,7 @@ interface CustSelectProps {
 
 export default function CustomerSelect(props: CustSelectProps) {
   const [searchTerm, setSearchTerm] = useState('')
-  const csInput = document.getElementById(
-    'cSearchInput'
-  ) as HTMLInputElement | null
+  const customerInputRef = useRef<HTMLInputElement>(null)
   const csResultsList = document.getElementById('cSearchResultsList')
 
   useEffect(() => {
@@ -47,8 +46,9 @@ export default function CustomerSelect(props: CustSelectProps) {
       return item.cid === Number(indexST)
     })
     if (st.length === 1) {
+      if (customerInputRef.current !== null)
+        customerInputRef.current.value = st[0].cname
       props.setCurrentCustomer(() => [Number(st[0].cid), st[0].cname])
-      if (csInput !== null) csInput.value = st[0].cname
     }
   }
 
@@ -58,7 +58,7 @@ export default function CustomerSelect(props: CustSelectProps) {
         <p className={styles.title}>Customer</p>
         <input
           type="search"
-          id="cSearchInput"
+          ref={customerInputRef}
           placeholder="Search for a Customer"
           onChange={liveSearch}
           className={styles.inputCust}
