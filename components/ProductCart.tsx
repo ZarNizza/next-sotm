@@ -17,36 +17,8 @@ interface ProductCartProps {
   setGross: Dispatch<SetStateAction<number>>
   prodCostRef: MutableRefObject<Record<number, number>>
 }
+
 export default function ProductCart(props: ProductCartProps) {
-  function dropHandler2(pid: Product['pid']) {
-    return () => {
-      props.setSelectedProducts((prevSelectedProducts) => {
-        delete props.prodCostRef.current[pid]
-        props.setGross(
-          Object.values(props.prodCostRef.current).reduce(
-            (prev, curr) => prev + curr,
-            0
-          )
-        )
-        console.log('prodCart - prodCostRefCurrent', props.prodCostRef.current)
-
-        return prevSelectedProducts.filter((product) => product !== Number(pid))
-      })
-    }
-  }
-  function inputChange2(pid: Product['pid']) {
-    const handler: ChangeEventHandler<HTMLInputElement> = (event) => {
-      props.prodCostRef.current[pid] = Number(event.target.value)
-      props.setGross(
-        Object.values(props.prodCostRef.current).reduce(
-          (prev, curr) => prev + curr,
-          0
-        )
-      )
-    }
-    return handler
-  }
-
   const qqq = props.selectedProducts.map((pid: Product['pid']) => (
     <li key={pid}>
       <input
@@ -73,7 +45,37 @@ export default function ProductCart(props: ProductCartProps) {
     </li>
   ))
 
-  function setHandler() {
+  function dropHandler2(pid: Product['pid']) {
+    return () => {
+      props.setSelectedProducts((prevSelectedProducts) => {
+        delete props.prodCostRef.current[pid]
+        props.setGross(
+          Object.values(props.prodCostRef.current).reduce(
+            (prev, curr) => prev + curr,
+            0
+          )
+        )
+        console.log('prodCart - prodCostRefCurrent', props.prodCostRef.current)
+
+        return prevSelectedProducts.filter((product) => product !== Number(pid))
+      })
+    }
+  }
+
+  function inputChange2(pid: Product['pid']) {
+    const handler: ChangeEventHandler<HTMLInputElement> = (event) => {
+      props.prodCostRef.current[pid] = Number(event.target.value)
+      props.setGross(
+        Object.values(props.prodCostRef.current).reduce(
+          (prev, curr) => prev + curr,
+          0
+        )
+      )
+    }
+    return handler
+  }
+
+  function saveSaleHandler() {
     props.selectedProducts.map((pid: number) => {
       const sale = {
         customer: props.currentCustomer[0],
@@ -126,7 +128,7 @@ export default function ProductCart(props: ProductCartProps) {
             <span className={styles.grossSum}>
               {props.gross.toLocaleString('ru-RU')}
             </span>
-            <button onClick={setHandler} className={styles.buttonOk}>
+            <button onClick={saveSaleHandler} className={styles.buttonOk}>
               {' '}
               Sale it!
             </button>
