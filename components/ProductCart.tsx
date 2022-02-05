@@ -23,7 +23,7 @@ export default function ProductCart(props: ProductCartProps) {
     <li key={pid}>
       <input
         type="text"
-        onChange={inputChange2(pid)}
+        onChange={inputSumChangeHandler(pid)}
         className={styles.inputSum}
         placeholder="price"
       />{' '}
@@ -61,7 +61,7 @@ export default function ProductCart(props: ProductCartProps) {
     }
   }
 
-  function inputChange2(pid: Product['pid']) {
+  function inputSumChangeHandler(pid: Product['pid']) {
     const handler: ChangeEventHandler<HTMLInputElement> = (event) => {
       props.prodCostRef.current[pid] = Number(event.target.value)
       props.setGross(
