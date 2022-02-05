@@ -1,60 +1,46 @@
 import type { Product } from '../pages/add'
 import styles from './ProductCart.module.scss'
 import Link from 'next/link'
-import { ChangeEventHandler, useEffect, useRef } from 'react'
+import {
+  ChangeEventHandler,
+  Dispatch,
+  MutableRefObject,
+  SetStateAction
+} from 'react'
 
-export default function ProductCart(props: any) {
-  const myRef = useRef<Record<Product['pid'], number>>({})
-  const grossSumRef = useRef<number>(0)
-
-  useEffect(() => {
-    const gS = document.getElementById('grossSum')
-    console.log('-------------- useEffect--------- gs=', gS)
-    if (gS !== null) gS.innerHTML = grossSumRef.current.toLocaleString('ru-RU')
-  }, [grossSumRef.current])
-
-  function dropHandler(e: any) {
-    props.setSelectedProducts((prevSelectedProducts: [Product['pid']]) => {
-      return prevSelectedProducts.filter(
-        (product) => product !== Number(e.target.value)
-      )
-    })
-  }
-
+interface ProductCartProps {
+  setSelectedProducts: Dispatch<SetStateAction<number[]>>
+  selectedProducts: number[]
+  products: Product[]
+  currentCustomer: [number, string]
+  gross: number
+  setGross: Dispatch<SetStateAction<number>>
+  myRef: MutableRefObject<Record<number, number>>
+}
+export default function ProductCart(props: ProductCartProps) {
   function dropHandler2(pid: Product['pid']) {
     return () => {
-      props.setSelectedProducts((prevSelectedProducts: [Product['pid']]) => {
-        delete myRef.current[pid]
+      props.setSelectedProducts((prevSelectedProducts) => {
+        delete props.myRef.current[pid]
+        props.setGross(
+          Object.values(props.myRef.current).reduce(
+            (prev, curr) => prev + curr,
+            0
+          )
+        )
         return prevSelectedProducts.filter((product) => product !== Number(pid))
       })
     }
   }
-
-  function inputChange() {
-    const qList = Array.from(
-      document.getElementsByName('pSum')
-    ) as HTMLInputElement[]
-    const gSum = qList.reduce((prev, curr) => prev + Number(curr.value), 0)
-    const gS = document.getElementById('grossSum')
-    if (gS !== null) gS.innerHTML = gSum.toLocaleString('ru-RU')
-  }
-  //
-  // - чистка myRef при снятии чека на чекбоксе
-  // - обновлять гроссСум
-  //
-  //
-  //
-
   function inputChange2(pid: Product['pid']) {
     const handler: ChangeEventHandler<HTMLInputElement> = (event) => {
-      console.log('for pid-', pid, ' the new value =', event.target.value)
-      myRef.current[pid] = Number(event.target.value)
-      console.log('myRefCurr[]=', myRef.current)
-      grossSumRef.current = Object.values(myRef.current).reduce(
-        (prev, curr) => prev + curr,
-        0
+      props.myRef.current[pid] = Number(event.target.value)
+      props.setGross(
+        Object.values(props.myRef.current).reduce(
+          (prev, curr) => prev + curr,
+          0
+        )
       )
-      console.log('grossSum=', grossSumRef.current)
     }
     return handler
   }
@@ -80,20 +66,17 @@ export default function ProductCart(props: any) {
         onClick={dropHandler2(pid)}
         className={styles.dropButton}
       >
-        {' '}
-        X{' '}
+        {' X '}
       </button>
     </li>
   ))
 
   function setHandler() {
-    // const qList: any[] = Array.from(document.getElementsByName('pSum'))
     props.selectedProducts.map((pid: number) => {
       const sale = {
         customer: props.currentCustomer[0],
         prod: pid,
-        // sum: qList[i].value
-        sum: myRef.current[pid]
+        sum: props.myRef.current[pid]
       }
       console.log('sale=', sale)
       fetch('/api/sales', {
@@ -134,12 +117,13 @@ export default function ProductCart(props: any) {
           <h3>&#9825; ProductCart</h3>
           <ul>{qqq}</ul>
           <div className={styles.flexRow}>
-            <span className={styles.grossSum} id="grossSum"></span>
+            <span className={styles.grossSum}>
+              {props.gross.toLocaleString('ru-RU')}
+            </span>
             <button onClick={setHandler} className={styles.buttonOk}>
               {' '}
               Sale it!
             </button>
-            {grossSumRef.current}
           </div>
         </>
       )}

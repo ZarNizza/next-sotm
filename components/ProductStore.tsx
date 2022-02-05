@@ -1,11 +1,26 @@
 import { CheckBoxButton } from './CheckBoxButton'
 import type { Product } from '../pages/add'
 import styles from '../styles/Home.module.css'
+import { Dispatch, MutableRefObject, SetStateAction } from 'react'
 
-export default function ProductStore(props: any) {
+interface ProductStoreProps {
+  products: Product[]
+  setSelectedProducts: Dispatch<SetStateAction<number[]>>
+  selectedProducts: number[]
+  myRef: MutableRefObject<Record<number, number>>
+  setGross: Dispatch<SetStateAction<number>>
+}
+export default function ProductStore(props: ProductStoreProps) {
   const prodSet = props.products.map((item: Product) => {
     function checkHandler() {
-      props.setSelectedProducts((prevSelectedProducts: [Product['pid']]) => {
+      props.setSelectedProducts((prevSelectedProducts) => {
+        if (item.pid) delete props.myRef.current[item.pid]
+        props.setGross(
+          Object.values(props.myRef.current).reduce(
+            (prev, curr) => prev + curr,
+            0
+          )
+        )
         return prevSelectedProducts.includes(item.pid)
           ? prevSelectedProducts.filter(
               (product: Product['pid']) => product !== item.pid

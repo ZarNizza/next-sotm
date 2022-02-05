@@ -7,7 +7,7 @@ import InitProducts from '../components/initProducts'
 import ProductStore from '../components/ProductStore'
 import ProductCart from '../components/ProductCart'
 import CustomerSelect from '../components/CustomerSelect'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 export interface Customer {
   cid: number
@@ -36,7 +36,8 @@ const Home: NextPage = () => {
   >([0, ''])
   const [products, setProducts] = useState<Product[]>([])
   const [selectedProducts, setSelectedProducts] = useState<Product['pid'][]>([])
-  // const [searchTerm, setSearchTerm] = useState('')
+  const myRef = useRef<Record<Product['pid'], number>>({})
+  const [gross, setGross] = useState<number>(0)
 
   InitCustomers(setCustomers)
   InitProducts(setProducts)
@@ -58,12 +59,17 @@ const Home: NextPage = () => {
             products={products}
             setSelectedProducts={setSelectedProducts}
             selectedProducts={selectedProducts}
+            myRef={myRef}
+            setGross={setGross}
           />
           <ProductCart
             setSelectedProducts={setSelectedProducts}
             selectedProducts={selectedProducts}
             products={products}
             currentCustomer={currentCustomer}
+            myRef={myRef}
+            gross={gross}
+            setGross={setGross}
           />
         </div>
       </main>
