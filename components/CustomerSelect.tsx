@@ -1,4 +1,10 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState
+} from 'react'
 import type { Customer } from '../pages/add'
 import styles from './CustomerSelect.module.scss'
 
@@ -29,13 +35,13 @@ export default function CustomerSelect(props: CustSelectProps) {
     }
   }, [searchTerm])
 
-  function liveSearch(e: any) {
+  function liveSearch(e: ChangeEvent<HTMLInputElement>) {
     const st = e.target.value.toLowerCase()
     setSearchTerm(() => st)
     props.setCurrentCustomer(() => [0, ''])
   }
 
-  function liveST(e: any) {
+  function liveST(e: ChangeEvent<HTMLSelectElement>) {
     const indexST = e.target.value
     const st = props.customers.filter((item: Customer) => {
       return item.cid === Number(indexST)
