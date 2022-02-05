@@ -10,8 +10,9 @@ interface ProductStoreProps {
   prodCostRef: MutableRefObject<Record<number, number>>
   setGross: Dispatch<SetStateAction<number>>
 }
+
 export default function ProductStore(props: ProductStoreProps) {
-  const prodSet = props.products.map((item: Product) => {
+  const productCheckBoxesSet = props.products.map((item: Product) => {
     function checkHandler() {
       props.setSelectedProducts((prevSelectedProducts) => {
         if (item.pid) delete props.prodCostRef.current[item.pid]
@@ -40,5 +41,5 @@ export default function ProductStore(props: ProductStoreProps) {
     )
   })
 
-  return <div className={styles.flexRowContainer}>{prodSet}</div>
+  return <div className={styles.flexRowContainer}>{productCheckBoxesSet}</div>
 }
