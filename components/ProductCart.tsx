@@ -102,12 +102,16 @@ export default function ProductCart(props: ProductCartProps) {
             <span>&uarr; &uarr; &uarr;&nbsp;&nbsp;</span> select product{' '}
             <span>&nbsp;&nbsp;&uarr; &uarr; &uarr;</span>
           </p>
-          <p>or</p>
+          <p>
+            <span>or</span>
+          </p>
           <p>
             <Link href="/">
               <a>
-                <span>&lt; &lt; &lt; &nbsp;&nbsp;</span> Return to StartPage
-                <span>&nbsp;&nbsp; &gt; &gt; &gt;</span>
+                <span>
+                  &lt; &lt; &lt; &nbsp;&nbsp; Return to StartPage &nbsp;&nbsp;
+                  &gt; &gt; &gt;
+                </span>
               </a>
             </Link>
           </p>

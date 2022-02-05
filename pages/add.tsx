@@ -54,7 +54,11 @@ const Home: NextPage = () => {
             setCurrentCustomer={setCurrentCustomer}
             currentCustomer={currentCustomer}
           />
-          <h3>collect Products, set Costs and submit Sale</h3>
+          <p>
+            <span className={styles.tips}>
+              collect Products, set Costs and submit Sale
+            </span>
+          </p>
           <ProductStore
             products={products}
             setSelectedProducts={setSelectedProducts}
