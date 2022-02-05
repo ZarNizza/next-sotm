@@ -14,16 +14,8 @@ const pool = mysql.createPool({
 })
 
 export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
-  return new Promise((resolve, reject) => {
-    // const [customers, setCustomers] = useState<Customer[]>([])
-    // const [products, setProducts] = useState<Product[]>([])
-    //
-    //
-    // !!! need to init Customers and Products
-    //
-    //
-    // init Customers
-    console.log('sys2 start')
+  // init customers
+  new Promise((resolve, reject) => {
     pool.getConnection(function (err, connection) {
       if (err) throw err // not connected!
       connection.query(
@@ -31,18 +23,20 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         function (error, results, fields) {
           if (error) {
             console.log('MySQL ERROR', error)
+            reject(error)
             return
           } else {
-            console.log('MySQL result', results)
+            // console.log('MySQL result', results)
+            console.log('+++++++++++ MySQL result OK')
           }
-          resolve(null)
         }
       )
     })
-    // InitCustomers(setCustomers)
-    // InitProducts(setProducts)
-    //
-    function SaleInsert(props: Sale) {
+    resolve(null)
+  })
+
+  function SaveSale(props: Sale) {
+    return new Promise((resolve, reject) => {
       pool.getConnection(function (err, connection) {
         if (err) throw err // not connected!
         connection.query(
@@ -59,15 +53,31 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
               res
                 .status(500)
                 .json({ error: String('!api clear_Sales err:' + error) })
+              console.log('! saveSaleError! --------------', error)
+              console.log(
+                '!',
+                props.customer,
+                props.prod,
+                props.sum,
+                props.data
+              )
+              reject(error)
+              return
             } else {
               res.status(203).json({ data: results })
             }
-            resolve(null)
+            return
           }
         )
       })
-    }
-    //
+      resolve(null)
+    })
+  }
+
+  //
+  //
+  //
+  return new Promise((resolve, reject) => {
     if (req.method === 'POST') {
       switch (req.body) {
         case 'drop_Sales':
@@ -81,13 +91,14 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                   res
                     .status(500)
                     .json({ error: String('!api drop_Sales err:' + error) })
+                  reject(error)
                 } else {
                   res.status(203).json({ data: results })
                 }
-                resolve(null)
               }
             )
           })
+          resolve(null)
           break
 
         case 'create_Sales':
@@ -102,13 +113,14 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                   res
                     .status(500)
                     .json({ error: String('!api restoreSales err:' + error) })
+                  reject(error)
                 } else {
                   res.status(207).json({ data: results })
                 }
-                resolve(null)
               }
             )
           })
+          resolve(null)
           break
 
         case 'clear_Sales':
@@ -122,27 +134,26 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                   res
                     .status(500)
                     .json({ error: String('!api clear_Sales err:' + error) })
+                  reject(error)
                 } else {
                   res.status(203).json({ data: results })
                 }
-                resolve(null)
               }
             )
           })
+          resolve(null)
           break
 
         case 'fill_Sales':
-          // for
           console.log('FILL SALES')
-          const customers = [1, 2, 3, 6, 7]
-          const products = [5, 6, 7, 8, 9, 10, 11, 12, 13]
+          const customers = [1, 2]
+          const products = [5, 6]
           let id = new Date(2021, 0, 1, 11)
           const findate = new Date(2021, 0, 4, 11)
           for (; id < findate; id.setDate(id.getDate() + 1)) {
-            // time step
             customers.forEach((cItem) => {
               products.forEach((pItem) => {
-                console.log(id, cItem, pItem)
+                // console.log(id, cItem, pItem)
                 const prop: Sale = {
                   sid: 0,
                   data: id,
@@ -150,22 +161,11 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                   prod: pItem,
                   sum: cItem
                 }
-                SaleInsert(prop)
+                SaveSale(prop)
               })
             })
           }
-          // const idata = new Date()
-          // const icust = 1
-          // const iprod = 1
-          // const isum = 1
-          // const prop: Sale = {
-          //   sid: 0,
-          //   data: idata,
-          //   customer: icust,
-          //   prod: iprod,
-          //   sum: isum
-          // }
-          // SaleInsert(prop)
+          resolve(null)
           break
 
         case 'show_Sales':
@@ -179,13 +179,14 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                   res
                     .status(500)
                     .json({ error: String('!api showSales err:' + error) })
+                  reject(error)
                 } else {
                   res.status(200).json({ data: results })
                 }
-                resolve(null)
               }
             )
           })
+          resolve(null)
           break
 
         default:

@@ -3,15 +3,8 @@ import Head from 'next/head'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
-import { useState } from 'react'
-import InitCustomers from '../components/initCustomers'
-import InitProducts from '../components/initProducts'
-import type { Customer, Product } from './add'
 
 const Home: NextPage = () => {
-  const [customers, setCustomers] = useState<Customer[]>([])
-  const [products, setProducts] = useState<Product[]>([])
-
   function dropSalesHandler() {
     fetch('/api/sys2', { method: 'POST', body: 'drop_Sales' })
       .then((res) => res.json())
@@ -66,9 +59,6 @@ const Home: NextPage = () => {
       )
   }
 
-  InitCustomers(setCustomers)
-  InitProducts(setProducts)
-
   return (
     <Layout>
       <div className={styles.container}>
@@ -84,7 +74,7 @@ const Home: NextPage = () => {
           <p>.</p>
           <div className={styles.sysButton}>
             <button onClick={clearSalesHandler}>! CLEAR sales !</button>
-            <button onClick={fillSalesHandler}>! FILL sales !</button> . . .{' '}
+            <button onClick={fillSalesHandler}>! FILL sales !</button>
           </div>
           <div className={styles.sysButton}>
             <button onClick={showSalesHandler}>SHOW sales</button>{' '}
