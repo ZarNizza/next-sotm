@@ -15,28 +15,30 @@ interface ProductCartProps {
   currentCustomer: [number, string]
   gross: number
   setGross: Dispatch<SetStateAction<number>>
-  myRef: MutableRefObject<Record<number, number>>
+  prodCostRef: MutableRefObject<Record<number, number>>
 }
 export default function ProductCart(props: ProductCartProps) {
   function dropHandler2(pid: Product['pid']) {
     return () => {
       props.setSelectedProducts((prevSelectedProducts) => {
-        delete props.myRef.current[pid]
+        delete props.prodCostRef.current[pid]
         props.setGross(
-          Object.values(props.myRef.current).reduce(
+          Object.values(props.prodCostRef.current).reduce(
             (prev, curr) => prev + curr,
             0
           )
         )
+        console.log('prodCart - prodCostRefCurrent', props.prodCostRef.current)
+
         return prevSelectedProducts.filter((product) => product !== Number(pid))
       })
     }
   }
   function inputChange2(pid: Product['pid']) {
     const handler: ChangeEventHandler<HTMLInputElement> = (event) => {
-      props.myRef.current[pid] = Number(event.target.value)
+      props.prodCostRef.current[pid] = Number(event.target.value)
       props.setGross(
-        Object.values(props.myRef.current).reduce(
+        Object.values(props.prodCostRef.current).reduce(
           (prev, curr) => prev + curr,
           0
         )
@@ -76,7 +78,7 @@ export default function ProductCart(props: ProductCartProps) {
       const sale = {
         customer: props.currentCustomer[0],
         prod: pid,
-        sum: props.myRef.current[pid]
+        sum: props.prodCostRef.current[pid]
       }
       console.log('sale=', sale)
       fetch('/api/sales', {

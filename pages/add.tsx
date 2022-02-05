@@ -36,7 +36,7 @@ const Home: NextPage = () => {
   >([0, ''])
   const [products, setProducts] = useState<Product[]>([])
   const [selectedProducts, setSelectedProducts] = useState<Product['pid'][]>([])
-  const myRef = useRef<Record<Product['pid'], number>>({})
+  const prodCostRef = useRef<Record<Product['pid'], number>>({})
   const [gross, setGross] = useState<number>(0)
 
   InitCustomers(setCustomers)
@@ -63,7 +63,7 @@ const Home: NextPage = () => {
             products={products}
             setSelectedProducts={setSelectedProducts}
             selectedProducts={selectedProducts}
-            myRef={myRef}
+            prodCostRef={prodCostRef}
             setGross={setGross}
           />
           <ProductCart
@@ -71,7 +71,7 @@ const Home: NextPage = () => {
             selectedProducts={selectedProducts}
             products={products}
             currentCustomer={currentCustomer}
-            myRef={myRef}
+            prodCostRef={prodCostRef}
             gross={gross}
             setGross={setGross}
           />
