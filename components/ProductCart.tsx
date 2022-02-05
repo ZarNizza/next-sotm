@@ -23,7 +23,6 @@ export default function ProductCart(props: ProductCartProps) {
     <li key={pid}>
       <input
         type="text"
-        name="pSum"
         onChange={inputChange2(pid)}
         className={styles.inputSum}
         placeholder="price"
@@ -37,7 +36,7 @@ export default function ProductCart(props: ProductCartProps) {
       }{' '}
       <button
         value={pid}
-        onClick={dropHandler2(pid)}
+        onClick={dropButtonHandler(pid)}
         className={styles.dropButton}
       >
         {' X '}
@@ -45,7 +44,7 @@ export default function ProductCart(props: ProductCartProps) {
     </li>
   ))
 
-  function dropHandler2(pid: Product['pid']) {
+  function dropButtonHandler(pid: Product['pid']) {
     return () => {
       props.setSelectedProducts((prevSelectedProducts) => {
         delete props.prodCostRef.current[pid]
