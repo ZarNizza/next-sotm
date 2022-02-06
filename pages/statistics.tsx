@@ -47,8 +47,12 @@ const Home: NextPage = () => {
       )
   }
 
-  function startDateChangeHandler() {}
-  function finishDateChangeHandler() {}
+  function startDateChangeHandler(startDate: string) {
+    setStartDate(startDate)
+  }
+  function finishDateChangeHandler(finishDate: string) {
+    setFinishDate(finishDate)
+  }
 
   return (
     <Layout>
@@ -65,12 +69,14 @@ const Home: NextPage = () => {
           <input
             type="text"
             placeholder="Start date"
-            onChange={startDateChangeHandler}
+            value={startDate}
+            onChange={(event) => startDateChangeHandler(event.target.value)}
           />
           <input
             type="text"
             placeholder="Finish date"
-            onChange={finishDateChangeHandler}
+            value={finishDate}
+            onChange={(event) => finishDateChangeHandler(event.target.value)}
           />
         </div>
         {resData === undefined || resData === [] ? (

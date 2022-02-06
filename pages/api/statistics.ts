@@ -28,7 +28,6 @@ export default async function sysHandler(
             reject(error)
             return
           } else {
-            // console.log('initial products =', results)
             resolve(results)
           }
         }
@@ -85,8 +84,8 @@ export default async function sysHandler(
             ''
           )
 
-          // console.log('products arr = ', products)
-          // console.log('prodSum text = ', sqlProdSum)
+          // console.log('+++++++ startDate = ', startDate)
+          // console.log('++++++ finishDate = ', finishDate)
 
           const sqlQuery =
             'SELECT customers.cid, customers.cname,' +
