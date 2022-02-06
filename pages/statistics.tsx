@@ -11,9 +11,14 @@ const Home: NextPage = () => {
   const [resData, setResData] = useState<Sale[]>([
     { sid: 0, sdate: datenow, cust: 0, prod: 0, sum: 0 }
   ])
+  const [startDate, setStartDate] = useState('2021-01-01')
+  const [finishDate, setFinishDate] = useState('2022-02-10')
 
   function showSalesHandler() {
-    fetch('/api/statistics', { method: 'POST', body: 'show_Sales' })
+    const body = {
+      mode: 'show_Sales'
+    }
+    fetch('/api/statistics', { method: 'POST', body: JSON.stringify(body) })
       .then((res) => res.json())
       .then((res) => {
         console.log('STAT: DB-S-show = OK', res.data)
@@ -23,8 +28,15 @@ const Home: NextPage = () => {
         console.log('! STAT: DB-S-show error - ', error.message)
       )
   }
+
   function showFullSalesHandler() {
-    fetch('/api/statistics', { method: 'POST', body: 'show_Full' })
+    const body = {
+      mode: 'show_Full',
+      startDate: startDate,
+      finishDate: finishDate
+    }
+
+    fetch('/api/statistics', { method: 'POST', body: JSON.stringify(body) })
       .then((res) => res.json())
       .then((res) => {
         console.log('STAT: DB-S-showFull = OK', res.data)
@@ -34,6 +46,9 @@ const Home: NextPage = () => {
         console.log('! STAT: DB-S-showFull error - ', error.message)
       )
   }
+
+  function startDateChangeHandler() {}
+  function finishDateChangeHandler() {}
 
   return (
     <Layout>
@@ -45,6 +60,18 @@ const Home: NextPage = () => {
         <div className={styles.sysButton}>
           <button onClick={showSalesHandler}>show all Sales</button>{' '}
           <button onClick={showFullSalesHandler}>show FULL statistic</button>{' '}
+        </div>
+        <div className={styles.sysButton}>
+          <input
+            type="text"
+            placeholder="Start date"
+            onChange={startDateChangeHandler}
+          />
+          <input
+            type="text"
+            placeholder="Finish date"
+            onChange={finishDateChangeHandler}
+          />
         </div>
         {resData === undefined || resData === [] ? (
           ''
