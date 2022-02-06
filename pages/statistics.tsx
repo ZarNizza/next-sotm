@@ -1,9 +1,29 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { useState } from 'react'
 import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
+import { Sale } from './add'
+import DBresultTable from '../components/DBresultTable'
 
 const Home: NextPage = () => {
+  const datenow = new Date()
+  const [resData, setResData] = useState<Sale[]>([
+    { sid: 0, sdate: datenow, cust: 0, prod: 0, sum: 0 }
+  ])
+
+  function showSalesHandler() {
+    fetch('/api/statistics', { method: 'POST', body: 'show_Sales' })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('STAT: DB-S-show = OK', res.data)
+        setResData(() => res.data)
+      })
+      .catch((error) =>
+        console.log('! STAT: DB-S-show error - ', error.message)
+      )
+  }
+
   return (
     <Layout>
       <Head>
@@ -11,6 +31,10 @@ const Home: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <h3>Statistics page</h3>
+        <div className={styles.sysButton}>
+          <button onClick={showSalesHandler}>show ALL sales</button>{' '}
+        </div>
+        <DBresultTable resData={resData} />
       </main>
     </Layout>
   )
