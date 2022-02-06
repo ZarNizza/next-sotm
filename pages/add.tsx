@@ -23,8 +23,8 @@ export interface Product {
 
 export interface Sale {
   sid: number
-  data: Date
-  customer: number
+  sdate: Date
+  cust: number
   prod: number
   sum: number
 }

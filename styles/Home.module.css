@@ -186,3 +186,13 @@
 .tips {
   color: olivedrab;
 }
+
+.main table,
+.main td {
+  border: 1px solid olivedrab;
+  text-align: right;
+}
+.main thead {
+  text-align: justify;
+  background-color: papayawhip;
+}

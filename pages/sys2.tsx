@@ -3,8 +3,19 @@ import Head from 'next/head'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
+import {
+  DetailedHTMLProps,
+  HTMLAttributes,
+  MutableRefObject,
+  useEffect,
+  useRef,
+  useState
+} from 'react'
+import type { Sale } from './add'
 
 const Home: NextPage = () => {
+  const [resData, setResData] = useState<Sale[]>([])
+
   function dropSalesHandler() {
     fetch('/api/sys2', { method: 'POST', body: 'drop_Sales' })
       .then((res) => res.json())
@@ -52,7 +63,8 @@ const Home: NextPage = () => {
     fetch('/api/sys2', { method: 'POST', body: 'show_Sales' })
       .then((res) => res.json())
       .then((res) => {
-        console.log('SYS2: DB-S-show = OK', res)
+        console.log('SYS2: DB-S-show = OK', res.data)
+        setResData(() => res.data)
       })
       .catch((error) =>
         console.log('! SYS2: DB-S-show error - ', error.message)
@@ -81,11 +93,56 @@ const Home: NextPage = () => {
           </div>
           <p>.</p>
           --------------------
+          <p>.</p>{' '}
+          <div className={styles.sysButton}>
+            <Link href="/users">
+              <button> &lt; &lt; Customers List </button>
+            </Link>{' '}
+            &nbsp;&nbsp;{' '}
+            <Link href="/products">
+              <button>&lt; &lt; Products List </button>
+            </Link>
+          </div>
           <p>.</p>
+          --------------------
+          <p>Sales </p>
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <td>sID</td>
+                  <td>Cust</td>
+                  <td>Prod</td>
+                  <td>Sum</td>
+                  <td>Date</td>
+                </tr>
+              </thead>
+              <tbody>
+                {resData.map((item: Sale) => {
+                  return (
+                    <tr>
+                      <td>{item.sid}</td>
+                      <td>{item.cust}</td>
+                      <td>{item.prod}</td>
+                      <td>{item.sum}</td>
+                      <td>{String(item.sdate).slice(0, 10)}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+            {/* <ul>
+              {resData.map((item: Sale) => {
+                return (
+                  <li key={item.sid}>
+                    {item.sid} : {item.cust} _ {item.prod} _ {item.sum} _{' '}
+                    {String(item.sdate).slice(0, 10)}
+                  </li>
+                )
+              })}
+            </ul> */}
+          </div>
         </main>
-        <Link href="/users"> - Customers List - </Link>{' '}
-        <Link href="/products"> - Products List - </Link>
-        <p> </p>
       </div>
     </Layout>
   )

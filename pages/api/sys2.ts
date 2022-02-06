@@ -1,9 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import mysql from 'mysql2'
 import type { Sale, Customer, Product } from '../add'
-// import InitCustomers from '../../components/initCustomers'
-// import InitProducts from '../../components/initProducts'
-// import { useState } from 'react'
 
 const pool = mysql.createPool({
   connectionLimit: 10,
@@ -21,8 +18,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
       connection.query(
         'SELECT * FROM customers',
         function (error, results, fields) {
+          connection.release()
           if (error) {
-            console.log('MySQL ERROR', error)
+            console.log('!api/sys2 - init Customers - MySQL ERROR', error)
             reject(error)
             return
           } else {
@@ -36,14 +34,14 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
   })
 
   function SaveSale(props: Sale) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolveSS, rejectSS) => {
       pool.getConnection(function (err, connection) {
         if (err) throw err // not connected!
         connection.query(
           'INSERT INTO sales (sdate, cust, prod, sum) VALUES (?, ?, ?, ?)',
           [
-            props.data,
-            Number(props.customer),
+            props.sdate,
+            Number(props.cust),
             Number(props.prod),
             Number(props.sum)
           ],
@@ -52,16 +50,10 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
             if (error) {
               res
                 .status(500)
-                .json({ error: String('!api clear_Sales err:' + error) })
+                .json({ error: String('!api/sys2 clear_Sales err:' + error) })
               console.log('! saveSaleError! --------------', error)
-              console.log(
-                '!',
-                props.customer,
-                props.prod,
-                props.sum,
-                props.data
-              )
-              reject(error)
+              console.log('!', props.cust, props.prod, props.sum, props.sdate)
+              rejectSS(error)
               return
             } else {
               res.status(203).json({ data: results })
@@ -70,7 +62,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           }
         )
       })
-      resolve(null)
+      resolveSS(null)
     })
   }
 
@@ -88,9 +80,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
               function (error, results, fields) {
                 connection.release()
                 if (error) {
-                  res
-                    .status(500)
-                    .json({ error: String('!api drop_Sales err:' + error) })
+                  res.status(500).json({
+                    error: String('!api/sys2 drop_Sales err:' + error)
+                  })
                   reject(error)
                 } else {
                   res.status(203).json({ data: results })
@@ -110,9 +102,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
               function (error, results, fields) {
                 connection.release()
                 if (error) {
-                  res
-                    .status(500)
-                    .json({ error: String('!api restoreSales err:' + error) })
+                  res.status(500).json({
+                    error: String('!api/sys2 restoreSales err:' + error)
+                  })
                   reject(error)
                 } else {
                   res.status(207).json({ data: results })
@@ -131,9 +123,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
               function (error, results, fields) {
                 connection.release()
                 if (error) {
-                  res
-                    .status(500)
-                    .json({ error: String('!api clear_Sales err:' + error) })
+                  res.status(500).json({
+                    error: String('!api/sys2 clear_Sales err:' + error)
+                  })
                   reject(error)
                 } else {
                   res.status(203).json({ data: results })
@@ -148,16 +140,16 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           console.log('FILL SALES')
           const customers = [1, 2]
           const products = [5, 6]
-          let id = new Date(2021, 0, 1, 11)
+          let iDate = new Date(2021, 0, 1, 11)
           const findate = new Date(2021, 0, 4, 11)
-          for (; id < findate; id.setDate(id.getDate() + 1)) {
+          for (; iDate < findate; iDate.setDate(iDate.getDate() + 1)) {
             customers.forEach((cItem) => {
               products.forEach((pItem) => {
                 // console.log(id, cItem, pItem)
                 const prop: Sale = {
                   sid: 0,
-                  data: id,
-                  customer: cItem,
+                  sdate: iDate,
+                  cust: cItem,
                   prod: pItem,
                   sum: cItem
                 }
@@ -178,15 +170,17 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                 if (error) {
                   res
                     .status(500)
-                    .json({ error: String('!api showSales err:' + error) })
+                    .json({ error: String('!api/sys2 showSales err:' + error) })
+                  console.log('api/sql: error code=', error.code)
+                  console.log('api/sql: error fatal=', error.fatal)
                   reject(error)
                 } else {
                   res.status(200).json({ data: results })
+                  resolve(null)
                 }
               }
             )
           })
-          resolve(null)
           break
 
         default:
