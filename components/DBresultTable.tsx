@@ -33,7 +33,7 @@ export default function DBresultTable(props: TableProps) {
             {props.resData.map((item) => {
               const a = Object.values(item)
               return (
-                <tr>
+                <tr key={JSON.stringify(item)}>
                   {Object.values(item).map((elem) => (
                     <td>
                       {typeof elem === 'number'
