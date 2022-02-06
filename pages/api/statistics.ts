@@ -38,6 +38,13 @@ export default async function sysHandler(
 
   return new Promise((resolve, reject) => {
     const parsedReq = JSON.parse(req.body)
+    const startDate = parsedReq.startDate
+      ? '"' + parsedReq.startDate + ' 00:00:00"'
+      : '"2021-01-01 00:00:00"'
+    const finishDate = parsedReq.finishDate
+      ? '"' + parsedReq.finishDate + ' 00:00:00"'
+      : '"2022-01-15 00:00:00"'
+
     if (req.method === 'POST') {
       switch (parsedReq.mode) {
         //
@@ -81,8 +88,6 @@ export default async function sysHandler(
           // console.log('products arr = ', products)
           // console.log('prodSum text = ', sqlProdSum)
 
-          const startDate = '"2021-01-01 00:00:00"'
-          const finishDate = '"2022-01-15 00:00:00"'
           const sqlQuery =
             'SELECT customers.cid, customers.cname,' +
             sqlProdSum +
