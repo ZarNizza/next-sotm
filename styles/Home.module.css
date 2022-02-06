@@ -191,6 +191,7 @@
 .main td {
   border: 1px solid olivedrab;
   text-align: right;
+  padding: 0.5rem;
 }
 .main thead {
   text-align: justify;
