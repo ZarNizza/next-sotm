@@ -38,7 +38,6 @@ export default async function sysHandler(
 
   return new Promise((resolve, reject) => {
     const parsedReq = JSON.parse(req.body)
-    console.log('------BODY=', req.body, ' MODE=', parsedReq.mode)
     if (req.method === 'POST') {
       switch (parsedReq.mode) {
         //
