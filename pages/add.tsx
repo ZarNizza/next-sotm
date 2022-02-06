@@ -9,19 +9,19 @@ import ProductCart from '../components/ProductCart'
 import CustomerSelect from '../components/CustomerSelect'
 import { useRef, useState } from 'react'
 
-export interface Customer {
+export type Customer = {
   cid: number
   cname: string
   cphone: string | null
   gooid: string | null
 }
-export interface Product {
+export type Product = {
   pid: number
   pname: string
   psymbol: string
 }
 
-export interface Sale {
+export type Sale = {
   sid: number
   sdate: Date
   cust: number

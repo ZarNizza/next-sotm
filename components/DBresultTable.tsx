@@ -1,7 +1,11 @@
 import styles from '../styles/Home.module.css'
 import type { Sale } from '../pages/add'
 
-export default function DBresultTable(props: any) {
+interface TableProps {
+  resData: Record<string, number | string | Date | null>[]
+}
+
+export default function DBresultTable(props: TableProps) {
   if (props.resData === undefined)
     return (
       <div className={styles.flexColumnContainer}>
@@ -24,7 +28,7 @@ export default function DBresultTable(props: any) {
           </tr>
         </thead>
         <tbody>
-          {props.resData.map((item: Sale) => {
+          {props.resData.map((item) => {
             const a = Object.values(item)
             return (
               <tr>
