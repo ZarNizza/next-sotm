@@ -46,7 +46,11 @@ const Home: NextPage = () => {
           <button onClick={showSalesHandler}>show all Sales</button>{' '}
           <button onClick={showFullSalesHandler}>show FULL statistic</button>{' '}
         </div>
-        <DBresultTable resData={resData} />
+        {resData === undefined || resData === [] ? (
+          ''
+        ) : (
+          <DBresultTable resData={resData} />
+        )}
       </main>
     </Layout>
   )

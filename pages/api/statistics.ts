@@ -28,7 +28,7 @@ export default async function sysHandler(
             reject(error)
             return
           } else {
-            console.log('initial products =', results)
+            // console.log('initial products =', results)
             resolve(results)
           }
         }
@@ -56,7 +56,7 @@ export default async function sysHandler(
                   reject(error)
                 } else {
                   res.status(200).json({ data: results })
-                  resolve(null)
+                  resolve(results)
                 }
               }
             )
@@ -80,10 +80,18 @@ export default async function sysHandler(
           // console.log('products arr = ', products)
           console.log('prodSum text = ', sqlProdSum)
 
+          const startDate = '"2021-01-01 00:00:00"'
+          const finishDate = '"2022-01-15 00:00:00"'
           const sqlQuery =
             'SELECT customers.cid, customers.cname,' +
             sqlProdSum +
-            ' SUM(sales.sum) AS gross FROM customers LEFT JOIN sales ON sales.cust = customers.cid GROUP BY customers.cid'
+            ' SUM(sales.sum) AS gross FROM customers' +
+            ' LEFT JOIN sales ON sales.cust = customers.cid' +
+            ' WHERE sales.sdate BETWEEN ' +
+            startDate +
+            ' AND ' +
+            finishDate +
+            ' GROUP BY customers.cid'
 
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
@@ -98,7 +106,7 @@ export default async function sysHandler(
                 reject(error)
               } else {
                 res.status(200).json({ data: results })
-                resolve(null)
+                resolve(results)
               }
             })
           })
