@@ -67,16 +67,22 @@ export default async function sysHandler(
           let sqlProdSum = ''
           // SELECT sales.prod, SUM(sales.sum) AS psum FROM sales WHERE sales.cust = customers.cid GROUP BY sales.prod
           sqlProdSum = products.reduce(
-            (sum, item) => sum + String(item.pid),
+            (sum, item) =>
+              sum +
+              'SUM(CASE WHEN sales.cust = customers.cid AND sales.prod = ' +
+              item.pid +
+              ' THEN sales.sum ELSE 0 END) AS pSum' +
+              String(item.pid) +
+              ', ',
             ''
           )
 
-          console.log('products arr = ', products)
+          // console.log('products arr = ', products)
           console.log('prodSum text = ', sqlProdSum)
 
           const sqlQuery =
             'SELECT customers.cid, customers.cname,' +
-            // sqlProdSum +
+            sqlProdSum +
             ' SUM(sales.sum) AS gross FROM customers LEFT JOIN sales ON sales.cust = customers.cid GROUP BY customers.cid'
 
           pool.getConnection(function (err, connection) {
