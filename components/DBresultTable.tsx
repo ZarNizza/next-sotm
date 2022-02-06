@@ -5,8 +5,8 @@ export default function DBresultTable(props: any) {
   const keys = Object.keys(props.resData[0])
   const nColumns = keys.length
   return (
-    <div>
-      --------------------
+    <div className={styles.flexColumnContainer}>
+      <p>--------------------</p>
       <p>Sales </p>
       <table>
         <thead>

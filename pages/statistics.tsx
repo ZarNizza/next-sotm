@@ -23,6 +23,17 @@ const Home: NextPage = () => {
         console.log('! STAT: DB-S-show error - ', error.message)
       )
   }
+  function showFullSalesHandler() {
+    fetch('/api/statistics', { method: 'POST', body: 'show_Full' })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('STAT: DB-S-showFull = OK', res.data)
+        setResData(() => res.data)
+      })
+      .catch((error) =>
+        console.log('! STAT: DB-S-showFull error - ', error.message)
+      )
+  }
 
   return (
     <Layout>
@@ -32,7 +43,8 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <h3>Statistics page</h3>
         <div className={styles.sysButton}>
-          <button onClick={showSalesHandler}>show ALL sales</button>{' '}
+          <button onClick={showSalesHandler}>show all Sales</button>{' '}
+          <button onClick={showFullSalesHandler}>show FULL statistic</button>{' '}
         </div>
         <DBresultTable resData={resData} />
       </main>

@@ -41,6 +41,29 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           })
           break
         //
+        case 'show_Full':
+          pool.getConnection(function (err, connection) {
+            if (err) throw err // not connected!
+            connection.query(
+              'SELECT * FROM sales',
+              function (error, results, fields) {
+                connection.release()
+                if (error) {
+                  res
+                    .status(500)
+                    .json({ error: String('!api/sys2 showFULL err:' + error) })
+                  console.log('api/sql: error code=', error.code)
+                  console.log('api/sql: error fatal=', error.fatal)
+                  reject(error)
+                } else {
+                  res.status(200).json({ data: results })
+                  resolve(null)
+                }
+              }
+            )
+          })
+          break
+        //
         default:
           res.status(404).json({ data: '!api default case' })
           resolve(null)
