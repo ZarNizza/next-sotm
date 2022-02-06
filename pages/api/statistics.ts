@@ -78,7 +78,7 @@ export default async function sysHandler(
           )
 
           // console.log('products arr = ', products)
-          console.log('prodSum text = ', sqlProdSum)
+          // console.log('prodSum text = ', sqlProdSum)
 
           const startDate = '"2021-01-01 00:00:00"'
           const finishDate = '"2022-01-15 00:00:00"'
