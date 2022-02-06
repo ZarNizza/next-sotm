@@ -45,7 +45,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
-              'SELECT * FROM sales',
+              'SELECT customers.cid, customers.cname, SUM(sales.sum) AS gross FROM customers LEFT JOIN sales ON sales.cust = customers.cid GROUP BY customers.cid',
               function (error, results, fields) {
                 connection.release()
                 if (error) {
