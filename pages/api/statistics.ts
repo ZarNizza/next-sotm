@@ -11,9 +11,12 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME
 })
 
-export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
+export default async function sysHandler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   // init products
-  return new Promise<Product[]>((resolve, reject) => {
+  const products = await new Promise<Product[]>((resolve, reject) => {
     pool.getConnection(function (err, connection) {
       if (err) throw err // not connected!
       connection.query(
@@ -31,76 +34,75 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         }
       )
     })
-  }).then(
-    (products) =>
-      new Promise((resolve, reject) => {
-        if (req.method === 'POST') {
-          switch (req.body) {
-            //
-            case 'show_Sales':
-              pool.getConnection(function (err, connection) {
-                if (err) throw err // not connected!
-                connection.query(
-                  'SELECT * FROM sales',
-                  function (error, results, fields) {
-                    connection.release()
-                    if (error) {
-                      res.status(500).json({
-                        error: String('!api/sys2 showSales err:' + error)
-                      })
-                      console.log('api/sql: error code=', error.code)
-                      console.log('api/sql: error fatal=', error.fatal)
-                      reject(error)
-                    } else {
-                      res.status(200).json({ data: results })
-                      resolve(null)
-                    }
-                  }
-                )
-              })
-              break
-            //
-            case 'show_Full':
-              let sqlProdSum = ''
-              // SELECT sales.prod, SUM(sales.sum) AS psum FROM sales WHERE sales.cust = customers.cid GROUP BY sales.prod
-              sqlProdSum = products.reduce(
-                (sum, item) => sum + String(item.pid),
-                ''
-              )
+  })
 
-              console.log('products arr = ', products)
-              console.log('prodSum text = ', sqlProdSum)
+  return new Promise((resolve, reject) => {
+    if (req.method === 'POST') {
+      switch (req.body) {
+        //
+        case 'show_Sales':
+          pool.getConnection(function (err, connection) {
+            if (err) throw err // not connected!
+            connection.query(
+              'SELECT * FROM sales',
+              function (error, results, fields) {
+                connection.release()
+                if (error) {
+                  res.status(500).json({
+                    error: String('!api/sys2 showSales err:' + error)
+                  })
+                  console.log('api/sql: error code=', error.code)
+                  console.log('api/sql: error fatal=', error.fatal)
+                  reject(error)
+                } else {
+                  res.status(200).json({ data: results })
+                  resolve(null)
+                }
+              }
+            )
+          })
+          break
+        //
+        case 'show_Full':
+          let sqlProdSum = ''
+          // SELECT sales.prod, SUM(sales.sum) AS psum FROM sales WHERE sales.cust = customers.cid GROUP BY sales.prod
+          sqlProdSum = products.reduce(
+            (sum, item) => sum + String(item.pid),
+            ''
+          )
 
-              const sqlQuery =
-                'SELECT customers.cid, customers.cname,' +
-                // sqlProdSum +
-                ' SUM(sales.sum) AS gross FROM customers LEFT JOIN sales ON sales.cust = customers.cid GROUP BY customers.cid'
+          console.log('products arr = ', products)
+          console.log('prodSum text = ', sqlProdSum)
 
-              pool.getConnection(function (err, connection) {
-                if (err) throw err // not connected!
-                connection.query(sqlQuery, function (error, results, fields) {
-                  connection.release()
-                  if (error) {
-                    res.status(500).json({
-                      error: String('!api/sys2 showFULL err:' + error)
-                    })
-                    console.log('api/sql: error code=', error.code)
-                    console.log('api/sql: error fatal=', error.fatal)
-                    reject(error)
-                  } else {
-                    res.status(200).json({ data: results })
-                    resolve(null)
-                  }
+          const sqlQuery =
+            'SELECT customers.cid, customers.cname,' +
+            // sqlProdSum +
+            ' SUM(sales.sum) AS gross FROM customers LEFT JOIN sales ON sales.cust = customers.cid GROUP BY customers.cid'
+
+          pool.getConnection(function (err, connection) {
+            if (err) throw err // not connected!
+            connection.query(sqlQuery, function (error, results, fields) {
+              connection.release()
+              if (error) {
+                res.status(500).json({
+                  error: String('!api/sys2 showFULL err:' + error)
                 })
-              })
-              break
-            //
-            default:
-              res.status(404).json({ data: '!api default case' })
-              resolve(null)
-              break
-          }
-        }
-      })
-  )
+                console.log('api/sql: error code=', error.code)
+                console.log('api/sql: error fatal=', error.fatal)
+                reject(error)
+              } else {
+                res.status(200).json({ data: results })
+                resolve(null)
+              }
+            })
+          })
+          break
+        //
+        default:
+          res.status(404).json({ data: '!api default case' })
+          resolve(null)
+          break
+      }
+    }
+  })
 }
