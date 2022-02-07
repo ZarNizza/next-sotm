@@ -197,3 +197,7 @@
   text-align: justify;
   background-color: papayawhip;
 }
+.main input:invalid {
+  border-color: red;
+  color: red;
+}

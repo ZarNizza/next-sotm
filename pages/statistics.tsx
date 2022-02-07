@@ -48,10 +48,16 @@ const Home: NextPage = () => {
   }
 
   function startDateChangeHandler(startDate: string) {
-    setStartDate(startDate)
+    if (startDate.length < 11)
+      setStartDate(
+        startDate.replace(/[^\d\.\,\-\/]/g, '').replace(/[^\d\-]/g, '-')
+      )
   }
   function finishDateChangeHandler(finishDate: string) {
-    setFinishDate(finishDate)
+    if (finishDate.length < 11)
+      setFinishDate(
+        finishDate.replace(/[^\d\.\,\-\/]/g, '').replace(/[^\d\-]/g, '-')
+      )
   }
 
   return (
@@ -69,12 +75,14 @@ const Home: NextPage = () => {
           <input
             type="text"
             placeholder="Start date"
+            pattern="^20\d\d[\.\-\/]\d\d[\.\-\/]\d\d$"
             value={startDate}
             onChange={(event) => startDateChangeHandler(event.target.value)}
           />
           <input
             type="text"
             placeholder="Finish date"
+            pattern="^20\d\d[\.\-\/]\d\d[\.\-\/]\d\d$"
             value={finishDate}
             onChange={(event) => finishDateChangeHandler(event.target.value)}
           />
