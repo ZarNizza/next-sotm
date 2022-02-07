@@ -5,6 +5,7 @@ import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
 import { Sale } from './add'
 import DBresultTable from '../components/DBresultTable'
+import { toNamespacedPath } from 'node:path/win32'
 
 const Home: NextPage = () => {
   const datenow = new Date()
@@ -60,6 +61,55 @@ const Home: NextPage = () => {
       )
   }
 
+  function myDate(mark: string) {
+    // add +1 to Month !!!!!!!!!!!
+    const today = new Date()
+    let myDate = today
+    switch (mark) {
+      case 'now':
+        break
+      case '0M':
+        myDate.setDate(1)
+        break
+      case 'FM':
+        myDate.setMonth(today.getMonth() - 1)
+        break
+      case '0Y':
+        myDate.setDate(1)
+        myDate.setMonth(0)
+        break
+      case 'FY':
+        myDate.setFullYear(today.getFullYear() - 1)
+        break
+      default:
+        break
+    }
+    return (
+      String(myDate.getFullYear()) +
+      '-' +
+      String(myDate.getMonth()) +
+      '-' +
+      String(myDate.getDate())
+    )
+  }
+
+  function setThisMonthHandler() {
+    setStartDate(() => myDate('0M'))
+    setFinishDate(() => myDate('now'))
+  }
+  function setFullMonthHandler() {
+    setStartDate(() => myDate('FM'))
+    setFinishDate(() => myDate('now'))
+  }
+  function setThisYearHandler() {
+    setStartDate(() => myDate('0Y'))
+    setFinishDate(() => myDate('now'))
+  }
+  function setFullYearHandler() {
+    setStartDate(() => myDate('FY'))
+    setFinishDate(() => myDate('now'))
+  }
+
   return (
     <Layout>
       <Head>
@@ -77,6 +127,7 @@ const Home: NextPage = () => {
             value={startDate}
             onChange={(event) => startDateChangeHandler(event.target.value)}
           />
+          {':'}
           <input
             type="text"
             placeholder="Finish date"
@@ -87,6 +138,12 @@ const Home: NextPage = () => {
           />
         </div>
         <div className={styles.sysButton}>
+          <button onClick={setThisMonthHandler}>this Month</button>{' '}
+          <button onClick={setFullMonthHandler}>Full Month</button>{' '}
+          <button onClick={setThisYearHandler}>this Year</button>{' '}
+          <button onClick={setFullYearHandler}>Full Year</button>{' '}
+        </div>
+        <div className={styles.orangeButton}>
           <button onClick={showSalesHandler}>show all Sales</button>{' '}
           <button onClick={showFullSalesHandler}>show FULL statistic</button>{' '}
         </div>
