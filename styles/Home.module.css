@@ -134,6 +134,17 @@
   padding: 1rem;
   min-width: 10rem;
 }
+.orangeButton button {
+  margin: 0.5rem;
+  padding: 1rem;
+  min-width: 10rem;
+  background-color: darkorange;
+  border-radius: 1rem;
+}
+.orangeButton button:hover {
+  background-color: darkgoldenrod;
+  transition: 0.5s ease;
+}
 .userInput {
   margin-right: 10px;
 }
