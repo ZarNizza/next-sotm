@@ -87,8 +87,8 @@ const Home: NextPage = () => {
           <button onClick={showSalesHandler}>show all Sales</button>{' '}
           <button onClick={showFullSalesHandler}>show FULL statistic</button>{' '}
         </div>
-        {resData === undefined || resData === [] ? (
-          ''
+        {resData === undefined || resData.length === 0 ? (
+          <p>No data - empty result</p>
         ) : (
           <DBresultTable resData={resData} />
         )}

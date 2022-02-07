@@ -7,7 +7,7 @@ interface TableProps {
 
 export default function DBresultTable(props: TableProps) {
   // console.log('------------+++++++++++++++---------- resData', props.resData)
-  if (props.resData === undefined || props.resData === []) {
+  if (props.resData === undefined || props.resData.length === 0) {
     return (
       <div className={styles.flexColumnContainer}>
         <p>--------------------</p>
