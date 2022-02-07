@@ -71,14 +71,17 @@ const Home: NextPage = () => {
           <input
             type="text"
             placeholder="Start date"
-            pattern="^20\d\d[\.\-\/]\d\d[\.\-\/]\d\d$"
+            // pattern="^(20\d\d\-(([0][1-9])|([1][012]))\-(([3][01])|([12]\d)|([0][1-9])))$"
+            // pattern="/^20\d\d\-(([0][1-9])|([1][012]))\-(([3][01])|([12]\d)|([0][1-9]))$/"
+            pattern="^20\d\d[\.\-\/][01]\d[\.\-\/][0123]\d$"
             value={startDate}
             onChange={(event) => startDateChangeHandler(event.target.value)}
           />
           <input
             type="text"
             placeholder="Finish date"
-            pattern="^20\d\d[\.\-\/]\d\d[\.\-\/]\d\d$"
+            // pattern="/^20\d\d\-(([0][1-9])|([01](?<=1)[012]))\-(([0123](?<=3)[01])|([123](?<=[012])\d)|([0][1-9]))$/"
+            pattern="^20\d\d[\.\-\/][01]\d[\.\-\/][0123]\d$"
             value={finishDate}
             onChange={(event) => finishDateChangeHandler(event.target.value)}
           />
