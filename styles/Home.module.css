@@ -130,7 +130,9 @@
 }
 
 .sysButton button {
-  margin: 5px;
+  margin: 0.5rem;
+  padding: 1rem;
+  min-width: 10rem;
 }
 .userInput {
   margin-right: 10px;
@@ -196,6 +198,11 @@
 .main thead {
   text-align: justify;
   background-color: papayawhip;
+}
+.main input {
+  margin: 0.5rem;
+  padding: 1rem;
+  font-size: large;
 }
 .main input:invalid {
   border-color: red;

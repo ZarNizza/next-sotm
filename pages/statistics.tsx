@@ -68,10 +68,6 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <h3>Statistics page</h3>
         <div className={styles.sysButton}>
-          <button onClick={showSalesHandler}>show all Sales</button>{' '}
-          <button onClick={showFullSalesHandler}>show FULL statistic</button>{' '}
-        </div>
-        <div className={styles.sysButton}>
           <input
             type="text"
             placeholder="Start date"
@@ -86,6 +82,10 @@ const Home: NextPage = () => {
             value={finishDate}
             onChange={(event) => finishDateChangeHandler(event.target.value)}
           />
+        </div>
+        <div className={styles.sysButton}>
+          <button onClick={showSalesHandler}>show all Sales</button>{' '}
+          <button onClick={showFullSalesHandler}>show FULL statistic</button>{' '}
         </div>
         {resData === undefined || resData === [] ? (
           ''
