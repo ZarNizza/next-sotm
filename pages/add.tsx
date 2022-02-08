@@ -22,7 +22,7 @@ export type Product = {
 }
 
 export type Sale = {
-  sid: number
+  sid?: number
   sdate: string
   cust: number
   prod: number
