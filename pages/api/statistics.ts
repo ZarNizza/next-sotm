@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import mysql from 'mysql2'
-import type { Sale, Customer, Product } from '../add'
-import { useState } from 'react'
+import type { Product } from '../add'
 
 const pool = mysql.createPool({
   connectionLimit: 10,
@@ -80,7 +79,6 @@ export default async function sysHandler(
         //
         case 'show_Full':
           let sqlProdSum = ''
-          // SELECT sales.prod, SUM(sales.sum) AS psum FROM sales WHERE sales.cust = customers.cid GROUP BY sales.prod
           sqlProdSum = products.reduce(
             (sum, item) =>
               sum +

@@ -3,17 +3,9 @@ import Head from 'next/head'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
-import {
-  DetailedHTMLProps,
-  HTMLAttributes,
-  MutableRefObject,
-  useEffect,
-  useRef,
-  useState
-} from 'react'
+import { useState } from 'react'
 import type { Sale } from './add'
 import DBresultTable from '../components/DBresultTable'
-
 
 const Home: NextPage = () => {
   const [resData, setResData] = useState<Sale[]>([])
@@ -51,7 +43,7 @@ const Home: NextPage = () => {
       )
   }
   function fillSalesHandler() {
-    fetch('/api/sys2-fill', { method: 'POST', body: 'fill_Sales' })   // sys2-fill
+    fetch('/api/sys2-fill', { method: 'POST', body: 'fill_Sales' }) // sys2-fill
       .then((res) => res.json())
       .then((res) => {
         console.log('SYS2: DB-S-fill = OK', res)
@@ -105,9 +97,12 @@ const Home: NextPage = () => {
               <button>&lt; &lt; Products List </button>
             </Link>
           </div>
-
           <div>
-          {resData === undefined || resData.length === 0 ? (<p>No data - empty result</p>) : (<DBresultTable resData={resData} />)}
+            {resData === undefined || resData.length === 0 ? (
+              <p>No data - empty result</p>
+            ) : (
+              <DBresultTable resData={resData} />
+            )}
           </div>
         </main>
       </div>

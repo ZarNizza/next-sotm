@@ -5,10 +5,8 @@ import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
 import { Sale } from './add'
 import DBresultTable from '../components/DBresultTable'
-import { toNamespacedPath } from 'node:path/win32'
 
 const Home: NextPage = () => {
-  const datenow = new Date()
   const [resData, setResData] = useState<Sale[]>([
     { sid: 0, sdate: '2022-02-02', cust: 0, prod: 0, sum: 0 }
   ])
@@ -62,7 +60,6 @@ const Home: NextPage = () => {
   }
 
   function myDate(mark: string) {
-    // add +1 to Month !!!!!!!!!!!
     const today = new Date()
     let myDate = today
     switch (mark) {

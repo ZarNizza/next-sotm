@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import mysql from 'mysql2'
-import type { Sale, Customer, Product } from '../add'
+import type { Sale } from '../add'
 
 const pool = mysql.createPool({
   connectionLimit: 10,
@@ -24,7 +24,6 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
             reject(error)
             return
           } else {
-            // console.log('MySQL result', results)
             console.log('+++++++++++ MySQL result OK')
           }
         }
@@ -66,9 +65,6 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
     })
   }
 
-  //
-  //
-  //
   return new Promise((resolve, reject) => {
     if (req.method === 'POST') {
       switch (req.body) {
@@ -97,7 +93,6 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
-              // "CREATE TABLE IF NOT EXISTS sales (sid INT AUTO_INCREMENT PRIMARY KEY, sdate DATETIME, cust SMALLINT, ptype ENUM('Маникюр', 'Маникюр+Лак', 'Маникюр+Гель', 'Педикюр', 'Педикюр+Лак', 'Педикюр+Гель', 'Бровки', 'Реснички'), sum SMALLINT)",
               'CREATE TABLE IF NOT EXISTS sales (sid INT AUTO_INCREMENT PRIMARY KEY, sdate DATE, cust SMALLINT, prod SMALLINT, sum SMALLINT)',
               function (error, results, fields) {
                 connection.release()

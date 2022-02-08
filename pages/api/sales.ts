@@ -24,14 +24,6 @@ export default function handler(
     if (req.method === 'POST') {
       const parsedReq = JSON.parse(req.body)
       const today = new Date()
-      // console.log(
-      //   'DAte to DB=',
-      //   String(today.getFullYear()) +
-      //     '-' +
-      //     String(today.getMonth() + 1) +
-      //     '-' +
-      //     String(today.getDate() + 'T04:00:00')
-      // )
       connection.query(
         'INSERT INTO sales (sdate, cust, prod, sum) VALUES (?, ?, ?, ?)',
         [
