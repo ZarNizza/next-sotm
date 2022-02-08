@@ -23,8 +23,12 @@ export default function handler(
     if (req.method === 'POST') {
       const parsedReq = JSON.parse(req.body)
       connection.query(
-        'INSERT INTO customers (cname, cphone) VALUES (?, ?)',
-        [parsedReq.cname.substring(0, 50), parsedReq.cphone.substring(0, 20)],
+        'INSERT INTO users (uname, uphone, timezone) VALUES (?, ?, ?)',
+        [
+          parsedReq.uname.substring(0, 50),
+          parsedReq.uphone.substring(0, 20),
+          parsedReq.timezone.substring(0, 2)
+        ],
         function (error, results, fields) {
           if (error) {
             res.status(500).json({ error: String(error) })

@@ -10,6 +10,7 @@ import DBresultTable from '../components/DBresultTable'
 const Home: NextPage = () => {
   const [userName, setUserName] = useState('')
   const [userPhone, setUserPhone] = useState('')
+  const [timeZone, setTimeZone] = useState('')
   const [customerName, setCustomerName] = useState('')
   const [customerPhone, setCustomerPhone] = useState('')
   const [product, setProduct] = useState('')
@@ -191,13 +192,15 @@ const Home: NextPage = () => {
   function inputUserChangeHandler(userName: string) {
     setUserName(userName)
   }
-
   function inputPhoneChangeHandler(userPhone: string) {
     setUserPhone(userPhone)
   }
+  function inputTimeZoneChangeHandler(timeZone: string) {
+    setTimeZone(timeZone)
+  }
 
   function addUserHandler() {
-    const user = { cname: userName, cphone: userPhone }
+    const user = { uname: userName, uphone: userPhone, timezone: timeZone }
     fetch('/api/users', {
       method: 'POST',
       body: JSON.stringify(user)
@@ -207,6 +210,7 @@ const Home: NextPage = () => {
         console.log('SYS: addUser = OK', res)
         setUserName('')
         setUserPhone('')
+        setTimeZone('')
       })
       .catch((error) => console.log('! SYS: addUser error - ', error.message))
   }
@@ -228,8 +232,8 @@ const Home: NextPage = () => {
       .then((res) => res.json())
       .then((res) => {
         console.log('SYS: addCustomer = OK', res)
-        setUserName('')
-        setUserPhone('')
+        setCustomerName('')
+        setCustomerPhone('')
       })
       .catch((error) =>
         console.log('! SYS: addCustomer error - ', error.message)
@@ -282,6 +286,15 @@ const Home: NextPage = () => {
               onChange={(event) => inputPhoneChangeHandler(event.target.value)}
               placeholder="+x xxx xxx xxxx"
               className={styles.userInput}
+            />
+            <input
+              id="userTimeZoneInput"
+              value={timeZone}
+              onChange={(event) =>
+                inputTimeZoneChangeHandler(event.target.value)
+              }
+              placeholder="UTC"
+              className={styles.tzInput}
             />
             <button onClick={addUserHandler}> + add USER + </button>
           </div>
