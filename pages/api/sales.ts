@@ -21,11 +21,11 @@ export default function handler(
   return new Promise((resolve, reject) => {
     if (req.method === 'POST') {
       const parsedReq = JSON.parse(req.body)
-      const dateNow = new Date()
+      const today = new Date()
       connection.query(
         'INSERT INTO sales (sdate, cust, prod, sum) VALUES (?, ?, ?, ?)',
         [
-          dateNow,
+          String(today.getFullYear())+'-'+String(today.getMonth()+1)+'-'+String(today.getDate()),
           Number(parsedReq.customer),
           Number(parsedReq.prod),
           Number(parsedReq.sum)

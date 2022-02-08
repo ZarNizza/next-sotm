@@ -98,7 +98,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
             if (err) throw err // not connected!
             connection.query(
               // "CREATE TABLE IF NOT EXISTS sales (sid INT AUTO_INCREMENT PRIMARY KEY, sdate DATETIME, cust SMALLINT, ptype ENUM('Маникюр', 'Маникюр+Лак', 'Маникюр+Гель', 'Педикюр', 'Педикюр+Лак', 'Педикюр+Гель', 'Бровки', 'Реснички'), sum SMALLINT)",
-              'CREATE TABLE IF NOT EXISTS sales (sid INT AUTO_INCREMENT PRIMARY KEY, sdate DATETIME, cust SMALLINT, prod SMALLINT, sum SMALLINT)',
+              'CREATE TABLE IF NOT EXISTS sales (sid INT AUTO_INCREMENT PRIMARY KEY, sdate DATE, cust SMALLINT, prod SMALLINT, sum SMALLINT)',
               function (error, results, fields) {
                 connection.release()
                 if (error) {
@@ -148,7 +148,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                 // console.log(id, cItem, pItem)
                 const prop: Sale = {
                   sid: 0,
-                  sdate: iDate,
+                  sdate: String(iDate.getFullYear())+'-'+String(iDate.getMonth()+1)+'-'+String(iDate.getDate()),
                   cust: cItem,
                   prod: pItem,
                   sum: cItem

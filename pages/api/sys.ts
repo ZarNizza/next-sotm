@@ -133,7 +133,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
             if (err) throw err // not connected!
             connection.query(
               // "CREATE TABLE IF NOT EXISTS sales (sid INT AUTO_INCREMENT PRIMARY KEY, sdate DATETIME, cust SMALLINT, ptype ENUM('Маникюр', 'Маникюр+Лак', 'Маникюр+Гель', 'Педикюр', 'Педикюр+Лак', 'Педикюр+Гель', 'Бровки', 'Реснички'), sum SMALLINT)",
-              'CREATE TABLE IF NOT EXISTS sales (sid INT AUTO_INCREMENT PRIMARY KEY, sdate DATETIME, cust SMALLINT, prod SMALLINT, sum SMALLINT)',
+              'CREATE TABLE IF NOT EXISTS sales (sid INT AUTO_INCREMENT PRIMARY KEY, sdate DATE, cust SMALLINT, prod SMALLINT, sum SMALLINT)',
               function (error, results, fields) {
                 connection.release()
                 if (error) {
@@ -236,6 +236,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                     .json({ error: String('!api showSales err:' + error) })
                 } else {
                   res.status(200).json({ data: results })
+
+                //  if(results[0]) {console.log('saleDate=', results[0].sdate)} else {console.log('sale results EMPTY')}
+
                 }
                 resolve(null)
               }

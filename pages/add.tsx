@@ -23,7 +23,7 @@ export type Product = {
 
 export type Sale = {
   sid: number
-  sdate: Date
+  sdate: string
   cust: number
   prod: number
   sum: number
