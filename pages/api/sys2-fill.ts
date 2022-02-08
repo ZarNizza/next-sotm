@@ -37,15 +37,16 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
               return
             }
           }
-          )
-        })
-       resolveSS(null)
+        )
+      })
+      resolveSS(null)
     })
   }
 
   console.log('NEW FILL SALES')
   const customers = [1, 2]
   const products = [5, 6]
+  const timeZone = '04'
   let iDate = new Date(2021, 0, 1, 11)
   const findate = new Date(2021, 0, 3, 11)
   for (; iDate <= findate; iDate.setDate(iDate.getDate() + 1)) {
@@ -53,12 +54,20 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
       products.forEach((pItem) => {
         const props: Sale = {
           sid: 0,
-          sdate: String(iDate.getFullYear())+'-'+String(iDate.getMonth()+1)+'-'+String(iDate.getDate()),
+          sdate:
+            String(iDate.getFullYear()) +
+            '-' +
+            String(iDate.getMonth() + 1) +
+            '-' +
+            String(iDate.getDate()) +
+            'T' +
+            timeZone +
+            ':00:00',
           cust: cItem,
           prod: pItem,
           sum: cItem * pItem
         }
-        console.log(props.sdate)
+        // console.log(props.sdate)
         // SaveSale(props)
 
         new Promise((resolveSS, rejectSS) => {
@@ -75,9 +84,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
               function (error, results, fields) {
                 connection.release()
                 if (error) {
-                  res
-                    .status(500)
-                    .json({ error: String('!api/sys2 clear_Sales err:' + error) })
+                  res.status(500).json({
+                    error: String('!api/sys2 clear_Sales err:' + error)
+                  })
                   console.log('! saveSaleError! --------------', error)
                   rejectSS(error)
                 } else {
@@ -86,17 +95,12 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                 }
                 resolveSS(null)
               }
-              )
-            })
-           resolveSS(null)
+            )
+          })
+          resolveSS(null)
         })
-
-
-
-
       })
     })
   }
   return
 }
-

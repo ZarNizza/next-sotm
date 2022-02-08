@@ -18,14 +18,31 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<ApiData>
 ) {
+  const timeZone = '04'
+
   return new Promise((resolve, reject) => {
     if (req.method === 'POST') {
       const parsedReq = JSON.parse(req.body)
       const today = new Date()
+      // console.log(
+      //   'DAte to DB=',
+      //   String(today.getFullYear()) +
+      //     '-' +
+      //     String(today.getMonth() + 1) +
+      //     '-' +
+      //     String(today.getDate() + 'T04:00:00')
+      // )
       connection.query(
         'INSERT INTO sales (sdate, cust, prod, sum) VALUES (?, ?, ?, ?)',
         [
-          String(today.getFullYear())+'-'+String(today.getMonth()+1)+'-'+String(today.getDate()),
+          String(today.getFullYear()) +
+            '-' +
+            String(today.getMonth() + 1) +
+            '-' +
+            String(today.getDate()) +
+            'T' +
+            timeZone +
+            ':00:00',
           Number(parsedReq.customer),
           Number(parsedReq.prod),
           Number(parsedReq.sum)

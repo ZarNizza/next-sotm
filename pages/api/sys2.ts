@@ -140,6 +140,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           console.log('FILL SALES')
           const customers = [1, 2]
           const products = [5, 6]
+          const timeZone = '04'
           let iDate = new Date(2021, 0, 1, 11)
           const findate = new Date(2021, 0, 4, 11)
           for (; iDate < findate; iDate.setDate(iDate.getDate() + 1)) {
@@ -148,7 +149,15 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                 // console.log(id, cItem, pItem)
                 const prop: Sale = {
                   sid: 0,
-                  sdate: String(iDate.getFullYear())+'-'+String(iDate.getMonth()+1)+'-'+String(iDate.getDate()),
+                  sdate:
+                    String(iDate.getFullYear()) +
+                    '-' +
+                    String(iDate.getMonth() + 1) +
+                    '-' +
+                    String(iDate.getDate()) +
+                    'T' +
+                    timeZone +
+                    ':00:00',
                   cust: cItem,
                   prod: pItem,
                   sum: cItem
