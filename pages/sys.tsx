@@ -190,13 +190,13 @@ const Home: NextPage = () => {
   }
 
   function inputUserChangeHandler(userName: string) {
-    setUserName(userName)
+    setUserName(userName.replace(/[^a-zA-Zа-яА-Я\-\s]/gi, ''))
   }
   function inputPhoneChangeHandler(userPhone: string) {
-    setUserPhone(userPhone)
+    setUserPhone(userPhone.replace(/[^\d\-\+\s]/g, ''))
   }
   function inputTimeZoneChangeHandler(timeZone: string) {
-    setTimeZone(timeZone)
+    setTimeZone(timeZone.replace(/[^\d\-\+]/g, ''))
   }
 
   function addUserHandler() {
@@ -216,11 +216,11 @@ const Home: NextPage = () => {
   }
 
   function inputCustomerNameChangeHandler(customerName: string) {
-    setCustomerName(customerName)
+    setCustomerName(customerName.replace(/[^a-zA-Zа-яА-Я\-\s]/gi, ''))
   }
 
   function inputCustomerPhoneChangeHandler(customerPhone: string) {
-    setCustomerPhone(customerPhone)
+    setCustomerPhone(customerPhone.replace(/[^\d\-\+\s]/g, ''))
   }
 
   function addCustomerHandler() {
@@ -240,12 +240,12 @@ const Home: NextPage = () => {
       )
   }
 
-  function inputProductChangeHandler(product: string) {
-    setProduct(product)
+  function inputProductChangeHandler(pText: string) {
+    setProduct(pText.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:]/gi, ''))
   }
 
   function inputPsymbolChangeHandler(pSymbol: string) {
-    setPsymbol(pSymbol)
+    setPsymbol(pSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:\_]/gi, ''))
   }
 
   function addProductHandler() {
@@ -278,13 +278,15 @@ const Home: NextPage = () => {
               value={userName}
               onChange={(event) => inputUserChangeHandler(event.target.value)}
               placeholder="USER first, last name"
+              pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
               className={styles.userInput}
             />
             <input
               id="userPhoneInput"
               value={userPhone}
               onChange={(event) => inputPhoneChangeHandler(event.target.value)}
-              placeholder="+x xxx xxx xxxx"
+              placeholder="+x xxx xxx xxxx, xxxx"
+              pattern="^\+?[\d\s\-]{0,20}"
               className={styles.userInput}
             />
             <input
@@ -294,6 +296,7 @@ const Home: NextPage = () => {
                 inputTimeZoneChangeHandler(event.target.value)
               }
               placeholder="UTC"
+              pattern="^[\+\-]?\d[012]?$"
               className={styles.tzInput}
             />
             <button onClick={addUserHandler}> + add USER + </button>
@@ -306,6 +309,7 @@ const Home: NextPage = () => {
                 inputCustomerNameChangeHandler(event.target.value)
               }
               placeholder="CUSTOMER first, last name"
+              pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
               className={styles.userInput}
             />
             <input
@@ -315,6 +319,7 @@ const Home: NextPage = () => {
                 inputCustomerPhoneChangeHandler(event.target.value)
               }
               placeholder="+x xxx xxx xxxx"
+              pattern="^\+?[\d\s\-]{0,20}"
               className={styles.userInput}
             />
             <button onClick={addCustomerHandler}> + add CUST + </button>
@@ -327,6 +332,7 @@ const Home: NextPage = () => {
                 inputProductChangeHandler(event.target.value)
               }
               placeholder="Product description"
+              pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
               className={styles.userInput}
             />
             <input
@@ -336,6 +342,7 @@ const Home: NextPage = () => {
                 inputPsymbolChangeHandler(event.target.value)
               }
               placeholder="up to 7 symbols"
+              pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
               className={styles.userInput}
             />
             <button onClick={addProductHandler}> + add Product </button>

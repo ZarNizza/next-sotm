@@ -27,7 +27,7 @@ export default function handler(
         [
           parsedReq.uname.substring(0, 50),
           parsedReq.uphone.substring(0, 20),
-          parsedReq.timezone.substring(0, 2)
+          parsedReq.timezone.substring(0, 3)
         ],
         function (error, results, fields) {
           if (error) {
