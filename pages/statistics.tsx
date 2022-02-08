@@ -96,6 +96,10 @@ const Home: NextPage = () => {
     return resultDate
   }
 
+  function setTodayHandler() {
+    setStartDate(() => myDate('today'))
+    setFinishDate(() => myDate('today'))
+  }
   function setThisMonthHandler() {
     setStartDate(() => myDate('0M'))
     setFinishDate(() => myDate('today'))
@@ -141,6 +145,7 @@ const Home: NextPage = () => {
           />
         </div>
         <div className={styles.sysButton}>
+          <button onClick={setTodayHandler}>today</button>{' '}
           <button onClick={setThisMonthHandler}>this Month</button>{' '}
           <button onClick={setFullMonthHandler}>Full Month</button>{' '}
           <button onClick={setThisYearHandler}>this Year</button>{' '}
