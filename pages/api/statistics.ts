@@ -41,8 +41,14 @@ export default async function sysHandler(
       ? '"' + parsedReq.startDate + ' 00:00:00"'
       : '"2021-01-01 00:00:00"'
     const finishDate = parsedReq.finishDate
-      ? '"' + parsedReq.finishDate + ' 00:00:00"'
-      : '"2022-01-15 00:00:00"'
+      ? '"' +
+        parsedReq.finishDate.slice(0, parsedReq.finishDate.length - 2) +
+        String(
+          Number(parsedReq.finishDate.slice(parsedReq.finishDate.length - 2)) +
+            1
+        ) +
+        ' 00:00:00"'
+      : '"2099-12-31 00:00:00"'
 
     if (req.method === 'POST') {
       switch (parsedReq.mode) {
@@ -85,7 +91,7 @@ export default async function sysHandler(
           )
 
           // console.log('+++++++ startDate = ', startDate)
-          // console.log('++++++ finishDate = ', finishDate)
+          console.log('++++++ finishDate = ', finishDate)
 
           const sqlQuery =
             'SELECT customers.cid, customers.cname,' +

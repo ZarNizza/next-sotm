@@ -5,6 +5,7 @@ import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
 import { useState } from 'react'
+import DBresultTable from '../components/DBresultTable'
 
 const Home: NextPage = () => {
   const [userName, setUserName] = useState('')
@@ -13,6 +14,9 @@ const Home: NextPage = () => {
   const [customerPhone, setCustomerPhone] = useState('')
   const [product, setProduct] = useState('')
   const [pSymbol, setPsymbol] = useState('')
+  const [resData, setResData] = useState([
+    { sid: 0, sdate: '2022-02-02', cust: 0, prod: 0, sum: 0 }
+  ])
 
   function clearUsersHandler() {
     fetch('/api/sys', { method: 'POST', body: 'clear_Users' })
@@ -107,7 +111,8 @@ const Home: NextPage = () => {
     fetch('/api/sys', { method: 'POST', body: 'showTables' })
       .then((res) => res.json())
       .then((res) => {
-        console.log('SYS: showTables = OK', res)
+        console.log('SYS: showTables = OK', res.data)
+        setResData(() => res.data)
       })
       .catch((error) =>
         console.log('! SYS: showTables error - ', error.message)
@@ -118,7 +123,8 @@ const Home: NextPage = () => {
     fetch('/api/sys', { method: 'POST', body: 'showUsers' })
       .then((res) => res.json())
       .then((res) => {
-        console.log('SYS: showUsers = OK', res)
+        console.log('SYS: showUsers = OK', res.data)
+        setResData(() => res.data)
       })
       .catch((error) => console.log('! SYS: showUsers error - ', error.message))
   }
@@ -127,7 +133,8 @@ const Home: NextPage = () => {
     fetch('/api/sys', { method: 'POST', body: 'showSales' })
       .then((res) => res.json())
       .then((res) => {
-        console.log('SYS: showSales = OK', res)
+        console.log('SYS: showSales = OK', res.data)
+        setResData(() => res.data)
       })
       .catch((error) => console.log('! SYS: showSales error - ', error.message))
   }
@@ -136,7 +143,8 @@ const Home: NextPage = () => {
     fetch('/api/sys', { method: 'POST', body: 'showProds' })
       .then((res) => res.json())
       .then((res) => {
-        console.log('SYS: showProds = OK', res)
+        console.log('SYS: showProds = OK', res.data)
+        setResData(() => res.data)
       })
       .catch((error) => console.log('! SYS: showProds error - ', error.message))
   }
@@ -331,6 +339,11 @@ const Home: NextPage = () => {
             </Link>
             <p> </p>
           </div>
+          {resData === undefined || resData.length === 0 ? (
+            <p>No data - empty result</p>
+          ) : (
+            <DBresultTable resData={resData} />
+          )}
         </main>
       </div>
     </Layout>
