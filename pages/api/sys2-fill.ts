@@ -10,97 +10,71 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME
 })
 
-export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
-  function SaveSale(props: Sale) {
-    return new Promise((resolveSS, rejectSS) => {
-      pool.getConnection(function (err, connection) {
-        if (err) throw err // not connected!
-        connection.query(
-          'INSERT INTO sales (sdate, cust, prod, sum) VALUES (?, ?, ?, ?)',
-          [
-            props.sdate,
-            Number(props.cust),
-            Number(props.prod),
-            Number(props.sum)
-          ],
-          function (error, results, fields) {
-            connection.release()
-            if (error) {
-              res
-                .status(500)
-                .json({ error: String('!api/sys2 clear_Sales err:' + error) })
-              console.log('! saveSaleError! --------------', error)
-              rejectSS(error)
-            } else {
-              res.status(203).json({ data: results })
-              resolveSS(null)
-              return
-            }
+function SaveSale(args: Sale) {
+  return new Promise((resolveSS, rejectSS) => {
+    pool.getConnection(function (err, connection) {
+      if (err) throw err // not connected!
+      connection.query(
+        'INSERT INTO sales (sdate, cust, prod, sum) VALUES (?, ?, ?, ?)',
+        [args.sdate, Number(args.cust), Number(args.prod), Number(args.sum)],
+        function (error, results, fields) {
+          connection.release()
+          if (error) {
+            rejectSS(error)
+          } else {
+            resolveSS(null)
+            return
           }
-        )
-      })
-      resolveSS(null)
+        }
+      )
     })
+    resolveSS(null)
+  })
+}
+
+export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
+  console.log('NEW FILL SALES')
+  const customers = [3, 4]
+  const products = [5, 6]
+
+  let iDate = new Date(2021, 3, 1, 11)
+  const findate = new Date(2021, 3, 3, 11)
+  let dates: string[] = []
+
+  for (; iDate <= findate; iDate.setDate(iDate.getDate() + 1)) {
+    dates.push(serialiseDate(iDate))
   }
 
-  console.log('NEW FILL SALES')
-  const customers = [1, 2]
-  const products = [5, 6]
-  const timeZone = '04'
-  let iDate = new Date(2021, 0, 1, 11)
-  const findate = new Date(2021, 0, 3, 11)
-  for (; iDate <= findate; iDate.setDate(iDate.getDate() + 1)) {
-    customers.forEach((cItem) => {
-      products.forEach((pItem) => {
-        const props: Sale = {
-          sid: 0,
-          sdate:
-            String(iDate.getFullYear()) +
-            '-' +
-            String(iDate.getMonth() + 1) +
-            '-' +
-            String(iDate.getDate()) +
-            'T' +
-            timeZone +
-            ':00:00',
-          cust: cItem,
-          prod: pItem,
-          sum: cItem * pItem
-        }
-        // console.log(props.sdate)
-        // SaveSale(props)
-
-        new Promise((resolveSS, rejectSS) => {
-          pool.getConnection(function (err, connection) {
-            if (err) throw err // not connected!
-            connection.query(
-              'INSERT INTO sales (sdate, cust, prod, sum) VALUES (?, ?, ?, ?)',
-              [
-                props.sdate,
-                Number(props.cust),
-                Number(props.prod),
-                Number(props.sum)
-              ],
-              function (error, results, fields) {
-                connection.release()
-                if (error) {
-                  res.status(500).json({
-                    error: String('!api/sys2 clear_Sales err:' + error)
-                  })
-                  console.log('! saveSaleError! --------------', error)
-                  rejectSS(error)
-                } else {
-                  res.status(203).json({ data: results })
-                  return
-                }
-                resolveSS(null)
-              }
-            )
+  return Promise.all(
+    customers
+      .map((cust) => {
+        return products.map((prod) => {
+          return dates.map((sdate) => {
+            const sum = cust * prod
+            return SaveSale({ cust, prod, sdate, sum })
           })
-          resolveSS(null)
         })
       })
-    })
-  }
-  return
+      .flat(2)
+  )
+    .then(() => res.status(203).json({ data: 'OK' }))
+    .catch((error) =>
+      res
+        .status(500)
+        .json({ error: String('!api/sys2 clear_Sales err:' + error) })
+    )
+}
+
+const timeZone = '04'
+function serialiseDate(date: Date) {
+  return (
+    String(date.getFullYear()) +
+    '-' +
+    String(date.getMonth() + 1) +
+    '-' +
+    String(date.getDate()) +
+    'T' +
+    timeZone +
+    ':00:00'
+  )
 }
