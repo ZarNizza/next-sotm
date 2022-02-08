@@ -81,17 +81,25 @@ const Home: NextPage = () => {
       case 'FY':
         myDate.setFullYear(today.getFullYear() - 1)
         break
+      case '0':
+        myDate.setFullYear(2000)
+        myDate.setMonth(0)
+        myDate.setDate(1)
+        break
+      case 'all':
+        myDate.setFullYear(2099)
+        myDate.setMonth(11)
+        myDate.setDate(31)
+        break
       default:
         break
     }
 
-    let resultDate = 
-    String(myDate.getFullYear()) +
-    '-'
-    if (myDate.getMonth() <9) resultDate += '0'
-    resultDate += String(myDate.getMonth()+1) + '-'
+    let resultDate = String(myDate.getFullYear()) + '-'
+    if (myDate.getMonth() < 9) resultDate += '0'
+    resultDate += String(myDate.getMonth() + 1) + '-'
 
-    if (myDate.getDate() <10) resultDate += '0'
+    if (myDate.getDate() < 10) resultDate += '0'
     resultDate += String(myDate.getDate())
     return resultDate
   }
@@ -115,6 +123,10 @@ const Home: NextPage = () => {
   function setFullYearHandler() {
     setStartDate(() => myDate('FY'))
     setFinishDate(() => myDate('today'))
+  }
+  function setAllHandler() {
+    setStartDate(() => myDate('0'))
+    setFinishDate(() => myDate('all'))
   }
 
   return (
@@ -150,6 +162,7 @@ const Home: NextPage = () => {
           <button onClick={setFullMonthHandler}>Full Month</button>{' '}
           <button onClick={setThisYearHandler}>this Year</button>{' '}
           <button onClick={setFullYearHandler}>Full Year</button>{' '}
+          <button onClick={setAllHandler}>All</button>{' '}
         </div>
         <div className={styles.orangeButton}>
           <button onClick={showSalesHandler}>show all Sales</button>{' '}
