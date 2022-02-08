@@ -10,7 +10,7 @@ import { toNamespacedPath } from 'node:path/win32'
 const Home: NextPage = () => {
   const datenow = new Date()
   const [resData, setResData] = useState<Sale[]>([
-    { sid: 0, sdate: datenow, cust: 0, prod: 0, sum: 0 }
+    { sid: 0, sdate: '2022-02-02', cust: 0, prod: 0, sum: 0 }
   ])
   const [startDate, setStartDate] = useState('2021-01-01')
   const [finishDate, setFinishDate] = useState('2022-02-10')
@@ -66,7 +66,7 @@ const Home: NextPage = () => {
     const today = new Date()
     let myDate = today
     switch (mark) {
-      case 'now':
+      case 'today':
         break
       case '0M':
         myDate.setDate(1)
@@ -84,30 +84,33 @@ const Home: NextPage = () => {
       default:
         break
     }
-    return (
-      String(myDate.getFullYear()) +
-      '-' +
-      String(myDate.getMonth()) +
-      '-' +
-      String(myDate.getDate())
-    )
+
+    let resultDate = 
+    String(myDate.getFullYear()) +
+    '-'
+    if (myDate.getMonth() <9) resultDate += '0'
+    resultDate += String(myDate.getMonth()+1) + '-'
+
+    if (myDate.getDate() <10) resultDate += '0'
+    resultDate += String(myDate.getDate())
+    return resultDate
   }
 
   function setThisMonthHandler() {
     setStartDate(() => myDate('0M'))
-    setFinishDate(() => myDate('now'))
+    setFinishDate(() => myDate('today'))
   }
   function setFullMonthHandler() {
     setStartDate(() => myDate('FM'))
-    setFinishDate(() => myDate('now'))
+    setFinishDate(() => myDate('today'))
   }
   function setThisYearHandler() {
     setStartDate(() => myDate('0Y'))
-    setFinishDate(() => myDate('now'))
+    setFinishDate(() => myDate('today'))
   }
   function setFullYearHandler() {
     setStartDate(() => myDate('FY'))
-    setFinishDate(() => myDate('now'))
+    setFinishDate(() => myDate('today'))
   }
 
   return (
