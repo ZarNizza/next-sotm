@@ -126,7 +126,7 @@ const Home: NextPage = () => {
   }
   function setAllHandler() {
     setStartDate(() => myDate('0'))
-    setFinishDate(() => myDate('all'))
+    setFinishDate(() => myDate('today'))
   }
 
   return (
@@ -157,16 +157,16 @@ const Home: NextPage = () => {
           />
         </div>
         <div className={styles.miniButton}>
-          <button onClick={setTodayHandler}>today</button>{' '}
-          <button onClick={setThisMonthHandler}>this Month</button>{' '}
-          <button onClick={setFullMonthHandler}>Full Month</button>{' '}
-          <button onClick={setThisYearHandler}>this Year</button>{' '}
-          <button onClick={setFullYearHandler}>Full Year</button>{' '}
-          <button onClick={setAllHandler}>All</button>{' '}
+          <button onClick={setTodayHandler}>today</button>
+          <button onClick={setThisMonthHandler}>this Month</button>
+          <button onClick={setFullMonthHandler}>Full Month</button>
+          <button onClick={setThisYearHandler}>this Year</button>
+          <button onClick={setFullYearHandler}>Full Year</button>
+          <button onClick={setAllHandler}>All</button>
         </div>
         <div className={styles.orangeButton}>
-          <button onClick={showSalesHandler}>show all Sales</button>{' '}
-          <button onClick={showFullSalesHandler}>show FULL statistic</button>{' '}
+          <button onClick={showSalesHandler}>show all Sales</button>
+          <button onClick={showFullSalesHandler}>show FULL statistic</button>
         </div>
         {resData === undefined || resData.length === 0 ? (
           <p>No data - empty result</p>
