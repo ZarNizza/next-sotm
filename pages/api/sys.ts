@@ -18,7 +18,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
-              'DELETE FROM customers WHERE 1',
+              'DELETE FROM users WHERE 1',
               function (error, results, fields) {
                 connection.release()
                 if (error) {
@@ -33,6 +33,27 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
             )
           })
           break
+
+        case 'clear_Customers':
+          pool.getConnection(function (err, connection) {
+            if (err) throw err // not connected!
+            connection.query(
+              'DELETE FROM customers WHERE 1',
+              function (error, results, fields) {
+                connection.release()
+                if (error) {
+                  res.status(500).json({
+                    error: String('!api clear_Customers err:' + error)
+                  })
+                } else {
+                  res.status(203).json({ data: results })
+                }
+                resolve(null)
+              }
+            )
+          })
+          break
+
         case 'clear_Sales':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
@@ -52,6 +73,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
             )
           })
           break
+
         case 'clear_Prod':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
@@ -71,11 +93,12 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
             )
           })
           break
+
         case 'drop_Users':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
-              'DROP TABLE customers',
+              'DROP TABLE users',
               function (error, results, fields) {
                 connection.release()
                 if (error) {
@@ -90,6 +113,27 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
             )
           })
           break
+
+        case 'drop_Customers':
+          pool.getConnection(function (err, connection) {
+            if (err) throw err // not connected!
+            connection.query(
+              'DROP TABLE customers',
+              function (error, results, fields) {
+                connection.release()
+                if (error) {
+                  res
+                    .status(500)
+                    .json({ error: String('!api drop_Customers err:' + error) })
+                } else {
+                  res.status(203).json({ data: results })
+                }
+                resolve(null)
+              }
+            )
+          })
+          break
+
         case 'drop_Sales':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
@@ -109,6 +153,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
             )
           })
           break
+
         case 'drop_Prod':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
@@ -128,6 +173,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
             )
           })
           break
+
         case 'restSales':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
@@ -148,6 +194,27 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
             )
           })
           break
+
+        case 'restUsers':
+          pool.getConnection(function (err, connection) {
+            if (err) throw err // not connected!
+            connection.query(
+              'CREATE TABLE IF NOT EXISTS users (uid SMALLINT AUTO_INCREMENT PRIMARY KEY, uname VARCHAR(50), uphone VARCHAR(20), gooid VARCHAR(30), timezone TINYINT)',
+              function (error, results, fields) {
+                connection.release()
+                if (error) {
+                  res
+                    .status(500)
+                    .json({ error: String('!api restoreUsers err:' + error) })
+                } else {
+                  res.status(207).json({ data: results })
+                }
+                resolve(null)
+              }
+            )
+          })
+          break
+
         case 'restCust':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
@@ -167,6 +234,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
             )
           })
           break
+
         case 'restProd':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
@@ -175,11 +243,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
               function (error, results, fields) {
                 connection.release()
                 if (error) {
-                  res
-                    .status(500)
-                    .json({
-                      error: String('!api restoreProducts err:' + error)
-                    })
+                  res.status(500).json({
+                    error: String('!api restoreProducts err:' + error)
+                  })
                 } else {
                   res.status(207).json({ data: results })
                 }
@@ -188,6 +254,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
             )
           })
           break
+
         case 'showTables':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
@@ -204,11 +271,12 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
             })
           })
           break
+
         case 'showUsers':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
-              'SELECT * FROM customers',
+              'SELECT * FROM users',
               function (error, results, fields) {
                 connection.release()
                 if (error) {
@@ -223,6 +291,27 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
             )
           })
           break
+
+        case 'showCustomers':
+          pool.getConnection(function (err, connection) {
+            if (err) throw err // not connected!
+            connection.query(
+              'SELECT * FROM customers',
+              function (error, results, fields) {
+                connection.release()
+                if (error) {
+                  res
+                    .status(500)
+                    .json({ error: String('!api showCustomers err:' + error) })
+                } else {
+                  res.status(200).json({ data: results })
+                }
+                resolve(null)
+              }
+            )
+          })
+          break
+
         case 'showSales':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
@@ -237,14 +326,14 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                 } else {
                   res.status(200).json({ data: results })
 
-                //  if(results[0]) {console.log('saleDate=', results[0].sdate)} else {console.log('sale results EMPTY')}
-
+                  //  if(results[0]) {console.log('saleDate=', results[0].sdate)} else {console.log('sale results EMPTY')}
                 }
                 resolve(null)
               }
             )
           })
           break
+
         case 'showProds':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
@@ -264,6 +353,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
             )
           })
           break
+
         default:
           res.status(404).json({ data: '!api default case' })
           resolve(null)

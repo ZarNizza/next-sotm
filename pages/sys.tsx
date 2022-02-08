@@ -25,6 +25,16 @@ const Home: NextPage = () => {
         console.log('SYS: DB-reset = OK', res)
       })
       .catch((error) =>
+        console.log('! SYS: DB-U-reset error - ', error.message)
+      )
+  }
+  function clearCustomersHandler() {
+    fetch('/api/sys', { method: 'POST', body: 'clear_Customers' })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('SYS: DB-reset = OK', res)
+      })
+      .catch((error) =>
         console.log('! SYS: DB-C-reset error - ', error.message)
       )
   }
@@ -53,6 +63,14 @@ const Home: NextPage = () => {
 
   function dropUsersHandler() {
     fetch('/api/sys', { method: 'POST', body: 'drop_Users' })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('SYS: DB-U-drop = OK', res)
+      })
+      .catch((error) => console.log('! SYS: DB-C-drop error - ', error.message))
+  }
+  function dropCustomersHandler() {
+    fetch('/api/sys', { method: 'POST', body: 'drop_Customers' })
       .then((res) => res.json())
       .then((res) => {
         console.log('SYS: DB-C-drop = OK', res)
@@ -87,6 +105,15 @@ const Home: NextPage = () => {
         console.log('SYS: restSales = OK', res)
       })
       .catch((error) => console.log('! SYS: restSales error - ', error.message))
+  }
+
+  function restoreUsersHandler() {
+    fetch('/api/sys', { method: 'POST', body: 'restUsers' })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('SYS: restUsers = OK', res)
+      })
+      .catch((error) => console.log('! SYS: restUsers error - ', error.message))
   }
 
   function restoreCustHandler() {
@@ -127,6 +154,16 @@ const Home: NextPage = () => {
         setResData(() => res.data)
       })
       .catch((error) => console.log('! SYS: showUsers error - ', error.message))
+  }
+
+  function showCustomersHandler() {
+    fetch('/api/sys', { method: 'POST', body: 'showCustomers' })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('SYS: showCustomers = OK', res.data)
+        setResData(() => res.data)
+      })
+      .catch((error) => console.log('! SYS: showCustomers error - ', error.message))
   }
 
   function showSalesHandler() {
@@ -292,14 +329,18 @@ const Home: NextPage = () => {
           <div>- - - - - - - - - - - - - -</div>
           <div>.</div>
           <div className={styles.sysButton}>
-            <button onClick={showUsersHandler}>SHOW customers</button>
-            <button onClick={showProductsHandler}>SHOW products</button>
-            <button onClick={showSalesHandler}>SHOW sales</button>
+            <button onClick={showUsersHandler}>show USERS</button>
+            <button onClick={showCustomersHandler}>show CUSTOMERS</button>
+            <button onClick={showProductsHandler}>show PRODUCT</button>
+            <button onClick={showSalesHandler}>show SALES</button>
           </div>
           <div className={styles.sysButton}>
             <button onClick={showTablesHandler}>SHOW TABLES</button>
           </div>
           <div className={styles.sysButton}>
+            <button onClick={restoreUsersHandler}>
+              restore USERS table
+            </button>{' '}
             <button onClick={restoreCustHandler}>
               restore CUSTOMERS table
             </button>{' '}
@@ -310,6 +351,10 @@ const Home: NextPage = () => {
           </div>
           <div className={styles.sysButton}>
             <button onClick={clearUsersHandler}>
+              ! CLEAR users TABLE !
+            </button>{' '}
+          <div className={styles.sysButton}>
+            <button onClick={clearCustomersHandler}>
               ! CLEAR customers TABLE !
             </button>{' '}
             <button onClick={clearProductHandler}>
@@ -318,7 +363,8 @@ const Home: NextPage = () => {
             <button onClick={clearSalesHandler}>! CLEAR sales TABLE !</button>
           </div>
           <div className={styles.sysButton}>
-            <button onClick={dropUsersHandler}>! DROP customers TABLE !</button>
+            <button onClick={dropUsersHandler}>! DROP users TABLE !</button>
+            <button onClick={dropCustomersHandler}>! DROP customers TABLE !</button>
             <button onClick={dropProductHandler}>! DROP product TABLE !</button>
             <button onClick={dropSalesHandler}>! DROP sales TABLE !</button>
           </div>
