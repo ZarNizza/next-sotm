@@ -132,7 +132,7 @@
 .sysButton button {
   margin: 0.5rem;
   padding: 1rem;
-  min-width: 10rem;
+  min-width: 6rem;
 }
 .miniButton button {
   margin: 0.5rem;
@@ -148,6 +148,17 @@
 }
 .orangeButton button:hover {
   background-color: darkgoldenrod;
+  transition: 0.5s ease;
+}
+.blueButton button {
+  margin: 0.5rem;
+  padding: 1rem;
+  min-width: 10rem;
+  background-color: lightskyblue;
+  border-radius: 1rem;
+}
+.blueButton button:hover {
+  background-color: darkcyan;
   transition: 0.5s ease;
 }
 .userInput {

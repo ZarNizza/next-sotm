@@ -163,7 +163,9 @@ const Home: NextPage = () => {
         console.log('SYS: showCustomers = OK', res.data)
         setResData(() => res.data)
       })
-      .catch((error) => console.log('! SYS: showCustomers error - ', error.message))
+      .catch((error) =>
+        console.log('! SYS: showCustomers error - ', error.message)
+      )
   }
 
   function showSalesHandler() {
@@ -329,49 +331,37 @@ const Home: NextPage = () => {
           <div>- - - - - - - - - - - - - -</div>
           <div>.</div>
           <div className={styles.sysButton}>
-            <button onClick={showUsersHandler}>show USERS</button>
-            <button onClick={showCustomersHandler}>show CUSTOMERS</button>
-            <button onClick={showProductsHandler}>show PRODUCT</button>
-            <button onClick={showSalesHandler}>show SALES</button>
+            <button onClick={showUsersHandler}>show U</button>
+            <button onClick={showCustomersHandler}>show C</button>
+            <button onClick={showProductsHandler}>show P</button>
+            <button onClick={showSalesHandler}>show S</button>
           </div>
           <div className={styles.sysButton}>
             <button onClick={showTablesHandler}>SHOW TABLES</button>
           </div>
+          <div>- - - - - - - - - - - - - -</div>
           <div className={styles.sysButton}>
-            <button onClick={restoreUsersHandler}>
-              restore USERS table
-            </button>{' '}
-            <button onClick={restoreCustHandler}>
-              restore CUSTOMERS table
-            </button>{' '}
-            <button onClick={restoreProductHandler}>
-              restore PRODUCT table
-            </button>{' '}
-            <button onClick={restoreSalesHandler}>restore SALES table</button>
+            <button onClick={restoreUsersHandler}>restore U</button>
+            <button onClick={restoreCustHandler}>restore C</button>
+            <button onClick={restoreProductHandler}>restore P</button>
+            <button onClick={restoreSalesHandler}>restore S</button>
           </div>
           <div className={styles.sysButton}>
-            <button onClick={clearUsersHandler}>
-              ! CLEAR users TABLE !
-            </button>{' '}
-          <div className={styles.sysButton}>
-            <button onClick={clearCustomersHandler}>
-              ! CLEAR customers TABLE !
-            </button>{' '}
-            <button onClick={clearProductHandler}>
-              ! CLEAR product TABLE !
-            </button>{' '}
-            <button onClick={clearSalesHandler}>! CLEAR sales TABLE !</button>
+            <button onClick={clearUsersHandler}>! CLEAR U</button>
+            <button onClick={clearCustomersHandler}>! CLEAR C</button>
+            <button onClick={clearProductHandler}>! CLEAR P</button>
+            <button onClick={clearSalesHandler}>! CLEAR S</button>
           </div>
           <div className={styles.sysButton}>
-            <button onClick={dropUsersHandler}>! DROP users TABLE !</button>
-            <button onClick={dropCustomersHandler}>! DROP customers TABLE !</button>
-            <button onClick={dropProductHandler}>! DROP product TABLE !</button>
-            <button onClick={dropSalesHandler}>! DROP sales TABLE !</button>
+            <button onClick={dropUsersHandler}>! DROP U</button>
+            <button onClick={dropCustomersHandler}>! DROP C</button>
+            <button onClick={dropProductHandler}>! DROP P</button>
+            <button onClick={dropSalesHandler}>! DROP S</button>
           </div>
           <div>.</div>
           <div>- - - - - - - - - - - - - -</div>
           <div>.</div>
-          <div className={styles.sysButton}>
+          <div className={styles.blueButton}>
             <Link href="/users">
               <button> &lt; &lt; &lt; Customers List </button>
             </Link>{' '}
