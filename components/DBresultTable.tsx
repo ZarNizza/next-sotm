@@ -20,7 +20,6 @@ export default function DBresultTable(props: TableProps) {
     return (
       <div className={styles.flexColumnContainer}>
         <p>--------------------</p>
-        <p>Sales </p>
         <table>
           <thead>
             <tr key={Math.random()}>
@@ -33,7 +32,7 @@ export default function DBresultTable(props: TableProps) {
             {props.resData.map((item) => {
               const a = Object.values(item)
               return (
-                <tr key= {Math.random()}>
+                <tr key={Math.random()}>
                   {Object.values(item).map((elem) => (
                     <td key={Math.random()}>
                       {typeof elem === 'number'
