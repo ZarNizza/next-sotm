@@ -23,9 +23,9 @@ export default function DBresultTable(props: TableProps) {
         <p>Sales </p>
         <table>
           <thead>
-            <tr>
+            <tr key={Math.random()}>
               {keys.map((key) => (
-                <td>{key}</td>
+                <td key={Math.random()}>{key}</td>
               ))}
             </tr>
           </thead>
@@ -33,9 +33,9 @@ export default function DBresultTable(props: TableProps) {
             {props.resData.map((item) => {
               const a = Object.values(item)
               return (
-                <tr key={JSON.stringify(item)}>
+                <tr key= {Math.random()}>
                   {Object.values(item).map((elem) => (
-                    <td>
+                    <td key={Math.random()}>
                       {typeof elem === 'number'
                         ? String(elem)
                         : String(elem).slice(0, 10)}
