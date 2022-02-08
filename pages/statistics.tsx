@@ -144,7 +144,7 @@ const Home: NextPage = () => {
             onChange={(event) => finishDateChangeHandler(event.target.value)}
           />
         </div>
-        <div className={styles.sysButton}>
+        <div className={styles.miniButton}>
           <button onClick={setTodayHandler}>today</button>{' '}
           <button onClick={setThisMonthHandler}>this Month</button>{' '}
           <button onClick={setFullMonthHandler}>Full Month</button>{' '}

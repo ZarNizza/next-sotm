@@ -134,6 +134,11 @@
   padding: 1rem;
   min-width: 10rem;
 }
+.miniButton button {
+  margin: 0.5rem;
+  padding: 1rem;
+  min-width: 5rem;
+}
 .orangeButton button {
   margin: 0.5rem;
   padding: 1rem;
