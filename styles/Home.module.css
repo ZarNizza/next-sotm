@@ -226,7 +226,7 @@
   text-align: right;
   padding: 0.5rem;
 }
-.main thead {
+.main thead, .gross {
   text-align: justify;
   background-color: papayawhip;
 }

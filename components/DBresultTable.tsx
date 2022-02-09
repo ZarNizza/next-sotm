@@ -34,10 +34,10 @@ export default function DBresultTable(props: TableProps) {
               return (
                 <tr key={Math.random()}>
                   {Object.values(item).map((elem) => (
-                    <td key={Math.random()}>
+                    <td key={Math.random()} className={item.cname === null ? styles.gross : ''}>
                       {typeof elem === 'number'
                         ? String(elem)
-                        : String(elem).slice(0, 10)}
+                        : item.cname===null && elem===null ? 'Итого:': String(elem).slice(0, 10)}
                     </td>
                   ))}
                 </tr>
