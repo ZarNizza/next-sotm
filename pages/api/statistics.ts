@@ -44,6 +44,7 @@ export default async function sysHandler(
     const startDate = parsedReq.startDate
       ? '"' + parsedReq.startDate + ' 00:00:00"'
       : '"2020-01-01 00:00:00"'
+
     const fDate = new Date(parsedReq.finishDate)
     fDate.setDate(fDate.getDate() + 1)
     let finDate = String(fDate.getFullYear()) + '-'
@@ -51,7 +52,6 @@ export default async function sysHandler(
     finDate += String(fDate.getMonth() + 1) + '-'
     if (fDate.getDate() < 10) finDate += '0'
     finDate += String(fDate.getDate())
-
     const finishDate = finDate
       ? '"' + finDate + ' 00:00:00"'
       : '"2099-12-31 00:00:00"'
@@ -94,10 +94,6 @@ export default async function sysHandler(
               ', ',
             ''
           )
-
-          // console.log('+++++++ startDate = ', startDate)
-          // console.log('++++++ finishDate = ', finishDate)
-
           const sqlQuery =
             'SELECT c.cname,' +
             sqlProdSum +
