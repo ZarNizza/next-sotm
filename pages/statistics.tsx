@@ -3,13 +3,19 @@ import Head from 'next/head'
 import { useState } from 'react'
 import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
-import { Sale,Product } from './add'
+import { Sale, Product, Customer } from './add'
 // import DBresultTable from '../components/DBresultTable'
 import DBstatTable from '../components/DBstatTable'
+import InitCustomers from '../components/initCustomers'
 import InitProducts from '../components/initProducts'
-
+import CustomerSelect from '../components/CustomerSelect'
 
 const Home: NextPage = () => {
+  const [customers, setCustomers] = useState<Customer[]>([])
+  const [currentCustomer, setCurrentCustomer] = useState<
+    [Customer['cid'], Customer['cname']]
+  >([0, ''])
+  InitCustomers(setCustomers)
   const [products, setProducts] = useState<Product[]>([])
   InitProducts(setProducts)
 
@@ -138,45 +144,52 @@ const Home: NextPage = () => {
         <title>Statistics</title>
       </Head>
       <main className={styles.main}>
-        <h3>Statistics page</h3>
-        <div className={styles.sysButton}>
-          <input
-            type="text"
-            placeholder="Start date"
-            // pattern="^(20\d\d\-(([0][1-9])|([1][012]))\-(([3][01])|([12]\d)|([0][1-9])))$"
-            // pattern="/^20\d\d\-(([0][1-9])|([1][012]))\-(([3][01])|([12]\d)|([0][1-9]))$/"
-            pattern="^20\d\d[\.\-\/][01]\d[\.\-\/][0123]\d$"
-            value={startDate}
-            onChange={(event) => startDateChangeHandler(event.target.value)}
+        <div className={styles.flexColumnContainer}>
+          {/* <h3>Statistics page</h3> */}
+          <CustomerSelect
+            customers={customers}
+            setCurrentCustomer={setCurrentCustomer}
+            currentCustomer={currentCustomer}
           />
-          {':'}
-          <input
-            type="text"
-            placeholder="Finish date"
-            // pattern="/^20\d\d\-(([0][1-9])|([01](?<=1)[012]))\-(([0123](?<=3)[01])|([123](?<=[012])\d)|([0][1-9]))$/"
-            pattern="^20\d\d[\.\-\/][01]\d[\.\-\/][0123]\d$"
-            value={finishDate}
-            onChange={(event) => finishDateChangeHandler(event.target.value)}
-          />
+          <div className={styles.sysButton}>
+            <input
+              type="text"
+              placeholder="Start date"
+              // pattern="^(20\d\d\-(([0][1-9])|([1][012]))\-(([3][01])|([12]\d)|([0][1-9])))$"
+              // pattern="/^20\d\d\-(([0][1-9])|([1][012]))\-(([3][01])|([12]\d)|([0][1-9]))$/"
+              pattern="^20\d\d[\.\-\/][01]\d[\.\-\/][0123]\d$"
+              value={startDate}
+              onChange={(event) => startDateChangeHandler(event.target.value)}
+            />
+            {':'}
+            <input
+              type="text"
+              placeholder="Finish date"
+              // pattern="/^20\d\d\-(([0][1-9])|([01](?<=1)[012]))\-(([0123](?<=3)[01])|([123](?<=[012])\d)|([0][1-9]))$/"
+              pattern="^20\d\d[\.\-\/][01]\d[\.\-\/][0123]\d$"
+              value={finishDate}
+              onChange={(event) => finishDateChangeHandler(event.target.value)}
+            />
+          </div>
+          <div className={styles.miniButton}>
+            <button onClick={setTodayHandler}>today</button>
+            <button onClick={setThisMonthHandler}>this Month</button>
+            <button onClick={setFullMonthHandler}>Full Month</button>
+            <button onClick={setThisYearHandler}>this Year</button>
+            <button onClick={setFullYearHandler}>Full Year</button>
+            <button onClick={setAllHandler}>All</button>
+          </div>
+          <div className={styles.orangeButton}>
+            <button onClick={showSalesHandler}>show Sales</button>
+            <button onClick={showFullSalesHandler}>show Statistic</button>
+          </div>
+          {resData === undefined || resData.length === 0 ? (
+            <p>No data - empty result</p>
+          ) : (
+            // <DBresultTable resData={resData} />
+            <DBstatTable resData={resData} products={products} />
+          )}
         </div>
-        <div className={styles.miniButton}>
-          <button onClick={setTodayHandler}>today</button>
-          <button onClick={setThisMonthHandler}>this Month</button>
-          <button onClick={setFullMonthHandler}>Full Month</button>
-          <button onClick={setThisYearHandler}>this Year</button>
-          <button onClick={setFullYearHandler}>Full Year</button>
-          <button onClick={setAllHandler}>All</button>
-        </div>
-        <div className={styles.orangeButton}>
-          <button onClick={showSalesHandler}>show Sales</button>
-          <button onClick={showFullSalesHandler}>show Statistic</button>
-        </div>
-        {resData === undefined || resData.length === 0 ? (
-          <p>No data - empty result</p>
-        ) : (
-          // <DBresultTable resData={resData} />
-          <DBstatTable resData={resData} products={products} />
-        )}
       </main>
     </Layout>
   )
