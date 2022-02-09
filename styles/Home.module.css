@@ -226,9 +226,12 @@
   text-align: right;
   padding: 0.5rem;
 }
-.main thead, .gross {
+.main thead td,
+td.gross {
   text-align: justify;
   background-color: papayawhip;
+  text-align: center;
+  vertical-align: middle;
 }
 .main input {
   margin: 0.5rem;
