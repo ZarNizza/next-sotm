@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
 import { Sale, Product, Customer } from './add'
-// import DBresultTable from '../components/DBresultTable'
+import DBresultTable from '../components/DBresultTable'
 import DBstatTable from '../components/DBstatTable'
 import InitCustomers from '../components/initCustomers'
 import InitProducts from '../components/initProducts'
@@ -22,17 +22,21 @@ const Home: NextPage = () => {
   const [resData, setResData] = useState<Sale[]>([
     // { sid: 0, sdate: '2022-02-02', cust: 0, prod: 0, sum: 0 }
   ])
+  const [resSource, setResSource] = useState('')
   const [startDate, setStartDate] = useState('2021-01-01')
   const [finishDate, setFinishDate] = useState('2022-02-10')
 
   function showSalesHandler() {
     const body = {
-      mode: 'show_Sales'
+      mode: 'show_Sales',
+      startDate: startDate,
+      finishDate: finishDate,
+      currentCustomer: currentCustomer
     }
     fetch('/api/statistics', { method: 'POST', body: JSON.stringify(body) })
       .then((res) => res.json())
       .then((res) => {
-        console.log('STAT: DB-S-show = OK', res.data)
+        setResSource(() => res.source)
         setResData(() => res.data)
       })
       .catch((error) =>
@@ -51,7 +55,9 @@ const Home: NextPage = () => {
     fetch('/api/statistics', { method: 'POST', body: JSON.stringify(body) })
       .then((res) => res.json())
       .then((res) => {
+        console.log('STAT: res.source', res.source)
         console.log('STAT: DB-S-showFull = OK', res.data)
+        setResSource(() => res.source)
         setResData(() => res.data)
       })
       .catch((error) =>
@@ -146,7 +152,6 @@ const Home: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
-          {/* <h3>Statistics page</h3> */}
           <CustomerSelect
             customers={customers}
             setCurrentCustomer={setCurrentCustomer}
@@ -156,8 +161,6 @@ const Home: NextPage = () => {
             <input
               type="text"
               placeholder="Start date"
-              // pattern="^(20\d\d\-(([0][1-9])|([1][012]))\-(([3][01])|([12]\d)|([0][1-9])))$"
-              // pattern="/^20\d\d\-(([0][1-9])|([1][012]))\-(([3][01])|([12]\d)|([0][1-9]))$/"
               pattern="^20\d\d[\.\-\/][01]\d[\.\-\/][0123]\d$"
               value={startDate}
               onChange={(event) => startDateChangeHandler(event.target.value)}
@@ -166,7 +169,6 @@ const Home: NextPage = () => {
             <input
               type="text"
               placeholder="Finish date"
-              // pattern="/^20\d\d\-(([0][1-9])|([01](?<=1)[012]))\-(([0123](?<=3)[01])|([123](?<=[012])\d)|([0][1-9]))$/"
               pattern="^20\d\d[\.\-\/][01]\d[\.\-\/][0123]\d$"
               value={finishDate}
               onChange={(event) => finishDateChangeHandler(event.target.value)}
@@ -186,8 +188,9 @@ const Home: NextPage = () => {
           </div>
           {resData === undefined || resData.length === 0 ? (
             <p>No data - empty result</p>
+          ) : resSource === 'short' ? (
+            <DBresultTable resData={resData} />
           ) : (
-            // <DBresultTable resData={resData} />
             <DBstatTable resData={resData} products={products} />
           )}
         </div>

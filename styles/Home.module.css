@@ -239,11 +239,14 @@
   text-align: right;
   padding: 0.5rem;
 }
-.main thead td,
-td.gross {
-  text-align: justify;
+.main thead td {
   background-color: papayawhip;
   text-align: center;
+  vertical-align: middle;
+}
+td.gross {
+  text-align: right;
+  background-color: papayawhip;
   vertical-align: middle;
 }
 .main input {
