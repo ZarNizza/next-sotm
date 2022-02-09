@@ -162,8 +162,8 @@ const Home: NextPage = () => {
           <button onClick={setAllHandler}>All</button>
         </div>
         <div className={styles.orangeButton}>
-          <button onClick={showSalesHandler}>show all Sales</button>
-          <button onClick={showFullSalesHandler}>show FULL statistic</button>
+          <button onClick={showSalesHandler}>show Sales</button>
+          <button onClick={showFullSalesHandler}>show Statistic</button>
         </div>
         {resData === undefined || resData.length === 0 ? (
           <p>No data - empty result</p>
