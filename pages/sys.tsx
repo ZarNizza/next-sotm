@@ -359,23 +359,24 @@ const Home: NextPage = () => {
             <button onClick={showTablesHandler}>SHOW TABLES</button>
           </div>
           <div>- - - - - - - - - - - - - -</div>
+
+          <div className={styles.sysButton}>
+            <button onClick={clearUsersHandler}>! clear U</button>
+            <button onClick={clearCustomersHandler}>! clear C</button>
+            <button onClick={clearProductHandler}>! clear P</button>
+            <button onClick={clearSalesHandler}>! clear S</button>
+          </div>
+          <div className={styles.sysButton}>
+            <button onClick={dropUsersHandler}>! drop U</button>
+            <button onClick={dropCustomersHandler}>! drop C</button>
+            <button onClick={dropProductHandler}>! drop P</button>
+            <button onClick={dropSalesHandler}>! drop S</button>
+          </div>
           <div className={styles.sysButton}>
             <button onClick={restoreUsersHandler}>restore U</button>
             <button onClick={restoreCustHandler}>restore C</button>
             <button onClick={restoreProductHandler}>restore P</button>
             <button onClick={restoreSalesHandler}>restore S</button>
-          </div>
-          <div className={styles.sysButton}>
-            <button onClick={clearUsersHandler}>! CLEAR U</button>
-            <button onClick={clearCustomersHandler}>! CLEAR C</button>
-            <button onClick={clearProductHandler}>! CLEAR P</button>
-            <button onClick={clearSalesHandler}>! CLEAR S</button>
-          </div>
-          <div className={styles.sysButton}>
-            <button onClick={dropUsersHandler}>! DROP U</button>
-            <button onClick={dropCustomersHandler}>! DROP C</button>
-            <button onClick={dropProductHandler}>! DROP P</button>
-            <button onClick={dropSalesHandler}>! DROP S</button>
           </div>
           <div>.</div>
           <div>- - - - - - - - - - - - - -</div>
