@@ -34,11 +34,11 @@ function SaveSale(args: Sale) {
 
 export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
   console.log('NEW FILL SALES')
-  const customers = [3, 4]
-  const products = [5, 6]
+  const customers = [1, 2, 3, 4, 5]
+  const products = [5, 6, 7, 8, 9, 10]
 
-  let iDate = new Date(2021, 3, 1, 11)
-  const findate = new Date(2021, 3, 3, 11)
+  let iDate = new Date(2022, 1, 10, 11)
+  const findate = new Date(2022, 1, 10, 11)
   let dates: string[] = []
 
   for (; iDate <= findate; iDate.setDate(iDate.getDate() + 1)) {
