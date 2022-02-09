@@ -40,7 +40,7 @@ export default function handler(
       )
     } else if (req.method === 'GET') {
       connection.query(
-        'SELECT * FROM customers',
+        'SELECT * FROM users',
         function (error, results, fields) {
           if (error) {
             res.status(500).json({ error: String(error) })
