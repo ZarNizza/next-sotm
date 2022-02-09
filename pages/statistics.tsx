@@ -3,12 +3,18 @@ import Head from 'next/head'
 import { useState } from 'react'
 import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
-import { Sale } from './add'
-import DBresultTable from '../components/DBresultTable'
+import { Sale,Product } from './add'
+// import DBresultTable from '../components/DBresultTable'
+import DBstatTable from '../components/DBstatTable'
+import InitProducts from '../components/initProducts'
+
 
 const Home: NextPage = () => {
+  const [products, setProducts] = useState<Product[]>([])
+  InitProducts(setProducts)
+
   const [resData, setResData] = useState<Sale[]>([
-    { sid: 0, sdate: '2022-02-02', cust: 0, prod: 0, sum: 0 }
+    // { sid: 0, sdate: '2022-02-02', cust: 0, prod: 0, sum: 0 }
   ])
   const [startDate, setStartDate] = useState('2021-01-01')
   const [finishDate, setFinishDate] = useState('2022-02-10')
@@ -168,7 +174,8 @@ const Home: NextPage = () => {
         {resData === undefined || resData.length === 0 ? (
           <p>No data - empty result</p>
         ) : (
-          <DBresultTable resData={resData} />
+          // <DBresultTable resData={resData} />
+          <DBstatTable resData={resData} products={products} />
         )}
       </main>
     </Layout>

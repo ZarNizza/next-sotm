@@ -3,11 +3,12 @@ import type { Sale, Product } from '../pages/add'
 
 type TableProps = {
   resData: Record<string, number | string | Date | null>[]
+  products: Product[]
 }
 
 export default function DBresultTable(props: TableProps) {
-  // console.log('------------+++++++++++++++---------- resData', props.resData)
   const keys = Object.keys(props.resData[0])
+  const nColumns = keys.length
 
   if (props.resData === undefined || props.resData.length === 0) {
     return (
@@ -22,8 +23,9 @@ export default function DBresultTable(props: TableProps) {
         <p>--------------------</p>
         <table>
           <thead>
-            <tr key={Math.random()}>
-            {keys.map((key) => <td key={Math.random()}>{key}</td>)}
+            <tr key={Math.random()}><td key={Math.random()}>Customer</td>
+            {props.products.map((el) => <td key={Math.random()}>{el.psymbol}</td>)}
+            <td key={Math.random()}>Sum</td>
             </tr>
           </thead>
           <tbody>
