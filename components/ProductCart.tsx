@@ -1,5 +1,6 @@
 import type { Product } from '../pages/add'
 import styles from './ProductCart.module.scss'
+import stylesH from '../styles/Home.module.css'
 import Link from 'next/link'
 import {
   ChangeEventHandler,
@@ -37,7 +38,7 @@ export default function ProductCart(props: ProductCartProps) {
       <button
         value={pid}
         onClick={dropButtonHandler(pid)}
-        className={styles.dropButton}
+        className={stylesH.dropButton}
       >
         {' X '}
       </button>
