@@ -36,6 +36,11 @@ export default async function sysHandler(
 
   return new Promise((resolve, reject) => {
     const parsedReq = JSON.parse(req.body)
+    const currentCustomer =
+      parsedReq.currentCustomer[0] === 0
+        ? ''
+        : ` AND c.cid = ${parsedReq.currentCustomer[0]} `
+
     const startDate = parsedReq.startDate
       ? '"' + parsedReq.startDate + ' 00:00:00"'
       : '"2020-01-01 00:00:00"'
@@ -102,6 +107,7 @@ export default async function sysHandler(
             startDate +
             ' AND ' +
             finishDate +
+            currentCustomer +
             ' GROUP BY c.cname WITH ROLLUP'
 
           pool.getConnection(function (err, connection) {

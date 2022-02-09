@@ -44,7 +44,8 @@ const Home: NextPage = () => {
     const body = {
       mode: 'show_Full',
       startDate: startDate,
-      finishDate: finishDate
+      finishDate: finishDate,
+      currentCustomer: currentCustomer
     }
 
     fetch('/api/statistics', { method: 'POST', body: JSON.stringify(body) })
