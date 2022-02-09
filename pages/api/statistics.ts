@@ -82,9 +82,9 @@ export default async function sysHandler(
           sqlProdSum = products.reduce(
             (sum, item) =>
               sum +
-              'SUM(CASE WHEN sales.cust = customers.cid AND sales.prod = ' +
+              'SUM(CASE WHEN s.cust = c.cid AND s.prod = ' +
               item.pid +
-              ' THEN sales.sum ELSE 0 END) AS pSum' +
+              ' THEN s.sum ELSE 0 END) AS pSum' +
               String(item.pid) +
               ', ',
             ''
@@ -94,15 +94,15 @@ export default async function sysHandler(
           // console.log('++++++ finishDate = ', finishDate)
 
           const sqlQuery =
-            'SELECT customers.cid, customers.cname,' +
+            'SELECT c.cname,' +
             sqlProdSum +
-            ' SUM(sales.sum) AS gross FROM customers' +
-            ' LEFT JOIN sales ON sales.cust = customers.cid' +
-            ' WHERE sales.sdate BETWEEN ' +
+            ' SUM(s.sum) AS gross FROM customers AS c' +
+            ' LEFT JOIN sales AS s ON s.cust = c.cid' +
+            ' WHERE s.sdate BETWEEN ' +
             startDate +
             ' AND ' +
             finishDate +
-            ' GROUP BY customers.cid'
+            ' GROUP BY c.cname WITH ROLLUP'
 
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
