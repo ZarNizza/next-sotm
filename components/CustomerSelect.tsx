@@ -8,6 +8,7 @@ import {
 } from 'react'
 import type { Customer } from '../pages/add'
 import styles from './CustomerSelect.module.scss'
+import stylesH from '../styles/Home.module.css'
 
 interface CustSelectProps {
   customers: Customer[]
@@ -52,6 +53,12 @@ export default function CustomerSelect(props: CustSelectProps) {
     }
   }
 
+  function dropButtonHandler() {
+    setSearchTerm(() => '')
+    if (customerInputRef.current !== null) customerInputRef.current.value = ''
+    props.setCurrentCustomer(() => [0, ''])
+  }
+
   return (
     <>
       <div className={styles.custList}>
@@ -63,6 +70,9 @@ export default function CustomerSelect(props: CustSelectProps) {
           onChange={liveSearch}
           className={styles.inputCust}
         />
+        <button onClick={dropButtonHandler} className={stylesH.dropButton}>
+          X
+        </button>
       </div>
       <div
         className={styles.floatWrapper}
