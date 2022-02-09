@@ -11,24 +11,20 @@ const Home: NextPage = () => {
   const [resData, setResData] = useState<Sale[]>([])
   const [sqlString, setSQLstring] = useState<string>('')
 
- 
-  
-  function inputSQLstringHandler(sql:string) {
+  function inputSQLstringHandler(sql: string) {
     setSQLstring(sql)
   }
   function sqlReuestHandler() {
-    const reqBody = { mode:'sql', sql: sqlString }
+    const reqBody = { mode: 'sql', sql: sqlString }
     fetch('/api/sys-sql', { method: 'POST', body: JSON.stringify(reqBody) })
       .then((res) => res.json())
       .then((res) => {
         console.log('SYS2: DB-sql = OK', res.data)
         setResData(() => res.data)
       })
-      .catch((error) =>
-        console.log('! SYS2: DB-sql error - ', error.message)
-      )
+      .catch((error) => console.log('! SYS2: DB-sql error - ', error.message))
   }
-  
+
   return (
     <Layout>
       <div className={styles.container}>
@@ -36,20 +32,38 @@ const Home: NextPage = () => {
           <title>System page</title>
         </Head>
         <main className={styles.main}>
-         <div>
-                        <input
+          <div>
+            <input
               id="sqlInput"
               value={sqlString}
-              onChange={(event) =>
-                inputSQLstringHandler(event.target.value)
-              }
+              onChange={(event) => inputSQLstringHandler(event.target.value)}
               placeholder="SQL request"
-              style={{padding:'1rem', width:'80rem'}}
+              style={{ padding: '1rem', width: '80rem' }}
             />
             <button onClick={sqlReuestHandler}>send SQL</button>
-            </div>
-  
-
+          </div>
+          <div className={styles.blueButton}>
+            <Link href="/users">
+              <button>Users</button>
+            </Link>{' '}
+            &nbsp;{' '}
+            <Link href="/customers">
+              <button>Customers</button>
+            </Link>{' '}
+            &nbsp;{' '}
+            <Link href="/products">
+              <button>Products</button>
+            </Link>{' '}
+            &nbsp;{' '}
+            <Link href="/sys">
+              <button>SYSTEM</button>
+            </Link>
+            &nbsp;{' '}
+            <Link href="/sys2">
+              <button>SYS2</button>
+            </Link>
+            <p> </p>
+          </div>
         </main>
       </div>
     </Layout>

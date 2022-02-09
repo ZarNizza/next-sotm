@@ -382,15 +382,23 @@ const Home: NextPage = () => {
           <div>.</div>
           <div className={styles.blueButton}>
             <Link href="/users">
-              <button> &lt; &lt; &lt; Customers List </button>
+              <button>Users</button>
+            </Link>{' '}
+            &nbsp;{' '}
+            <Link href="/customers">
+              <button>Customers</button>
             </Link>{' '}
             &nbsp;{' '}
             <Link href="/products">
-              <button>&lt; &lt; &lt; - Products List </button>
+              <button>Products</button>
             </Link>{' '}
             &nbsp;{' '}
             <Link href="/sys2">
-              <button>&lt; &lt; &lt; - SYSTEM-2 </button>
+              <button>SYSTEM-2</button>
+            </Link>
+            &nbsp;{' '}
+            <Link href="/sys-sql">
+              <button>SQL</button>
             </Link>
             <p> </p>
           </div>

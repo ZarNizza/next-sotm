@@ -18,7 +18,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
-              'DELETE FROM users WHERE 1',
+              'TRUNCATE TABLE users',
               function (error, results, fields) {
                 connection.release()
                 if (error) {
@@ -38,7 +38,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
-              'DELETE FROM customers WHERE 1',
+              'TRUNCATE TABLE customers',
               function (error, results, fields) {
                 connection.release()
                 if (error) {
@@ -58,7 +58,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
-              'DELETE FROM sales WHERE 1',
+              'TRUNCATE TABLE sales',
               function (error, results, fields) {
                 connection.release()
                 if (error) {
@@ -78,7 +78,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
-              'DELETE FROM prod WHERE 1',
+              'TRUNCATE TABLE prod',
               function (error, results, fields) {
                 connection.release()
                 if (error) {
@@ -178,7 +178,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
-              'CREATE TABLE IF NOT EXISTS sales (sid INT AUTO_INCREMENT PRIMARY KEY, sdate DATE, cust SMALLINT, prod SMALLINT, sum SMALLINT)',
+              'CREATE TABLE IF NOT EXISTS sales (sid INT AUTO_INCREMENT PRIMARY KEY, sdate DATE, cust SMALLINT, prod SMALLINT, sum SMALLINT, INDEX (cust, prod, sdate))',
               function (error, results, fields) {
                 connection.release()
                 if (error) {
@@ -198,7 +198,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
-              'CREATE TABLE IF NOT EXISTS users (uid SMALLINT AUTO_INCREMENT PRIMARY KEY, uname VARCHAR(50), uphone VARCHAR(20), gooid VARCHAR(30), timezone TINYINT)',
+              'CREATE TABLE IF NOT EXISTS users (uid SMALLINT AUTO_INCREMENT PRIMARY KEY, uname VARCHAR(50), uphone VARCHAR(20), gooid VARCHAR(30), timezone TINYINT, INDEX (uname, uphone))',
               function (error, results, fields) {
                 connection.release()
                 if (error) {
@@ -218,7 +218,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
-              'CREATE TABLE IF NOT EXISTS customers (cid SMALLINT AUTO_INCREMENT PRIMARY KEY, cname VARCHAR(50), cphone VARCHAR(20), gooid VARCHAR(30))',
+              'CREATE TABLE IF NOT EXISTS customers (cid SMALLINT AUTO_INCREMENT PRIMARY KEY, cname VARCHAR(50), cphone VARCHAR(20), gooid VARCHAR(30), INDEX (cname, cphone))',
               function (error, results, fields) {
                 connection.release()
                 if (error) {

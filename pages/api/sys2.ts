@@ -114,7 +114,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
-              'DELETE FROM sales WHERE 1',
+              'TRUNCATE TABLE sales',
               function (error, results, fields) {
                 connection.release()
                 if (error) {

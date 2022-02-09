@@ -153,7 +153,7 @@
 .blueButton button {
   margin: 0.5rem;
   padding: 1rem;
-  min-width: 10rem;
+  min-width: 5rem;
   background-color: lightskyblue;
   border-radius: 1rem;
 }

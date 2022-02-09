@@ -65,9 +65,7 @@ const Home: NextPage = () => {
         console.log('! SYS2: DB-S-show error - ', error.message)
       )
   }
-  
 
-  
   return (
     <Layout>
       <div className={styles.container}>
@@ -93,15 +91,23 @@ const Home: NextPage = () => {
           <p>.</p>{' '}
           <div className={styles.blueButton}>
             <Link href="/users">
-              <button> &lt; &lt; Customers List </button>
+              <button>Users</button>
+            </Link>{' '}
+            &nbsp;&nbsp;{' '}
+            <Link href="/customers">
+              <button>Customers</button>
             </Link>{' '}
             &nbsp;&nbsp;{' '}
             <Link href="/products">
-              <button>&lt; &lt; Products List </button>
+              <button>Products</button>
+            </Link>
+            &nbsp;&nbsp;{' '}
+            <Link href="/sys">
+              <button>SYSTEM</button>
             </Link>
             &nbsp;&nbsp;{' '}
             <Link href="/sys-sql">
-              <button>&lt; &lt; SQL </button>
+              <button>SQL</button>
             </Link>
           </div>
           <div>
