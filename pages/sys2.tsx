@@ -9,6 +9,7 @@ import DBresultTable from '../components/DBresultTable'
 
 const Home: NextPage = () => {
   const [resData, setResData] = useState<Sale[]>([])
+  const [sqlString, setSQLstring] = useState<string>('')
 
   function dropSalesHandler() {
     fetch('/api/sys2', { method: 'POST', body: 'drop_Sales' })
@@ -64,7 +65,9 @@ const Home: NextPage = () => {
         console.log('! SYS2: DB-S-show error - ', error.message)
       )
   }
+  
 
+  
   return (
     <Layout>
       <div className={styles.container}>
@@ -88,13 +91,17 @@ const Home: NextPage = () => {
           <p>.</p>
           --------------------
           <p>.</p>{' '}
-          <div className={styles.sysButton}>
+          <div className={styles.blueButton}>
             <Link href="/users">
               <button> &lt; &lt; Customers List </button>
             </Link>{' '}
             &nbsp;&nbsp;{' '}
             <Link href="/products">
               <button>&lt; &lt; Products List </button>
+            </Link>
+            &nbsp;&nbsp;{' '}
+            <Link href="/sys-sql">
+              <button>&lt; &lt; SQL </button>
             </Link>
           </div>
           <div>
