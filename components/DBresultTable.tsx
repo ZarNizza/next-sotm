@@ -23,7 +23,9 @@ export default function DBresultTable(props: TableProps) {
         <table>
           <thead>
             <tr key={Math.random()}>
-            {keys.map((key) => <td key={Math.random()}>{key}</td>)}
+              {keys.map((key) => (
+                <td key={Math.random()}>{key}</td>
+              ))}
             </tr>
           </thead>
           <tbody>
@@ -34,11 +36,11 @@ export default function DBresultTable(props: TableProps) {
                   {Object.values(item).map((elem) => (
                     <td
                       key={Math.random()}
-                      className={item.cname === null ? styles.gross : ''}
+                      className={a[0] === null ? styles.gross : ''}
                     >
                       {typeof elem === 'number'
                         ? String(elem)
-                        : item.cname === null && elem === null
+                        : a[0] === null && elem === null
                         ? 'Total:'
                         : String(elem).slice(0, 10)}
                     </td>
