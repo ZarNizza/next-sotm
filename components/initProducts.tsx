@@ -1,7 +1,9 @@
-import { useEffect } from 'react'
+import { Dispatch, SetStateAction, useEffect } from 'react'
 import type { Product } from '../pages/add'
 
-export default function InitProducts(setProducts: Function) {
+export default function InitProducts(
+  setProducts: Dispatch<SetStateAction<Product[]>>
+) {
   useEffect(() => {
     fetch('/api/products')
       .then((res) => res.json())

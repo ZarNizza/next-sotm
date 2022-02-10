@@ -1,7 +1,9 @@
-import { useEffect } from 'react'
+import { Dispatch, SetStateAction, useEffect } from 'react'
 import type { Customer } from '../pages/add'
 
-export default function InitCustomers(setCustomers: Function) {
+export default function InitCustomers(
+  setCustomers: Dispatch<SetStateAction<Customer[]>>
+) {
   useEffect(() => {
     fetch('/api/customers')
       .then((res) => res.json())
