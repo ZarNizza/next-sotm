@@ -59,10 +59,19 @@ export default function CustomerSelect(props: CustSelectProps) {
     props.setCurrentCustomer(() => [0, ''])
   }
 
+  function plusButtonHandler() {
+    // setSearchTerm(() => '')
+    // if (customerInputRef.current !== null) customerInputRef.current.value = ''
+    // props.setCurrentCustomer(() => [0, ''])
+  }
+
   return (
     <>
       <div className={styles.custList}>
         <p className={styles.title}>Customer</p>
+        <button onClick={plusButtonHandler} className={stylesH.plusButton}>
+          +New
+        </button>
         <input
           type="search"
           ref={customerInputRef}

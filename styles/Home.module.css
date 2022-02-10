@@ -129,6 +129,18 @@
   display: flex;
 }
 
+.plusButton {
+  height: 3rem;
+  width: 3rem;
+  background-color: #faffea;
+  float: left;
+  margin: 0.5rem -0.4rem 0 0;
+  /* font-size: large; */
+}
+.plusButton:hover {
+  background-color: palegreen;
+  transition: 0.25s ease;
+}
 .dropButton {
   height: 2rem;
   width: 2rem;

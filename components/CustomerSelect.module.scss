@@ -1,5 +1,5 @@
 .title {
-  margin: -0.5rem;
+  margin: 0 0 -0.3rem 0; //-0.5rem 0 0 0;
   color: darkolivegreen;
 }
 .inputCust {
@@ -14,12 +14,19 @@
   font-size: medium;
 }
 
-.custList,
+.custList {
+  min-width: 25rem;
+  background-color: #fbfff2;
+  margin: 2rem;
+  padding: 0 2rem 1rem 2rem;
+  border: 1px solid #aaa;
+  border-radius: 10px;
+}
 .custSelect {
   min-width: 25rem;
   background-color: #fbfff2;
   margin: 2rem;
-  padding: 1rem 2rem;
+  padding: 2rem 2rem;
   border: 1px solid #aaa;
   border-radius: 10px;
 }
@@ -38,14 +45,14 @@
 }
 .floatWrapper {
   position: absolute;
-  top: 13rem;
+  top: 12rem;
   z-index: 18;
 }
 .custSelect {
   display: flex;
 }
 .custSelect select {
-  margin-bottom: 1rem;
+  // margin-bottom: 1rem;
   height: 12rem;
 }
 .custSelect option {
