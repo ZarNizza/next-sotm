@@ -32,7 +32,7 @@ const Home: NextPage = () => {
     fetch('/api/sys', { method: 'POST', body: 'clear_Customers' })
       .then((res) => res.json())
       .then((res) => {
-        console.log('SYS: DB-reset = OK', res)
+        console.log('SYS: DB-C-reset = OK', res)
       })
       .catch((error) =>
         console.log('! SYS: DB-C-reset error - ', error.message)
@@ -43,10 +43,21 @@ const Home: NextPage = () => {
     fetch('/api/sys', { method: 'POST', body: 'clear_Sales' })
       .then((res) => res.json())
       .then((res) => {
-        console.log('SYS: DB-reset = OK', res)
+        console.log('SYS: DB-S-reset = OK', res)
       })
       .catch((error) =>
         console.log('! SYS: DB-S-reset error - ', error.message)
+      )
+  }
+
+  function clearXpensesHandler() {
+    fetch('/api/sys', { method: 'POST', body: 'clear_Xpenses' })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('SYS: DB-X-reset = OK', res)
+      })
+      .catch((error) =>
+        console.log('! SYS: DB-X-reset error - ', error.message)
       )
   }
 
@@ -54,7 +65,7 @@ const Home: NextPage = () => {
     fetch('/api/sys', { method: 'POST', body: 'clear_Prod' })
       .then((res) => res.json())
       .then((res) => {
-        console.log('SYS: DB-reset = OK', res)
+        console.log('SYS: DB-P-reset = OK', res)
       })
       .catch((error) =>
         console.log('! SYS: DB-P-reset error - ', error.message)
@@ -87,15 +98,22 @@ const Home: NextPage = () => {
       .catch((error) => console.log('! SYS: DB-S-drop error - ', error.message))
   }
 
+  function dropXpensesHandler() {
+    fetch('/api/sys', { method: 'POST', body: 'drop_Xpenses' })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('SYS: DB-X-drop = OK', res)
+      })
+      .catch((error) => console.log('! SYS: DB-X-drop error - ', error.message))
+  }
+
   function dropProductHandler() {
     fetch('/api/sys', { method: 'POST', body: 'drop_Prod' })
       .then((res) => res.json())
       .then((res) => {
         console.log('SYS: DB-P-drop = OK', res)
       })
-      .catch((error) =>
-        console.log('! SYS: DB-PROD-DROP error - ', error.message)
-      )
+      .catch((error) => console.log('! SYS: DB-P-drop error - ', error.message))
   }
 
   function restoreSalesHandler() {
@@ -105,6 +123,17 @@ const Home: NextPage = () => {
         console.log('SYS: restSales = OK', res)
       })
       .catch((error) => console.log('! SYS: restSales error - ', error.message))
+  }
+
+  function restoreXpensesHandler() {
+    fetch('/api/sys', { method: 'POST', body: 'restXpenses' })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('SYS: restXpenses = OK', res)
+      })
+      .catch((error) =>
+        console.log('! SYS: restXpenses error - ', error.message)
+      )
   }
 
   function restoreUsersHandler() {
@@ -176,6 +205,18 @@ const Home: NextPage = () => {
         setResData(() => res.data)
       })
       .catch((error) => console.log('! SYS: showSales error - ', error.message))
+  }
+
+  function showXpensesHandler() {
+    fetch('/api/sys', { method: 'POST', body: 'showXpenses' })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('SYS: showXpenses = OK', res.data)
+        setResData(() => res.data)
+      })
+      .catch((error) =>
+        console.log('! SYS: showXpenses error - ', error.message)
+      )
   }
 
   function showProductsHandler() {
@@ -361,18 +402,21 @@ const Home: NextPage = () => {
             <button onClick={clearCustomersHandler}>! clear C</button>
             <button onClick={clearProductHandler}>! clear P</button>
             <button onClick={clearSalesHandler}>! clear S</button>
+            <button onClick={clearXpensesHandler}>! clear X</button>
           </div>
           <div className={styles.sysButtons}>
             <button onClick={dropUsersHandler}>! drop U</button>
             <button onClick={dropCustomersHandler}>! drop C</button>
             <button onClick={dropProductHandler}>! drop P</button>
             <button onClick={dropSalesHandler}>! drop S</button>
+            <button onClick={dropXpensesHandler}>! drop X</button>
           </div>
           <div className={styles.sysButtons}>
             <button onClick={restoreUsersHandler}>restore U</button>
             <button onClick={restoreCustHandler}>restore C</button>
             <button onClick={restoreProductHandler}>restore P</button>
             <button onClick={restoreSalesHandler}>restore S</button>
+            <button onClick={restoreXpensesHandler}>restore X</button>
           </div>
           <div>- - - - - - - - - - - - - -</div>
           <div className={styles.blueButtons}>
@@ -387,6 +431,10 @@ const Home: NextPage = () => {
             <Link href="/products">
               <button>go Products</button>
             </Link>{' '}
+            &nbsp;{' '}
+            <Link href="/expenses">
+              <button>go Xpenses</button>
+            </Link>{' '}
           </div>
           <div>- - - - - - - - - - - - - -</div>
           <div className={styles.orangeButtons}>
@@ -394,6 +442,7 @@ const Home: NextPage = () => {
             <button onClick={showCustomersHandler}>show C</button>
             <button onClick={showProductsHandler}>show P</button>
             <button onClick={showSalesHandler}>show S</button>
+            <button onClick={showXpensesHandler}>show X</button>
           </div>
           <div className={styles.sysButtons}>
             <button onClick={showTablesHandler}>SHOW TABLES</button>

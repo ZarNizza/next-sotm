@@ -14,6 +14,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
   return new Promise((resolve, reject) => {
     if (req.method === 'POST') {
       switch (req.body) {
+        //
         case 'clear_Users':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
@@ -65,6 +66,26 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                   res
                     .status(500)
                     .json({ error: String('!api clear_Sales err:' + error) })
+                } else {
+                  res.status(203).json({ data: results })
+                }
+                resolve(null)
+              }
+            )
+          })
+          break
+
+        case 'clear_Xpenses':
+          pool.getConnection(function (err, connection) {
+            if (err) throw err // not connected!
+            connection.query(
+              'TRUNCATE TABLE xpenses',
+              function (error, results, fields) {
+                connection.release()
+                if (error) {
+                  res
+                    .status(500)
+                    .json({ error: String('!api clear_Xpenses err:' + error) })
                 } else {
                   res.status(203).json({ data: results })
                 }
@@ -154,6 +175,26 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           })
           break
 
+        case 'drop_Xpenses':
+          pool.getConnection(function (err, connection) {
+            if (err) throw err // not connected!
+            connection.query(
+              'DROP TABLE xpenses',
+              function (error, results, fields) {
+                connection.release()
+                if (error) {
+                  res
+                    .status(500)
+                    .json({ error: String('!api drop_Xpenses err:' + error) })
+                } else {
+                  res.status(203).json({ data: results })
+                }
+                resolve(null)
+              }
+            )
+          })
+          break
+
         case 'drop_Prod':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
@@ -185,6 +226,26 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                   res
                     .status(500)
                     .json({ error: String('!api restoreSales err:' + error) })
+                } else {
+                  res.status(207).json({ data: results })
+                }
+                resolve(null)
+              }
+            )
+          })
+          break
+
+        case 'restXpenses':
+          pool.getConnection(function (err, connection) {
+            if (err) throw err // not connected!
+            connection.query(
+              'CREATE TABLE IF NOT EXISTS xpenses (xid INT AUTO_INCREMENT PRIMARY KEY, xdate DATE, xitem SMALLINT, xsum SMALLINT, INDEX (xitem, xdate))',
+              function (error, results, fields) {
+                connection.release()
+                if (error) {
+                  res.status(500).json({
+                    error: String('!api restoreXpenseses err:' + error)
+                  })
                 } else {
                   res.status(207).json({ data: results })
                 }
@@ -322,6 +383,26 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                   res
                     .status(500)
                     .json({ error: String('!api showSales err:' + error) })
+                } else {
+                  res.status(200).json({ data: results })
+                }
+                resolve(null)
+              }
+            )
+          })
+          break
+
+        case 'showXpenses':
+          pool.getConnection(function (err, connection) {
+            if (err) throw err // not connected!
+            connection.query(
+              'SELECT * FROM xpenses',
+              function (error, results, fields) {
+                connection.release()
+                if (error) {
+                  res
+                    .status(500)
+                    .json({ error: String('!api showXpenses err:' + error) })
                 } else {
                   res.status(200).json({ data: results })
                 }
