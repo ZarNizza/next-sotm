@@ -480,7 +480,7 @@ const Home: NextPage = () => {
               pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
               className={styles.userInput}
             />
-            <button onClick={add_E_handler}> + add Eitem </button>
+            <button onClick={add_E_handler}> + add ExpItem </button>
           </div>
           <div>- - - - - - - - - - - - - -</div>
           <div className={styles.sysButtons}>
