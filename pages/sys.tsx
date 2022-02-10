@@ -264,6 +264,15 @@ const Home: NextPage = () => {
       )
   }
 
+  function fillSalesHandler() {
+    fetch('/api/sys2-fill', { method: 'POST', body: 'fill_Sales' }) // sys2-fill
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('SYS: DB-S-fill = OK', res)
+      })
+      .catch((error) => console.log('! SYS: DB-S-fill error - ', error.message))
+  }
+
   return (
     <Layout>
       <div className={styles.container}>
@@ -346,20 +355,7 @@ const Home: NextPage = () => {
             />
             <button onClick={addProductHandler}> + add Product </button>
           </div>
-          <div>.</div>
           <div>- - - - - - - - - - - - - -</div>
-          <div>.</div>
-          <div className={styles.sysButton}>
-            <button onClick={showUsersHandler}>show U</button>
-            <button onClick={showCustomersHandler}>show C</button>
-            <button onClick={showProductsHandler}>show P</button>
-            <button onClick={showSalesHandler}>show S</button>
-          </div>
-          <div className={styles.sysButton}>
-            <button onClick={showTablesHandler}>SHOW TABLES</button>
-          </div>
-          <div>- - - - - - - - - - - - - -</div>
-
           <div className={styles.sysButton}>
             <button onClick={clearUsersHandler}>! clear U</button>
             <button onClick={clearCustomersHandler}>! clear C</button>
@@ -378,36 +374,45 @@ const Home: NextPage = () => {
             <button onClick={restoreProductHandler}>restore P</button>
             <button onClick={restoreSalesHandler}>restore S</button>
           </div>
-          <div>.</div>
           <div>- - - - - - - - - - - - - -</div>
-          <div>.</div>
           <div className={styles.blueButton}>
             <Link href="/users">
-              <button>Users</button>
+              <button>go Users</button>
             </Link>{' '}
             &nbsp;{' '}
             <Link href="/customers">
-              <button>Customers</button>
+              <button>go Customers</button>
             </Link>{' '}
             &nbsp;{' '}
             <Link href="/products">
-              <button>Products</button>
+              <button>go Products</button>
             </Link>{' '}
-            &nbsp;{' '}
-            <Link href="/sys2">
-              <button>SYSTEM-2</button>
-            </Link>
-            &nbsp;{' '}
-            <Link href="/sys-sql">
-              <button>SQL</button>
-            </Link>
-            <p> </p>
+          </div>
+          <div>- - - - - - - - - - - - - -</div>
+          <div className={styles.orangeButton}>
+            <button onClick={showUsersHandler}>show U</button>
+            <button onClick={showCustomersHandler}>show C</button>
+            <button onClick={showProductsHandler}>show P</button>
+            <button onClick={showSalesHandler}>show S</button>
+          </div>
+          <div className={styles.sysButton}>
+            <button onClick={showTablesHandler}>SHOW TABLES</button>
           </div>
           {resData === undefined || resData.length === 0 ? (
             <p>No data - empty result</p>
           ) : (
             <DBresultTable resData={resData} />
           )}
+          <p>.</p>
+          <div>- - - - - - - - - - - - - -</div>
+          <p>.</p>
+          <div className={styles.sysButton}>
+            <button onClick={fillSalesHandler}>! FILL sales !</button>
+            &nbsp;{' '}
+            <Link href="/sys-sql">
+              <button>- SQL -</button>
+            </Link>
+          </div>
         </main>
       </div>
     </Layout>

@@ -28,7 +28,7 @@
 .header {
   display: flex;
   padding: 0;
-  border-top: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
   justify-content: space-between;
   align-items: center;
 }
@@ -125,7 +125,7 @@
   height: 5rem;
   background-color: #a2a;
   color: blanchedalmond;
-  margin: 1rem 0 0 -1rem;
+  margin: 0.5rem 0 0.5rem -1rem;
   display: flex;
 }
 
