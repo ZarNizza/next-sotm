@@ -280,7 +280,7 @@ const Home: NextPage = () => {
           <title>System page</title>
         </Head>
         <main className={styles.main}>
-          <div className={styles.sysButton}>
+          <div className={styles.sysButtons}>
             <input
               id="userInput"
               value={userName}
@@ -309,7 +309,7 @@ const Home: NextPage = () => {
             />
             <button onClick={addUserHandler}> + add USER + </button>
           </div>
-          <div className={styles.sysButton}>
+          <div className={styles.sysButtons}>
             <input
               id="customerInput"
               value={customerName}
@@ -332,7 +332,7 @@ const Home: NextPage = () => {
             />
             <button onClick={addCustomerHandler}> + add CUST + </button>
           </div>
-          <div className={styles.sysButton}>
+          <div className={styles.sysButtons}>
             <input
               id="prodInput"
               value={product}
@@ -356,26 +356,26 @@ const Home: NextPage = () => {
             <button onClick={addProductHandler}> + add Product </button>
           </div>
           <div>- - - - - - - - - - - - - -</div>
-          <div className={styles.sysButton}>
+          <div className={styles.sysButtons}>
             <button onClick={clearUsersHandler}>! clear U</button>
             <button onClick={clearCustomersHandler}>! clear C</button>
             <button onClick={clearProductHandler}>! clear P</button>
             <button onClick={clearSalesHandler}>! clear S</button>
           </div>
-          <div className={styles.sysButton}>
+          <div className={styles.sysButtons}>
             <button onClick={dropUsersHandler}>! drop U</button>
             <button onClick={dropCustomersHandler}>! drop C</button>
             <button onClick={dropProductHandler}>! drop P</button>
             <button onClick={dropSalesHandler}>! drop S</button>
           </div>
-          <div className={styles.sysButton}>
+          <div className={styles.sysButtons}>
             <button onClick={restoreUsersHandler}>restore U</button>
             <button onClick={restoreCustHandler}>restore C</button>
             <button onClick={restoreProductHandler}>restore P</button>
             <button onClick={restoreSalesHandler}>restore S</button>
           </div>
           <div>- - - - - - - - - - - - - -</div>
-          <div className={styles.blueButton}>
+          <div className={styles.blueButtons}>
             <Link href="/users">
               <button>go Users</button>
             </Link>{' '}
@@ -389,13 +389,13 @@ const Home: NextPage = () => {
             </Link>{' '}
           </div>
           <div>- - - - - - - - - - - - - -</div>
-          <div className={styles.orangeButton}>
+          <div className={styles.orangeButtons}>
             <button onClick={showUsersHandler}>show U</button>
             <button onClick={showCustomersHandler}>show C</button>
             <button onClick={showProductsHandler}>show P</button>
             <button onClick={showSalesHandler}>show S</button>
           </div>
-          <div className={styles.sysButton}>
+          <div className={styles.sysButtons}>
             <button onClick={showTablesHandler}>SHOW TABLES</button>
           </div>
           {resData === undefined || resData.length === 0 ? (
@@ -406,7 +406,7 @@ const Home: NextPage = () => {
           <p>.</p>
           <div>- - - - - - - - - - - - - -</div>
           <p>.</p>
-          <div className={styles.sysButton}>
+          <div className={styles.sysButtons}>
             <button onClick={fillSalesHandler}>! FILL sales !</button>
             &nbsp;{' '}
             <Link href="/sys-sql">

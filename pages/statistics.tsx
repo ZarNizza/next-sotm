@@ -156,8 +156,9 @@ const Home: NextPage = () => {
             customers={customers}
             setCurrentCustomer={setCurrentCustomer}
             currentCustomer={currentCustomer}
+            setCustomers={setCustomers}
           />
-          <div className={styles.sysButton}>
+          <div className={styles.sysButtons}>
             <input
               type="text"
               placeholder="Start date"
@@ -174,7 +175,7 @@ const Home: NextPage = () => {
               onChange={(event) => finishDateChangeHandler(event.target.value)}
             />
           </div>
-          <div className={styles.miniButton}>
+          <div className={styles.miniButtons}>
             <button onClick={setTodayHandler}>today</button>
             <button onClick={setThisMonthHandler}>this Month</button>
             <button onClick={setFullMonthHandler}>Full Month</button>
@@ -182,7 +183,7 @@ const Home: NextPage = () => {
             <button onClick={setFullYearHandler}>Full Year</button>
             <button onClick={setAllHandler}>All</button>
           </div>
-          <div className={styles.orangeButton}>
+          <div className={styles.orangeButtons}>
             <button onClick={showSalesHandler}>Short report</button>
             <button onClick={showFullSalesHandler}>Full statistic</button>
           </div>

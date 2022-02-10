@@ -154,18 +154,18 @@
   transition: 0.25s ease;
 }
 .sysButton,
-.sysButton button {
+.sysButtons button {
   margin: 0.5rem;
   padding: 1rem;
   min-width: 6rem;
 }
-.miniButton button {
+.miniButtons button {
   margin: 0.5rem;
   padding: 1rem;
   min-width: 5rem;
 }
 .orangeButton,
-.orangeButton button {
+.orangeButtons button {
   margin: 0.5rem;
   padding: 1rem;
   min-width: 10rem;
@@ -173,12 +173,12 @@
   border-radius: 1rem;
 }
 .orangeButton:hover,
-.orangeButton button:hover {
+.orangeButtons button:hover {
   background-color: darkgoldenrod;
   transition: 0.5s ease;
 }
 .blueButton,
-.blueButton button {
+.blueButtons button {
   margin: 0.5rem;
   padding: 1rem;
   min-width: 5rem;
@@ -186,7 +186,7 @@
   border-radius: 1rem;
 }
 .blueButton:hover,
-.blueButton button:hover {
+.blueButtons button:hover {
   background-color: darkcyan;
   transition: 0.5s ease;
 }

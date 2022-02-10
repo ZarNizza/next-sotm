@@ -40,9 +40,11 @@ const Home: NextPage = () => {
               placeholder="SQL request"
               style={{ padding: '1rem', width: '80rem' }}
             />
-            <button onClick={sqlReuestHandler}>send SQL</button>
+            <button onClick={sqlReuestHandler} className={styles.orangeButton}>
+              send SQL
+            </button>
           </div>
-          <div className={styles.blueButton}>
+          <div className={styles.blueButtons}>
             <Link href="/users">
               <button>Users</button>
             </Link>{' '}
