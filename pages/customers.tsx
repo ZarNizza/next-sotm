@@ -8,7 +8,7 @@ import { Customer } from './add'
 const Home: NextPage = () => {
   const [users, setUsers] = useState<Customer[]>([])
   useEffect(() => {
-    fetch('/api/users')
+    fetch('/api/customers')
       .then((res) => res.json())
       .then((res: { data: Customer[] }) => {
         setUsers(res.data || [])
