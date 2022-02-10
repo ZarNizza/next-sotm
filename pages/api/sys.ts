@@ -95,6 +95,26 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           })
           break
 
+        case 'clear_Eitems':
+          pool.getConnection(function (err, connection) {
+            if (err) throw err // not connected!
+            connection.query(
+              'TRUNCATE TABLE eitems',
+              function (error, results, fields) {
+                connection.release()
+                if (error) {
+                  res
+                    .status(500)
+                    .json({ error: String('!api clear_Eitems err:' + error) })
+                } else {
+                  res.status(203).json({ data: results })
+                }
+                resolve(null)
+              }
+            )
+          })
+          break
+
         case 'clear_Products':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
@@ -195,6 +215,26 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           })
           break
 
+        case 'drop_Eitems':
+          pool.getConnection(function (err, connection) {
+            if (err) throw err // not connected!
+            connection.query(
+              'DROP TABLE eitems',
+              function (error, results, fields) {
+                connection.release()
+                if (error) {
+                  res
+                    .status(500)
+                    .json({ error: String('!api drop_Eitems err:' + error) })
+                } else {
+                  res.status(203).json({ data: results })
+                }
+                resolve(null)
+              }
+            )
+          })
+          break
+
         case 'drop_Products':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
@@ -225,7 +265,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                 if (error) {
                   res
                     .status(500)
-                    .json({ error: String('!api restoreSales err:' + error) })
+                    .json({ error: String('!api restore_Sales err:' + error) })
                 } else {
                   res.status(207).json({ data: results })
                 }
@@ -244,7 +284,27 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                 connection.release()
                 if (error) {
                   res.status(500).json({
-                    error: String('!api restoreXpenseses err:' + error)
+                    error: String('!api restore_Xpenseses err:' + error)
+                  })
+                } else {
+                  res.status(207).json({ data: results })
+                }
+                resolve(null)
+              }
+            )
+          })
+          break
+
+        case 'restore_Eitems':
+          pool.getConnection(function (err, connection) {
+            if (err) throw err // not connected!
+            connection.query(
+              'CREATE TABLE IF NOT EXISTS eitems (eid SMALLINT AUTO_INCREMENT PRIMARY KEY, ename VARCHAR(50), esymbol VARCHAR(7))',
+              function (error, results, fields) {
+                connection.release()
+                if (error) {
+                  res.status(500).json({
+                    error: String('!api restore_Eitems err:' + error)
                   })
                 } else {
                   res.status(207).json({ data: results })
@@ -265,7 +325,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                 if (error) {
                   res
                     .status(500)
-                    .json({ error: String('!api restoreUsers err:' + error) })
+                    .json({ error: String('!api restore_Users err:' + error) })
                 } else {
                   res.status(207).json({ data: results })
                 }
@@ -285,7 +345,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                 if (error) {
                   res
                     .status(500)
-                    .json({ error: String('!api restoreCust err:' + error) })
+                    .json({ error: String('!api restore_Cust err:' + error) })
                 } else {
                   res.status(207).json({ data: results })
                 }
@@ -304,7 +364,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                 connection.release()
                 if (error) {
                   res.status(500).json({
-                    error: String('!api restoreProducts err:' + error)
+                    error: String('!api restore_Products err:' + error)
                   })
                 } else {
                   res.status(207).json({ data: results })
@@ -323,7 +383,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
               if (error) {
                 res
                   .status(500)
-                  .json({ error: String('!api showTables err:' + error) })
+                  .json({ error: String('!api show_Tables err:' + error) })
               } else {
                 res.status(200).json({ data: results })
               }
@@ -342,7 +402,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                 if (error) {
                   res
                     .status(500)
-                    .json({ error: String('!api showUsers err:' + error) })
+                    .json({ error: String('!api show_Users err:' + error) })
                 } else {
                   res.status(200).json({ data: results })
                 }
@@ -362,7 +422,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                 if (error) {
                   res
                     .status(500)
-                    .json({ error: String('!api showCustomers err:' + error) })
+                    .json({ error: String('!api show_Customers err:' + error) })
                 } else {
                   res.status(200).json({ data: results })
                 }
@@ -382,7 +442,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                 if (error) {
                   res
                     .status(500)
-                    .json({ error: String('!api showSales err:' + error) })
+                    .json({ error: String('!api show_Sales err:' + error) })
                 } else {
                   res.status(200).json({ data: results })
                 }
@@ -402,7 +462,27 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                 if (error) {
                   res
                     .status(500)
-                    .json({ error: String('!api showXpenses err:' + error) })
+                    .json({ error: String('!api show_Xpenses err:' + error) })
+                } else {
+                  res.status(200).json({ data: results })
+                }
+                resolve(null)
+              }
+            )
+          })
+          break
+
+        case 'show_Eitems':
+          pool.getConnection(function (err, connection) {
+            if (err) throw err // not connected!
+            connection.query(
+              'SELECT * FROM eitems',
+              function (error, results, fields) {
+                connection.release()
+                if (error) {
+                  res
+                    .status(500)
+                    .json({ error: String('!api show_Eitems err:' + error) })
                 } else {
                   res.status(200).json({ data: results })
                 }
@@ -422,7 +502,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                 if (error) {
                   res
                     .status(500)
-                    .json({ error: String('!api showProducts err:' + error) })
+                    .json({ error: String('!api show_Products err:' + error) })
                 } else {
                   res.status(200).json({ data: results })
                 }
