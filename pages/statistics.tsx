@@ -157,6 +157,7 @@ const Home: NextPage = () => {
             setCurrentCustomer={setCurrentCustomer}
             currentCustomer={currentCustomer}
             setCustomers={setCustomers}
+            mode="stat"
           />
           <div className={styles.sysButtons}>
             <input

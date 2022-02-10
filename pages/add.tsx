@@ -54,6 +54,7 @@ const Home: NextPage = () => {
             setCurrentCustomer={setCurrentCustomer}
             currentCustomer={currentCustomer}
             setCustomers={setCustomers}
+            mode="new"
           />
           <p>
             <span className={styles.tips}>

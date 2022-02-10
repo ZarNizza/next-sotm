@@ -16,6 +16,7 @@ interface CustSelectProps {
   setCurrentCustomer: Dispatch<SetStateAction<[number, string]>>
   currentCustomer: [number, string]
   setCustomers: Dispatch<SetStateAction<Customer[]>>
+  mode: string
 }
 
 export default function CustomerSelect(props: CustSelectProps) {
@@ -64,7 +65,7 @@ export default function CustomerSelect(props: CustSelectProps) {
     props.setCurrentCustomer(() => [0, ''])
   }
 
-  function plusButtonHandler() {
+  function newButtonHandler() {
     setFlagNewCustomer(() => 'Y')
   }
   function saveNewHandler() {
@@ -117,7 +118,11 @@ export default function CustomerSelect(props: CustSelectProps) {
     <>
       <div className={styles.custList}>
         <p className={styles.title}>Customer</p>
-        <button onClick={plusButtonHandler} className={stylesH.plusButton}>
+        <button
+          onClick={newButtonHandler}
+          className={stylesH.plusButton}
+          hidden={props.mode === 'stat'}
+        >
           +New
         </button>
         <input
