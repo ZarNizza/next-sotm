@@ -34,8 +34,6 @@ export default function handler(
           resolve(null)
         }
       )
-
-      console.log('end of handler')
     } else if (req.method === 'GET') {
       connection.query(
         'SELECT * FROM customers',
