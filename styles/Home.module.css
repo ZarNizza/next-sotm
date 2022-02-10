@@ -133,9 +133,8 @@
   height: 3rem;
   width: 3rem;
   background-color: #faffea;
-  float: left;
   margin: 0.5rem -0.4rem 0 0;
-  /* font-size: large; */
+  float: left;
 }
 .plusButton:hover {
   background-color: palegreen;
@@ -154,6 +153,7 @@
   background-color: #ffaabb;
   transition: 0.25s ease;
 }
+.sysButton,
 .sysButton button {
   margin: 0.5rem;
   padding: 1rem;
@@ -164,6 +164,7 @@
   padding: 1rem;
   min-width: 5rem;
 }
+.orangeButton,
 .orangeButton button {
   margin: 0.5rem;
   padding: 1rem;
@@ -171,10 +172,12 @@
   background-color: darkorange;
   border-radius: 1rem;
 }
+.orangeButton:hover,
 .orangeButton button:hover {
   background-color: darkgoldenrod;
   transition: 0.5s ease;
 }
+.blueButton,
 .blueButton button {
   margin: 0.5rem;
   padding: 1rem;
@@ -182,6 +185,7 @@
   background-color: lightskyblue;
   border-radius: 1rem;
 }
+.blueButton:hover,
 .blueButton button:hover {
   background-color: darkcyan;
   transition: 0.5s ease;
@@ -218,15 +222,12 @@
   cursor: pointer;
 }
 .logoutButton {
-  /* background-color: #8f8; */
   color: #303;
-  /* border: 1px solid #2b2; */
   border-radius: 5px;
   margin: 10px;
   padding: 10px;
 }
 .logoutButton:hover {
-  /* background-color: #2f2; */
   cursor: pointer;
 }
 .guestButton {
