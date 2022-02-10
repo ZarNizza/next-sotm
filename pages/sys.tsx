@@ -18,7 +18,7 @@ const Home: NextPage = () => {
     { sid: 0, sdate: '2022-02-02', cust: 0, prod: 0, sum: 0 }
   ])
 
-  function clearUsersHandler() {
+  function clear_U_handler() {
     fetch('/api/sys', { method: 'POST', body: 'clear_Users' })
       .then((res) => res.json())
       .then((res) => {
@@ -28,7 +28,7 @@ const Home: NextPage = () => {
         console.log('! SYS: DB-U-reset error - ', error.message)
       )
   }
-  function clearCustomersHandler() {
+  function clear_C_handler() {
     fetch('/api/sys', { method: 'POST', body: 'clear_Customers' })
       .then((res) => res.json())
       .then((res) => {
@@ -39,7 +39,7 @@ const Home: NextPage = () => {
       )
   }
 
-  function clearSalesHandler() {
+  function clear_S_handler() {
     fetch('/api/sys', { method: 'POST', body: 'clear_Sales' })
       .then((res) => res.json())
       .then((res) => {
@@ -50,7 +50,7 @@ const Home: NextPage = () => {
       )
   }
 
-  function clearXpensesHandler() {
+  function clear_X_handler() {
     fetch('/api/sys', { method: 'POST', body: 'clear_Xpenses' })
       .then((res) => res.json())
       .then((res) => {
@@ -61,8 +61,8 @@ const Home: NextPage = () => {
       )
   }
 
-  function clearProductHandler() {
-    fetch('/api/sys', { method: 'POST', body: 'clear_Prod' })
+  function clear_P_handler() {
+    fetch('/api/sys', { method: 'POST', body: 'clear_Products' })
       .then((res) => res.json())
       .then((res) => {
         console.log('SYS: DB-P-reset = OK', res)
@@ -72,7 +72,7 @@ const Home: NextPage = () => {
       )
   }
 
-  function dropUsersHandler() {
+  function drop_U_handler() {
     fetch('/api/sys', { method: 'POST', body: 'drop_Users' })
       .then((res) => res.json())
       .then((res) => {
@@ -80,7 +80,7 @@ const Home: NextPage = () => {
       })
       .catch((error) => console.log('! SYS: DB-C-drop error - ', error.message))
   }
-  function dropCustomersHandler() {
+  function drop_C_handler() {
     fetch('/api/sys', { method: 'POST', body: 'drop_Customers' })
       .then((res) => res.json())
       .then((res) => {
@@ -89,7 +89,7 @@ const Home: NextPage = () => {
       .catch((error) => console.log('! SYS: DB-C-drop error - ', error.message))
   }
 
-  function dropSalesHandler() {
+  function drop_S_handler() {
     fetch('/api/sys', { method: 'POST', body: 'drop_Sales' })
       .then((res) => res.json())
       .then((res) => {
@@ -98,7 +98,7 @@ const Home: NextPage = () => {
       .catch((error) => console.log('! SYS: DB-S-drop error - ', error.message))
   }
 
-  function dropXpensesHandler() {
+  function drop_X_handler() {
     fetch('/api/sys', { method: 'POST', body: 'drop_Xpenses' })
       .then((res) => res.json())
       .then((res) => {
@@ -107,8 +107,8 @@ const Home: NextPage = () => {
       .catch((error) => console.log('! SYS: DB-X-drop error - ', error.message))
   }
 
-  function dropProductHandler() {
-    fetch('/api/sys', { method: 'POST', body: 'drop_Prod' })
+  function drop_P_handler() {
+    fetch('/api/sys', { method: 'POST', body: 'drop_Products' })
       .then((res) => res.json())
       .then((res) => {
         console.log('SYS: DB-P-drop = OK', res)
@@ -116,130 +116,144 @@ const Home: NextPage = () => {
       .catch((error) => console.log('! SYS: DB-P-drop error - ', error.message))
   }
 
-  function restoreSalesHandler() {
-    fetch('/api/sys', { method: 'POST', body: 'restSales' })
+  function restore_S_handler() {
+    fetch('/api/sys', { method: 'POST', body: 'restore_Sales' })
       .then((res) => res.json())
       .then((res) => {
-        console.log('SYS: restSales = OK', res)
-      })
-      .catch((error) => console.log('! SYS: restSales error - ', error.message))
-  }
-
-  function restoreXpensesHandler() {
-    fetch('/api/sys', { method: 'POST', body: 'restXpenses' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: restXpenses = OK', res)
+        console.log('SYS: restore_Sales = OK', res)
       })
       .catch((error) =>
-        console.log('! SYS: restXpenses error - ', error.message)
+        console.log('! SYS: restore_Sales error - ', error.message)
       )
   }
 
-  function restoreUsersHandler() {
-    fetch('/api/sys', { method: 'POST', body: 'restUsers' })
+  function restore_X_handler() {
+    fetch('/api/sys', { method: 'POST', body: 'restore_Xpenses' })
       .then((res) => res.json())
       .then((res) => {
-        console.log('SYS: restUsers = OK', res)
-      })
-      .catch((error) => console.log('! SYS: restUsers error - ', error.message))
-  }
-
-  function restoreCustHandler() {
-    fetch('/api/sys', { method: 'POST', body: 'restCust' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: restCust = OK', res)
-      })
-      .catch((error) => console.log('! SYS: restCust error - ', error.message))
-  }
-
-  function restoreProductHandler() {
-    fetch('/api/sys', { method: 'POST', body: 'restProd' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: restProd = OK', res)
-      })
-      .catch((error) => console.log('! SYS: restProd error - ', error.message))
-  }
-
-  function showTablesHandler() {
-    fetch('/api/sys', { method: 'POST', body: 'showTables' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: showTables = OK', res.data)
-        setResData(() => res.data)
+        console.log('SYS: restore_Xpenses = OK', res)
       })
       .catch((error) =>
-        console.log('! SYS: showTables error - ', error.message)
+        console.log('! SYS: restore_Xpenses error - ', error.message)
       )
   }
 
-  function showUsersHandler() {
-    fetch('/api/sys', { method: 'POST', body: 'showUsers' })
+  function restore_U_handler() {
+    fetch('/api/sys', { method: 'POST', body: 'restore_Users' })
       .then((res) => res.json())
       .then((res) => {
-        console.log('SYS: showUsers = OK', res.data)
-        setResData(() => res.data)
-      })
-      .catch((error) => console.log('! SYS: showUsers error - ', error.message))
-  }
-
-  function showCustomersHandler() {
-    fetch('/api/sys', { method: 'POST', body: 'showCustomers' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: showCustomers = OK', res.data)
-        setResData(() => res.data)
+        console.log('SYS: restore_Users = OK', res)
       })
       .catch((error) =>
-        console.log('! SYS: showCustomers error - ', error.message)
+        console.log('! SYS: restore_Users error - ', error.message)
       )
   }
 
-  function showSalesHandler() {
-    fetch('/api/sys', { method: 'POST', body: 'showSales' })
+  function restore_C_handler() {
+    fetch('/api/sys', { method: 'POST', body: 'restore_Customers' })
       .then((res) => res.json())
       .then((res) => {
-        console.log('SYS: showSales = OK', res.data)
-        setResData(() => res.data)
-      })
-      .catch((error) => console.log('! SYS: showSales error - ', error.message))
-  }
-
-  function showXpensesHandler() {
-    fetch('/api/sys', { method: 'POST', body: 'showXpenses' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: showXpenses = OK', res.data)
-        setResData(() => res.data)
+        console.log('SYS: restore_Cust = OK', res)
       })
       .catch((error) =>
-        console.log('! SYS: showXpenses error - ', error.message)
+        console.log('! SYS: restore_Cust error - ', error.message)
       )
   }
 
-  function showProductsHandler() {
-    fetch('/api/sys', { method: 'POST', body: 'showProds' })
+  function restore_P_handler() {
+    fetch('/api/sys', { method: 'POST', body: 'restore_Products' })
       .then((res) => res.json())
       .then((res) => {
-        console.log('SYS: showProds = OK', res.data)
-        setResData(() => res.data)
+        console.log('SYS: restore_Prod = OK', res)
       })
-      .catch((error) => console.log('! SYS: showProds error - ', error.message))
+      .catch((error) =>
+        console.log('! SYS: restore_Prod error - ', error.message)
+      )
   }
 
-  function inputUserChangeHandler(userName: string) {
+  function show_Tables_handler() {
+    fetch('/api/sys', { method: 'POST', body: 'show_Tables' })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('SYS: show_Tables = OK', res.data)
+        setResData(() => res.data)
+      })
+      .catch((error) =>
+        console.log('! SYS: show_Tables error - ', error.message)
+      )
+  }
+
+  function show_U_handler() {
+    fetch('/api/sys', { method: 'POST', body: 'show_Users' })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('SYS: show_Users = OK', res.data)
+        setResData(() => res.data)
+      })
+      .catch((error) =>
+        console.log('! SYS: show_Users error - ', error.message)
+      )
+  }
+
+  function show_C_handler() {
+    fetch('/api/sys', { method: 'POST', body: 'show_Customers' })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('SYS: show_Customers = OK', res.data)
+        setResData(() => res.data)
+      })
+      .catch((error) =>
+        console.log('! SYS: show_Customers error - ', error.message)
+      )
+  }
+
+  function show_S_handler() {
+    fetch('/api/sys', { method: 'POST', body: 'show_Sales' })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('SYS: show_Sales = OK', res.data)
+        setResData(() => res.data)
+      })
+      .catch((error) =>
+        console.log('! SYS: show_Sales error - ', error.message)
+      )
+  }
+
+  function show_X_handler() {
+    fetch('/api/sys', { method: 'POST', body: 'show_Xpenses' })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('SYS: show_Xpenses = OK', res.data)
+        setResData(() => res.data)
+      })
+      .catch((error) =>
+        console.log('! SYS: show_Xpenses error - ', error.message)
+      )
+  }
+
+  function show_P_handler() {
+    fetch('/api/sys', { method: 'POST', body: 'show_Products' })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('SYS: show_Prods = OK', res.data)
+        setResData(() => res.data)
+      })
+      .catch((error) =>
+        console.log('! SYS: show_Prods error - ', error.message)
+      )
+  }
+
+  function input_U_Name_ChHandler(userName: string) {
     setUserName(userName.replace(/[^a-zA-Zа-яА-Я\-\s]/gi, ''))
   }
-  function inputPhoneChangeHandler(userPhone: string) {
+  function input_U_Phone_ChHandler(userPhone: string) {
     setUserPhone(userPhone.replace(/[^\d\-\+\s]/g, ''))
   }
-  function inputTimeZoneChangeHandler(timeZone: string) {
+  function input_TimeZone_ChHandler(timeZone: string) {
     setTimeZone(timeZone.replace(/[^\d\-\+]/g, ''))
   }
 
-  function addUserHandler() {
+  function add_U_handler() {
     const user = { uname: userName, uphone: userPhone, timezone: timeZone }
     fetch('/api/users', {
       method: 'POST',
@@ -255,15 +269,15 @@ const Home: NextPage = () => {
       .catch((error) => console.log('! SYS: addUser error - ', error.message))
   }
 
-  function inputCustomerNameChangeHandler(customerName: string) {
+  function input_C_Name_ChHandler(customerName: string) {
     setCustomerName(customerName.replace(/[^a-zA-Zа-яА-Я\-\s]/gi, ''))
   }
 
-  function inputCustomerPhoneChangeHandler(customerPhone: string) {
+  function input_C_Phone_ChHandler(customerPhone: string) {
     setCustomerPhone(customerPhone.replace(/[^\d\-\+\s]/g, ''))
   }
 
-  function addCustomerHandler() {
+  function add_C_handler() {
     const user = { cname: customerName, cphone: customerPhone }
     fetch('/api/customers', {
       method: 'POST',
@@ -280,15 +294,15 @@ const Home: NextPage = () => {
       )
   }
 
-  function inputProductChangeHandler(pText: string) {
+  function input_P_ChHandler(pText: string) {
     setProduct(pText.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:]/gi, ''))
   }
 
-  function inputPsymbolChangeHandler(pSymbol: string) {
+  function input_Psymbol_ChHandler(pSymbol: string) {
     setPsymbol(pSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:\_]/gi, ''))
   }
 
-  function addProductHandler() {
+  function add_P_handler() {
     const prod = { ptext: product, psymbol: pSymbol }
     fetch('/api/products', {
       method: 'POST',
@@ -325,7 +339,7 @@ const Home: NextPage = () => {
             <input
               id="userInput"
               value={userName}
-              onChange={(event) => inputUserChangeHandler(event.target.value)}
+              onChange={(event) => input_U_Name_ChHandler(event.target.value)}
               placeholder="USER first, last name"
               pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
               className={styles.userInput}
@@ -333,7 +347,7 @@ const Home: NextPage = () => {
             <input
               id="userPhoneInput"
               value={userPhone}
-              onChange={(event) => inputPhoneChangeHandler(event.target.value)}
+              onChange={(event) => input_U_Phone_ChHandler(event.target.value)}
               placeholder="+x xxx xxx xxxx, xxxx"
               pattern="^\+?[\d\s\-]{0,20}"
               className={styles.userInput}
@@ -341,22 +355,18 @@ const Home: NextPage = () => {
             <input
               id="userTimeZoneInput"
               value={timeZone}
-              onChange={(event) =>
-                inputTimeZoneChangeHandler(event.target.value)
-              }
+              onChange={(event) => input_TimeZone_ChHandler(event.target.value)}
               placeholder="UTC"
               pattern="^[\+\-]?\d[012]?$"
               className={styles.tzInput}
             />
-            <button onClick={addUserHandler}> + add USER + </button>
+            <button onClick={add_U_handler}> + add USER + </button>
           </div>
           <div className={styles.sysButtons}>
             <input
               id="customerInput"
               value={customerName}
-              onChange={(event) =>
-                inputCustomerNameChangeHandler(event.target.value)
-              }
+              onChange={(event) => input_C_Name_ChHandler(event.target.value)}
               placeholder="CUSTOMER first, last name"
               pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
               className={styles.userInput}
@@ -364,22 +374,18 @@ const Home: NextPage = () => {
             <input
               id="customerPhoneInput"
               value={customerPhone}
-              onChange={(event) =>
-                inputCustomerPhoneChangeHandler(event.target.value)
-              }
+              onChange={(event) => input_C_Phone_ChHandler(event.target.value)}
               placeholder="+x xxx xxx xxxx"
               pattern="^\+?[\d\s\-]{0,20}"
               className={styles.userInput}
             />
-            <button onClick={addCustomerHandler}> + add CUST + </button>
+            <button onClick={add_C_handler}> + add CUST + </button>
           </div>
           <div className={styles.sysButtons}>
             <input
               id="prodInput"
               value={product}
-              onChange={(event) =>
-                inputProductChangeHandler(event.target.value)
-              }
+              onChange={(event) => input_P_ChHandler(event.target.value)}
               placeholder="Product description"
               pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
               className={styles.userInput}
@@ -387,36 +393,34 @@ const Home: NextPage = () => {
             <input
               id="pSymbolInput"
               value={pSymbol}
-              onChange={(event) =>
-                inputPsymbolChangeHandler(event.target.value)
-              }
+              onChange={(event) => input_Psymbol_ChHandler(event.target.value)}
               placeholder="up to 7 symbols"
               pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
               className={styles.userInput}
             />
-            <button onClick={addProductHandler}> + add Product </button>
+            <button onClick={add_P_handler}> + add Product </button>
           </div>
           <div>- - - - - - - - - - - - - -</div>
           <div className={styles.sysButtons}>
-            <button onClick={clearUsersHandler}>! clear U</button>
-            <button onClick={clearCustomersHandler}>! clear C</button>
-            <button onClick={clearProductHandler}>! clear P</button>
-            <button onClick={clearSalesHandler}>! clear S</button>
-            <button onClick={clearXpensesHandler}>! clear X</button>
+            <button onClick={clear_U_handler}>! clear U</button>
+            <button onClick={clear_C_handler}>! clear C</button>
+            <button onClick={clear_P_handler}>! clear P</button>
+            <button onClick={clear_S_handler}>! clear S</button>
+            <button onClick={clear_X_handler}>! clear X</button>
           </div>
           <div className={styles.sysButtons}>
-            <button onClick={dropUsersHandler}>! drop U</button>
-            <button onClick={dropCustomersHandler}>! drop C</button>
-            <button onClick={dropProductHandler}>! drop P</button>
-            <button onClick={dropSalesHandler}>! drop S</button>
-            <button onClick={dropXpensesHandler}>! drop X</button>
+            <button onClick={drop_U_handler}>! drop U</button>
+            <button onClick={drop_C_handler}>! drop C</button>
+            <button onClick={drop_P_handler}>! drop P</button>
+            <button onClick={drop_S_handler}>! drop S</button>
+            <button onClick={drop_X_handler}>! drop X</button>
           </div>
           <div className={styles.sysButtons}>
-            <button onClick={restoreUsersHandler}>restore U</button>
-            <button onClick={restoreCustHandler}>restore C</button>
-            <button onClick={restoreProductHandler}>restore P</button>
-            <button onClick={restoreSalesHandler}>restore S</button>
-            <button onClick={restoreXpensesHandler}>restore X</button>
+            <button onClick={restore_U_handler}>restore U</button>
+            <button onClick={restore_C_handler}>restore C</button>
+            <button onClick={restore_P_handler}>restore P</button>
+            <button onClick={restore_S_handler}>restore S</button>
+            <button onClick={restore_X_handler}>restore X</button>
           </div>
           <div>- - - - - - - - - - - - - -</div>
           <div className={styles.blueButtons}>
@@ -438,14 +442,14 @@ const Home: NextPage = () => {
           </div>
           <div>- - - - - - - - - - - - - -</div>
           <div className={styles.orangeButtons}>
-            <button onClick={showUsersHandler}>show U</button>
-            <button onClick={showCustomersHandler}>show C</button>
-            <button onClick={showProductsHandler}>show P</button>
-            <button onClick={showSalesHandler}>show S</button>
-            <button onClick={showXpensesHandler}>show X</button>
+            <button onClick={show_U_handler}>show U</button>
+            <button onClick={show_C_handler}>show C</button>
+            <button onClick={show_P_handler}>show P</button>
+            <button onClick={show_S_handler}>show S</button>
+            <button onClick={show_X_handler}>show X</button>
           </div>
           <div className={styles.sysButtons}>
-            <button onClick={showTablesHandler}>SHOW TABLES</button>
+            <button onClick={show_Tables_handler}>SHOW TABLES</button>
           </div>
           {resData === undefined || resData.length === 0 ? (
             <p>No data - empty result</p>

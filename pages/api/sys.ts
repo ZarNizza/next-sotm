@@ -95,7 +95,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           })
           break
 
-        case 'clear_Prod':
+        case 'clear_Products':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
@@ -195,7 +195,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           })
           break
 
-        case 'drop_Prod':
+        case 'drop_Products':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
@@ -215,7 +215,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           })
           break
 
-        case 'restSales':
+        case 'restore_Sales':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
@@ -235,7 +235,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           })
           break
 
-        case 'restXpenses':
+        case 'restore_Xpenses':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
@@ -255,7 +255,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           })
           break
 
-        case 'restUsers':
+        case 'restore_Users':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
@@ -275,7 +275,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           })
           break
 
-        case 'restCust':
+        case 'restore_Customers':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
@@ -295,7 +295,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           })
           break
 
-        case 'restProd':
+        case 'restore_Products':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
@@ -315,7 +315,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           })
           break
 
-        case 'showTables':
+        case 'show_Tables':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query('SHOW TABLES', function (error, results, fields) {
@@ -332,7 +332,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           })
           break
 
-        case 'showUsers':
+        case 'show_Users':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
@@ -352,7 +352,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           })
           break
 
-        case 'showCustomers':
+        case 'show_Customers':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
@@ -372,7 +372,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           })
           break
 
-        case 'showSales':
+        case 'show_Sales':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
@@ -392,7 +392,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           })
           break
 
-        case 'showXpenses':
+        case 'show_Xpenses':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
@@ -412,7 +412,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
           })
           break
 
-        case 'showProds':
+        case 'show_Products':
           pool.getConnection(function (err, connection) {
             if (err) throw err // not connected!
             connection.query(
