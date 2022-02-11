@@ -21,275 +21,105 @@ const Home: NextPage = () => {
   ])
 
   function clear_U_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'clear_Users' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: DB-reset = OK', res)
-      })
-      .catch((error) =>
-        console.log('! SYS: DB-U-reset error - ', error.message)
-      )
+    sys_handler('clear_Users')
   }
   function clear_C_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'clear_Customers' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: DB-C-reset = OK', res)
-      })
-      .catch((error) =>
-        console.log('! SYS: DB-C-reset error - ', error.message)
-      )
-  }
-
-  function clear_S_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'clear_Sales' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: DB-S-reset = OK', res)
-      })
-      .catch((error) =>
-        console.log('! SYS: DB-S-reset error - ', error.message)
-      )
-  }
-
-  function clear_X_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'clear_Xpenses' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: DB-X-reset = OK', res)
-      })
-      .catch((error) =>
-        console.log('! SYS: DB-X-reset error - ', error.message)
-      )
-  }
-
-  function clear_E_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'clear_Eitems' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: DB-E-reset = OK', res)
-      })
-      .catch((error) =>
-        console.log('! SYS: DB-E-reset error - ', error.message)
-      )
+    sys_handler('clear_Customers')
   }
 
   function clear_P_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'clear_Products' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: DB-P-reset = OK', res)
-      })
-      .catch((error) =>
-        console.log('! SYS: DB-P-reset error - ', error.message)
-      )
+    sys_handler('clear_Products')
+  }
+
+  function clear_S_handler() {
+    sys_handler('clear_Sales')
+  }
+
+  function clear_X_handler() {
+    sys_handler('clear_Xpenses')
+  }
+
+  function clear_E_handler() {
+    sys_handler('clear_Eitems')
   }
 
   function drop_U_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'drop_Users' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: DB-U-drop = OK', res)
-      })
-      .catch((error) => console.log('! SYS: DB-C-drop error - ', error.message))
+    sys_handler('drop_Users')
   }
+
   function drop_C_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'drop_Customers' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: DB-C-drop = OK', res)
-      })
-      .catch((error) => console.log('! SYS: DB-C-drop error - ', error.message))
-  }
-
-  function drop_S_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'drop_Sales' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: DB-S-drop = OK', res)
-      })
-      .catch((error) => console.log('! SYS: DB-S-drop error - ', error.message))
-  }
-
-  function drop_X_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'drop_Xpenses' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: DB-X-drop = OK', res)
-      })
-      .catch((error) => console.log('! SYS: DB-X-drop error - ', error.message))
-  }
-
-  function drop_E_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'drop_Eitems' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: DB-E-drop = OK', res)
-      })
-      .catch((error) => console.log('! SYS: DB-E-drop error - ', error.message))
+    sys_handler('drop_Customers')
   }
 
   function drop_P_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'drop_Products' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: DB-P-drop = OK', res)
-      })
-      .catch((error) => console.log('! SYS: DB-P-drop error - ', error.message))
+    sys_handler('drop_Products')
   }
 
-  function restore_S_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'restore_Sales' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: restore_Sales = OK', res)
-      })
-      .catch((error) =>
-        console.log('! SYS: restore_Sales error - ', error.message)
-      )
+  function drop_S_handler() {
+    sys_handler('drop_Sales')
   }
 
-  function restore_X_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'restore_Xpenses' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: restore_Xpenses = OK', res)
-      })
-      .catch((error) =>
-        console.log('! SYS: restore_Xpenses error - ', error.message)
-      )
+  function drop_X_handler() {
+    sys_handler('drop_Xpenses')
   }
 
-  function restore_E_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'restore_Eitems' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: restore_Eitems = OK', res)
-      })
-      .catch((error) =>
-        console.log('! SYS: restore_Eitems error - ', error.message)
-      )
+  function drop_E_handler() {
+    sys_handler('drop_Eitems')
   }
 
   function restore_U_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'restore_Users' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: restore_Users = OK', res)
-      })
-      .catch((error) =>
-        console.log('! SYS: restore_Users error - ', error.message)
-      )
+    sys_handler('restore_Users')
   }
 
   function restore_C_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'restore_Customers' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: restore_Cust = OK', res)
-      })
-      .catch((error) =>
-        console.log('! SYS: restore_Cust error - ', error.message)
-      )
+    sys_handler('restore_Customers')
   }
 
   function restore_P_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'restore_Products' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: restore_Prod = OK', res)
-      })
-      .catch((error) =>
-        console.log('! SYS: restore_Prod error - ', error.message)
-      )
+    sys_handler('restore_Products')
   }
 
-  //
+  function restore_S_handler() {
+    sys_handler('restore_Sales')
+  }
+
+  function restore_X_handler() {
+    sys_handler('restore_Xpenses')
+  }
+
+  function restore_E_handler() {
+    sys_handler('restore_Eitems')
+  }
 
   function show_Tables_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'show_Tables' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: show_Tables = OK', res.data)
-        setResData(() => res.data)
-      })
-      .catch((error) =>
-        console.log('! SYS: show_Tables error - ', error.message)
-      )
+    sys_handler('show_Tables')
   }
 
   function show_U_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'show_Users' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: show_Users = OK', res.data)
-        setResData(() => res.data)
-      })
-      .catch((error) =>
-        console.log('! SYS: show_Users error - ', error.message)
-      )
+    sys_handler('show_Users')
   }
 
   function show_C_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'show_Customers' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: show_Customers = OK', res.data)
-        setResData(() => res.data)
-      })
-      .catch((error) =>
-        console.log('! SYS: show_Customers error - ', error.message)
-      )
-  }
-
-  function show_S_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'show_Sales' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: show_Sales = OK', res.data)
-        setResData(() => res.data)
-      })
-      .catch((error) =>
-        console.log('! SYS: show_Sales error - ', error.message)
-      )
-  }
-
-  function show_X_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'show_Xpenses' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: show_Xpenses = OK', res.data)
-        setResData(() => res.data)
-      })
-      .catch((error) =>
-        console.log('! SYS: show_Xpenses error - ', error.message)
-      )
-  }
-
-  function show_E_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'show_Eitems' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: show_Eitems = OK', res.data)
-        setResData(() => res.data)
-      })
-      .catch((error) =>
-        console.log('! SYS: show_Eitems error - ', error.message)
-      )
+    sys_handler('show_Customers')
   }
 
   function show_P_handler() {
-    fetch('/api/sys', { method: 'POST', body: 'show_Products' })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('SYS: show_Prods = OK', res.data)
-        setResData(() => res.data)
-      })
-      .catch((error) =>
-        console.log('! SYS: show_Prods error - ', error.message)
-      )
+    sys_handler('show_Products')
   }
-  //
+  function show_S_handler() {
+    sys_handler('show_Sales')
+  }
+
+  function show_X_handler() {
+    sys_handler('show_Xpenses')
+  }
+
+  function show_E_handler() {
+    sys_handler('show_Eitems')
+  }
+
+  //  add User
+
   function add_U_handler() {
     const user = { uname: userName, uphone: userPhone, timezone: timeZone }
     fetch('/api/users', {
@@ -314,7 +144,9 @@ const Home: NextPage = () => {
   function input_TimeZone_ChHandler(timeZone: string) {
     setTimeZone(timeZone.replace(/[^\d\-\+]/g, ''))
   }
-  //
+
+  //  add Customer
+
   function add_C_handler() {
     const user = { cname: customerName, cphone: customerPhone }
     fetch('/api/customers', {
@@ -337,7 +169,9 @@ const Home: NextPage = () => {
   function input_C_Phone_ChHandler(customerPhone: string) {
     setCustomerPhone(customerPhone.replace(/[^\d\-\+\s]/g, ''))
   }
-  //
+
+  //  add Product
+
   function add_P_handler() {
     const prod = { ptext: product, psymbol: pSymbol }
     fetch('/api/products', {
@@ -360,7 +194,9 @@ const Home: NextPage = () => {
   function input_Psymbol_ChHandler(pSymbol: string) {
     setPsymbol(pSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:\_]/gi, ''))
   }
-  //
+
+  //  add ExpeneItem
+
   function add_E_handler() {
     const eitem = { ename: eItem, esymbol: eSymbol }
     fetch('/api/expenses', {
@@ -381,7 +217,9 @@ const Home: NextPage = () => {
   function input_Esymbol_ChHandler(eSymbol: string) {
     setEsymbol(eSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:\_]/gi, ''))
   }
-  //
+
+  //  fill Sales
+
   function fillSalesHandler() {
     fetch('/api/sys2-fill', { method: 'POST', body: 'fill_Sales' }) // sys2-fill
       .then((res) => res.json())
@@ -389,6 +227,19 @@ const Home: NextPage = () => {
         console.log('SYS: DB-S-fill = OK', res)
       })
       .catch((error) => console.log('! SYS: DB-S-fill error - ', error.message))
+  }
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  function sys_handler(title: string) {
+    fetch('/api/sys', { method: 'POST', body: title })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('SYS: ', title, ' = OK', res)
+        setResData(() => res.data)
+      })
+      .catch((error) =>
+        console.log('! SYS: ', title, ' error - ', error.message)
+      )
   }
 
   return (
