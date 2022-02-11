@@ -15,10 +15,18 @@ const Home: NextPage = () => {
   useEffect(() => {
     fetch('/api/products')
       .then((res) => res.json())
-      .then((res: { data: Product[] }) => {
-        setProducts(res.data || [])
+      .then((res) => {
+        if (res.error) {
+          console.log('--- products DB/api error: ' + res.error)
+          alert('DataBase error: X3')
+        } else {
+          setProducts(() => res.data || [])
+        }
       })
-      .catch((error) => console.log('! frontend fetch error - ', error.message))
+      .catch((error) => {
+        console.log('--- catch products fetch error - ', error)
+        alert('fetch data error: X3')
+      })
   }, [])
 
   return (

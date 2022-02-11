@@ -14,10 +14,18 @@ const Home: NextPage = () => {
   useEffect(() => {
     fetch('/api/expenses')
       .then((res) => res.json())
-      .then((res: { data: Eitem[] }) => {
-        setEitems(res.data || [])
+      .then((res) => {
+        if (res.error) {
+          console.log('--- expenses DB/api error: ' + res.error)
+          alert('DataBase error: X3')
+        } else {
+          setEitems(() => res.data || [])
+        }
       })
-      .catch((error) => console.log('! frontend fetch error - ', error.message))
+      .catch((error) => {
+        console.log('--- catch expenses fetch error - ', error)
+        alert('fetch data error: X3')
+      })
   }, [])
   return (
     <Layout>

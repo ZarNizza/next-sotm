@@ -9,9 +9,8 @@ import {
 import type { Customer } from '../pages/add'
 import styles from './CustomerSelect.module.scss'
 import stylesH from '../styles/Home.module.css'
-import { error } from 'console'
 
-interface CustSelectProps {
+type CustSelectProps = {
   customers: Customer[]
   setCurrentCustomer: Dispatch<SetStateAction<[number, string]>>
   currentCustomer: [number, string]
@@ -77,26 +76,36 @@ export default function CustomerSelect(props: CustSelectProps) {
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log('Add: addCustomer = OK', res)
-          resolveSS(res)
+          if (res.error) {
+            console.log('--- saveNew DB/api error: ' + res.error)
+            alert('DataBase error: X3')
+            rejectSS(res.error)
+          } else {
+            resolveSS(res)
+          }
         })
         .catch((error) => {
-          console.log('! Add: addCustomer error - ', error.message)
-          rejectSS(error)
+          console.log('--- catch saveNew fetch error - ', error)
+          alert('fetch data error: X3')
         })
     })
       .then(() => {
         new Promise((resolveUC, rejectUC) => {
           fetch('/api/customers')
             .then((apiRes) => apiRes.json())
-            .then((apiRes: { data: Customer[] }) => {
-              props.setCustomers(() => apiRes.data || [])
-              console.log('Customers api res.data:', apiRes.data)
-              resolveUC(apiRes)
+            .then((apiRes) => {
+              if (apiRes.error) {
+                console.log('--- CustSelect DB/api error: ' + apiRes.error)
+                alert('DataBase error: X3')
+                rejectUC(apiRes.error)
+              } else {
+                props.setCustomers(() => apiRes.data || [])
+                resolveUC(apiRes)
+              }
             })
             .catch((error) => {
-              console.log('! frontend update Customers error - ', error.message)
-              rejectUC(error)
+              console.log('--- catch CustSelect fetch error - ', error)
+              alert('fetch data error: X3')
             })
         })
       })

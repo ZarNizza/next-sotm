@@ -22,10 +22,10 @@ export default async function sysHandler(
         'SELECT * FROM prod',
         function (error, results: Product[], fields) {
           connection.release()
+
           if (error) {
             console.log('!api/stat - init Products - MySQL ERROR', error)
             reject(error)
-            return
           } else {
             resolve(results)
           }

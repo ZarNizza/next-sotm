@@ -6,14 +6,22 @@ import Layout from '../components/layout'
 import { Customer } from './add'
 
 const Home: NextPage = () => {
-  const [users, setUsers] = useState<Customer[]>([])
+  const [customers, setCustomers] = useState<Customer[]>([])
   useEffect(() => {
     fetch('/api/customers')
       .then((res) => res.json())
-      .then((res: { data: Customer[] }) => {
-        setUsers(res.data || [])
+      .then((res) => {
+        if (res.error) {
+          console.log('--- customers DB/api error: ' + res.error)
+          alert('DataBase error: X3')
+        } else {
+          setCustomers(() => res.data || [])
+        }
       })
-      .catch((error) => console.log('! frontend fetch error - ', error.message))
+      .catch((error) => {
+        console.log('--- catch customers fetch error - ', error)
+        alert('fetch data error: X3')
+      })
   }, [])
 
   return (
@@ -27,7 +35,7 @@ const Home: NextPage = () => {
         <main className={styles.main}>
           <h2>Customers:</h2>
           <ul>
-            {users.map((user: Customer) => (
+            {customers.map((user: Customer) => (
               <li key={Math.random()}>
                 {user.cname}
                 {', '}

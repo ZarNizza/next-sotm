@@ -128,12 +128,16 @@ const Home: NextPage = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log('SYS: addUser = OK', res)
-        setUserName('')
-        setUserPhone('')
-        setTimeZone('')
+        if (res.error) {
+          alert('SYS: addUser ERROR: ' + res.error)
+        } else {
+          console.log('SYS: addUser = OK', res)
+          setUserName('')
+          setUserPhone('')
+          setTimeZone('')
+        }
       })
-      .catch((error) => console.log('! SYS: addUser error - ', error.message))
+      .catch((error) => alert('! SYS: addUser error - ' + error.message))
   }
   function input_U_Name_ChHandler(userName: string) {
     setUserName(userName.replace(/[^a-zA-Zа-яА-Я\-\s]/gi, ''))
@@ -155,13 +159,15 @@ const Home: NextPage = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log('SYS: addCustomer = OK', res)
-        setCustomerName('')
-        setCustomerPhone('')
+        if (res.error) {
+          alert('SYS: addCustomer ERROR: ' + res.error)
+        } else {
+          console.log('SYS: addCustomer = OK', res)
+          setCustomerName('')
+          setCustomerPhone('')
+        }
       })
-      .catch((error) =>
-        console.log('! SYS: addCustomer error - ', error.message)
-      )
+      .catch((error) => alert('! SYS: addCustomer error - ' + error.message))
   }
   function input_C_Name_ChHandler(customerName: string) {
     setCustomerName(customerName.replace(/[^a-zA-Zа-яА-Я\-\s]/gi, ''))
@@ -180,13 +186,15 @@ const Home: NextPage = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log('SYS: addProduct = OK', res)
-        setProduct('')
-        setPsymbol('')
+        if (res.error) {
+          alert('SYS: addProduct ERROR: ' + res.error)
+        } else {
+          console.log('SYS: addProduct = OK', res)
+          setProduct('')
+          setPsymbol('')
+        }
       })
-      .catch((error) =>
-        console.log('! SYS: addProduct error - ', error.message)
-      )
+      .catch((error) => alert('! SYS: addProduct error - ' + error.message))
   }
   function input_P_ChHandler(pText: string) {
     setProduct(pText.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:]/gi, ''))
@@ -205,11 +213,15 @@ const Home: NextPage = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log('SYS: addEitem = OK', res)
-        setEitem('')
-        setEsymbol('')
+        if (res.error) {
+          alert('SYS: addEitem ERROR: ' + res.error)
+        } else {
+          console.log('SYS: addEitem = OK', res)
+          setEitem('')
+          setEsymbol('')
+        }
       })
-      .catch((error) => console.log('! SYS: addEitem error - ', error.message))
+      .catch((error) => alert('! SYS: addEitem error - ' + error.message))
   }
   function input_E_ChHandler(eName: string) {
     setEitem(eName.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:]/gi, ''))
@@ -224,9 +236,13 @@ const Home: NextPage = () => {
     fetch('/api/sys2-fill', { method: 'POST', body: 'fill_Sales' }) // sys2-fill
       .then((res) => res.json())
       .then((res) => {
-        console.log('SYS: DB-S-fill = OK', res)
+        if (res.error) {
+          alert('SYS: DB-S-fill ERROR: ' + res.error)
+        } else {
+          console.log('SYS: DB-S-fill = OK', res.data)
+        }
       })
-      .catch((error) => console.log('! SYS: DB-S-fill error - ', error.message))
+      .catch((error) => alert('! SYS: DB-S-fill error - ' + error.message))
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -234,12 +250,14 @@ const Home: NextPage = () => {
     fetch('/api/sys', { method: 'POST', body: title })
       .then((res) => res.json())
       .then((res) => {
-        console.log('SYS: ', title, ' = OK', res)
+        if (res.error) {
+          alert('SYS: ' + title + ' ERROR:' + res.error)
+        } else {
+          console.log('SYS: ', title, ' = OK', res.data)
+        }
         setResData(() => res.data)
       })
-      .catch((error) =>
-        console.log('! SYS: ', title, ' error - ', error.message)
-      )
+      .catch((error) => alert('! SYS: ' + title + ' error - ' + error.message))
   }
 
   return (

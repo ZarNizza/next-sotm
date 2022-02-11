@@ -9,7 +9,7 @@ import {
   SetStateAction
 } from 'react'
 
-interface ProductCartProps {
+type ProductCartProps = {
   setSelectedProducts: Dispatch<SetStateAction<number[]>>
   selectedProducts: number[]
   products: Product[]
@@ -89,12 +89,17 @@ export default function ProductCart(props: ProductCartProps) {
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log('SYS: saveSale = OK', res)
-          props.setSelectedProducts([])
+          if (res.error) {
+            console.log('--- prodCart DB/api error: ' + res.error)
+            alert('DataBase error: X3')
+          } else {
+            props.setSelectedProducts([])
+          }
         })
-        .catch((error) =>
-          console.log('! SYS: saveSale error - ', error.message)
-        )
+        .catch((error) => {
+          console.log('--- catch prodCart fetch error - ', error)
+          alert('fetch data error: X3')
+        })
     })
   }
 
