@@ -13,6 +13,8 @@ const pool = mysql.createPool({
 export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
   let sql = ''
   let err_prefix = ''
+  let retRes = false
+
   if (req.method === 'POST') {
     switch (req.body) {
       //
@@ -115,41 +117,46 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
       case 'show_Tables':
         sql = 'SHOW TABLES'
         err_prefix = 'show_Tables'
+        retRes = true
         break
 
       case 'show_Users':
         sql = 'SELECT * FROM users'
         err_prefix = 'show_Users'
+        retRes = true
         break
 
       case 'show_Customers':
         sql = 'SELECT * FROM customers'
         err_prefix = 'show_Customers'
+        retRes = true
         break
 
       case 'show_Products':
         sql = 'SELECT * FROM prod'
         err_prefix = 'show_Products'
+        retRes = true
         break
 
       case 'show_Sales':
         sql = 'SELECT * FROM sales'
         err_prefix = 'show_Sales'
+        retRes = true
         break
 
       case 'show_Xpenses':
         sql = 'SELECT * FROM xpenses'
         err_prefix = 'show_Xpenses'
+        retRes = true
         break
 
       case 'show_Eitems':
         sql = 'SELECT * FROM eitems'
         err_prefix = 'show_Eitems'
+        retRes = true
         break
 
       default:
-        sql = ''
-        err_prefix = ''
         break
     }
   }
@@ -175,7 +182,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
                 .status(500)
                 .json({ error: String('!api ' + err_prefix + ' err:' + error) })
             } else {
-              res.status(200).json({ data: results })
+              retRes
+                ? res.status(200).json({ data: results })
+                : res.status(203).json({ data: 'OK' })
             }
             resolve(null)
           })

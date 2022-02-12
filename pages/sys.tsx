@@ -242,7 +242,7 @@ const Home: NextPage = () => {
           console.log('SYS: DB_S_fill = OK', res.data)
         }
       })
-      .catch((error) => alert('! SYS: DB_S_fill error - ' + error))
+      .catch((error) => alert('! SYS: DB_S_fill error - ' + error.message))
   }
 
   function fill_X_handler() {
@@ -255,7 +255,7 @@ const Home: NextPage = () => {
           console.log('SYS: DB_X_fill = OK', res.data)
         }
       })
-      .catch((error) => alert('! SYS: DB_X_fill error - ' + error))
+      .catch((error) => alert('! SYS: DB_X_fill error - ' + error.message))
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -266,9 +266,10 @@ const Home: NextPage = () => {
         if (res.error) {
           alert('SYS: ' + title + ' ERROR:' + res.error)
         } else {
-          console.log('SYS: ', title, ' = OK', res.data)
+          console.log('SYS: ', title, ', res.data=', res.data)
         }
-        setResData(() => res.data)
+        if (res.data !== undefined && res.data !== 'OK')
+          setResData(() => res.data)
       })
       .catch((error) => alert('! SYS: ' + title + ' error - ' + error.message))
   }
