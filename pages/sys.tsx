@@ -232,17 +232,30 @@ const Home: NextPage = () => {
 
   //  fill Sales
 
-  function fillSalesHandler() {
-    fetch('/api/sys2-fill', { method: 'POST', body: 'fill_Sales' }) // sys2-fill
+  function fill_S_handler() {
+    fetch('/api/sys_fill_S', { method: 'POST', body: 'fill_S' }) // sys_fill_S
       .then((res) => res.json())
       .then((res) => {
         if (res.error) {
-          alert('SYS: DB-S-fill ERROR: ' + res.error)
+          alert('SYS: DB_S_fill ERROR: ' + res.error)
         } else {
-          console.log('SYS: DB-S-fill = OK', res.data)
+          console.log('SYS: DB_S_fill = OK', res.data)
         }
       })
-      .catch((error) => alert('! SYS: DB-S-fill error - ' + error.message))
+      .catch((error) => alert('! SYS: DB_S_fill error - ' + error))
+  }
+
+  function fill_X_handler() {
+    fetch('/api/sys_fill_X', { method: 'POST', body: 'fill_X' }) // sys_fill_X
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.error) {
+          alert('SYS: DB_X_fill ERROR: ' + res.error)
+        } else {
+          console.log('SYS: DB_X_fill = OK', res.data)
+        }
+      })
+      .catch((error) => alert('! SYS: DB_X_fill error - ' + error))
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -415,7 +428,8 @@ const Home: NextPage = () => {
           <div>- - - - - - - - - - - - - -</div>
           <p>.</p>
           <div className={styles.sysButtons}>
-            <button onClick={fillSalesHandler}>! FILL sales !</button>
+            <button onClick={fill_S_handler}>! fill S !</button>
+            &nbsp; <button onClick={fill_X_handler}>! fill X !</button>
             &nbsp;{' '}
             <Link href="/sys-sql">
               <button>- SQL -</button>

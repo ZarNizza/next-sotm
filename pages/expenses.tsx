@@ -4,11 +4,18 @@ import { useEffect, useState } from 'react'
 import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
 
-export interface Eitem {
+export type Eitem = {
   eid: number
   ename: string
   esymbol: string
 }
+export type Xpense = {
+  xid?: number
+  xdate: string
+  xitem: number
+  xsum: number
+}
+
 const Home: NextPage = () => {
   const [eItems, setEitems] = useState<Eitem[]>([])
   useEffect(() => {
