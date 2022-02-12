@@ -62,9 +62,41 @@ export default async function sysHandler(
     }
 
     let sqlQuery = ''
+    let sqlProdSum = ''
 
     if (req.method === 'POST') {
       switch (parsedReq.mode) {
+        //
+        case 'show_X':
+          sqlQuery =
+            'SELECT e.esymbol, SUM(CASE WHEN x.xitem = e.eid THEN x.xsum ELSE 0 END) AS Xgross FROM eitems AS e' +
+            ' LEFT JOIN xpenses AS x ON x.xitem = e.eid' +
+            currCustJoin +
+            ' WHERE x.xdate BETWEEN ' +
+            startDate +
+            ' AND ' +
+            finishDate +
+            currentCustomer +
+            ' GROUP BY e.esymbol WITH ROLLUP'
+
+          pool.getConnection(function (err, connection) {
+            if (err) throw err // not connected!
+            connection.query(sqlQuery, function (error, results, fields) {
+              connection.release()
+              if (error) {
+                res.status(500).json({
+                  error: String('!api/sys show_X err:' + error)
+                })
+                console.log('api/sql: error code=', error.code)
+                console.log('api/sql: error fatal=', error.fatal)
+                reject(error)
+              } else {
+                res.status(201).json({ data: results, source: 'short' })
+                resolve(results)
+              }
+            })
+          })
+          break
         //
         case 'show_Sales':
           sqlQuery =
@@ -98,7 +130,6 @@ export default async function sysHandler(
           break
         //
         case 'show_Full':
-          let sqlProdSum = ''
           sqlProdSum = products.reduce(
             (sum, item) =>
               sum +
@@ -139,6 +170,8 @@ export default async function sysHandler(
             })
           })
           break
+        //
+
         //
         default:
           res.status(404).json({ data: '!api default case' })

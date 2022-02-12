@@ -26,7 +26,24 @@ const Home: NextPage = () => {
   const [startDate, setStartDate] = useState('2021-01-01')
   const [finishDate, setFinishDate] = useState('2022-02-10')
 
-  function showSalesHandler() {
+  function show_X_Handler() {
+    const body = {
+      mode: 'show_X',
+      startDate: startDate,
+      finishDate: finishDate,
+      currentCustomer: currentCustomer
+    }
+    fetch('/api/statistics', { method: 'POST', body: JSON.stringify(body) })
+      .then((res) => res.json())
+      .then((res) => {
+        setResSource(() => res.source)
+        setResData(() => res.data)
+      })
+      .catch((error) =>
+        console.log('! STAT: DB-X-show error - ', error.message)
+      )
+  }
+  function showShortHandler() {
     const body = {
       mode: 'show_Sales',
       startDate: startDate,
@@ -185,8 +202,9 @@ const Home: NextPage = () => {
             <button onClick={setAllHandler}>All</button>
           </div>
           <div className={styles.orangeButtons}>
-            <button onClick={showSalesHandler}>Short report</button>
+            <button onClick={showShortHandler}>Short report</button>
             <button onClick={showFullSalesHandler}>Full statistic</button>
+            <button onClick={show_X_Handler}>Short Xpenses</button>
           </div>
           {resData === undefined || resData.length === 0 ? (
             <p>No data - empty result</p>
