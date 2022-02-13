@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import mysql from 'mysql2'
-import type { Sale, Customer, Product } from '../add'
+import serialiseDate from '../../components/serialiseDate'
 import type { Xpense } from '../expenses'
 
 const pool = mysql.createPool({
@@ -10,6 +10,8 @@ const pool = mysql.createPool({
   password: process.env.DB_PASS,
   database: process.env.DB_NAME
 })
+
+const timeZone = '04'
 
 function SaveXpense(args: Xpense) {
   return new Promise((resolveSS, rejectSS) => {
@@ -42,7 +44,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
   let dates: string[] = []
 
   for (; iDate <= findate; iDate.setDate(iDate.getDate() + 1)) {
-    dates.push(serialiseDate(iDate))
+    dates.push(serialiseDate(iDate, timeZone))
   }
 
   return Promise.all(
@@ -59,18 +61,4 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
     .catch((error) =>
       res.status(500).json({ error: String('!api/sys fill_X err:' + error) })
     )
-}
-
-const timeZone = '04'
-function serialiseDate(date: Date) {
-  return (
-    String(date.getFullYear()) +
-    '-' +
-    String(date.getMonth() + 1) +
-    '-' +
-    String(date.getDate()) +
-    'T' +
-    timeZone +
-    ':00:00'
-  )
 }
