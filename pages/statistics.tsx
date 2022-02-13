@@ -91,7 +91,7 @@ const Home: NextPage = () => {
 
   function show_CS_Full_Handler() {
     const body = {
-      mode: 'show_CustStat_Full',
+      mode: 'show_CS_Full',
       startDate: startDate,
       finishDate: finishDate,
       currentCustomer: currentCustomer
