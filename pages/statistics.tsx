@@ -227,9 +227,7 @@ const Home: NextPage = () => {
               onChange={(event) => finishDateChangeHandler(event.target.value)}
             />
           </div>
-          <div style={{ color: 'gray' }}>
-            Long period may cause too wide view
-          </div>
+          <div className={styles.gray}>Long period may cause too wide view</div>
           <div className={styles.miniButtons}>
             <button onClick={setTodayHandler}>today</button>
             <button onClick={setWeekHandler}>Week</button>

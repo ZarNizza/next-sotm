@@ -128,6 +128,9 @@
   margin: 0.5rem 0 0.5rem -1rem;
   display: flex;
 }
+.logoBH:hover {
+  cursor: pointer;
+}
 
 .plusButton {
   height: 3rem;
@@ -174,7 +177,7 @@
 }
 .orangeButton:hover,
 .orangeButtons button:hover {
-  background-color: darkgoldenrod;
+  background-color: gold;
   transition: 0.5s ease;
 }
 .blueButton,
@@ -277,4 +280,7 @@ td.gross {
 .main input:invalid {
   border-color: red;
   color: red;
+}
+.gray {
+  color: gray;
 }
