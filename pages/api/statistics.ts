@@ -16,34 +16,78 @@ export default async function sysHandler(
 ) {
   // init products
   const products = await new Promise<Product[]>((resolve, reject) => {
-    pool.getConnection(function (err, connection) {
-      if (err) throw err // not connected!
-      connection.query(
-        'SELECT * FROM prod',
-        function (error, results: Product[], fields) {
-          connection.release()
-
-          if (error) {
-            console.log('!api/stat - init Products - MySQL ERROR', error)
-            reject(error)
-          } else {
-            resolve(results)
+    pool.getConnection(function (poolErr, connection) {
+      if (poolErr) {
+        resolve([])
+      } else {
+        connection.query(
+          'SELECT * FROM prod',
+          function (connError, results: Product[], fields) {
+            connection.release()
+            if (connError) {
+              console.log('!!!api/stat - init Products:', connError)
+              resolve([])
+            } else {
+              resolve(results)
+            }
           }
-        }
-      )
+        )
+      }
     })
   })
 
   return new Promise((resolve, reject) => {
+    //
+    function poolGetConnection(
+      sqlQuery: string,
+      source: string,
+      connErrorText: string
+    ) {
+      pool.getConnection(function (err, connection) {
+        if (err) {
+          res.status(500).json({ error: String('DataBase not connected!') })
+          resolve('! DB not connected !')
+        } else {
+          connection.query(sqlQuery, function (error, results, fields) {
+            connection.release()
+            if (error) {
+              res.status(500).json({
+                error: String('sql error (X3)')
+              })
+              console.log(connErrorText, error)
+              reject(error)
+            } else {
+              console.log(
+                'getConn status 201 - SQL:',
+                sqlQuery,
+                ' data:',
+                results,
+                ' source:',
+                source
+              )
+              res.status(201).json({ data: results, source: source })
+              resolve(results)
+              return results
+            }
+          })
+        }
+      })
+    }
+
+    let sqlQuery = ''
+    let source = ''
+    let sqlProdSum = ''
+    let currentCustomer = ''
+    let currCustJoin = ''
+    let connErrorText = ''
+
     const parsedReq = JSON.parse(req.body)
-    const currentCustomer =
-      parsedReq.currentCustomer[0] === 0
-        ? ''
-        : ` AND c.cid = ${parsedReq.currentCustomer[0]} `
-    const currCustJoin =
-      parsedReq.currentCustomer[0] === 0
-        ? ''
-        : ' LEFT JOIN customers AS c ON c.cid = s.cust'
+    if (typeof parsedReq.currentCustomer !== 'undefined') {
+      if (parsedReq.currentCustomer[0] !== 0) {
+        currentCustomer = ` AND c.cid = ${parsedReq.currentCustomer[0]} `
+        currCustJoin = ' LEFT JOIN customers AS c ON c.cid = s.cust'
+      }
+    }
 
     const startDate = parsedReq.startDate
       ? '"' + parsedReq.startDate + ' 00:00:00"'
@@ -61,9 +105,6 @@ export default async function sysHandler(
       finishDate = '"' + finDate + ' 00:00:00"'
     }
 
-    let sqlQuery = ''
-    let sqlProdSum = ''
-
     if (req.method === 'POST') {
       switch (parsedReq.mode) {
         //
@@ -79,26 +120,42 @@ export default async function sysHandler(
             currentCustomer +
             ' GROUP BY e.esymbol WITH ROLLUP'
 
-          pool.getConnection(function (err, connection) {
-            if (err) throw err // not connected!
-            connection.query(sqlQuery, function (error, results, fields) {
-              connection.release()
-              if (error) {
-                res.status(500).json({
-                  error: String('!api/sys show_X err:' + error)
-                })
-                console.log('api/sql: error code=', error.code)
-                console.log('api/sql: error fatal=', error.fatal)
-                reject(error)
-              } else {
-                res.status(201).json({ data: results, source: 'short' })
-                resolve(results)
-              }
-            })
-          })
+          source = 'short'
+          connErrorText = 'api/sql: error:'
+
+          poolGetConnection(sqlQuery, source, connErrorText)
           break
         //
-        case 'show_Sales':
+        case 'show_SX':
+          sqlQuery =
+            'SELECT p.psymbol, SUM(CASE WHEN s.prod = p.pid THEN s.sum ELSE 0 END) AS gross FROM prod AS p' +
+            ' LEFT JOIN sales AS s ON s.prod = p.pid' +
+            currCustJoin +
+            ' WHERE s.sdate BETWEEN ' +
+            startDate +
+            ' AND ' +
+            finishDate +
+            currentCustomer +
+            ' GROUP BY p.psymbol WITH ROLLUP ' +
+            'UNION ALL ' +
+            'SELECT e.esymbol, SUM(CASE WHEN x.xitem = e.eid THEN x.xsum ELSE 0 END) AS Xgross FROM eitems AS e' +
+            ' LEFT JOIN xpenses AS x ON x.xitem = e.eid' +
+            currCustJoin +
+            ' WHERE x.xdate BETWEEN ' +
+            startDate +
+            ' AND ' +
+            finishDate +
+            currentCustomer +
+            ' GROUP BY e.esymbol WITH ROLLUP'
+
+          source = 'short'
+          connErrorText = 'api/sql: error:'
+
+          poolGetConnection(sqlQuery, source, connErrorText)
+
+          break
+        //
+        case 'show_S':
           sqlQuery =
             'SELECT p.psymbol, SUM(CASE WHEN s.prod = p.pid THEN s.sum ELSE 0 END) AS gross FROM prod AS p' +
             ' LEFT JOIN sales AS s ON s.prod = p.pid' +
@@ -110,26 +167,23 @@ export default async function sysHandler(
             currentCustomer +
             ' GROUP BY p.psymbol WITH ROLLUP'
 
-          pool.getConnection(function (err, connection) {
-            if (err) throw err // not connected!
-            connection.query(sqlQuery, function (error, results, fields) {
-              connection.release()
-              if (error) {
-                res.status(500).json({
-                  error: String('!api/sys2 showSales err:' + error)
-                })
-                console.log('api/sql: error code=', error.code)
-                console.log('api/sql: error fatal=', error.fatal)
-                reject(error)
-              } else {
-                res.status(201).json({ data: results, source: 'short' })
-                resolve(results)
-              }
-            })
-          })
+          source = 'short'
+          connErrorText = 'api/sql: error:'
+
+          poolGetConnection(sqlQuery, source, connErrorText)
+
           break
         //
-        case 'show_Full':
+        case 'show_SX_Full':
+          res.status(500).json({
+            error: String('sql COMING SOON!')
+          })
+          reject('sql COMING SOON!')
+          break
+        //
+        //
+        //
+        case 'show_CustStat_Full':
           sqlProdSum = products.reduce(
             (sum, item) =>
               sum +
@@ -153,29 +207,32 @@ export default async function sysHandler(
             ' GROUP BY c.cname WITH ROLLUP'
 
           pool.getConnection(function (err, connection) {
-            if (err) throw err // not connected!
-            connection.query(sqlQuery, function (error, results, fields) {
-              connection.release()
-              if (error) {
-                res.status(500).json({
-                  error: String('!api/sys2 showFULL err:' + error)
-                })
-                console.log('api/sql: error code=', error.code)
-                console.log('api/sql: error fatal=', error.fatal)
-                reject(error)
-              } else {
-                res.status(202).json({ data: results, source: 'full' })
-                resolve(results)
-              }
-            })
+            if (err) {
+              res.status(500).json({ error: String('DataBase not connected!') })
+              resolve('! DB not connected !')
+            } else {
+              connection.query(sqlQuery, function (error, results, fields) {
+                connection.release()
+                if (error) {
+                  res.status(500).json({
+                    error: String('sql error (X3)')
+                  })
+                  console.log('api/sql: error:', error)
+                  reject(error)
+                } else {
+                  res.status(201).json({ data: results, source: 'full' })
+                  resolve(results)
+                }
+              })
+            }
           })
           break
         //
 
         //
         default:
-          res.status(404).json({ data: '!api default case' })
-          resolve(null)
+          res.status(404).json({ error: '!api default case' })
+          reject(null)
           break
       }
     }

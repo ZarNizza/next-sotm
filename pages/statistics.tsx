@@ -10,6 +10,13 @@ import InitCustomers from '../components/initCustomers'
 import InitProducts from '../components/initProducts'
 import CustomerSelect from '../components/CustomerSelect'
 
+type apiBody = {
+  mode: string
+  startDate: string
+  finishDate: string
+  currentCustomer?: [number, string]
+}
+
 const Home: NextPage = () => {
   const [customers, setCustomers] = useState<Customer[]>([])
   const [currentCustomer, setCurrentCustomer] = useState<
@@ -26,60 +33,70 @@ const Home: NextPage = () => {
   const [startDate, setStartDate] = useState('2021-01-01')
   const [finishDate, setFinishDate] = useState('2022-02-10')
 
+  function fetch_Handler(body: apiBody) {
+    fetch('/api/statistics', { method: 'POST', body: JSON.stringify(body) })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.error) {
+          console.log('!!! API error=', res.error)
+          alert('!Error: ' + res.error)
+        } else {
+          setResSource(() => res.source)
+          setResData(() => res.data)
+        }
+      })
+      .catch((error) => {
+        console.log('!!! catch Error:', error.message)
+        alert('!catch Error:' + error.message)
+      })
+  }
+
+  function show_S_Handler() {
+    const body = {
+      mode: 'show_S',
+      startDate: startDate,
+      finishDate: finishDate,
+      currentCustomer: currentCustomer
+    }
+    fetch_Handler(body)
+  }
+
   function show_X_Handler() {
     const body = {
       mode: 'show_X',
       startDate: startDate,
-      finishDate: finishDate,
-      currentCustomer: currentCustomer
+      finishDate: finishDate
     }
-    fetch('/api/statistics', { method: 'POST', body: JSON.stringify(body) })
-      .then((res) => res.json())
-      .then((res) => {
-        setResSource(() => res.source)
-        setResData(() => res.data)
-      })
-      .catch((error) =>
-        console.log('! STAT: DB-X-show error - ', error.message)
-      )
+    fetch_Handler(body)
   }
-  function showShortHandler() {
+
+  function show_SX_Handler() {
     const body = {
-      mode: 'show_Sales',
+      mode: 'show_SX',
       startDate: startDate,
       finishDate: finishDate,
       currentCustomer: currentCustomer
     }
-    fetch('/api/statistics', { method: 'POST', body: JSON.stringify(body) })
-      .then((res) => res.json())
-      .then((res) => {
-        setResSource(() => res.source)
-        setResData(() => res.data)
-      })
-      .catch((error) =>
-        console.log('! STAT: DB-S-show error - ', error.message)
-      )
+    fetch_Handler(body)
   }
 
-  function showFullSalesHandler() {
+  function show_SX_Full_Handler() {
     const body = {
-      mode: 'show_Full',
+      mode: 'show_SX_Full',
+      startDate: startDate,
+      finishDate: finishDate
+    }
+    fetch_Handler(body)
+  }
+
+  function show_CustStat_Handler() {
+    const body = {
+      mode: 'show_CustStat_Full',
       startDate: startDate,
       finishDate: finishDate,
       currentCustomer: currentCustomer
     }
-
-    fetch('/api/statistics', { method: 'POST', body: JSON.stringify(body) })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('STAT: res.source', res.source)
-        console.log('STAT: DB-S-showFull = OK', res.data)
-        setResSource(() => res.source)
-        setResData(() => res.data)
-      })
-      .catch((error) =>
-        console.log('! STAT: DB-S-showFull error - ', error.message)
-      )
+    fetch_Handler(body)
   }
 
   function startDateChangeHandler(startDate: string) {
@@ -202,9 +219,11 @@ const Home: NextPage = () => {
             <button onClick={setAllHandler}>All</button>
           </div>
           <div className={styles.orangeButtons}>
-            <button onClick={showShortHandler}>Short report</button>
-            <button onClick={showFullSalesHandler}>Full statistic</button>
-            <button onClick={show_X_Handler}>Short Xpenses</button>
+            <button onClick={show_S_Handler}>Short S report</button>
+            <button onClick={show_X_Handler}>Short X report</button>
+            <button onClick={show_SX_Handler}>Short SX report</button>
+            <button onClick={show_SX_Full_Handler}>SX Full report</button>
+            <button onClick={show_CustStat_Handler}>Customers report</button>
           </div>
           {resData === undefined || resData.length === 0 ? (
             <p>No data - empty result</p>
