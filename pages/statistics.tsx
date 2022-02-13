@@ -223,7 +223,7 @@ const Home: NextPage = () => {
             <button onClick={show_S_Handler}>Short S report</button>
             <button onClick={show_X_Handler}>Short X report</button>
             <button onClick={show_SX_Handler}>Short SX report</button>
-            <button onClick={show_S_Full_Handler}>SX Full report</button>
+            <button onClick={show_S_Full_Handler}>S Full report</button>
             <button onClick={show_CS_Full_Handler}>CS Full report</button>
           </div>
           {resData === undefined || resData.length === 0 ? (

@@ -40,7 +40,7 @@ export default async function sysHandler(
   })
 
   return new Promise((resolve, reject) => {
-    //
+    // common function
     function poolGetConnection(sqlQuery: string, source: string) {
       pool.getConnection(function (err, connection) {
         if (err) {
@@ -56,14 +56,14 @@ export default async function sysHandler(
               console.log('api/sql: error:', error)
               reject(error)
             } else {
-              console.log(
-                'getConn status 201 - SQL:',
-                sqlQuery,
-                ' data:',
-                results,
-                ' source:',
-                source
-              )
+              // console.log(
+              //   'getConn status 201 - SQL:',
+              //   sqlQuery,
+              //   ' data:',
+              //   results,
+              //   ' source:',
+              //   source
+              // )
               res.status(201).json({ data: results, source: source })
               resolve(results)
               return results
@@ -76,13 +76,13 @@ export default async function sysHandler(
     let sqlQuery = ''
     let source = ''
     let sqlProdSum = ''
-    let sqlDateProdSum = ''
+    let sqlDPSum = ''
     let currentCustomer = ''
     let currCustJoin = ''
-    let connErrorText = ''
     //
     //
     const parsedReq = JSON.parse(req.body)
+
     if (typeof parsedReq.currentCustomer !== 'undefined') {
       if (parsedReq.currentCustomer[0] !== 0) {
         currentCustomer = ` AND c.cid = ${parsedReq.currentCustomer[0]} `
@@ -107,7 +107,7 @@ export default async function sysHandler(
     }
 
     if (startDate > finishDate) {
-      //silent change
+      //silent Dates swap
       const tmpDate = startDate
       startDate = finishDate
       finishDate = tmpDate
@@ -183,29 +183,29 @@ export default async function sysHandler(
         //
 
         case 'show_S_Full':
-          let iDate = new Date(startDate)
-          const findate = new Date(finishDate)
+          let iDate = new Date(startDate.slice(1, 11))
+          const findate = new Date(finishDate.slice(1, 11))
           let dates: string[] = []
 
-          for (; iDate <= findate; iDate.setDate(iDate.getDate() + 1)) {
-            dates.push(serialiseDate(iDate, timeZone))
+          for (; iDate < findate; iDate.setDate(iDate.getDate() + 1)) {
+            dates.push(serialiseDate(iDate, timeZone).slice(0, 10))
           }
-          sqlDateProdSum = dates.reduce(
-            (sum, item) =>
+          sqlDPSum = dates.reduce(
+            (sum, item, i) =>
               sum +
-              'SUM(CASE WHEN s.sdate = ' +
+              'SUM(CASE WHEN DATE(s.sdate) = "' +
               item +
-              ' AND s.prod = p.pid ' +
-              ' THEN s.sum ELSE 0 END) AS sum_' +
-              String(item).slice(0, 11) +
-              ', ',
+              '" AND s.prod = p.pid ' +
+              ' THEN s.sum ELSE 0 END) AS "' +
+              item.slice(5) +
+              '", ',
             ''
           )
 
           sqlQuery =
             'SELECT p.psymbol, ' +
-            sqlDateProdSum +
-            ' SUM(CASE WHEN s.prod = p.pid THEN s.sum ELSE 0 END) AS gross FROM prod AS p' +
+            sqlDPSum +
+            ' SUM(CASE WHEN s.prod = p.pid THEN s.sum ELSE 0 END) AS sum FROM prod AS p' +
             ' LEFT JOIN sales AS s ON s.prod = p.pid' +
             currCustJoin +
             ' WHERE s.sdate BETWEEN ' +
@@ -216,6 +216,11 @@ export default async function sysHandler(
             ' GROUP BY p.psymbol WITH ROLLUP'
 
           source = 'fullSD'
+          console.log('////////////////////////////////////////////////')
+          console.log('dates[]:', dates)
+          console.log('sqlDPSum:', sqlDPSum)
+          console.log('sqlQuery:', sqlQuery)
+          console.log('\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\')
 
           poolGetConnection(sqlQuery, source)
 
