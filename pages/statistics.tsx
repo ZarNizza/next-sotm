@@ -109,17 +109,26 @@ const Home: NextPage = () => {
     fetch_Handler(body)
   }
 
+  function checkPeriodLength() {
+    const sD = Number(new Date(startDate))
+    const fD = Number(new Date(finishDate))
+    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!sd', sD, '---', fD - sD)
+    if (fD - sD > 604500000) alert('Long period - may cause too wide view!')
+  }
+
   function startDateChangeHandler(startDate: string) {
     if (startDate.length < 11)
       setStartDate(
         startDate.replace(/[^\d\.\,\-\/]/g, '').replace(/[^\d\-]/g, '-')
       )
+    checkPeriodLength()
   }
   function finishDateChangeHandler(finishDate: string) {
     if (finishDate.length < 11)
       setFinishDate(
         finishDate.replace(/[^\d\.\,\-\/]/g, '').replace(/[^\d\-]/g, '-')
       )
+    checkPeriodLength()
   }
 
   function myDate(mark: string) {
@@ -178,22 +187,27 @@ const Home: NextPage = () => {
   function setThisMonthHandler() {
     setStartDate(() => myDate('0M'))
     setFinishDate(() => myDate('today'))
+    checkPeriodLength()
   }
   function setFullMonthHandler() {
     setStartDate(() => myDate('FM'))
     setFinishDate(() => myDate('today'))
+    checkPeriodLength()
   }
   function setThisYearHandler() {
     setStartDate(() => myDate('0Y'))
     setFinishDate(() => myDate('today'))
+    checkPeriodLength()
   }
   function setFullYearHandler() {
     setStartDate(() => myDate('FY'))
     setFinishDate(() => myDate('today'))
+    checkPeriodLength()
   }
   function setAllHandler() {
     setStartDate(() => myDate('0'))
     setFinishDate(() => myDate('today'))
+    checkPeriodLength()
   }
 
   return (
@@ -237,12 +251,12 @@ const Home: NextPage = () => {
             <button onClick={setAllHandler}>All</button>
           </div>
           <div className={styles.orangeButtons}>
-            <button onClick={show_S_Handler}>Short S report</button>
-            <button onClick={show_X_Handler}>Short X report</button>
-            <button onClick={show_SX_Handler}>Short SX report</button>
-            <button onClick={show_S_Full_Handler}>S Full report</button>
-            <button onClick={show_SX_Full_Handler}>SX Full report</button>
-            <button onClick={show_CS_Full_Handler}>CS Full report</button>
+            <button onClick={show_S_Handler}>Total S</button>
+            <button onClick={show_X_Handler}>Total X</button>
+            <button onClick={show_SX_Handler}>Total S + X</button>
+            <button onClick={show_S_Full_Handler}>S by days</button>
+            <button onClick={show_SX_Full_Handler}>S + X by days</button>
+            <button onClick={show_CS_Full_Handler}>Sells by Customer</button>
           </div>
           {resData === undefined || resData.length === 0 ? (
             <p>No data - empty result</p>
