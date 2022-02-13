@@ -257,6 +257,13 @@
   text-align: center;
   vertical-align: middle;
 }
+thead td p.vertical {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
 td.gross {
   text-align: right;
   background-color: papayawhip;

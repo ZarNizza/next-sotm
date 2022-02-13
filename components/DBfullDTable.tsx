@@ -26,7 +26,9 @@ export default function DBfullDTable(props: TableProps) {
           <thead>
             <tr key={Math.random()}>
               {keys.map((key) => (
-                <td key={Math.random()}>{key}</td>
+                <td key={Math.random()}>
+                  <p className={styles.vertical}>{key}</p>
+                </td>
               ))}
             </tr>
             {/* <tr key={Math.random()}>
@@ -39,17 +41,21 @@ export default function DBfullDTable(props: TableProps) {
           </thead>
           <tbody>
             {props.resData.map((item) => {
-              const a = Object.values(item)
               return (
                 <tr key={Math.random()}>
                   {Object.values(item).map((elem) => (
                     <td
                       key={Math.random()}
-                      className={item.cname === null ? styles.gross : ''}
+                      className={
+                        item.cname === null || item.psymbol === null
+                          ? styles.gross
+                          : ''
+                      }
                     >
                       {typeof elem === 'number'
                         ? String(elem)
-                        : item.cname === null && elem === null
+                        : elem === null &&
+                          (item.cname === null || item.psymbol === null)
                         ? 'Total:'
                         : String(elem).slice(0, 10)}
                     </td>
