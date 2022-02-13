@@ -109,26 +109,17 @@ const Home: NextPage = () => {
     fetch_Handler(body)
   }
 
-  function checkPeriodLength() {
-    const sD = Number(new Date(startDate))
-    const fD = Number(new Date(finishDate))
-    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!sd', sD, '---', fD - sD)
-    if (fD - sD > 604500000) alert('Long period - may cause too wide view!')
-  }
-
   function startDateChangeHandler(startDate: string) {
     if (startDate.length < 11)
       setStartDate(
         startDate.replace(/[^\d\.\,\-\/]/g, '').replace(/[^\d\-]/g, '-')
       )
-    checkPeriodLength()
   }
   function finishDateChangeHandler(finishDate: string) {
     if (finishDate.length < 11)
       setFinishDate(
         finishDate.replace(/[^\d\.\,\-\/]/g, '').replace(/[^\d\-]/g, '-')
       )
-    checkPeriodLength()
   }
 
   function myDate(mark: string) {
@@ -187,27 +178,22 @@ const Home: NextPage = () => {
   function setThisMonthHandler() {
     setStartDate(() => myDate('0M'))
     setFinishDate(() => myDate('today'))
-    checkPeriodLength()
   }
   function setFullMonthHandler() {
     setStartDate(() => myDate('FM'))
     setFinishDate(() => myDate('today'))
-    checkPeriodLength()
   }
   function setThisYearHandler() {
     setStartDate(() => myDate('0Y'))
     setFinishDate(() => myDate('today'))
-    checkPeriodLength()
   }
   function setFullYearHandler() {
     setStartDate(() => myDate('FY'))
     setFinishDate(() => myDate('today'))
-    checkPeriodLength()
   }
   function setAllHandler() {
     setStartDate(() => myDate('0'))
     setFinishDate(() => myDate('today'))
-    checkPeriodLength()
   }
 
   return (
