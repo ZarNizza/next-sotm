@@ -77,6 +77,7 @@ export default async function sysHandler(
     let source = ''
     let sqlProdSum = ''
     let sqlDPSum = ''
+    let sqlDXSum = ''
     let currentCustomer = ''
     let currCustJoin = ''
     //
@@ -112,6 +113,15 @@ export default async function sysHandler(
       startDate = finishDate
       finishDate = tmpDate
     }
+
+    let iDate = new Date(startDate.slice(1, 11))
+    const findate = new Date(finishDate.slice(1, 11))
+    let dates: string[] = []
+
+    for (; iDate < findate; iDate.setDate(iDate.getDate() + 1)) {
+      dates.push(serialiseDate(iDate, timeZone).slice(0, 10))
+    }
+
     //
     //
     //
@@ -181,15 +191,7 @@ export default async function sysHandler(
 
           break
         //
-
         case 'show_S_Full':
-          let iDate = new Date(startDate.slice(1, 11))
-          const findate = new Date(finishDate.slice(1, 11))
-          let dates: string[] = []
-
-          for (; iDate < findate; iDate.setDate(iDate.getDate() + 1)) {
-            dates.push(serialiseDate(iDate, timeZone).slice(0, 10))
-          }
           sqlDPSum = dates.reduce(
             (sum, item, i) =>
               sum +
@@ -216,18 +218,69 @@ export default async function sysHandler(
             ' GROUP BY p.psymbol WITH ROLLUP'
 
           source = 'fullSD'
+
+          poolGetConnection(sqlQuery, source)
+          break
+        //
+        //
+        case 'show_SX_Full':
+          sqlDPSum = dates.reduce(
+            (sum, item, i) =>
+              sum +
+              'SUM(CASE WHEN DATE(s.sdate) = "' +
+              item +
+              '" AND s.prod = p.pid ' +
+              ' THEN s.sum ELSE 0 END) AS "' +
+              item.slice(5) +
+              '", ',
+            ''
+          )
+          sqlDXSum = dates.reduce(
+            (sum, item, i) =>
+              sum +
+              'SUM(CASE WHEN DATE(x.xdate) = "' +
+              item +
+              '" AND x.xitem = e.eid ' +
+              ' THEN x.xsum ELSE 0 END) AS "' +
+              item.slice(5) +
+              '", ',
+            ''
+          )
+
+          sqlQuery =
+            'SELECT p.psymbol, ' +
+            sqlDPSum +
+            ' SUM(CASE WHEN s.prod = p.pid THEN s.sum ELSE 0 END) AS sum FROM prod AS p' +
+            ' LEFT JOIN sales AS s ON s.prod = p.pid' +
+            currCustJoin +
+            ' WHERE s.sdate BETWEEN ' +
+            startDate +
+            ' AND ' +
+            finishDate +
+            currentCustomer +
+            ' GROUP BY p.psymbol WITH ROLLUP' +
+            ' UNION ALL ' +
+            'SELECT e.esymbol,' +
+            sqlDXSum +
+            ' SUM(CASE WHEN x.xitem = e.eid THEN x.xsum ELSE 0 END) AS Xgross FROM eitems AS e' +
+            ' LEFT JOIN xpenses AS x ON x.xitem = e.eid' +
+            currCustJoin +
+            ' WHERE x.xdate BETWEEN ' +
+            startDate +
+            ' AND ' +
+            finishDate +
+            currentCustomer +
+            ' GROUP BY e.esymbol WITH ROLLUP'
+
+          source = 'fullSD'
           console.log('////////////////////////////////////////////////')
           console.log('dates[]:', dates)
           console.log('sqlDPSum:', sqlDPSum)
+          console.log('sqlDXSum:', sqlDXSum)
           console.log('sqlQuery:', sqlQuery)
           console.log('\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\')
 
           poolGetConnection(sqlQuery, source)
-
-          // res.status(500).json({
-          //   error: String('sql COMING SOON!')
-          // })
-          // reject('sql COMING SOON!')
           break
         //
         //
