@@ -38,11 +38,7 @@ export default async function sysHandler(
 
   return new Promise((resolve, reject) => {
     //
-    function poolGetConnection(
-      sqlQuery: string,
-      source: string,
-      connErrorText: string
-    ) {
+    function poolGetConnection(sqlQuery: string, source: string) {
       pool.getConnection(function (err, connection) {
         if (err) {
           res.status(500).json({ error: String('DataBase not connected!') })
@@ -54,7 +50,7 @@ export default async function sysHandler(
               res.status(500).json({
                 error: String('sql error (X3)')
               })
-              console.log(connErrorText, error)
+              console.log('api/sql: error:', error)
               reject(error)
             } else {
               console.log(
@@ -80,7 +76,8 @@ export default async function sysHandler(
     let currentCustomer = ''
     let currCustJoin = ''
     let connErrorText = ''
-
+    //
+    //
     const parsedReq = JSON.parse(req.body)
     if (typeof parsedReq.currentCustomer !== 'undefined') {
       if (parsedReq.currentCustomer[0] !== 0) {
@@ -89,7 +86,7 @@ export default async function sysHandler(
       }
     }
 
-    const startDate = parsedReq.startDate
+    let startDate = parsedReq.startDate
       ? '"' + parsedReq.startDate + ' 00:00:00"'
       : '"2020-01-01 00:00:00"'
     let finishDate = '"2099-12-31 00:00:00"'
@@ -105,8 +102,35 @@ export default async function sysHandler(
       finishDate = '"' + finDate + ' 00:00:00"'
     }
 
+    if (startDate > finishDate) {
+      //silent change
+      const tmpDate = startDate
+      startDate = finishDate
+      finishDate = tmpDate
+    }
+    //
+    //
+    //
     if (req.method === 'POST') {
       switch (parsedReq.mode) {
+        //
+        case 'show_S':
+          sqlQuery =
+            'SELECT p.psymbol, SUM(CASE WHEN s.prod = p.pid THEN s.sum ELSE 0 END) AS gross FROM prod AS p' +
+            ' LEFT JOIN sales AS s ON s.prod = p.pid' +
+            currCustJoin +
+            ' WHERE s.sdate BETWEEN ' +
+            startDate +
+            ' AND ' +
+            finishDate +
+            currentCustomer +
+            ' GROUP BY p.psymbol WITH ROLLUP'
+
+          source = 'short'
+
+          poolGetConnection(sqlQuery, source)
+
+          break
         //
         case 'show_X':
           sqlQuery =
@@ -121,9 +145,8 @@ export default async function sysHandler(
             ' GROUP BY e.esymbol WITH ROLLUP'
 
           source = 'short'
-          connErrorText = 'api/sql: error:'
 
-          poolGetConnection(sqlQuery, source, connErrorText)
+          poolGetConnection(sqlQuery, source)
           break
         //
         case 'show_SX':
@@ -149,31 +172,12 @@ export default async function sysHandler(
             ' GROUP BY e.esymbol WITH ROLLUP'
 
           source = 'short'
-          connErrorText = 'api/sql: error:'
 
-          poolGetConnection(sqlQuery, source, connErrorText)
-
-          break
-        //
-        case 'show_S':
-          sqlQuery =
-            'SELECT p.psymbol, SUM(CASE WHEN s.prod = p.pid THEN s.sum ELSE 0 END) AS gross FROM prod AS p' +
-            ' LEFT JOIN sales AS s ON s.prod = p.pid' +
-            currCustJoin +
-            ' WHERE s.sdate BETWEEN ' +
-            startDate +
-            ' AND ' +
-            finishDate +
-            currentCustomer +
-            ' GROUP BY p.psymbol WITH ROLLUP'
-
-          source = 'short'
-          connErrorText = 'api/sql: error:'
-
-          poolGetConnection(sqlQuery, source, connErrorText)
+          poolGetConnection(sqlQuery, source)
 
           break
         //
+
         case 'show_SX_Full':
           res.status(500).json({
             error: String('sql COMING SOON!')
@@ -183,7 +187,7 @@ export default async function sysHandler(
         //
         //
         //
-        case 'show_CustStat_Full':
+        case 'show_CS_Full':
           sqlProdSum = products.reduce(
             (sum, item) =>
               sum +
@@ -206,26 +210,10 @@ export default async function sysHandler(
             currentCustomer +
             ' GROUP BY c.cname WITH ROLLUP'
 
-          pool.getConnection(function (err, connection) {
-            if (err) {
-              res.status(500).json({ error: String('DataBase not connected!') })
-              resolve('! DB not connected !')
-            } else {
-              connection.query(sqlQuery, function (error, results, fields) {
-                connection.release()
-                if (error) {
-                  res.status(500).json({
-                    error: String('sql error (X3)')
-                  })
-                  console.log('api/sql: error:', error)
-                  reject(error)
-                } else {
-                  res.status(201).json({ data: results, source: 'full' })
-                  resolve(results)
-                }
-              })
-            }
-          })
+          source = 'full'
+
+          poolGetConnection(sqlQuery, source)
+
           break
         //
 

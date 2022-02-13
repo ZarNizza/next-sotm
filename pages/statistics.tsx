@@ -89,7 +89,7 @@ const Home: NextPage = () => {
     fetch_Handler(body)
   }
 
-  function show_CustStat_Handler() {
+  function show_CS_Full_Handler() {
     const body = {
       mode: 'show_CustStat_Full',
       startDate: startDate,
@@ -223,7 +223,7 @@ const Home: NextPage = () => {
             <button onClick={show_X_Handler}>Short X report</button>
             <button onClick={show_SX_Handler}>Short SX report</button>
             <button onClick={show_SX_Full_Handler}>SX Full report</button>
-            <button onClick={show_CustStat_Handler}>Customers report</button>
+            <button onClick={show_CS_Full_Handler}>Customers report</button>
           </div>
           {resData === undefined || resData.length === 0 ? (
             <p>No data - empty result</p>
