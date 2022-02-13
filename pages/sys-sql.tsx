@@ -5,7 +5,6 @@ import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
 import { useState } from 'react'
 import type { Sale } from './add'
-import DBresultTable from '../components/DBresultTable'
 
 const Home: NextPage = () => {
   const [resData, setResData] = useState<Sale[]>([])

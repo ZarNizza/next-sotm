@@ -3,29 +3,29 @@ import type { Sale, Product } from '../pages/add'
 
 type TableProps = {
   resData: Record<string, number | string | Date | null>[]
-  products: Product[]
 }
 
-export default function DBresultTable(props: TableProps) {
+export default function DBshortTable(props: TableProps) {
+  // console.log('------------+++++++++++++++---------- resData', props.resData)
   const keys = Object.keys(props.resData[0])
-  const nColumns = keys.length
 
   if (props.resData === undefined || props.resData.length === 0) {
     return (
       <div className={styles.flexColumnContainer}>
-        <p>--------------------</p>
+        <p>--------- s ----------</p>
         <p>- Empty DB result -</p>
       </div>
     )
   } else {
     return (
       <div className={styles.flexColumnContainer}>
-        <p>--------------------</p>
+        <p>---------- s ----------</p>
         <table>
           <thead>
-            <tr key={Math.random()}><td key={Math.random()}>Customer</td>
-            {props.products.map((el) => <td key={Math.random()}>{el.psymbol}</td>)}
-            <td key={Math.random()}>Sum</td>
+            <tr key={Math.random()}>
+              {keys.map((key) => (
+                <td key={Math.random()}>{key}</td>
+              ))}
             </tr>
           </thead>
           <tbody>
@@ -36,11 +36,11 @@ export default function DBresultTable(props: TableProps) {
                   {Object.values(item).map((elem) => (
                     <td
                       key={Math.random()}
-                      className={item.cname === null ? styles.gross : ''}
+                      className={a[0] === null ? styles.gross : ''}
                     >
                       {typeof elem === 'number'
                         ? String(elem)
-                        : item.cname === null && elem === null
+                        : a[0] === null && elem === null
                         ? 'Total:'
                         : String(elem).slice(0, 10)}
                     </td>

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
 import { useState } from 'react'
-import DBresultTable from '../components/DBresultTable'
+import DBshortTable from '../components/DBshortTable'
 
 const Home: NextPage = () => {
   const [userName, setUserName] = useState('')
@@ -423,7 +423,7 @@ const Home: NextPage = () => {
           {resData === undefined || resData.length === 0 ? (
             <p>No data - empty result</p>
           ) : (
-            <DBresultTable resData={resData} />
+            <DBshortTable resData={resData} />
           )}
           <p>.</p>
           <div>- - - - - - - - - - - - - -</div>

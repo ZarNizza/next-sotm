@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import mysql from 'mysql2'
+import serialiseDate from '../../components/serialiseDate'
 import type { Product } from '../add'
 
 const pool = mysql.createPool({
@@ -9,6 +10,8 @@ const pool = mysql.createPool({
   password: process.env.DB_PASS,
   database: process.env.DB_NAME
 })
+
+const timeZone = '04'
 
 export default async function sysHandler(
   req: NextApiRequest,
@@ -73,6 +76,7 @@ export default async function sysHandler(
     let sqlQuery = ''
     let source = ''
     let sqlProdSum = ''
+    let sqlDateProdSum = ''
     let currentCustomer = ''
     let currCustJoin = ''
     let connErrorText = ''
@@ -178,11 +182,47 @@ export default async function sysHandler(
           break
         //
 
-        case 'show_SX_Full':
-          res.status(500).json({
-            error: String('sql COMING SOON!')
-          })
-          reject('sql COMING SOON!')
+        case 'show_S_Full':
+          let iDate = new Date(startDate)
+          const findate = new Date(finishDate)
+          let dates: string[] = []
+
+          for (; iDate <= findate; iDate.setDate(iDate.getDate() + 1)) {
+            dates.push(serialiseDate(iDate, timeZone))
+          }
+          sqlDateProdSum = dates.reduce(
+            (sum, item) =>
+              sum +
+              'SUM(CASE WHEN s.sdate = ' +
+              item +
+              ' AND s.prod = p.pid ' +
+              ' THEN s.sum ELSE 0 END) AS sum_' +
+              String(item).slice(0, 11) +
+              ', ',
+            ''
+          )
+
+          sqlQuery =
+            'SELECT p.psymbol, ' +
+            sqlDateProdSum +
+            ' SUM(CASE WHEN s.prod = p.pid THEN s.sum ELSE 0 END) AS gross FROM prod AS p' +
+            ' LEFT JOIN sales AS s ON s.prod = p.pid' +
+            currCustJoin +
+            ' WHERE s.sdate BETWEEN ' +
+            startDate +
+            ' AND ' +
+            finishDate +
+            currentCustomer +
+            ' GROUP BY p.psymbol WITH ROLLUP'
+
+          source = 'fullSD'
+
+          poolGetConnection(sqlQuery, source)
+
+          // res.status(500).json({
+          //   error: String('sql COMING SOON!')
+          // })
+          // reject('sql COMING SOON!')
           break
         //
         //

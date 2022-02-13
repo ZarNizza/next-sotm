@@ -3,23 +3,25 @@ import type { Sale, Product } from '../pages/add'
 
 type TableProps = {
   resData: Record<string, number | string | Date | null>[]
+  products: Product[]
 }
 
-export default function DBresultTable(props: TableProps) {
-  // console.log('------------+++++++++++++++---------- resData', props.resData)
+export default function DBfullDTable(props: TableProps) {
   const keys = Object.keys(props.resData[0])
+  const nColumns = keys.length
+  console.log('nColumns=', nColumns, ' keys=', keys)
 
   if (props.resData === undefined || props.resData.length === 0) {
     return (
       <div className={styles.flexColumnContainer}>
-        <p>--------------------</p>
+        <p>----------fD----------</p>
         <p>- Empty DB result -</p>
       </div>
     )
   } else {
     return (
       <div className={styles.flexColumnContainer}>
-        <p>--------------------</p>
+        <p>---------- fD ----------</p>
         <table>
           <thead>
             <tr key={Math.random()}>
@@ -27,6 +29,13 @@ export default function DBresultTable(props: TableProps) {
                 <td key={Math.random()}>{key}</td>
               ))}
             </tr>
+            {/* <tr key={Math.random()}>
+              <td key={Math.random()}>Customer</td>
+              {props.products.map((el) => (
+                <td key={Math.random()}>{el.psymbol}</td>
+              ))}
+              <td key={Math.random()}>Sum</td>
+            </tr> */}
           </thead>
           <tbody>
             {props.resData.map((item) => {
@@ -36,11 +45,11 @@ export default function DBresultTable(props: TableProps) {
                   {Object.values(item).map((elem) => (
                     <td
                       key={Math.random()}
-                      className={a[0] === null ? styles.gross : ''}
+                      className={item.cname === null ? styles.gross : ''}
                     >
                       {typeof elem === 'number'
                         ? String(elem)
-                        : a[0] === null && elem === null
+                        : item.cname === null && elem === null
                         ? 'Total:'
                         : String(elem).slice(0, 10)}
                     </td>

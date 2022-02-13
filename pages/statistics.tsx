@@ -4,8 +4,9 @@ import { useState } from 'react'
 import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
 import { Sale, Product, Customer } from './add'
-import DBresultTable from '../components/DBresultTable'
-import DBstatTable from '../components/DBstatTable'
+import DBshortTable from '../components/DBshortTable'
+import DBfullTable from '../components/DBfullTable'
+import DBfullDTable from '../components/DBfullDTable'
 import InitCustomers from '../components/initCustomers'
 import InitProducts from '../components/initProducts'
 import CustomerSelect from '../components/CustomerSelect'
@@ -80,9 +81,9 @@ const Home: NextPage = () => {
     fetch_Handler(body)
   }
 
-  function show_SX_Full_Handler() {
+  function show_S_Full_Handler() {
     const body = {
-      mode: 'show_SX_Full',
+      mode: 'show_S_Full',
       startDate: startDate,
       finishDate: finishDate
     }
@@ -222,15 +223,17 @@ const Home: NextPage = () => {
             <button onClick={show_S_Handler}>Short S report</button>
             <button onClick={show_X_Handler}>Short X report</button>
             <button onClick={show_SX_Handler}>Short SX report</button>
-            <button onClick={show_SX_Full_Handler}>SX Full report</button>
+            <button onClick={show_S_Full_Handler}>SX Full report</button>
             <button onClick={show_CS_Full_Handler}>CS Full report</button>
           </div>
           {resData === undefined || resData.length === 0 ? (
             <p>No data - empty result</p>
           ) : resSource === 'short' ? (
-            <DBresultTable resData={resData} />
+            <DBshortTable resData={resData} />
+          ) : resSource === 'full' ? (
+            <DBfullTable resData={resData} products={products} />
           ) : (
-            <DBstatTable resData={resData} products={products} />
+            <DBfullDTable resData={resData} products={products} />
           )}
         </div>
       </main>
