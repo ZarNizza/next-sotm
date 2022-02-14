@@ -6,6 +6,7 @@ import styles from '../styles/Home.module.css'
 import initEitems from '../components/initEitems'
 import EitemsStore from '../components/EitemsStore'
 import ExpenseCart from '../components/ExpenseCart'
+import NewEitem from '../components/NewEitem'
 
 export type Eitem = {
   eid: number
@@ -27,22 +28,6 @@ const Home: NextPage = () => {
 
   initEitems(setEitems)
 
-  // useEffect(() => {
-  //   fetch('/api/expenses')
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       if (res.error) {
-  //         console.log('--- expenses DB/api error: ' + res.error)
-  //         alert('DataBase error: X3')
-  //       } else {
-  //         setEitems(() => res.data || [])
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log('--- catch expenses fetch error - ', error)
-  //       alert('fetch data error: X3')
-  //     })
-  // }, [])
   return (
     <Layout>
       <Head>
@@ -50,6 +35,8 @@ const Home: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
+          <NewEitem />
+          <p>- - - - - - -</p>
           <EitemsStore
             eItems={eItems}
             setSelectedEitems={setSelectedEitems}
@@ -66,18 +53,6 @@ const Home: NextPage = () => {
             setGross={setGross}
           />
         </div>
-        {/* <div className={styles.productList}>
-          <h3>Expenses page</h3>
-          <ul>
-            {eItems.map((item: Eitem) => (
-              <li key={Math.random()}>
-                {item.eid} = {item.ename}
-                {' : '}
-                {item.esymbol}
-              </li>
-            ))}
-          </ul>
-        </div> */}
       </main>
     </Layout>
   )
