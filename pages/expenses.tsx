@@ -1,8 +1,11 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
+import initEitems from '../components/initEitems'
+import EitemsStore from '../components/EitemsStore'
+import ExpenseCart from '../components/ExpenseCart'
 
 export type Eitem = {
   eid: number
@@ -18,29 +21,52 @@ export type Xpense = {
 
 const Home: NextPage = () => {
   const [eItems, setEitems] = useState<Eitem[]>([])
-  useEffect(() => {
-    fetch('/api/expenses')
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.error) {
-          console.log('--- expenses DB/api error: ' + res.error)
-          alert('DataBase error: X3')
-        } else {
-          setEitems(() => res.data || [])
-        }
-      })
-      .catch((error) => {
-        console.log('--- catch expenses fetch error - ', error)
-        alert('fetch data error: X3')
-      })
-  }, [])
+  const [selectedEitems, setSelectedEitems] = useState<Eitem['eid'][]>([])
+  const eCostRef = useRef<Record<Eitem['eid'], number>>({})
+  const [gross, setGross] = useState<number>(0)
+
+  initEitems(setEitems)
+
+  // useEffect(() => {
+  //   fetch('/api/expenses')
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       if (res.error) {
+  //         console.log('--- expenses DB/api error: ' + res.error)
+  //         alert('DataBase error: X3')
+  //       } else {
+  //         setEitems(() => res.data || [])
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log('--- catch expenses fetch error - ', error)
+  //       alert('fetch data error: X3')
+  //     })
+  // }, [])
   return (
     <Layout>
       <Head>
         <title>Expenses</title>
       </Head>
       <main className={styles.main}>
-        <div className={styles.productList}>
+        <div className={styles.flexColumnContainer}>
+          <EitemsStore
+            eItems={eItems}
+            setSelectedEitems={setSelectedEitems}
+            selectedEitems={selectedEitems}
+            eCostRef={eCostRef}
+            setGross={setGross}
+          />{' '}
+          <ExpenseCart
+            setSelectedEitems={setSelectedEitems}
+            selectedEitems={selectedEitems}
+            eItems={eItems}
+            eCostRef={eCostRef}
+            gross={gross}
+            setGross={setGross}
+          />
+        </div>
+        {/* <div className={styles.productList}>
           <h3>Expenses page</h3>
           <ul>
             {eItems.map((item: Eitem) => (
@@ -51,7 +77,7 @@ const Home: NextPage = () => {
               </li>
             ))}
           </ul>
-        </div>
+        </div> */}
       </main>
     </Layout>
   )

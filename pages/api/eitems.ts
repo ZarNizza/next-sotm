@@ -18,25 +18,12 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<ApiData>
 ) {
-  const timeZone = '04'
   return new Promise((resolve, reject) => {
     if (req.method === 'POST') {
       const parsedReq = JSON.parse(req.body)
-      const today = new Date()
       connection.query(
-        'INSERT INTO xpenses (xdate, xitem, xsum) VALUES (?, ?, ?)',
-        [
-          String(today.getFullYear()) +
-            '-' +
-            String(today.getMonth() + 1) +
-            '-' +
-            String(today.getDate()) +
-            'T' +
-            timeZone +
-            ':00:00',
-          Number(parsedReq.xitem),
-          Number(parsedReq.xsum)
-        ],
+        'INSERT INTO eitems (ename, esymbol) VALUES (?, ?)',
+        [parsedReq.ename.substring(0, 50), parsedReq.esymbol.substring(0, 7)],
         function (error, results, fields) {
           if (error) {
             res.status(500).json({ error: String(error) })
