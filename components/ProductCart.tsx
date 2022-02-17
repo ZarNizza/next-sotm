@@ -76,6 +76,10 @@ export default function ProductCart(props: ProductCartProps) {
   }
 
   function saveSaleHandler() {
+    if (props.currentCustomer[0] === 0) {
+      alert('Select Customer!')
+      return
+    }
     props.selectedProducts.map((pid: number) => {
       const sale = {
         customer: props.currentCustomer[0],
