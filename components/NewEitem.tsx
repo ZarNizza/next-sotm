@@ -1,8 +1,11 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import { Eitem } from '../pages/expenses'
 import styles from '../styles/Home.module.css'
+type newEitemArgs = {
+  setEitems: Dispatch<SetStateAction<Eitem[]>>
+}
 
-export default function NewEitem() {
+export default function NewEitem(args: newEitemArgs) {
   const [eItem, setEitem] = useState('')
   const [eSymbol, setEsymbol] = useState('')
   function add_E_handler() {
@@ -22,6 +25,16 @@ export default function NewEitem() {
         }
       })
       .catch((error) => alert('! newEitem error - ' + error.message))
+    fetch('api/eitems')
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.error) {
+          alert('newEitem reInit ERROR: ' + res.error)
+        } else {
+          console.log('newEitem reInit = OK', res)
+          args.setEitems(() => res.data)
+        }
+      })
   }
   function input_E_ChHandler(eName: string) {
     setEitem(eName.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:]/gi, ''))
