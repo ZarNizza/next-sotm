@@ -26,6 +26,7 @@ export default function ProductCart(props: ExpenseCartProps) {
         onChange={inputSumChangeHandler(eid)}
         className={styles.inputSum}
         placeholder="price"
+        pattern="^[\d]{0,6}"
       />{' '}
       {
         (
@@ -63,7 +64,9 @@ export default function ProductCart(props: ExpenseCartProps) {
 
   function inputSumChangeHandler(eid: Eitem['eid']) {
     const handler: ChangeEventHandler<HTMLInputElement> = (event) => {
-      props.eCostRef.current[eid] = Number(event.target.value)
+      props.eCostRef.current[eid] = Number(
+        event.target.value.replace(/[^\d]/g, '')
+      )
       props.setGross(
         Object.values(props.eCostRef.current).reduce(
           (prev, curr) => prev + curr,
