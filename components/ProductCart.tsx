@@ -56,8 +56,6 @@ export default function ProductCart(props: ProductCartProps) {
             0
           )
         )
-        console.log('prodCart - prodCostRefCurrent', props.prodCostRef.current)
-
         return prevSelectedProducts.filter((product) => product !== Number(pid))
       })
     }
@@ -85,14 +83,13 @@ export default function ProductCart(props: ProductCartProps) {
     }
     props.selectedProducts.map((pid: number) => {
       if (isNaN(props.prodCostRef.current[pid])) {
-        alert('Attention: The Sum must be a Number!')
+        alert('Attention: The Price must be a Number!')
       } else {
         const sale = {
           customer: props.currentCustomer[0],
           prod: pid,
           sum: props.prodCostRef.current[pid]
         }
-        console.log('sale=', sale)
         fetch('/api/sales', {
           method: 'POST',
           body: JSON.stringify(sale)
@@ -108,6 +105,7 @@ export default function ProductCart(props: ProductCartProps) {
                   (product) => product !== Number(pid)
                 )
               )
+              delete props.prodCostRef.current[pid]
             }
           })
           .catch((error) => {
