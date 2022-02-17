@@ -15,13 +15,13 @@ const Home: NextPage = () => {
   }
   function sqlReuestHandler() {
     const reqBody = { mode: 'sql', sql: sqlString }
-    fetch('/api/sys-sql', { method: 'POST', body: JSON.stringify(reqBody) })
+    fetch('/api/sys_sql', { method: 'POST', body: JSON.stringify(reqBody) })
       .then((res) => res.json())
       .then((res) => {
-        console.log('SYS2: DB-sql = OK', res.data)
+        console.log('DB_sql = OK', res.data)
         setResData(() => res.data)
       })
-      .catch((error) => console.log('! SYS2: DB-sql error - ', error.message))
+      .catch((error) => console.log('! DB_sql error - ', error.message))
   }
 
   return (
@@ -58,10 +58,6 @@ const Home: NextPage = () => {
             &nbsp;{' '}
             <Link href="/sys">
               <button>SYSTEM</button>
-            </Link>
-            &nbsp;{' '}
-            <Link href="/sys2">
-              <button>SYS2</button>
             </Link>
             <p> </p>
           </div>
