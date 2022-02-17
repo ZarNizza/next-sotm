@@ -12,6 +12,7 @@ interface EitemsStoreProps {
 }
 
 export default function EitemsStore(props: EitemsStoreProps) {
+  //
   const eItemsCheckBoxesSet = props.eItems.map((item: Eitem) => {
     function checkHandler() {
       props.setSelectedEitems((prevSelectedEitems) => {
@@ -22,7 +23,6 @@ export default function EitemsStore(props: EitemsStoreProps) {
             0
           )
         )
-        console.log('prodStore - prodCostRefCurrent', props.eCostRef.current)
         return prevSelectedEitems.includes(item.eid)
           ? prevSelectedEitems.filter(
               (product: Eitem['eid']) => product !== item.eid
