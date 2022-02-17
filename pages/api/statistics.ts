@@ -273,12 +273,6 @@ export default async function sysHandler(
             ' GROUP BY e.esymbol WITH ROLLUP'
 
           source = 'fullSD'
-          console.log('////////////////////////////////////////////////')
-          console.log('dates[]:', dates)
-          console.log('sqlDPSum:', sqlDPSum)
-          console.log('sqlDXSum:', sqlDXSum)
-          console.log('sqlQuery:', sqlQuery)
-          console.log('\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\')
 
           poolGetConnection(sqlQuery, source)
           break
