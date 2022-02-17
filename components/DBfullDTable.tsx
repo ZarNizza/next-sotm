@@ -57,6 +57,8 @@ export default function DBfullDTable(props: TableProps) {
                         : elem === null &&
                           (item.cname === null || item.psymbol === null)
                         ? 'Total:'
+                        : elem === null
+                        ? ' '
                         : String(elem).slice(0, 10)}
                     </td>
                   ))}
