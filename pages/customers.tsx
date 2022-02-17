@@ -4,24 +4,19 @@ import { useEffect, useState } from 'react'
 import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
 import { Customer } from './add'
+import fetchHandler from '../components/fetchHandler'
+import DBshort_ED_Table from '../components/DBshortEditDropTable'
 
 const Home: NextPage = () => {
   const [customers, setCustomers] = useState<Customer[]>([])
+  //
   useEffect(() => {
-    fetch('/api/customers')
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.error) {
-          console.log('--- customers DB/api error: ' + res.error)
-          alert('DataBase error: X3')
-        } else {
-          setCustomers(() => res.data || [])
-        }
-      })
-      .catch((error) => {
-        console.log('--- catch customers fetch error - ', error)
-        alert('fetch data error: X3')
-      })
+    const args = {
+      apiSuffix: 'customers',
+      title: 'getCust',
+      setResData: setCustomers
+    }
+    fetchHandler(args)
   }, [])
 
   return (
@@ -34,15 +29,13 @@ const Home: NextPage = () => {
       <div className={styles.container}>
         <main className={styles.main}>
           <h2>Customers:</h2>
-          <ul>
-            {customers.map((user: Customer) => (
-              <li key={Math.random()}>
-                {user.cname}
-                {', '}
-                {user.cphone} {user.gooid}
-              </li>
-            ))}
-          </ul>
+          <div>
+            {customers === undefined || customers.length === 0 ? (
+              <p>No data - empty result</p>
+            ) : (
+              <DBshort_ED_Table resData={customers} />
+            )}
+          </div>
         </main>
       </div>
     </Layout>
