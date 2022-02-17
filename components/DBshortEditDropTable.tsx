@@ -6,6 +6,12 @@ type TableProps = {
 
 export default function DBshort_ED_Table(props: TableProps) {
   const keys = Object.keys(props.resData[0])
+  function editButtonHandler(e: any) {
+    console.log('**************** edit button, val=', e.target.value)
+  }
+  function dropButtonHandler(e: any) {
+    console.log('**************** drop button, val=', e.target.value)
+  }
 
   if (props.resData === undefined || props.resData.length === 0) {
     return (
@@ -48,10 +54,20 @@ export default function DBshort_ED_Table(props: TableProps) {
                     </td>
                   ))}
                   <td key={Math.random()} className={styles.td_edit}>
-                    <button> Edit </button>
+                    <button value={String(a[0])} onClick={editButtonHandler}>
+                      {' '}
+                      Edit{' '}
+                    </button>
                   </td>
                   <td key={Math.random()}>
-                    <button className={styles.td_dropButton}> X </button>
+                    <button
+                      className={styles.td_dropButton}
+                      value={String(a[0])}
+                      onClick={dropButtonHandler}
+                    >
+                      {' '}
+                      X{' '}
+                    </button>
                   </td>
                 </tr>
               )
