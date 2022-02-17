@@ -55,8 +55,6 @@ export default function ProductCart(props: ExpenseCartProps) {
             0
           )
         )
-        console.log('eCart - eCostRefCurrent', props.eCostRef.current)
-
         return prevSelectedEitems.filter((eItem) => eItem !== Number(eid))
       })
     }
@@ -80,13 +78,12 @@ export default function ProductCart(props: ExpenseCartProps) {
   function saveX_Handler() {
     props.selectedEitems.map((eid: number) => {
       if (isNaN(props.eCostRef.current[eid])) {
-        alert('Attention: The Sum must be a Number!')
+        alert('Attention: The Price must be a Number!')
       } else {
         const xsale = {
           xitem: eid,
           xsum: props.eCostRef.current[eid]
         }
-        console.log('xsale=', xsale)
         fetch('/api/expenses', {
           method: 'POST',
           body: JSON.stringify(xsale)
@@ -97,10 +94,10 @@ export default function ProductCart(props: ExpenseCartProps) {
               console.log('--- eCart DB/api error: ' + res.error)
               alert('DataBase error: X3')
             } else {
-              // props.setSelectedEitems([])
               props.setSelectedEitems((prevSelectedEitems) =>
                 prevSelectedEitems.filter((eItem) => eItem !== Number(eid))
               )
+              delete props.eCostRef.current[eid]
             }
           })
           .catch((error) => {
