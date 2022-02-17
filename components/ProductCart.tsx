@@ -77,33 +77,41 @@ export default function ProductCart(props: ProductCartProps) {
 
   function saveSaleHandler() {
     if (props.currentCustomer[0] === 0) {
-      alert('Select Customer!')
+      alert('Attention: Select Customer!')
       return
     }
     props.selectedProducts.map((pid: number) => {
-      const sale = {
-        customer: props.currentCustomer[0],
-        prod: pid,
-        sum: props.prodCostRef.current[pid]
+      if (isNaN(props.prodCostRef.current[pid])) {
+        alert('Attention: The Sum must be a Number!')
+      } else {
+        const sale = {
+          customer: props.currentCustomer[0],
+          prod: pid,
+          sum: props.prodCostRef.current[pid]
+        }
+        console.log('sale=', sale)
+        fetch('/api/sales', {
+          method: 'POST',
+          body: JSON.stringify(sale)
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            if (res.error) {
+              console.log('--- prodCart DB/api error: ' + res.error)
+              alert('DataBase error: X3')
+            } else {
+              props.setSelectedProducts((prevSelectedProducts) =>
+                prevSelectedProducts.filter(
+                  (product) => product !== Number(pid)
+                )
+              )
+            }
+          })
+          .catch((error) => {
+            console.log('--- catch prodCart fetch error - ', error)
+            alert('fetch data error: X3')
+          })
       }
-      console.log('sale=', sale)
-      fetch('/api/sales', {
-        method: 'POST',
-        body: JSON.stringify(sale)
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          if (res.error) {
-            console.log('--- prodCart DB/api error: ' + res.error)
-            alert('DataBase error: X3')
-          } else {
-            props.setSelectedProducts([])
-          }
-        })
-        .catch((error) => {
-          console.log('--- catch prodCart fetch error - ', error)
-          alert('fetch data error: X3')
-        })
     })
   }
 
