@@ -33,7 +33,7 @@ const Home: NextPage = () => {
             {customers === undefined || customers.length === 0 ? (
               <p>No data - empty result</p>
             ) : (
-              <DBshort_ED_Table resData={customers} />
+              <DBshort_ED_Table resData={customers} target="customers" />
             )}
           </div>
         </main>

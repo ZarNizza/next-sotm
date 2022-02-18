@@ -318,3 +318,18 @@ td.gross {
 .gray {
   color: gray;
 }
+.editForm {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 5rem;
+  z-index: 18;
+  min-width: 25rem;
+  min-height: 20rem;
+  border: 1px solid olivedrab;
+  border-radius: 5px;
+  background-color: #eeffc5;
+  padding: 2rem;
+}
