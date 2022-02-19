@@ -85,7 +85,6 @@ export default function DBshort_ED_Table(props: TableProps) {
             idName={idName}
             keys={keys}
             itemToEdit={itemToEdit}
-            setItemToEdit={setItemToEdit}
           />
         )}
         <p>---------- s e d ----------</p>

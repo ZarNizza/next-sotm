@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 import styles from '../styles/Home.module.css'
 // import EditFormArgs from './DBshortEditDropTable'
 
@@ -7,47 +7,38 @@ type EditFormArgs = {
   idName: string
   keys: string[]
   itemToEdit: Record<string, string | number | Date | null>[]
-  setItemToEdit: Dispatch<
-    SetStateAction<Record<string, string | number | Date | null>[]>
-  >
 }
 
 export default function EditForm(args: EditFormArgs) {
+  const [editItem, setEditItem] = useState(args.itemToEdit[0])
+  console.log('---- start editItem --- =', editItem)
+
   function saveEdit() {
-    args.setItemToEdit(() => [])
+    console.log('++++ save editItem +++', editItem)
     args.setIdToEdit(() => 0)
   }
   function cancelEdit() {
-    args.setItemToEdit(() => [])
     args.setIdToEdit(() => 0)
   }
 
-  function inputChangeHandler(e: any) {
-    let item = args.itemToEdit
-    console.log('------- item_0 =', item)
-    const name = e.target.name
-    const val = e.target.value
-    const rec = { name, val }
-    item[0][name] = val
+  function inputChangeHandler(e: ChangeEvent<HTMLInputElement>, key: string) {
+    let item = Object.assign({}, editItem)
+    console.log('----{}--- item_0 =', item)
+    item[key] = e.target.value
     console.log('======= item_1 =', item)
-    args.setItemToEdit(() => item)
-    console.log('inChHandler: rec=', rec, 'i2E=', args.itemToEdit)
+    setEditItem(() => item)
   }
 
   return (
     <div className={styles.editForm}>
-      {args.keys.map((key) => {
-        if (key !== args.idName) {
+      {Object.keys(editItem).map((k) => {
+        if (k !== args.idName) {
           return (
             <input
               type="text"
-              name={String(key)}
-              value={
-                args.itemToEdit.length > 0
-                  ? String(args.itemToEdit[0][String(key)])
-                  : 0
-              }
-              onChange={inputChangeHandler}
+              name={k}
+              value={editItem ? String(editItem[k]) : ''}
+              onChange={(event) => inputChangeHandler(event, k)}
               key={Math.random()}
             />
           )
