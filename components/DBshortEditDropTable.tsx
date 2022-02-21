@@ -77,14 +77,13 @@ export default function DBshort_ED_Table(props: TableProps) {
   } else {
     return (
       <div className={styles.flexColumnContainer}>
-        {idToEdit === 0 ? (
-          ''
-        ) : (
+        {idToEdit === 0 ? null : (
           <EditForm
             setIdToEdit={setIdToEdit}
             idName={idName}
             keys={keys}
             itemToEdit={itemToEdit}
+            setItemToEdit={setItemToEdit}
           />
         )}
         <p>---------- s e d ----------</p>
