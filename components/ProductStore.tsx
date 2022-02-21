@@ -12,7 +12,9 @@ interface ProductStoreProps {
 }
 
 export default function ProductStore(props: ProductStoreProps) {
+  //
   const productCheckBoxesSet = props.products.map((item: Product) => {
+    //
     function checkHandler() {
       props.setSelectedProducts((prevSelectedProducts) => {
         if (item.pid) delete props.prodCostRef.current[item.pid]
@@ -22,7 +24,6 @@ export default function ProductStore(props: ProductStoreProps) {
             0
           )
         )
-        console.log('prodStore - prodCostRefCurrent', props.prodCostRef.current)
         return prevSelectedProducts.includes(item.pid)
           ? prevSelectedProducts.filter(
               (product: Product['pid']) => product !== item.pid

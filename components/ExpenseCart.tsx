@@ -26,6 +26,7 @@ export default function ProductCart(props: ExpenseCartProps) {
         onChange={inputSumChangeHandler(eid)}
         className={styles.inputSum}
         placeholder="price"
+        pattern="^[\d]{0,6}"
       />{' '}
       {
         (
@@ -54,8 +55,6 @@ export default function ProductCart(props: ExpenseCartProps) {
             0
           )
         )
-        console.log('eCart - eCostRefCurrent', props.eCostRef.current)
-
         return prevSelectedEitems.filter((eItem) => eItem !== Number(eid))
       })
     }
@@ -63,7 +62,9 @@ export default function ProductCart(props: ExpenseCartProps) {
 
   function inputSumChangeHandler(eid: Eitem['eid']) {
     const handler: ChangeEventHandler<HTMLInputElement> = (event) => {
-      props.eCostRef.current[eid] = Number(event.target.value)
+      props.eCostRef.current[eid] = Number(
+        event.target.value.replace(/[^\d]/g, '')
+      )
       props.setGross(
         Object.values(props.eCostRef.current).reduce(
           (prev, curr) => prev + curr,
@@ -76,28 +77,34 @@ export default function ProductCart(props: ExpenseCartProps) {
 
   function saveX_Handler() {
     props.selectedEitems.map((eid: number) => {
-      const xsale = {
-        xitem: eid,
-        xsum: props.eCostRef.current[eid]
+      if (isNaN(props.eCostRef.current[eid])) {
+        alert('Attention: The Price must be a Number!')
+      } else {
+        const xsale = {
+          xitem: eid,
+          xsum: props.eCostRef.current[eid]
+        }
+        fetch('/api/expenses', {
+          method: 'POST',
+          body: JSON.stringify(xsale)
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            if (res.error) {
+              console.log('--- eCart DB/api error: ' + res.error)
+              alert('DataBase error: X3')
+            } else {
+              props.setSelectedEitems((prevSelectedEitems) =>
+                prevSelectedEitems.filter((eItem) => eItem !== Number(eid))
+              )
+              delete props.eCostRef.current[eid]
+            }
+          })
+          .catch((error) => {
+            console.log('--- catch eCart fetch error - ', error)
+            alert('fetch data error: X3')
+          })
       }
-      console.log('xsale=', xsale)
-      fetch('/api/expenses', {
-        method: 'POST',
-        body: JSON.stringify(xsale)
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          if (res.error) {
-            console.log('--- eCart DB/api error: ' + res.error)
-            alert('DataBase error: X3')
-          } else {
-            props.setSelectedEitems([])
-          }
-        })
-        .catch((error) => {
-          console.log('--- catch eCart fetch error - ', error)
-          alert('fetch data error: X3')
-        })
     })
   }
 

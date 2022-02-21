@@ -35,7 +35,7 @@ const Home: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
-          <NewEitem />
+          <NewEitem setEitems={setEitems} />
           <p>- - - - - - -</p>
           <EitemsStore
             eItems={eItems}

@@ -27,6 +27,7 @@ export default function ProductCart(props: ProductCartProps) {
         onChange={inputSumChangeHandler(pid)}
         className={styles.inputSum}
         placeholder="price"
+        pattern="^[\d]{0,6}"
       />{' '}
       {
         (
@@ -55,8 +56,6 @@ export default function ProductCart(props: ProductCartProps) {
             0
           )
         )
-        console.log('prodCart - prodCostRefCurrent', props.prodCostRef.current)
-
         return prevSelectedProducts.filter((product) => product !== Number(pid))
       })
     }
@@ -64,7 +63,9 @@ export default function ProductCart(props: ProductCartProps) {
 
   function inputSumChangeHandler(pid: Product['pid']) {
     const handler: ChangeEventHandler<HTMLInputElement> = (event) => {
-      props.prodCostRef.current[pid] = Number(event.target.value)
+      props.prodCostRef.current[pid] = Number(
+        event.target.value.replace(/[^\d]/g, '')
+      )
       props.setGross(
         Object.values(props.prodCostRef.current).reduce(
           (prev, curr) => prev + curr,
@@ -76,30 +77,42 @@ export default function ProductCart(props: ProductCartProps) {
   }
 
   function saveSaleHandler() {
+    if (props.currentCustomer[0] === 0) {
+      alert('Attention: Select Customer!')
+      return
+    }
     props.selectedProducts.map((pid: number) => {
-      const sale = {
-        customer: props.currentCustomer[0],
-        prod: pid,
-        sum: props.prodCostRef.current[pid]
+      if (isNaN(props.prodCostRef.current[pid])) {
+        alert('Attention: The Price must be a Number!')
+      } else {
+        const sale = {
+          customer: props.currentCustomer[0],
+          prod: pid,
+          sum: props.prodCostRef.current[pid]
+        }
+        fetch('/api/sales', {
+          method: 'POST',
+          body: JSON.stringify(sale)
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            if (res.error) {
+              console.log('--- prodCart DB/api error: ' + res.error)
+              alert('DataBase error: X3')
+            } else {
+              props.setSelectedProducts((prevSelectedProducts) =>
+                prevSelectedProducts.filter(
+                  (product) => product !== Number(pid)
+                )
+              )
+              delete props.prodCostRef.current[pid]
+            }
+          })
+          .catch((error) => {
+            console.log('--- catch prodCart fetch error - ', error)
+            alert('fetch data error: X3')
+          })
       }
-      console.log('sale=', sale)
-      fetch('/api/sales', {
-        method: 'POST',
-        body: JSON.stringify(sale)
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          if (res.error) {
-            console.log('--- prodCart DB/api error: ' + res.error)
-            alert('DataBase error: X3')
-          } else {
-            props.setSelectedProducts([])
-          }
-        })
-        .catch((error) => {
-          console.log('--- catch prodCart fetch error - ', error)
-          alert('fetch data error: X3')
-        })
     })
   }
 

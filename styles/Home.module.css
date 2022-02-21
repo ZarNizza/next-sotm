@@ -272,6 +272,40 @@ td.gross {
   background-color: papayawhip;
   vertical-align: middle;
 }
+.td_dropButton {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  background-color: #faffea;
+  margin: auto 0 auto 3rem;
+}
+.td_dropButton:hover {
+  background-color: #ffaabb;
+  transition: 0.25s ease;
+}
+.td_dropButton:active {
+  background-color: #ff0033;
+  transition: 0.1s ease;
+}
+.td_edit {
+  padding: 0 !important;
+}
+.td_edit button {
+  display: inline-flex;
+  height: 100%;
+  width: 100%;
+  background-color: #faffea;
+  margin: auto;
+  padding: 1rem 2rem;
+}
+.td_edit button:hover {
+  background-color: yellowgreen;
+  transition: 0.25s ease;
+}
+.td_edit button:active {
+  background-color: olivedrab;
+  transition: 0.1s ease;
+}
 .main input {
   margin: 0.5rem;
   padding: 1rem;
@@ -283,4 +317,19 @@ td.gross {
 }
 .gray {
   color: gray;
+}
+.editForm {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 5rem;
+  z-index: 18;
+  min-width: 25rem;
+  min-height: 20rem;
+  border: 1px solid olivedrab;
+  border-radius: 5px;
+  background-color: #eeffc5;
+  padding: 2rem;
 }
