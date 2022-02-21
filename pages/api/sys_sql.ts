@@ -21,7 +21,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
               resolve('! DB not connected !')
             } else {
               connection.query(
-                parsedReq.sql,
+                parsedReq.sqlString,
                 function (error, results, fields) {
                   if (error) {
                     res.status(500).json({ error: String(error) })

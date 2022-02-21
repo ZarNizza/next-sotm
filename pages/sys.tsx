@@ -207,7 +207,7 @@ const Home: NextPage = () => {
 
   function add_E_handler() {
     const eitem = { ename: eItem, esymbol: eSymbol }
-    fetch('/api/expenses', {
+    fetch('/api/eitems', {
       method: 'POST',
       body: JSON.stringify(eitem)
     })

@@ -12,6 +12,7 @@ const pool = mysql.createPool({
 
 function SaveSale(args: Sale) {
   return new Promise((resolveSS, rejectSS) => {
+    console.log('========= SaveSale args === ', args)
     pool.getConnection(function (err, connection) {
       if (err) throw err // not connected!
       connection.query(
@@ -34,12 +35,16 @@ function SaveSale(args: Sale) {
 
 export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
   console.log('NEW FILL SALES')
-  const customers = [1, 2, 3, 4, 5]
-  const products = [5, 6, 7, 8, 9, 10]
+  const customers = [1, 2]
+  const products = [5, 6]
 
-  let iDate = new Date(2022, 1, 10, 11)
-  const findate = new Date(2022, 1, 10, 11)
+  // let iDate = new Date()
+  // const findate = new Date()
+  let iDate = new Date(2022, 1, 17, 12)
+  const findate = new Date(2022, 1, 17, 12)
   let dates: string[] = []
+  
+  console.log('******** date=',findate, ' serDate=', serialiseDate(findate))
 
   for (; iDate <= findate; iDate.setDate(iDate.getDate() + 1)) {
     dates.push(serialiseDate(iDate))
@@ -71,8 +76,7 @@ function serialiseDate(date: Date) {
     String(date.getMonth() + 1) +
     '-' +
     String(date.getDate()) +
-    'T' +
-    timeZone +
+    'T' + String(date.getHours()) +
     ':00:00'
   )
 }

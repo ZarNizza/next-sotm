@@ -11,17 +11,20 @@ const Home: NextPage = () => {
   const [sqlString, setSQLstring] = useState<string>('')
 
   function inputSQLstringHandler(sql: string) {
-    setSQLstring(sql)
+    setSQLstring(()=>sql)
   }
   function sqlReuestHandler() {
-    const reqBody = { mode: 'sql', sql: sqlString }
-    fetch('/api/sys-sql', { method: 'POST', body: JSON.stringify(reqBody) })
+    const reqBody = { mode: 'sql', sqlString: sqlString }
+    fetch('/api/sys_sql', { method: 'POST', body: JSON.stringify(reqBody) })
       .then((res) => res.json())
       .then((res) => {
-        console.log('SYS2: DB-sql = OK', res.data)
-        setResData(() => res.data)
+        if (res.error) {
+          alert('SYS_sql ERROR: ' + res.error)
+        } else {
+        console.log('SYS_sql: DB-sql = OK', res.data)
+        setResData(() => res.data)}
       })
-      .catch((error) => console.log('! SYS2: DB-sql error - ', error.message))
+      .catch((error) => console.log('! SYS_sql: DB-sql error - ', error.message ))
   }
 
   return (
@@ -58,10 +61,6 @@ const Home: NextPage = () => {
             &nbsp;{' '}
             <Link href="/sys">
               <button>SYSTEM</button>
-            </Link>
-            &nbsp;{' '}
-            <Link href="/sys2">
-              <button>SYS2</button>
             </Link>
             <p> </p>
           </div>
