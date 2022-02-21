@@ -8,9 +8,9 @@ type EditFormArgs = {
   idName: string
   keys: string[]
   itemToEdit: Record<string, string | number | Date | null>[]
-  setItemToEdit: Dispatch<
-    SetStateAction<Record<string, string | number | Date | null>[]>
-  >
+  // setItemToEdit: Dispatch<
+  //   SetStateAction<Record<string, string | number | Date | null>[]>
+  //>
 }
 
 export default function EditForm(arg: EditFormArgs) {
@@ -19,15 +19,19 @@ export default function EditForm(arg: EditFormArgs) {
 
   function saveEdit() {
     console.log('++++ save editItem +++', editItem)
-    let args: any
-    args.apiSuffix = 'customers'
-    args.title = 'edit'
-    args.body = JSON.stringify({
+
+  let  args: { title: string; body: string; apiSuffix: string } = {
+
+    apiSuffix : 'customers',
+    title : 'edit',
+    body : JSON.stringify({
       mode: 'edit',
       cname: editItem.cname,
       cphone: editItem.cphone,
-      gooid: editItem.gooid
+      gooid: editItem.gooid,
+      cid: editItem.cid
     })
+  }
     fetch('/api/' + args.apiSuffix, { method: 'POST', body: args.body })
       .then((res) => res.json())
       .then((res) => {
@@ -54,12 +58,12 @@ export default function EditForm(arg: EditFormArgs) {
             error.message
         )
       )
-    arg.setItemToEdit(() => editItem)
+    // arg.setItemToEdit(() => editItem)
     arg.setIdToEdit(() => 0)
   }
   function cancelEdit() {
     arg.setIdToEdit(() => 0)
-    arg.setItemToEdit(() => [])
+    // arg.setItemToEdit(() => [])
   }
 
   // function inputChangeHandler(e: ChangeEvent<HTMLInputElement>, key: string) {
