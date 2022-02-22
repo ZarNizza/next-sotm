@@ -44,7 +44,7 @@ export default function DBshortTable(props: TableProps) {
                         ? 'Total:'
                         : elem === null
                         ? ' '
-                        : String(elem).slice(0, 10)}
+                        : String(elem)}
                     </td>
                   ))}
                 </tr>
