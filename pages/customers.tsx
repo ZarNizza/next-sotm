@@ -4,14 +4,15 @@ import { useEffect, useState } from 'react'
 import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
 import { Customer } from './add'
-import fetchHandler from '../components/fetchHandler'
+import fetchHandler, { FetchArgs } from '../components/fetchHandler'
 import DBshort_ED_Table from '../components/DBshortEditDropTable'
 
 const Home: NextPage = () => {
   const [customers, setCustomers] = useState<Customer[]>([])
   //
   useEffect(() => {
-    const args = {
+    const args: FetchArgs = {
+      method: 'GET',
       apiSuffix: 'customers',
       title: 'getCust',
       setResData: setCustomers

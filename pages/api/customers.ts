@@ -27,7 +27,15 @@ export default function handler(
 
       switch (parsedReq.mode) {
         case 'edit':
-          sql = 'UPDATE customers SET cname="'+ parsedReq.cname.substring(0, 50) +'", cphone="'+ parsedReq.cphone.substring(0, 20)+'", gooid="'+ parsedReq.gooid.substring(0, 20) +'" WHERE cid=' + parsedReq.cid
+          sql =
+            'UPDATE customers SET cname="' +
+            parsedReq.cname.substring(0, 50) +
+            '", cphone="' +
+            parsedReq.cphone.substring(0, 20) +
+            '", gooid="' +
+            parsedReq.gooid.substring(0, 20) +
+            '" WHERE cid=' +
+            parsedReq.cid
           params = []
           console.log('&&&&&&&& switch EDIT')
           break
@@ -41,11 +49,8 @@ export default function handler(
           break
         default:
           console.log('! cust - bad body.MODE api request')
-          sql = 'INSERT INTO customers (cname, cphone) VALUES (?, ?)'
-          params = [
-            parsedReq.cname.substring(0, 50),
-            parsedReq.cphone.substring(0, 20)
-          ]
+          sql = ''
+          params = []
       }
 
       connection.query(sql, params, function (error, results, fields) {
