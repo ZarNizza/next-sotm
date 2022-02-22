@@ -5,7 +5,9 @@ export type FetchArgs = {
   apiSuffix: string
   title: string
   body?: string
-  setResData: Dispatch<SetStateAction<Customer[]>>
+  setResData:
+    | Dispatch<SetStateAction<Customer[]>>
+    | Dispatch<SetStateAction<number>>
 }
 
 export default function fetchHandler(arg: FetchArgs) {

@@ -39,7 +39,7 @@ export default function handler(
               '", cphone="' +
               parsedReq.cphone.substring(0, 20) +
               '", gooid="' +
-              parsedReq.gooid.substring(0, 20) +
+              String(parsedReq.gooid).substring(0, 20) +
               '" WHERE cid=' +
               parsedReq.cid
             break
