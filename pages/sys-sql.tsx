@@ -11,10 +11,9 @@ const Home: NextPage = () => {
   const [sqlString, setSQLstring] = useState<string>('')
 
   function inputSQLstringHandler(sql: string) {
-    setSQLstring(()=>sql)
+    setSQLstring(() => sql)
   }
   function sqlReuestHandler() {
-<<<<<<< HEAD
     const reqBody = { mode: 'sql', sqlString: sqlString }
     fetch('/api/sys_sql', { method: 'POST', body: JSON.stringify(reqBody) })
       .then((res) => res.json())
@@ -22,20 +21,13 @@ const Home: NextPage = () => {
         if (res.error) {
           alert('SYS_sql ERROR: ' + res.error)
         } else {
-        console.log('SYS_sql: DB-sql = OK', res.data)
-        setResData(() => res.data)}
+          console.log('SYS_sql: DB-sql = OK', res.data)
+          setResData(() => res.data)
+        }
       })
-      .catch((error) => console.log('! SYS_sql: DB-sql error - ', error.message ))
-=======
-    const reqBody = { mode: 'sql', sql: sqlString }
-    fetch('/api/sys_sql', { method: 'POST', body: JSON.stringify(reqBody) })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('DB_sql = OK', res.data)
-        setResData(() => res.data)
-      })
-      .catch((error) => console.log('! DB_sql error - ', error.message))
->>>>>>> 319d2961c884f7f8e8d9d9784f18174a80d4e72d
+      .catch((error) =>
+        console.log('! SYS_sql: DB-sql error - ', error.message)
+      )
   }
 
   return (
