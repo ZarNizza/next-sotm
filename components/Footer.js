@@ -17,7 +17,7 @@ export default function Footer() {
         <a className={styles.footerLink}>Memo</a>
       </Link>
       <Link href="/expenses">
-        <a className={styles.footerLink}>(-) Expenses</a>
+        <a className={styles.footerLink}>(–) Expenses</a>
       </Link>
       <Link href="/statistics">
         <a className={styles.footerLink}>(=) Stat</a>
