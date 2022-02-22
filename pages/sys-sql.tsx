@@ -50,19 +50,19 @@ const Home: NextPage = () => {
             </button>
           </div>
           <div className={styles.blueButtons}>
-            <Link href="/users">
+            <Link href="/users" passHref>
               <button>Users</button>
             </Link>{' '}
             &nbsp;{' '}
-            <Link href="/customers">
+            <Link href="/customers" passHref>
               <button>Customers</button>
             </Link>{' '}
             &nbsp;{' '}
-            <Link href="/products">
+            <Link href="/products" passHref>
               <button>Products</button>
             </Link>{' '}
             &nbsp;{' '}
-            <Link href="/sys">
+            <Link href="/sys" passHref>
               <button>SYSTEM</button>
             </Link>
             <p> </p>

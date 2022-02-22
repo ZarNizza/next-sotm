@@ -7,25 +7,25 @@ export default function Footer() {
   // return session ? (
   return (
     <div className={styles.footer}>
-      <Link href="/">
+      <Link href="/" passHref>
         <a className={styles.footerLink}>&lt;&lt; Welcome </a>
       </Link>
-      <Link href="/add">
+      <Link href="/add" passHref>
         <a className={styles.footerLink}>(+) Income</a>
       </Link>
-      <Link href="/memo">
+      <Link href="/memo" passHref>
         <a className={styles.footerLink}>Memo</a>
       </Link>
-      <Link href="/expenses">
+      <Link href="/expenses" passHref>
         <a className={styles.footerLink}>(–) Expenses</a>
       </Link>
-      <Link href="/statistics">
+      <Link href="/statistics" passHref>
         <a className={styles.footerLink}>(=) Stat</a>
       </Link>
-      <Link href="/settings">
+      <Link href="/settings" passHref>
         <a className={styles.footerLink}>Set</a>
       </Link>
-      <Link href="/sys">
+      <Link href="/sys" passHref>
         <a className={styles.footerLink}>[System]</a>
       </Link>
     </div>

@@ -392,19 +392,19 @@ const Home: NextPage = () => {
           </div>
           <div>- - - - - - - - - - - - - -</div>
           <div className={styles.blueButtons}>
-            <Link href="/users">
+            <Link href="/users" passHref>
               <button>go Users</button>
             </Link>{' '}
             &nbsp;{' '}
-            <Link href="/customers">
+            <Link href="/customers" passHref>
               <button>go Customers</button>
             </Link>{' '}
             &nbsp;{' '}
-            <Link href="/products">
+            <Link href="/products" passHref>
               <button>go Products</button>
             </Link>{' '}
             &nbsp;{' '}
-            <Link href="/expenses">
+            <Link href="/expenses" passHref>
               <button>go ExpenseItems</button>
             </Link>{' '}
           </div>
@@ -432,7 +432,7 @@ const Home: NextPage = () => {
             <button onClick={fill_S_handler}>! fill S !</button>
             &nbsp; <button onClick={fill_X_handler}>! fill X !</button>
             &nbsp;{' '}
-            <Link href="/sys-sql">
+            <Link href="/sys-sql" passHref>
               <button>- SQL -</button>
             </Link>
           </div>
