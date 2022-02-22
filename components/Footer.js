@@ -8,19 +8,19 @@ export default function Footer() {
   return (
     <div className={styles.footer}>
       <Link href="/">
-        <a className={styles.footerLink}>&lt;&lt;Welcome </a>
+        <a className={styles.footerLink}>&lt;&lt; Welcome </a>
       </Link>
       <Link href="/add">
-        <a className={styles.footerLink}>(+)Income</a>
+        <a className={styles.footerLink}>(+) Income</a>
       </Link>
       <Link href="/memo">
         <a className={styles.footerLink}>Memo</a>
       </Link>
       <Link href="/expenses">
-        <a className={styles.footerLink}>(-)Expenses</a>
+        <a className={styles.footerLink}>(-) Expenses</a>
       </Link>
       <Link href="/statistics">
-        <a className={styles.footerLink}>(=)Stat</a>
+        <a className={styles.footerLink}>(=) Stat</a>
       </Link>
       <Link href="/settings">
         <a className={styles.footerLink}>Set</a>
