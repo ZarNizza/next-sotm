@@ -80,19 +80,19 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
 
       case 'restore_Users':
         sql =
-          'CREATE TABLE IF NOT EXISTS users (uid SMALLINT AUTO_INCREMENT PRIMARY KEY, uname VARCHAR(50), uphone VARCHAR(20), gooid VARCHAR(30), timezone TINYINT, INDEX (uname, uphone))'
+          'CREATE TABLE IF NOT EXISTS users (uid SMALLINT AUTO_INCREMENT PRIMARY KEY, uname VARCHAR(50), uphone VARCHAR(20), gooid VARCHAR(30), timezone TINYINT, udel BIT(1) DEFAULT 0, INDEX (uname, uphone))'
         err_prefix = 'restore_Users'
         break
 
       case 'restore_Customers':
         sql =
-          'CREATE TABLE IF NOT EXISTS customers (cid SMALLINT AUTO_INCREMENT PRIMARY KEY, cname VARCHAR(50), cphone VARCHAR(20), gooid VARCHAR(30), INDEX (cname, cphone))'
+          'CREATE TABLE IF NOT EXISTS customers (cid SMALLINT AUTO_INCREMENT PRIMARY KEY, cname VARCHAR(50), cphone VARCHAR(20), gooid VARCHAR(30), cdel BIT(1) DEFAULT 0, INDEX (cname, cphone))'
         err_prefix = 'restore_Customers'
         break
 
       case 'restore_Products':
         sql =
-          'CREATE TABLE IF NOT EXISTS prod (pid SMALLINT AUTO_INCREMENT PRIMARY KEY, pname VARCHAR(50), psymbol VARCHAR(7))'
+          'CREATE TABLE IF NOT EXISTS prod (pid SMALLINT AUTO_INCREMENT PRIMARY KEY, pname VARCHAR(50), psymbol VARCHAR(7), pdel BIT(1) DEFAULT 0)'
         err_prefix = 'restore_Products'
         break
 

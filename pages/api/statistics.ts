@@ -13,6 +13,10 @@ const pool = mysql.createPool({
 
 const timeZone = '04'
 
+//
+// !!!!!!!!! toDo: handle Deleted records (cust/prod/eitems)
+//
+
 export default async function sysHandler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -24,7 +28,7 @@ export default async function sysHandler(
         resolve([])
       } else {
         connection.query(
-          'SELECT * FROM prod',
+          'SELECT * FROM prod WHERE pdel = 0',
           function (connError, results: Product[], fields) {
             connection.release()
             if (connError) {
@@ -86,7 +90,7 @@ export default async function sysHandler(
 
     if (typeof parsedReq.currentCustomer !== 'undefined') {
       if (parsedReq.currentCustomer[0] !== 0) {
-        currentCustomer = ` AND c.cid = ${parsedReq.currentCustomer[0]} `
+        currentCustomer = ` AND c.cid = ${parsedReq.currentCustomer[0]} AND c.cdel = 0 `
         currCustJoin = ' LEFT JOIN customers AS c ON c.cid = s.cust'
       }
     }

@@ -20,59 +20,65 @@ export default function handler(
   res: NextApiResponse<ApiData>
 ) {
   return new Promise((resolve, reject) => {
-    if (req.method === 'POST') {
-      const parsedReq = JSON.parse(req.body)
-      let sql: string = ''
-      let params: string[] = []
+    let sql: string = ''
+    let params: string[] = []
 
-      switch (parsedReq.mode) {
-        case 'edit':
-          sql =
-            'UPDATE customers SET cname="' +
-            parsedReq.cname.substring(0, 50) +
-            '", cphone="' +
-            parsedReq.cphone.substring(0, 20) +
-            '", gooid="' +
-            parsedReq.gooid.substring(0, 20) +
-            '" WHERE cid=' +
-            parsedReq.cid
-          params = []
-          console.log('&&&&&&&& switch EDIT')
-          break
-        case 'new':
-          sql = 'INSERT INTO customers (cname, cphone) VALUES (?, ?)'
-          params = [
-            parsedReq.cname.substring(0, 50),
-            parsedReq.cphone.substring(0, 20)
-          ]
-          console.log('&&&&&&&& switch NEW')
-          break
-        default:
-          console.log('! cust - bad body.MODE api request')
-          sql = ''
-          params = []
-      }
+    switch (req.method) {
+      case 'GET':
+        sql = 'SELECT * FROM customers'
+        break
 
+      case 'POST':
+        const parsedReq = JSON.parse(req.body)
+
+        switch (parsedReq.mode) {
+          case 'edit':
+            sql =
+              'UPDATE customers SET cname="' +
+              parsedReq.cname.substring(0, 50) +
+              '", cphone="' +
+              parsedReq.cphone.substring(0, 20) +
+              '", gooid="' +
+              parsedReq.gooid.substring(0, 20) +
+              '" WHERE cid=' +
+              parsedReq.cid
+            console.log('&&&&&&&& switch EDIT')
+            break
+          case 'new':
+            sql = 'INSERT INTO customers (cname, cphone) VALUES (?, ?)'
+            params = [
+              parsedReq.cname.substring(0, 50),
+              parsedReq.cphone.substring(0, 20)
+            ]
+            console.log('&&&&&&&& switch NEW')
+            break
+          case 'del':
+            sql =
+              'UPDATE customers SET cdeleted="true" WHERE cid=' + parsedReq.cid
+            break
+          case 'restore':
+            sql =
+              'UPDATE customers SET cdeleted="false" WHERE cid=' + parsedReq.cid
+            break
+          default:
+            console.log('! cust - bad POST body.mode api request')
+        }
+        break
+      default:
+        console.log('! cust - bad body.MODE api request')
+        break
+    }
+    if (sql > '') {
       connection.query(sql, params, function (error, results, fields) {
         if (error) {
           res.status(500).json({ error: String(error) })
         } else {
-          res.status(201).json({ data: results as Customer[] })
+          res.status(201).json({ data: (results as Customer[]) || [] })
         }
         resolve(null)
       })
-    } else if (req.method === 'GET') {
-      connection.query(
-        'SELECT * FROM customers',
-        function (error, results, fields) {
-          if (error) {
-            res.status(500).json({ error: String(error) })
-          } else {
-            res.status(200).json({ data: (results as Customer[]) || [] })
-          }
-          resolve(null)
-        }
-      )
+    } else {
+      res.status(500).json({ error: '!customers - sql-error: empty query' })
     }
   })
 }
