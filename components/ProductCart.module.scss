@@ -1,0 +1,76 @@
+.inputSum {
+  height: 3rem;
+  width: 40%;
+  padding: 1rem;
+  margin: 1rem 1rem 1rem 0;
+  font-size: large;
+}
+.inputSum::placeholder {
+  color: lawngreen;
+  font-weight: 100;
+  font-size: medium;
+}
+
+.productList {
+  min-width: 25rem;
+  background-color: #fbfff2;
+  margin: 2rem;
+  padding: 1rem 2rem;
+  border: 1px solid #aaa;
+  border-radius: 10px;
+}
+
+.productList p {
+  text-align: center;
+}
+
+.productList h3 {
+  margin: 0;
+  color: darkolivegreen;
+}
+
+.productList ul {
+  padding-left: 0;
+}
+.productList ul {
+  list-style-type: none;
+  margin-left: 0;
+}
+.productList span {
+  color: olivedrab;
+}
+.productList a {
+  border: 1px solid olivedrab;
+  border-radius: 5px;
+  padding: 10px;
+  // background-color: #eafab7;
+}
+.productList a:hover {
+  background-color: yellowgreen;
+  transition: 0.25s ease;
+}
+.flexRow {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.buttonOk {
+  padding: 1rem 4rem;
+  margin: 1rem 0;
+  background-color: darkorange;
+  border-radius: 10px;
+}
+.buttonOk:hover {
+  background-color: gold;
+  transition: 0.25s ease;
+}
+.grossSum {
+  height: 3rem;
+  width: 40%;
+  padding: 0.6rem 1rem;
+  margin: 1rem 1rem 1rem 0;
+  font-size: large;
+  border: 2px solid darkorange;
+  text-align: right;
+}

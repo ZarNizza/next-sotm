@@ -4,6 +4,10 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  height: 100%;
 }
 
 a {
@@ -14,3 +18,4 @@ a {
 * {
   box-sizing: border-box;
 }
+#__next {height: 100%;}

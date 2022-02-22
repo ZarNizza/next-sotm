@@ -1,10 +1,9 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import mysql from 'mysql2'
-import type { User } from '../users'
+import type { Sale } from '../add'
 
 type ApiData = {
-  data?: User[]
+  data?: Sale[]
   error?: string
 }
 
@@ -19,33 +18,44 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<ApiData>
 ) {
+  const timeZone = '04'
+
   return new Promise((resolve, reject) => {
     if (req.method === 'POST') {
       const parsedReq = JSON.parse(req.body)
+      const today = new Date()
       connection.query(
-        'INSERT INTO users (uname, uphone, timezone) VALUES (?, ?, ?)',
+        'INSERT INTO sales (sdate, cust, prod, sum) VALUES (?, ?, ?, ?)',
         [
-          parsedReq.uname.substring(0, 50),
-          parsedReq.uphone.substring(0, 20),
-          parsedReq.timezone.substring(0, 3)
+          String(today.getFullYear()) +
+            '-' +
+            String(today.getMonth() + 1) +
+            '-' +
+            String(today.getDate()) +
+            'T' +
+            timeZone +
+            ':00:00',
+          Number(parsedReq.customer),
+          Number(parsedReq.prod),
+          Number(parsedReq.sum)
         ],
         function (error, results, fields) {
           if (error) {
             res.status(500).json({ error: String(error) })
           } else {
-            res.status(201).json({ data: results as User[] })
+            res.status(201).json({ data: results as Sale[] })
           }
           resolve(null)
         }
       )
     } else if (req.method === 'GET') {
       connection.query(
-        'SELECT * FROM users',
+        'SELECT * FROM sales',
         function (error, results, fields) {
           if (error) {
             res.status(500).json({ error: String(error) })
           } else {
-            res.status(200).json({ data: (results as User[]) || [] })
+            res.status(200).json({ data: (results as Sale[]) || [] })
           }
           resolve(null)
         }

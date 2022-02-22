@@ -1,0 +1,31 @@
+.rb {
+  display: flex;
+  height: 5rem;
+  width: 5rem;
+  border: 1px solid #448;
+  border-radius: 10px;
+  margin: 5px;
+
+  &:hover {
+    background-color: orange;
+  }
+}
+
+.inputLabel {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* transition: 0.25s ease; */
+  border-radius: 10px;
+}
+
+.chk:checked ~ div {
+  background-color: yellowgreen;
+  transition: 0.25s ease;
+}
+.chk:checked ~ div:hover {
+  background-color: palegreen;
+  transition: 0.25s ease;
+}

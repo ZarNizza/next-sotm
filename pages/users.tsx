@@ -1,30 +1,35 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-// import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import styles from "../styles/Home.module.css";
-import Layout from "../components/layout";
+import type { NextPage } from 'next'
+import Head from 'next/head'
+import { useEffect, useState } from 'react'
+import styles from '../styles/Home.module.css'
+import Layout from '../components/layout'
 
-export interface User {
-  cid: number;
-  cname: string;
-  cphone: string | null;
-  gooid: string | null;
+export type User = {
+  uid: number
+  uname: string
+  uphone: string | null
+  gooid: string | null
+  timezone: string | null
 }
 
 const Home: NextPage = () => {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<User[]>([])
   useEffect(() => {
-    fetch("/api/users")
+    fetch('/api/users')
       .then((res) => res.json())
-      .then((res: { data: User[] }) => {
-        setUsers(res.data || []);
+      .then((res) => {
+        if (res.error) {
+          console.log('--- users DB/api error: ' + res.error)
+          alert('DataBase error: X3')
+        } else {
+          setUsers(() => res.data || [])
+        }
       })
-      .catch((error) =>
-        console.log("! frontend fetch error - ", error.message)
-      );
-  }, []);
+      .catch((error) => {
+        console.log('--- catch users fetch error - ', error)
+        alert('fetch data error: X3')
+      })
+  }, [])
 
   return (
     <Layout>
@@ -38,17 +43,17 @@ const Home: NextPage = () => {
           <h2>Users:</h2>
           <ul>
             {users.map((user: User) => (
-              <li key={user.cid}>
-                {user.cname}
-                {", "}
-                {user.cphone} {user.gooid}
+              <li key={Math.random()}>
+                {user.uname}
+                {', '}
+                {user.uphone} {user.gooid} {user.timezone}
               </li>
             ))}
           </ul>
         </main>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

@@ -1,0 +1,84 @@
+.custList .title {
+  margin: 0 0 -0.3rem 0;
+  color: darkolivegreen;
+}
+.inputCust {
+  height: 3rem;
+  padding: 1rem;
+  margin: 1rem;
+  font-size: large;
+}
+.inputCust::placeholder {
+  color: lawngreen;
+  font-weight: 100;
+  font-size: medium;
+}
+
+.custList,
+.newCust {
+  min-width: 25rem;
+  background-color: #fbfff2;
+  margin: 2rem;
+  padding: 0 2rem 1rem 2rem;
+  border: 1px solid #aaa;
+  border-radius: 10px;
+}
+.newCust {
+  background-color: #eeffc5;
+  margin-top: -5rem;
+}
+.custSelect {
+  min-width: 25rem;
+  background-color: #eeffc5;
+  margin: 2rem;
+  padding: 2rem 2rem;
+  border: 1px solid #aaa;
+  border-radius: 10px;
+}
+.custList p,
+.newCust p {
+  text-align: center;
+}
+.custList h3 {
+  margin: 0;
+}
+.custList ul li {
+  list-style-type: none;
+}
+.custList input,
+.custSelect select {
+  min-width: 20rem;
+}
+.newCust input {
+  min-width: 20rem;
+}
+
+.floatWrapper {
+  position: absolute;
+  top: 12rem;
+  z-index: 18;
+}
+.custSelect {
+  display: flex;
+}
+.custSelect select {
+  // margin-bottom: 1rem;
+  height: 12rem;
+}
+.custSelect option {
+  min-height: 3rem;
+  padding: 1rem;
+  font-size: large;
+}
+.custSelect option:hover {
+  background-color: palegreen;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+.custSelect option:nth-child(odd) {
+  background-color: honeydew;
+}
+.custSelect option:nth-child(odd):hover {
+  background-color: palegreen;
+  transition: 0.25s ease;
+}
