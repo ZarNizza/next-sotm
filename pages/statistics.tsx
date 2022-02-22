@@ -176,22 +176,27 @@ const Home: NextPage = () => {
     setFinishDate(() => myDate('today'))
   }
   function setThisMonthHandler() {
+    alert('! Attention !\nLong period may cause too wide view')
     setStartDate(() => myDate('0M'))
     setFinishDate(() => myDate('today'))
   }
   function setFullMonthHandler() {
+    alert('! Attention !\nLong period may cause too wide view')
     setStartDate(() => myDate('FM'))
     setFinishDate(() => myDate('today'))
   }
   function setThisYearHandler() {
+    alert('! Attention !\nLong period may cause too wide view')
     setStartDate(() => myDate('0Y'))
     setFinishDate(() => myDate('today'))
   }
   function setFullYearHandler() {
+    alert('! Attention !\nLong period may cause too wide view')
     setStartDate(() => myDate('FY'))
     setFinishDate(() => myDate('today'))
   }
   function setAllHandler() {
+    alert('! Attention !\nLong period may cause too wide view')
     setStartDate(() => myDate('0'))
     setFinishDate(() => myDate('today'))
   }
@@ -246,7 +251,7 @@ const Home: NextPage = () => {
             <button onClick={show_CS_Full_Handler}>Sells by Customer</button>
           </div>
           {resData === undefined || resData.length === 0 ? (
-            <p>No data - empty result</p>
+            <p className={styles.gray}>No data - empty result</p>
           ) : resSource === 'short' ? (
             <DBshortTable resData={resData} />
           ) : resSource === 'full' ? (
