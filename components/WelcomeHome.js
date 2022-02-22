@@ -1,7 +1,7 @@
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
-import Layout from "./layout";
-import Link from "next/link";
+import Head from 'next/head'
+import styles from '../styles/Home.module.css'
+import Layout from './layout'
+import Link from 'next/link'
 
 export default function WelcomeHome() {
   return (
@@ -11,18 +11,18 @@ export default function WelcomeHome() {
       </Head>
       <main className={styles.main}>
         <div className={styles.row}>
-          <Link href="/add">
+          <Link href="/add" passHref>
             <div className={styles.square_plus}>
               <p> + </p>
             </div>
           </Link>
           <div className={styles.square0}>
-            <Link href="/memo">
+            <Link href="/memo" passHref>
               <div className={styles.halfsquare_top}>
                 <p>memo</p>
               </div>
             </Link>
-            <Link href="/expenses">
+            <Link href="/expenses" passHref>
               <div className={styles.halfsquare_bottom}>
                 <p> - </p>
               </div>
@@ -30,12 +30,12 @@ export default function WelcomeHome() {
           </div>
         </div>
         <div className={styles.row}>
-          <Link href="/statistics">
+          <Link href="/statistics" passHref>
             <div className={styles.square_stat}>
               <p> = </p>
             </div>
           </Link>
-          <Link href="/settings">
+          <Link href="/settings" passHref>
             <div className={styles.square_sys}>
               <p> Sys </p>
             </div>
@@ -43,5 +43,5 @@ export default function WelcomeHome() {
         </div>
       </main>
     </Layout>
-  );
+  )
 }

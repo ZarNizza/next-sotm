@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css'
 export default function Logo() {
   return (
     <div className={styles.rowElem}>
-      <Link href="/">
+      <Link href="/" passHref>
         <div className={styles.logoBH}>
           <span style={{ margin: 'auto', color: 'white', fontSize: 'larger' }}>
             <p
