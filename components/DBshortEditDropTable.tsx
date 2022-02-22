@@ -46,20 +46,12 @@ export default function DBshort_ED_Table(props: TableProps) {
   }
 
   function editButtonHandler(e: any) {
-    console.log(
-      '**************** edit button, val=',
-      e.target.value,
-      ' idName=',
-      idName
-    )
     const iToEdit = [
       props.resData.filter((item) => {
         return item[String(idName)] === Number(e.target.value)
       })[0]
     ]
     setItemToEdit(() => iToEdit)
-    console.log('-------------- iToEdit=', iToEdit)
-    console.log('============== itemToEdit=', itemToEdit)
     setIdToEdit(() => e.target.value)
   }
 
@@ -83,7 +75,6 @@ export default function DBshort_ED_Table(props: TableProps) {
             idName={idName}
             keys={keys}
             itemToEdit={itemToEdit}
-            // setItemToEdit={setItemToEdit}
           />
         )}
         <p>---------- s e d ----------</p>
