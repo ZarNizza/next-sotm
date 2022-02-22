@@ -6,9 +6,13 @@ import Layout from '../components/layout'
 import { Customer } from './add'
 import fetchHandler, { FetchArgs } from '../components/fetchHandler'
 import DBshort_ED_Table from '../components/DBshortEditDropTable'
+import CustomerSelect from '../components/CustomerSelect'
 
 const Home: NextPage = () => {
   const [customers, setCustomers] = useState<Customer[]>([])
+  const [currentCustomer, setCurrentCustomer] = useState<
+    [Customer['cid'], Customer['cname']]
+  >([0, ''])
   //
   useEffect(() => {
     const args: FetchArgs = {
@@ -30,6 +34,13 @@ const Home: NextPage = () => {
       <div className={styles.container}>
         <main className={styles.main}>
           <h2>Customers:</h2>
+          <CustomerSelect
+            customers={customers}
+            setCurrentCustomer={setCurrentCustomer}
+            currentCustomer={currentCustomer}
+            setCustomers={setCustomers}
+            mode="new"
+          />
           <div>
             {customers === undefined || customers.length === 0 ? (
               <p>No data - empty result</p>

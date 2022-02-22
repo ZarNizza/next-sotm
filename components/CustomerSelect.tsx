@@ -69,7 +69,7 @@ export default function CustomerSelect(props: CustSelectProps) {
   }
   function saveNewHandler() {
     return new Promise((resolveSS, rejectSS) => {
-      const cust = { cname: newCust, cphone: newPhone }
+      const cust = { mode: 'new', cname: newCust, cphone: newPhone }
       fetch('/api/customers', {
         method: 'POST',
         body: JSON.stringify(cust)
