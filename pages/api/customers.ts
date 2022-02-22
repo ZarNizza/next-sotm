@@ -42,7 +42,6 @@ export default function handler(
               parsedReq.gooid.substring(0, 20) +
               '" WHERE cid=' +
               parsedReq.cid
-            console.log('&&&&&&&& switch EDIT')
             break
           case 'new':
             sql = 'INSERT INTO customers (cname, cphone) VALUES (?, ?)'
@@ -50,15 +49,12 @@ export default function handler(
               parsedReq.cname.substring(0, 50),
               parsedReq.cphone.substring(0, 20)
             ]
-            console.log('&&&&&&&& switch NEW')
             break
           case 'del':
-            sql =
-              'UPDATE customers SET cdeleted="true" WHERE cid=' + parsedReq.cid
+            sql = 'UPDATE customers SET cdel = 1 WHERE cid=' + parsedReq.cid
             break
           case 'restore':
-            sql =
-              'UPDATE customers SET cdeleted="false" WHERE cid=' + parsedReq.cid
+            sql = 'UPDATE customers SET cdel = 0 WHERE cid=' + parsedReq.cid
             break
           default:
             console.log('! cust - bad POST body.mode api request')
