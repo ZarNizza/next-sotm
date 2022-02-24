@@ -89,7 +89,7 @@ export default async function sysHandler(
     const parsedReq = JSON.parse(req.body)
 
     if (typeof parsedReq.currentCustomer !== 'undefined') {
-      if (parsedReq.currentCustomer[0] !== 0) {
+      if (parsedReq.currentCustomer.cid !== 0) {
         currentCustomer = ` AND c.cid = ${parsedReq.currentCustomer.cid} AND c.cdel = 0 `
         currCustJoin = ' LEFT JOIN customers AS c ON c.cid = s.cust'
       }
@@ -154,12 +154,12 @@ export default async function sysHandler(
           sqlQuery =
             'SELECT e.esymbol, SUM(CASE WHEN x.xitem = e.eid THEN x.xsum ELSE 0 END) AS Xgross FROM eitems AS e' +
             ' LEFT JOIN xpenses AS x ON x.xitem = e.eid' +
-            currCustJoin +
+            // currCustJoin +
             ' WHERE x.xdate BETWEEN ' +
             startDate +
             ' AND ' +
             finishDate +
-            currentCustomer +
+            // currentCustomer +
             ' GROUP BY e.esymbol WITH ROLLUP'
 
           source = 'short'
@@ -181,12 +181,12 @@ export default async function sysHandler(
             'UNION ALL ' +
             'SELECT e.esymbol, SUM(CASE WHEN x.xitem = e.eid THEN x.xsum ELSE 0 END) AS Xgross FROM eitems AS e' +
             ' LEFT JOIN xpenses AS x ON x.xitem = e.eid' +
-            currCustJoin +
+            // currCustJoin +
             ' WHERE x.xdate BETWEEN ' +
             startDate +
             ' AND ' +
             finishDate +
-            currentCustomer +
+            // currentCustomer +
             ' GROUP BY e.esymbol WITH ROLLUP'
 
           source = 'short'
@@ -268,12 +268,12 @@ export default async function sysHandler(
             sqlDXSum +
             ' SUM(CASE WHEN x.xitem = e.eid THEN x.xsum ELSE 0 END) AS Xgross FROM eitems AS e' +
             ' LEFT JOIN xpenses AS x ON x.xitem = e.eid' +
-            currCustJoin +
+            // currCustJoin +
             ' WHERE x.xdate BETWEEN ' +
             startDate +
             ' AND ' +
             finishDate +
-            currentCustomer +
+            // currentCustomer +
             ' GROUP BY e.esymbol WITH ROLLUP'
 
           source = 'fullSD'
