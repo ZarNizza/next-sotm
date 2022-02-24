@@ -1,4 +1,4 @@
-import type { Product } from '../pages/add'
+import type { Customer, Product } from '../pages/add'
 import styles from './ProductCart.module.scss'
 import stylesH from '../styles/Home.module.css'
 import Link from 'next/link'
@@ -13,7 +13,7 @@ type ProductCartProps = {
   setSelectedProducts: Dispatch<SetStateAction<number[]>>
   selectedProducts: number[]
   products: Product[]
-  currentCustomer: [number, string]
+  currentCustomer: Customer
   gross: number
   setGross: Dispatch<SetStateAction<number>>
   prodCostRef: MutableRefObject<Record<number, number>>
@@ -77,7 +77,7 @@ export default function ProductCart(props: ProductCartProps) {
   }
 
   function saveSaleHandler() {
-    if (props.currentCustomer[0] === 0) {
+    if (props.currentCustomer.cid === 0) {
       alert('Attention: Select Customer!')
       return
     }
@@ -86,7 +86,7 @@ export default function ProductCart(props: ProductCartProps) {
         alert('Attention: The Price must be a Number!')
       } else {
         const sale = {
-          customer: props.currentCustomer[0],
+          customer: props.currentCustomer.cid,
           prod: pid,
           sum: props.prodCostRef.current[pid]
         }
