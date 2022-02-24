@@ -90,7 +90,7 @@ export default async function sysHandler(
 
     if (typeof parsedReq.currentCustomer !== 'undefined') {
       if (parsedReq.currentCustomer[0] !== 0) {
-        currentCustomer = ` AND c.cid = ${parsedReq.currentCustomer[0]} AND c.cdel = 0 `
+        currentCustomer = ` AND c.cid = ${parsedReq.currentCustomer.cid} AND c.cdel = 0 `
         currCustJoin = ' LEFT JOIN customers AS c ON c.cid = s.cust'
       }
     }

@@ -15,14 +15,17 @@ type apiBody = {
   mode: string
   startDate: string
   finishDate: string
-  currentCustomer?: [number, string]
+  currentCustomer?: Customer
 }
 
 const Home: NextPage = () => {
   const [customers, setCustomers] = useState<Customer[]>([])
-  const [currentCustomer, setCurrentCustomer] = useState<
-    [Customer['cid'], Customer['cname']]
-  >([0, ''])
+  const [currentCustomer, setCurrentCustomer] = useState<Customer>({
+    cid: 0,
+    cname: '',
+    cphone: '',
+    gooid: ''
+  })
   InitCustomers(setCustomers)
   const [products, setProducts] = useState<Product[]>([])
   InitProducts(setProducts)
