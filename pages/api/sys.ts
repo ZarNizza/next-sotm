@@ -80,37 +80,37 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
 
       case 'restore_Users':
         sql =
-          'CREATE TABLE IF NOT EXISTS users (uid SMALLINT AUTO_INCREMENT PRIMARY KEY, uname VARCHAR(50), uphone VARCHAR(20), gooid VARCHAR(30), timezone TINYINT, udel BIT(1) DEFAULT 0, INDEX (uname, uphone))'
+          'CREATE TABLE IF NOT EXISTS users (uid SMALLINT AUTO_INCREMENT PRIMARY KEY, uname VARCHAR(50), uphone VARCHAR(20), gooid VARCHAR(30), timezone TINYINT, udel TINYINT(1) DEFAULT 0, INDEX (uname, uphone))'
         err_prefix = 'restore_Users'
         break
 
       case 'restore_Customers':
         sql =
-          'CREATE TABLE IF NOT EXISTS customers (cid SMALLINT AUTO_INCREMENT PRIMARY KEY, cname VARCHAR(50), cphone VARCHAR(20), gooid VARCHAR(30), cdel BIT(1) DEFAULT 0, INDEX (cname, cphone))'
+          'CREATE TABLE IF NOT EXISTS customers (cid SMALLINT AUTO_INCREMENT PRIMARY KEY, cname VARCHAR(50), cphone VARCHAR(20), gooid VARCHAR(30), cdel TINYINT(1) DEFAULT 0, INDEX (cname, cphone))'
         err_prefix = 'restore_Customers'
         break
 
       case 'restore_Products':
         sql =
-          'CREATE TABLE IF NOT EXISTS prod (pid SMALLINT AUTO_INCREMENT PRIMARY KEY, pname VARCHAR(50), psymbol VARCHAR(7), pdel BIT(1) DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS prod (pid SMALLINT AUTO_INCREMENT PRIMARY KEY, pname VARCHAR(50), psymbol VARCHAR(7), pdel TINYINT(1) DEFAULT 0)'
         err_prefix = 'restore_Products'
         break
 
       case 'restore_Sales':
         sql =
-          'CREATE TABLE IF NOT EXISTS sales (sid INT AUTO_INCREMENT PRIMARY KEY, sdate DATE, cust SMALLINT, prod SMALLINT, sum SMALLINT, INDEX (cust, prod, sdate))'
+          'CREATE TABLE IF NOT EXISTS sales (sid INT AUTO_INCREMENT PRIMARY KEY, sdate DATE, cust SMALLINT, prod SMALLINT, sum SMALLINT, sdel TINYINT(1) DEFAULT 0, INDEX (cust, prod, sdate))'
         err_prefix = 'restore_Sales'
         break
 
       case 'restore_Xpenses':
         sql =
-          'CREATE TABLE IF NOT EXISTS xpenses (xid INT AUTO_INCREMENT PRIMARY KEY, xdate DATE, xitem SMALLINT, xsum SMALLINT, INDEX (xitem, xdate))'
+          'CREATE TABLE IF NOT EXISTS xpenses (xid INT AUTO_INCREMENT PRIMARY KEY, xdate DATE, xitem SMALLINT, xsum SMALLINT, xdel TINYINT(1) DEFAULT 0, INDEX (xitem, xdate))'
         err_prefix = 'restore_Xpenses'
         break
 
       case 'restore_Eitems':
         sql =
-          'CREATE TABLE IF NOT EXISTS eitems (eid SMALLINT AUTO_INCREMENT PRIMARY KEY, ename VARCHAR(50), esymbol VARCHAR(7))'
+          'CREATE TABLE IF NOT EXISTS eitems (eid SMALLINT AUTO_INCREMENT PRIMARY KEY, ename VARCHAR(50), esymbol VARCHAR(7), edel TINYINT(1) DEFAULT 0)'
         err_prefix = 'restore_Eitems'
         break
 

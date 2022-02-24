@@ -12,38 +12,39 @@ import stylesH from '../styles/Home.module.css'
 
 type CustSelectProps = {
   customers: Customer[]
-  setCurrentCustomer: Dispatch<SetStateAction<[number, string]>>
-  currentCustomer: [number, string]
-  setCustomers: Dispatch<SetStateAction<Customer[]>>
+  setCurrentCustomer: Dispatch<SetStateAction<Customer>>
+  currentCustomer: Customer
+  setCustomers: Dispatch<SetStateAction<Customer[] | []>>
   mode: string
 }
 
 export default function CustomerSelect(props: CustSelectProps) {
   const [searchTerm, setSearchTerm] = useState('')
+  const [currCust, setCurrCust] = useState()
   const customerInputRef = useRef<HTMLInputElement>(null)
-  const csResultsList = document.getElementById('cSearchResultsList')
+  // const csResultsList = document.getElementById('cSearchResultsList')
   const [flagNewCustomer, setFlagNewCustomer] = useState('')
   const [newCust, setNewCust] = useState('')
   const [newPhone, setNewPhone] = useState('')
 
-  useEffect(() => {
-    if (csResultsList !== null) {
-      csResultsList.innerHTML = ''
-      props.customers
-        .filter((item: Customer) => {
-          return item.cname.toLowerCase().includes(searchTerm)
-        })
-        .forEach((item: Customer) => {
-          const opt = new Option(item.cname, String(item.cid))
-          csResultsList.appendChild(opt)
-        })
-    }
-  }, [searchTerm])
+  // useEffect(() => {
+  //   if (csResultsList !== null) {
+  //     csResultsList.innerHTML = ''
+  //     props.customers
+  //       .filter((item: Customer) => {
+  //         return item.cname.toLowerCase().includes(searchTerm)
+  //       })
+  //       .forEach((item: Customer) => {
+  //         const opt = new Option(item.cname, String(item.cid))
+  //         csResultsList.appendChild(opt)
+  //       })
+  //   }
+  // }, [searchTerm])
 
   function liveSearch(e: ChangeEvent<HTMLInputElement>) {
     const st = e.target.value.toLowerCase()
     setSearchTerm(() => st)
-    props.setCurrentCustomer(() => [0, ''])
+    props.setCurrentCustomer({ cid: 0, cname: '', cphone: '', gooid: '' })
   }
 
   function liveST(e: ChangeEvent<HTMLSelectElement>) {
@@ -51,17 +52,22 @@ export default function CustomerSelect(props: CustSelectProps) {
     const st = props.customers.filter((item: Customer) => {
       return item.cid === Number(indexST)
     })
-    if (st.length === 1) {
-      if (customerInputRef.current !== null)
-        customerInputRef.current.value = st[0].cname
-      props.setCurrentCustomer(() => [Number(st[0].cid), st[0].cname])
+    if (st.length === 1 && customerInputRef.current !== null) {
+      const curr = st[0]
+      customerInputRef.current.value = curr.cname
+      props.setCurrentCustomer({
+        cid: Number(curr.cid),
+        cname: curr.cname,
+        cphone: curr.cphone,
+        gooid: curr.gooid
+      })
     }
   }
 
   function dropButtonHandler() {
     setSearchTerm(() => '')
     if (customerInputRef.current !== null) customerInputRef.current.value = ''
-    props.setCurrentCustomer(() => [0, ''])
+    props.setCurrentCustomer({ cid: 0, cname: '', cphone: '', gooid: '' })
   }
 
   function newButtonHandler() {
@@ -123,6 +129,25 @@ export default function CustomerSelect(props: CustSelectProps) {
     setFlagNewCustomer(() => '')
   }
 
+  function CLSresList() {
+    let cList = props.customers
+      .filter((item: Customer) => {
+        return item.cname.toLowerCase().includes(searchTerm)
+      })
+      .map((item: Customer) => {
+        return (
+          <option value={item.cid} key={item.cid}>
+            {item.cname}
+          </option>
+        )
+      })
+    return (
+      <select onChange={liveST} size={4}>
+        {cList}
+      </select>
+    )
+  }
+
   return (
     <>
       <div className={styles.custList}>
@@ -148,10 +173,10 @@ export default function CustomerSelect(props: CustSelectProps) {
       </div>
       <div
         className={styles.floatWrapper}
-        hidden={searchTerm === '' || props.currentCustomer[0] > 0}
+        hidden={searchTerm === '' || props.currentCustomer.cid > 0}
       >
         <div className={styles.custSelect}>
-          <select id="cSearchResultsList" size={4} onChange={liveST}></select>
+          <CLSresList />
         </div>
       </div>
 

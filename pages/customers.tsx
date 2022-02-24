@@ -10,21 +10,24 @@ import CustomerSelect from '../components/CustomerSelect'
 import CustomerEditForm from '../components/CustomerEditForm'
 
 const Home: NextPage = () => {
-  const [customers, setCustomers] = useState<Customer[]>([])
-  const [currentCustomer, setCurrentCustomer] = useState<
-    [Customer['cid'], Customer['cname']]
-  >([0, ''])
+  const [customers, setCustomers] = useState<Customer[] | []>([])
+  const [currentCustomer, setCurrentCustomer] = useState<Customer>({
+    cid: 0,
+    cname: '',
+    cphone: '',
+    gooid: ''
+  })
   const [updateFlag, setUpdateFlag] = useState(0)
 
   function setUpdF() {
     setUpdateFlag(() => 1)
-    setCurrentCustomer(() => [0, ''])
+    setCurrentCustomer({ cid: 0, cname: '', cphone: '', gooid: '' })
     return alert(
       'OK, Updated!\nTo refresh CustomerList clear input area - press button (X).'
     )
   }
   function cancelFlag() {
-    return setCurrentCustomer(() => [0, ''])
+    return setCurrentCustomer({ cid: 0, cname: '', cphone: '', gooid: '' })
   }
   //
   function custInit() {
@@ -65,13 +68,13 @@ const Home: NextPage = () => {
             setCustomers={setCustomers}
             mode="new"
           />
-          {currentCustomer[0] === 0 ? (
+          {currentCustomer.cid === 0 ? (
             ''
           ) : (
             <CustomerEditForm
               custToEdit={
                 customers.filter((item: Customer) => {
-                  return item.cid === Number(currentCustomer[0])
+                  return item.cid === Number(currentCustomer.cid)
                 })[0]
               }
               setUpdateFlag={setUpdF}

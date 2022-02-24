@@ -31,9 +31,12 @@ export type Sale = {
 
 const Home: NextPage = () => {
   const [customers, setCustomers] = useState<Customer[]>([])
-  const [currentCustomer, setCurrentCustomer] = useState<
-    [Customer['cid'], Customer['cname']]
-  >([0, ''])
+  const [currentCustomer, setCurrentCustomer] = useState<Customer>({
+    cid: 0,
+    cname: '',
+    cphone: '',
+    gooid: ''
+  })
   const [products, setProducts] = useState<Product[]>([])
   const [selectedProducts, setSelectedProducts] = useState<Product['pid'][]>([])
   const prodCostRef = useRef<Record<Product['pid'], number>>({})

@@ -15,14 +15,17 @@ type apiBody = {
   mode: string
   startDate: string
   finishDate: string
-  currentCustomer?: [number, string]
+  currentCustomer?: Customer
 }
 
 const Home: NextPage = () => {
   const [customers, setCustomers] = useState<Customer[]>([])
-  const [currentCustomer, setCurrentCustomer] = useState<
-    [Customer['cid'], Customer['cname']]
-  >([0, ''])
+  const [currentCustomer, setCurrentCustomer] = useState<Customer>({
+    cid: 0,
+    cname: '',
+    cphone: '',
+    gooid: ''
+  })
   InitCustomers(setCustomers)
   const [products, setProducts] = useState<Product[]>([])
   InitProducts(setProducts)
@@ -31,8 +34,8 @@ const Home: NextPage = () => {
     // { sid: 0, sdate: '2022-02-02', cust: 0, prod: 0, sum: 0 }
   ])
   const [resSource, setResSource] = useState('')
-  const [startDate, setStartDate] = useState('2021-01-01')
-  const [finishDate, setFinishDate] = useState('2022-02-10')
+  const [startDate, setStartDate] = useState(myDate('today'))
+  const [finishDate, setFinishDate] = useState(myDate('today'))
 
   function fetch_Handler(body: apiBody) {
     fetch('/api/statistics', { method: 'POST', body: JSON.stringify(body) })

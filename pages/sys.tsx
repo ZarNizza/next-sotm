@@ -152,10 +152,10 @@ const Home: NextPage = () => {
   //  add Customer
 
   function add_C_handler() {
-    const user = { cname: customerName, cphone: customerPhone }
+    const cust = { mode: 'new', cname: customerName, cphone: customerPhone }
     fetch('/api/customers', {
       method: 'POST',
-      body: JSON.stringify(user)
+      body: JSON.stringify(cust)
     })
       .then((res) => res.json())
       .then((res) => {
@@ -179,7 +179,7 @@ const Home: NextPage = () => {
   //  add Product
 
   function add_P_handler() {
-    const prod = { ptext: product, psymbol: pSymbol }
+    const prod = { mode: 'new', ptext: product, psymbol: pSymbol }
     fetch('/api/products', {
       method: 'POST',
       body: JSON.stringify(prod)
@@ -206,7 +206,7 @@ const Home: NextPage = () => {
   //  add ExpeneItem
 
   function add_E_handler() {
-    const eitem = { ename: eItem, esymbol: eSymbol }
+    const eitem = { mode: 'new', ename: eItem, esymbol: eSymbol }
     fetch('/api/eitems', {
       method: 'POST',
       body: JSON.stringify(eitem)
