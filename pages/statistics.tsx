@@ -34,8 +34,8 @@ const Home: NextPage = () => {
     // { sid: 0, sdate: '2022-02-02', cust: 0, prod: 0, sum: 0 }
   ])
   const [resSource, setResSource] = useState('')
-  const [startDate, setStartDate] = useState('2021-01-01')
-  const [finishDate, setFinishDate] = useState('2022-02-10')
+  const [startDate, setStartDate] = useState(myDate('today'))
+  const [finishDate, setFinishDate] = useState(myDate('today'))
 
   function fetch_Handler(body: apiBody) {
     fetch('/api/statistics', { method: 'POST', body: JSON.stringify(body) })
