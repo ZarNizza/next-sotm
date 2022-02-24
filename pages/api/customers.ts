@@ -30,7 +30,7 @@ export default function handler(
 
       case 'POST':
         const parsedReq = JSON.parse(req.body)
-
+        console.log('!!!!!!!!!!! POST, parsedReq=', parsedReq)
         switch (parsedReq.mode) {
           case 'edit':
             sql =
@@ -49,6 +49,7 @@ export default function handler(
               parsedReq.cname.substring(0, 50),
               parsedReq.cphone.substring(0, 20)
             ]
+            console.log('---------------------- new: ', sql, params)
             break
           case 'del':
             sql = 'UPDATE customers SET cdel = 1 WHERE cid=' + parsedReq.cid
@@ -65,6 +66,7 @@ export default function handler(
         break
     }
     if (sql > '') {
+      console.log('=== sql OK === ', sql)
       connection.query(sql, params, function (error, results, fields) {
         if (error) {
           res.status(500).json({ error: String(error) })
@@ -74,6 +76,7 @@ export default function handler(
         resolve(null)
       })
     } else {
+      console.log('////////////// sql err, sql=', sql)
       res.status(500).json({ error: '!customers - sql-error: empty query' })
     }
   })
