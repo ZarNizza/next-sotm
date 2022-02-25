@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import styles from '../styles/Home.module.css'
+import stylesChB from './CheckBoxButton.module.scss'
 
 export default function Footer() {
   const { data: session } = useSession()
@@ -8,25 +9,53 @@ export default function Footer() {
   return (
     <div className={styles.footer}>
       <Link href="/" passHref>
-        <a className={styles.footerLink}>&lt;&lt; Welcome </a>
+        <a className={styles.footerLink}>
+          <span className={stylesChB.rb}>
+            <div className={stylesChB.inputLabel}>&#8962;</div>
+          </span>
+        </a>
       </Link>
       <Link href="/add" passHref>
-        <a className={styles.footerLink}>(+) Income</a>
+        <a className={styles.footerLink}>
+          <span className={stylesChB.rb}>
+            <div className={stylesChB.inputLabel}>(+)</div>
+          </span>
+        </a>
       </Link>
       <Link href="/memo" passHref>
-        <a className={styles.footerLink}>Memo</a>
+        <a className={styles.footerLink}>
+          <span className={stylesChB.rb}>
+            <div className={stylesChB.inputLabel}>M</div>
+          </span>
+        </a>
       </Link>
       <Link href="/expenses" passHref>
-        <a className={styles.footerLink}>(–) Expenses</a>
+        <a className={styles.footerLink}>
+          <span className={stylesChB.rb}>
+            <div className={stylesChB.inputLabel}>(–)</div>
+          </span>
+        </a>
       </Link>
       <Link href="/statistics" passHref>
-        <a className={styles.footerLink}>(=) Stat</a>
+        <a className={styles.footerLink}>
+          <span className={stylesChB.rb}>
+            <div className={stylesChB.inputLabel}>(=)</div>
+          </span>
+        </a>
       </Link>
       <Link href="/settings" passHref>
-        <a className={styles.footerLink}>Set</a>
+        <a className={styles.footerLink}>
+          <span className={stylesChB.rb}>
+            <div className={stylesChB.inputLabel}>&#10004;</div>
+          </span>
+        </a>
       </Link>
       <Link href="/sys" passHref>
-        <a className={styles.footerLink}>[System]</a>
+        <a className={styles.footerLink}>
+          <span className={stylesChB.rb}>
+            <div className={stylesChB.inputLabel}>[Sys]</div>
+          </span>
+        </a>
       </Link>
     </div>
     // ) : (
