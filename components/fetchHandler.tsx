@@ -1,12 +1,13 @@
 import { Dispatch, SetStateAction } from 'react'
 import { Eitem } from '../pages/minus'
-import { Customer } from '../pages/plus'
+import { Customer, Product } from '../pages/plus'
 export type FetchArgs = {
   method: 'GET' | 'POST'
   apiSuffix: string
   title: string
   body?: string
   setResData:
+    | Dispatch<SetStateAction<[] | Product[]>>
     | Dispatch<SetStateAction<[] | Eitem[]>>
     | Dispatch<SetStateAction<Customer[]>>
     | Dispatch<SetStateAction<number>>

@@ -3,31 +3,51 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
-
-export interface Product {
-  pid: number
-  pname: string
-  psymbol: string
-}
+import fetchHandler, { FetchArgs } from '../components/fetchHandler'
+import ProductSelect from '../components/ProductSelect'
+import ProductEditForm from '../components/ProductEditForm'
+import { Product } from './plus'
 
 const Home: NextPage = () => {
-  const [products, setProducts] = useState<Product[]>([])
+  const [products, setProducts] = useState<Product[] | []>([])
+  const [currentProduct, setCurrentProduct] = useState<Product>({
+    pid: 0,
+    pname: '',
+    psymbol: ''
+  })
+  const [updateFlag, setUpdateFlag] = useState(0)
+
+  function setUpdF() {
+    setUpdateFlag(() => 1)
+    setCurrentProduct({ pid: 0, pname: '', psymbol: '' })
+    return alert(
+      'OK, Updated!\nTo refresh Product List clear input area - press button (X).'
+    )
+  }
+  function cancelFlag() {
+    return setCurrentProduct({ pid: 0, pname: '', psymbol: '' })
+  }
+  //
+  function pInit() {
+    const args: FetchArgs = {
+      method: 'GET',
+      apiSuffix: 'products',
+      title: 'getProducts',
+      setResData: setProducts
+    }
+    fetchHandler(args)
+  }
+
   useEffect(() => {
-    fetch('/api/products')
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.error) {
-          console.log('--- products DB/api error: ' + res.error)
-          alert('DataBase error: X3')
-        } else {
-          setProducts(() => res.data || [])
-        }
-      })
-      .catch((error) => {
-        console.log('--- catch products fetch error - ', error)
-        alert('fetch data error: X3')
-      })
+    pInit()
   }, [])
+
+  useEffect(() => {
+    if (updateFlag === 1) {
+      pInit()
+      setUpdateFlag(() => 0)
+    }
+  }, [updateFlag])
 
   return (
     <Layout>
@@ -38,18 +58,27 @@ const Home: NextPage = () => {
 
       <div className={styles.container}>
         <main className={styles.main}>
-          <div className={styles.productList}>
-            <h3>Products:</h3>
-            <ul>
-              {products.map((product: Product) => (
-                <li key={product.pid}>
-                  {product.pid} = {product.pname}
-                  {' : '}
-                  {product.psymbol}
-                </li>
-              ))}
-            </ul>
-          </div>
+          <h2>Products: {products.length}</h2>
+          <ProductSelect
+            products={products}
+            setCurrentProduct={setCurrentProduct}
+            currentProduct={currentProduct}
+            setProducts={setProducts}
+            mode="new"
+          />
+          {currentProduct.pid === 0 ? (
+            ''
+          ) : (
+            <ProductEditForm
+              productToEdit={
+                products.filter((item: Product) => {
+                  return item.pid === Number(currentProduct.pid)
+                })[0]
+              }
+              setUpdateFlag={setUpdF}
+              cancelFlag={cancelFlag}
+            />
+          )}
         </main>
       </div>
     </Layout>
