@@ -3,50 +3,50 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
-import { Customer } from './plus'
+import { Sale } from './plus'
 import fetchHandler, { FetchArgs } from '../components/fetchHandler'
-import DBshort_ED_Table from '../components/DBshortEditDropTable'
-import CustomerSelect from '../components/CustomerSelect'
-import CustomerEditForm from '../components/CustomerEditForm'
+import SaleSelect from '../components/SaleSelect'
+import SaleEditForm from '../components/SaleEditForm'
 
 const Home: NextPage = () => {
-  const [customers, setCustomers] = useState<Customer[] | []>([])
-  const [currentCustomer, setCurrentCustomer] = useState<Customer>({
-    cid: 0,
-    cname: '',
-    cphone: '',
-    gooid: ''
+  const [sales, setSales] = useState<Sale[] | []>([])
+  const [currentSale, setCurrentSale] = useState<Sale>({
+    sid: 0,
+    sdate: '',
+    cust: 0,
+    prod: 0,
+    sum: 0
   })
   const [updateFlag, setUpdateFlag] = useState(0)
 
   function setUpdF() {
     setUpdateFlag(() => 1)
-    setCurrentCustomer({ cid: 0, cname: '', cphone: '', gooid: '' })
+    setCurrentSale({ sid: 0, sdate: '', cust: 0, prod: 0, sum: 0 })
     return alert(
-      'OK, Updated!\nTo refresh CustomerList clear input area - press button (X).'
+      'OK, Updated!\nTo refresh SalesList clear input area - press button (X).'
     )
   }
   function cancelFlag() {
-    return setCurrentCustomer({ cid: 0, cname: '', cphone: '', gooid: '' })
+    return setCurrentSale({ sid: 0, sdate: '', cust: 0, prod: 0, sum: 0 })
   }
   //
-  function custInit() {
+  function salesInit() {
     const args: FetchArgs = {
       method: 'GET',
-      apiSuffix: 'customers',
-      title: 'getCust',
-      setResData: setCustomers
+      apiSuffix: 'sales',
+      title: 'getSale',
+      setResData: setSales
     }
     fetchHandler(args)
   }
 
   useEffect(() => {
-    custInit()
+    salesInit()
   }, [])
 
   useEffect(() => {
     if (updateFlag === 1) {
-      custInit()
+      salesInit()
       setUpdateFlag(() => 0)
     }
   }, [updateFlag])
@@ -54,41 +54,33 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <Head>
-        <title>Customers</title>
+        <title>Sales</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <div className={styles.container}>
         <main className={styles.main}>
-          <h2>Customers:</h2>
-          <CustomerSelect
-            customers={customers}
-            setCurrentCustomer={setCurrentCustomer}
-            currentCustomer={currentCustomer}
-            setCustomers={setCustomers}
+          <h2>Sales: {sales.length}</h2>
+          <SaleSelect
+            sales={sales}
+            setCurrentSale={setCurrentSale}
+            currentSale={currentSale}
+            setSale={setSales}
             mode="new"
           />
-          {currentCustomer.cid === 0 ? (
+          {currentSale.sid === 0 ? (
             ''
           ) : (
-            <CustomerEditForm
-              custToEdit={
-                customers.filter((item: Customer) => {
-                  return item.cid === Number(currentCustomer.cid)
+            <SaleEditForm
+              saleToEdit={
+                sales.filter((item: Sale) => {
+                  return item.sid === Number(currentSale.sid)
                 })[0]
               }
               setUpdateFlag={setUpdF}
               cancelFlag={cancelFlag}
             />
           )}
-
-          {/* <div>
-            {customers === undefined || customers.length === 0 ? (
-              <p>No data - empty result</p>
-            ) : (
-              <DBshort_ED_Table resData={customers} target="customers" />
-            )}
-          </div> */}
         </main>
       </div>
     </Layout>
