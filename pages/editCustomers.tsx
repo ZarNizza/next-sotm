@@ -60,7 +60,7 @@ const Home: NextPage = () => {
 
       <div className={styles.container}>
         <main className={styles.main}>
-          <h2>Customers:</h2>
+          <h2>Customers: {customers.length}</h2>
           <CustomerSelect
             customers={customers}
             setCurrentCustomer={setCurrentCustomer}
