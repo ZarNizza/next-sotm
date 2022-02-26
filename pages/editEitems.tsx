@@ -3,50 +3,49 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
-import { Customer } from './plus'
 import fetchHandler, { FetchArgs } from '../components/fetchHandler'
 import DBshort_ED_Table from '../components/DBshortEditDropTable'
-import CustomerSelect from '../components/CustomerSelect'
-import CustomerEditForm from '../components/CustomerEditForm'
+import EitemSelect from '../components/EitemSelect'
+import EitemEditForm from '../components/EitemEditForm'
+import { Eitem } from './minus'
 
 const Home: NextPage = () => {
-  const [customers, setCustomers] = useState<Customer[] | []>([])
-  const [currentCustomer, setCurrentCustomer] = useState<Customer>({
-    cid: 0,
-    cname: '',
-    cphone: '',
-    gooid: ''
+  const [eItems, setEitems] = useState<Eitem[] | []>([])
+  const [currentEitem, setCurrentEitem] = useState<Eitem>({
+    eid: 0,
+    ename: '',
+    esymbol: ''
   })
   const [updateFlag, setUpdateFlag] = useState(0)
 
   function setUpdF() {
     setUpdateFlag(() => 1)
-    setCurrentCustomer({ cid: 0, cname: '', cphone: '', gooid: '' })
+    setCurrentEitem({ eid: 0, ename: '', esymbol: '' })
     return alert(
-      'OK, Updated!\nTo refresh CustomerList clear input area - press button (X).'
+      'OK, Updated!\nTo refresh E-item-List clear input area - press button (X).'
     )
   }
   function cancelFlag() {
-    return setCurrentCustomer({ cid: 0, cname: '', cphone: '', gooid: '' })
+    return setCurrentEitem({ eid: 0, ename: '', esymbol: '' })
   }
   //
-  function custInit() {
+  function eInit() {
     const args: FetchArgs = {
       method: 'GET',
-      apiSuffix: 'customers',
-      title: 'getCust',
-      setResData: setCustomers
+      apiSuffix: 'eitems',
+      title: 'getEitems',
+      setResData: setEitems
     }
     fetchHandler(args)
   }
 
   useEffect(() => {
-    custInit()
+    eInit()
   }, [])
 
   useEffect(() => {
     if (updateFlag === 1) {
-      custInit()
+      eInit()
       setUpdateFlag(() => 0)
     }
   }, [updateFlag])
@@ -60,21 +59,21 @@ const Home: NextPage = () => {
 
       <div className={styles.container}>
         <main className={styles.main}>
-          <h2>Customers:</h2>
-          <CustomerSelect
-            customers={customers}
-            setCurrentCustomer={setCurrentCustomer}
-            currentCustomer={currentCustomer}
-            setCustomers={setCustomers}
+          <h2>Expense Items: {eItems.length}</h2>
+          <EitemSelect
+            eItems={eItems}
+            setCurrentEitem={setCurrentEitem}
+            currentEitem={currentEitem}
+            setEitems={setEitems}
             mode="new"
           />
-          {currentCustomer.cid === 0 ? (
+          {currentEitem.eid === 0 ? (
             ''
           ) : (
-            <CustomerEditForm
-              custToEdit={
-                customers.filter((item: Customer) => {
-                  return item.cid === Number(currentCustomer.cid)
+            <EitemEditForm
+              eitemToEdit={
+                eItems.filter((item: Eitem) => {
+                  return item.eid === Number(currentEitem.eid)
                 })[0]
               }
               setUpdateFlag={setUpdF}
@@ -83,10 +82,10 @@ const Home: NextPage = () => {
           )}
 
           {/* <div>
-            {customers === undefined || customers.length === 0 ? (
+            {eItems === undefined || eItems.length === 0 ? (
               <p>No data - empty result</p>
             ) : (
-              <DBshort_ED_Table resData={customers} target="customers" />
+              <DBshort_ED_Table resData={eItems} target="eItems" />
             )}
           </div> */}
         </main>

@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
+import { Eitem } from '../pages/minus'
 import { Customer } from '../pages/plus'
 export type FetchArgs = {
   method: 'GET' | 'POST'
@@ -6,6 +7,7 @@ export type FetchArgs = {
   title: string
   body?: string
   setResData:
+    | Dispatch<SetStateAction<[] | Eitem[]>>
     | Dispatch<SetStateAction<Customer[]>>
     | Dispatch<SetStateAction<number>>
 }
