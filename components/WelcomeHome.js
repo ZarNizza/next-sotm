@@ -12,7 +12,7 @@ export default function WelcomeHome() {
       <main className={styles.main}>
         <h1>Sale and Fix</h1>
         <div className={styles.row}>
-          <Link href="/add" passHref>
+          <Link href="/plus" passHref>
             <div className={styles.square_plus}>
               <p> + </p>
             </div>
@@ -23,9 +23,9 @@ export default function WelcomeHome() {
                 <p>memo</p>
               </div>
             </Link>
-            <Link href="/expenses" passHref>
+            <Link href="/minus" passHref>
               <div className={styles.halfsquare_bottom}>
-                <p> - </p>
+                <p> — </p>
               </div>
             </Link>
           </div>
@@ -38,7 +38,7 @@ export default function WelcomeHome() {
           </Link>
           <Link href="/settings" passHref>
             <div className={styles.square_sys}>
-              <p> Sys </p>
+              <p> Settings </p>
             </div>
           </Link>
         </div>

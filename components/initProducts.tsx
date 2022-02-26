@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect } from 'react'
-import type { Product } from '../pages/add'
+import type { Product } from '../pages/plus'
 
 export default function InitProducts(
   setProducts: Dispatch<SetStateAction<Product[]>>

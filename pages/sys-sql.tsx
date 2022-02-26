@@ -4,7 +4,7 @@ import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
 import { useState } from 'react'
-import type { Sale } from './add'
+import type { Sale } from './plus'
 
 const Home: NextPage = () => {
   const [resData, setResData] = useState<Sale[]>([])

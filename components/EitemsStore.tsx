@@ -1,7 +1,7 @@
 import { CheckBoxButton } from './CheckBoxButton'
 import styles from '../styles/Home.module.css'
 import { Dispatch, MutableRefObject, SetStateAction } from 'react'
-import { Eitem } from '../pages/expenses'
+import { Eitem } from '../pages/minus'
 
 interface EitemsStoreProps {
   eItems: Eitem[]

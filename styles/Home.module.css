@@ -71,6 +71,16 @@
   border-radius: 10px;
   margin: 1rem;
 }
+.square_plus {
+  border: 1px solid darkorange;
+}
+.square_stat {
+  border: 1px solid #0b0;
+}
+.square_sys {
+  border: 1px solid darkviolet;
+}
+
 .square_plus:hover {
   background-color: orange;
   cursor: pointer;
@@ -87,7 +97,7 @@
   display: flex;
   height: 5rem;
   width: 10rem;
-  border: 1px solid #282;
+  border: 1px solid #bb0;
   border-radius: 10px;
   margin: 0 0 0.5rem 0;
 }
@@ -99,7 +109,7 @@
   display: flex;
   height: 5rem;
   width: 10rem;
-  border: 1px solid #282;
+  border: 1px solid darkblue;
   border-radius: 10px;
   margin: 0.5rem 0 0 0;
 }
@@ -107,12 +117,38 @@
   background-color: steelblue;
   cursor: pointer;
 }
+.halfsquare_top2 {
+  display: flex;
+  height: 5rem;
+  width: 10rem;
+  border: 1px solid #0b0;
+  border-radius: 10px;
+  margin: 0 0 0.5rem 0;
+}
+.halfsquare_top2:hover {
+  background-color: yellowgreen;
+  cursor: pointer;
+}
+.halfsquare_bottom2 {
+  display: flex;
+  height: 5rem;
+  width: 10rem;
+  border: 1px solid hotpink;
+  border-radius: 10px;
+  margin: 0.5rem 0 0 0;
+}
+.halfsquare_bottom2:hover {
+  background-color: hotpink;
+  cursor: pointer;
+}
 
 .square_plus p,
 .square_stat p,
 .square_sys p,
 .halfsquare_top p,
-.halfsquare_bottom p {
+.halfsquare_bottom p,
+.halfsquare_top2 p,
+.halfsquare_bottom2 p {
   margin: auto;
   font-size: 2rem;
   padding-bottom: 0.5rem;
@@ -332,4 +368,13 @@ td.gross {
   border-radius: 5px;
   background-color: #eeffc5;
   padding: 2rem;
+}
+.footerLabel {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  font-size: large;
 }

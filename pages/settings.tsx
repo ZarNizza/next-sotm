@@ -14,33 +14,41 @@ const Home: NextPage = () => {
         <h3>Settings page</h3>
         <p>Admin / system settings.</p>
         <div className={styles.row}>
-          <Link href="/customers" passHref>
+          <Link href="/editCustomers" passHref>
             <div className={styles.square_plus}>
               <p> Customers </p>
             </div>
           </Link>
-
           <Link href="/sys" passHref>
             <div className={styles.square_sys}>
               <p> System </p>
             </div>
           </Link>
         </div>
+
         <div className={styles.row}>
-          <Link href="/Sales" passHref>
-            <div className={styles.square_stat}>
-              <p> Sales </p>
-            </div>
-          </Link>
           <div className={styles.square0}>
-            <Link href="/eitems" passHref>
-              <div className={styles.halfsquare_top}>
-                <p>Cost Items</p>
+            <Link href="/editProducts" passHref>
+              <div className={styles.halfsquare_top2}>
+                <p>Products</p>
               </div>
             </Link>
-            <Link href="/expenses" passHref>
+            <Link href="/editSales" passHref>
               <div className={styles.halfsquare_bottom}>
-                <p> Expenses </p>
+                <p> Sales </p>
+              </div>
+            </Link>
+          </div>
+
+          <div className={styles.square0}>
+            <Link href="/editEitems" passHref>
+              <div className={styles.halfsquare_top}>
+                <p>Exp-items</p>
+              </div>
+            </Link>
+            <Link href="/editXpenses" passHref>
+              <div className={styles.halfsquare_bottom2}>
+                <p> Xpenses </p>
               </div>
             </Link>
           </div>

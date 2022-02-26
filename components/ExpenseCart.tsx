@@ -7,7 +7,7 @@ import {
   MutableRefObject,
   SetStateAction
 } from 'react'
-import { Eitem } from '../pages/expenses'
+import { Eitem } from '../pages/minus'
 
 type ExpenseCartProps = {
   setSelectedEitems: Dispatch<SetStateAction<number[]>>

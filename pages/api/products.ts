@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import mysql from 'mysql2'
-import type { Product } from '../products'
+import type { Product } from '../editProducts'
 
 type ApiData = {
   data?: Product[]

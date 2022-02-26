@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import mysql from 'mysql2'
-import type { Sale, Customer, Product } from '../add'
+import type { Sale, Customer, Product } from '../plus'
 
 const pool = mysql.createPool({
   connectionLimit: 10,
@@ -43,8 +43,8 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
   let iDate = new Date(2022, 1, 17, 12)
   const findate = new Date(2022, 1, 17, 12)
   let dates: string[] = []
-  
-  console.log('******** date=',findate, ' serDate=', serialiseDate(findate))
+
+  console.log('******** date=', findate, ' serDate=', serialiseDate(findate))
 
   for (; iDate <= findate; iDate.setDate(iDate.getDate() + 1)) {
     dates.push(serialiseDate(iDate))
@@ -76,7 +76,8 @@ function serialiseDate(date: Date) {
     String(date.getMonth() + 1) +
     '-' +
     String(date.getDate()) +
-    'T' + String(date.getHours()) +
+    'T' +
+    String(date.getHours()) +
     ':00:00'
   )
 }

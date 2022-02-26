@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import mysql from 'mysql2'
-import type { Eitem } from '../expenses'
+import type { Eitem } from '../minus'
 
 type ApiData = {
   data?: Eitem[]

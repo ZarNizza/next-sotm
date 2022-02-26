@@ -6,7 +6,7 @@ import {
   useRef,
   useState
 } from 'react'
-import type { Customer } from '../pages/add'
+import type { Customer } from '../pages/plus'
 import styles from './CustomerSelect.module.scss'
 import stylesH from '../styles/Home.module.css'
 

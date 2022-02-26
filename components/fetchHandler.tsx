@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
-import { Customer } from '../pages/add'
+import { Customer } from '../pages/plus'
 export type FetchArgs = {
   method: 'GET' | 'POST'
   apiSuffix: string

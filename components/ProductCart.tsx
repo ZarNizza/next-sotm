@@ -1,4 +1,4 @@
-import type { Customer, Product } from '../pages/add'
+import type { Customer, Product } from '../pages/plus'
 import styles from './ProductCart.module.scss'
 import stylesH from '../styles/Home.module.css'
 import Link from 'next/link'

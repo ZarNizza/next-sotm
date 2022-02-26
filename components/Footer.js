@@ -11,56 +11,52 @@ export default function Footer() {
       <Link href="/" passHref>
         <a className={styles.footerLink}>
           <span className={stylesChB.rb}>
-            <div className={stylesChB.inputLabel}>&#8962;</div>
+            <div className={styles.footerLabel}>&#8962;</div>
           </span>
         </a>
       </Link>
-      <Link href="/add" passHref>
+      <Link href="/plus" passHref>
         <a className={styles.footerLink}>
           <span className={stylesChB.rb}>
-            <div className={stylesChB.inputLabel}>(+)</div>
+            <div className={styles.footerLabel}> + </div>
           </span>
         </a>
       </Link>
       <Link href="/memo" passHref>
         <a className={styles.footerLink}>
           <span className={stylesChB.rb}>
-            <div className={stylesChB.inputLabel}>M</div>
+            <div className={styles.footerLabel}>M</div>
           </span>
         </a>
       </Link>
-      <Link href="/expenses" passHref>
+      <Link href="/minus" passHref>
         <a className={styles.footerLink}>
           <span className={stylesChB.rb}>
-            <div className={stylesChB.inputLabel}>(–)</div>
+            <div className={styles.footerLabel}> – </div>
           </span>
         </a>
       </Link>
       <Link href="/statistics" passHref>
         <a className={styles.footerLink}>
           <span className={stylesChB.rb}>
-            <div className={stylesChB.inputLabel}>(=)</div>
+            <div className={styles.footerLabel}> = </div>
           </span>
         </a>
       </Link>
       <Link href="/settings" passHref>
         <a className={styles.footerLink}>
           <span className={stylesChB.rb}>
-            <div className={stylesChB.inputLabel}>&#10004;</div>
+            <div className={styles.footerLabel}>Set</div>
           </span>
         </a>
       </Link>
       <Link href="/sys" passHref>
         <a className={styles.footerLink}>
           <span className={stylesChB.rb}>
-            <div className={stylesChB.inputLabel}>[Sys]</div>
+            <div className={styles.footerLabel}>[Sys]</div>
           </span>
         </a>
       </Link>
     </div>
-    // ) : (
-    //   <div className={styles.footer}>
-    //     <span> Samara, 2022 </span>
-    //   </div>
   )
 }
