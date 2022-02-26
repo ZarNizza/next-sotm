@@ -139,7 +139,7 @@ export default function EitemSelect(props: EitemSelectProps) {
           type="search"
           ref={eItemInputRef}
           placeholder="Search for a Eitem"
-          pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
+          pattern="[a-zA-Zа-яА-Я\s\-\+]{1,50}"
           onChange={liveSearch}
           className={styles.inputCust}
         />
@@ -164,11 +164,11 @@ export default function EitemSelect(props: EitemSelectProps) {
               type="text"
               className={styles.inputCust}
               placeholder="Name"
-              pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
+              pattern="[a-zA-Zа-яА-Я\s\-\+]{1,50}"
               value={newEname}
               onChange={(event) =>
                 setNewEname(
-                  event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s]/gi, '')
+                  event.target.value.replace(/[^a-zA-Zа-яА-Я\-\+\s]/gi, '')
                 )
               }
             />
@@ -178,12 +178,12 @@ export default function EitemSelect(props: EitemSelectProps) {
               type="text"
               className={styles.inputCust}
               placeholder="up to 7 symbols"
-              pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
+              pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:]*"
               value={newEsymbol}
               onChange={(event) =>
                 setNewEsymbol(
                   event.target.value.replace(
-                    /[^a-zA-Zа-яА-Я\d\s\-\.\,\:\_]/gi,
+                    /[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi,
                     ''
                   )
                 )

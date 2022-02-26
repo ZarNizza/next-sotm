@@ -53,7 +53,7 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <Head>
-        <title>Customers</title>
+        <title>Exp-items</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

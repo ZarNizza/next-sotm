@@ -36,7 +36,7 @@ export default function handler(
               'UPDATE eitems SET ename="' +
               parsedReq.ename.substring(0, 50) +
               '", esymbol="' +
-              parsedReq.esymbol.substring(0, 20) +
+              parsedReq.esymbol.substring(0, 7) +
               '" WHERE eid=' +
               parsedReq.eid
             break

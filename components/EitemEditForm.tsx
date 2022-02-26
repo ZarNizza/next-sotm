@@ -41,10 +41,10 @@ export default function EitemEditForm(a: editFormArgs) {
           type="text"
           className={styles.inputCust}
           placeholder="Name"
-          pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
+          pattern="[a-zA-Zа-яА-Я\s\-\+]{1,50}"
           value={eName}
           onChange={(event) =>
-            setEName(event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s]/gi, ''))
+            setEName(event.target.value.replace(/[^a-zA-Zа-яА-Я\-\+\s]/gi, ''))
           }
         />
       </p>
@@ -55,11 +55,14 @@ export default function EitemEditForm(a: editFormArgs) {
           type="text"
           className={styles.inputCust}
           placeholder="up to 7 symbols"
-          pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
+          pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:]*"
           value={eSymbol || ''}
           onChange={(event) =>
             setEsymbol(
-              event.target.value.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:\_]/gi, '')
+              event.target.value.replace(
+                /[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi,
+                ''
+              )
             )
           }
         />
