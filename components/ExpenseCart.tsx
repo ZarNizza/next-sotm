@@ -81,10 +81,11 @@ export default function ProductCart(props: ExpenseCartProps) {
         alert('Attention: The Price must be a Number!')
       } else {
         const xsale = {
+          mode: 'new',
           xitem: eid,
           xsum: props.eCostRef.current[eid]
         }
-        fetch('/api/expenses', {
+        fetch('/api/xpenses', {
           method: 'POST',
           body: JSON.stringify(xsale)
         })
@@ -140,7 +141,7 @@ export default function ProductCart(props: ExpenseCartProps) {
             </span>
             <button onClick={saveX_Handler} className={styles.buttonOk}>
               {' '}
-              xSale it!
+              Xsale it!
             </button>
           </div>
         </>

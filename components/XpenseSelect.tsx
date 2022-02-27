@@ -59,7 +59,7 @@ export default function XpenseSelect(props: XpenseSelectProps) {
         xitem: newXitem,
         xsum: newXsum
       }
-      fetch('/api/expenses', {
+      fetch('/api/xpenses', {
         method: 'POST',
         body: JSON.stringify(body)
       })
@@ -80,7 +80,7 @@ export default function XpenseSelect(props: XpenseSelectProps) {
     })
       .then(() => {
         new Promise((resolveUC, rejectUC) => {
-          fetch('/api/expenses')
+          fetch('/api/xpenses')
             .then((apiRes) => apiRes.json())
             .then((apiRes) => {
               if (apiRes.error) {

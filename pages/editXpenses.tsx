@@ -33,7 +33,7 @@ const Home: NextPage = () => {
   function xpensesInit() {
     const args: FetchArgs = {
       method: 'GET',
-      apiSuffix: 'expenses',
+      apiSuffix: 'xpenses',
       title: 'getXpense',
       setResData: setXpenses
     }

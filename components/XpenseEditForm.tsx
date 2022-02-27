@@ -18,7 +18,7 @@ export default function XpenseEditForm(a: editFormArgs) {
   function saveEditHandler() {
     const args: FetchArgs = {
       method: 'POST',
-      apiSuffix: 'expenses',
+      apiSuffix: 'xpenses',
       title: 'edit-X',
       body: JSON.stringify({
         mode: 'edit',
