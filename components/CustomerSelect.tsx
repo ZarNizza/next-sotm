@@ -7,7 +7,7 @@ import {
   useState
 } from 'react'
 import type { Customer } from '../pages/plus'
-import styles from './CustomerSelect.module.scss'
+import styles from './Select.module.scss'
 import stylesH from '../styles/Home.module.css'
 
 type CustSelectProps = {

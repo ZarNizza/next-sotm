@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Xpense } from '../pages/minus'
-import styles from './CustomerSelect.module.scss'
+import styles from './Select.module.scss'
 import stylesH from '../styles/Home.module.css'
 import fetchHandler, { FetchArgs } from './fetchHandler'
 
