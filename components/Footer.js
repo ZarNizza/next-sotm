@@ -22,17 +22,17 @@ export default function Footer() {
           </span>
         </a>
       </Link>
-      <Link href="/memo" passHref>
-        <a className={styles.footerLink}>
-          <span className={styles.rb_y}>
-            <div className={styles.footerLabel}>M</div>
-          </span>
-        </a>
-      </Link>
       <Link href="/minus" passHref>
         <a className={styles.footerLink}>
           <span className={styles.rb_b}>
             <div className={styles.footerLabel}> – </div>
+          </span>
+        </a>
+      </Link>
+      <Link href="/memo" passHref>
+        <a className={styles.footerLink}>
+          <span className={styles.rb_y}>
+            <div className={styles.footerLabel}>M</div>
           </span>
         </a>
       </Link>
