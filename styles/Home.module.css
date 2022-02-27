@@ -61,38 +61,78 @@
   border: none;
   margin: 1rem;
 }
+.square_orange,
+.square_green,
+.square_purple,
+.square_yellow,
+.square_blue,
+.square_pink,
+.square_gray,
 .square_plus,
 .square_stat,
 .square_sys {
   display: flex;
   height: 10rem;
   width: 10rem;
-  border: 1px solid #282;
   border-radius: 10px;
   margin: 1rem;
 }
+.square_orange,
 .square_plus {
   border: 1px solid darkorange;
 }
-.square_stat {
-  border: 1px solid #0b0;
-}
-.square_sys {
-  border: 1px solid darkviolet;
-}
-
+.square_orange:hover,
 .square_plus:hover {
   background-color: orange;
   cursor: pointer;
 }
+.square_green,
+.square_stat {
+  border: 1px solid #0b0;
+}
+.square_green:hover,
 .square_stat:hover {
   background-color: yellowgreen;
   cursor: pointer;
 }
+.square_purple,
+.square_sys {
+  border: 1px solid darkviolet;
+}
+.square_purple:hover,
 .square_sys:hover {
   background-color: violet;
   cursor: pointer;
 }
+.square_yellow {
+  border: 1px solid #bb0;
+}
+.square_yellow:hover {
+  background-color: yellow;
+  cursor: pointer;
+}
+.square_blue {
+  border: 1px solid darkblue;
+}
+.square_blue:hover {
+  background-color: steelblue;
+  cursor: pointer;
+}
+.square_pink {
+  border: 1px solid hotpink;
+}
+.square_pink:hover {
+  background-color: hotpink;
+  cursor: pointer;
+}
+.square_gray {
+  border: 1px solid lightgray;
+}
+.square_gray:hover {
+  background-color: gainsboro;
+  cursor: pointer;
+}
+
 .halfsquare_top {
   display: flex;
   height: 5rem;
@@ -141,10 +181,29 @@
   background-color: hotpink;
   cursor: pointer;
 }
-
+.halfsquare_top_orange {
+  display: flex;
+  height: 5rem;
+  width: 10rem;
+  border: 1px solid darkorange;
+  border-radius: 10px;
+  margin: 0 0 0.5rem 0;
+}
+.halfsquare_top_orange:hover {
+  background-color: orange;
+  cursor: pointer;
+}
+.square_orange p,
+.square_green p,
+.square_purple p,
+.square_yellow p,
+.square_blue p,
+.square_pink p,
+.square_gray p,
 .square_plus p,
 .square_stat p,
 .square_sys p,
+.halfsquare_top_orange p,
 .halfsquare_top p,
 .halfsquare_bottom p,
 .halfsquare_top2 p,
