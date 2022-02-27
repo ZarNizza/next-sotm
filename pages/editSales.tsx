@@ -7,6 +7,7 @@ import { Sale } from './plus'
 import fetchHandler, { FetchArgs } from '../components/fetchHandler'
 import SaleSelect from '../components/SaleSelect'
 import SaleEditForm from '../components/SaleEditForm'
+import DBshortTable from '../components/DBshortTable'
 
 const Home: NextPage = () => {
   const [sales, setSales] = useState<Sale[] | []>([])
@@ -81,6 +82,19 @@ const Home: NextPage = () => {
               cancelFlag={cancelFlag}
             />
           )}
+
+          <div>
+            {
+              sales === undefined || sales.length === 0 ? (
+                <p>No data - empty result</p>
+              ) : sales.length > 20 ? (
+                <p>.. long items list, see it on Sys page</p>
+              ) : (
+                <DBshortTable resData={sales} />
+              )
+              // <DBshortTable resData={sales} target="sales" />
+            }
+          </div>
         </main>
       </div>
     </Layout>
