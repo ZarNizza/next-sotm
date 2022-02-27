@@ -1,5 +1,5 @@
 import { CheckBoxButton } from './CheckBoxButton'
-import type { Product } from '../pages/add'
+import type { Product } from '../pages/plus'
 import styles from '../styles/Home.module.css'
 import { Dispatch, MutableRefObject, SetStateAction } from 'react'
 

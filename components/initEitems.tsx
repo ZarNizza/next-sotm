@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect } from 'react'
-import type { Eitem } from '../pages/expenses'
+import type { Eitem } from '../pages/minus'
 
 export default function InitEitems(
   setEitems: Dispatch<SetStateAction<Eitem[]>>

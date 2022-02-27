@@ -1,29 +1,28 @@
-import { Dispatch, SetStateAction, useState } from 'react'
-import { Customer } from '../pages/plus'
+import { useState } from 'react'
+import { Eitem } from '../pages/minus'
 import styles from './CustomerSelect.module.scss'
 import stylesH from '../styles/Home.module.css'
 import fetchHandler, { FetchArgs } from './fetchHandler'
 type editFormArgs = {
-  custToEdit: Customer
+  eitemToEdit: Eitem
   setUpdateFlag: any
   cancelFlag: any
 }
 
-export default function CustomerEditForm(a: editFormArgs) {
-  const [custName, setCustName] = useState(a.custToEdit.cname)
-  const [custPhone, setCustPhone] = useState(a.custToEdit.cphone)
+export default function EitemEditForm(a: editFormArgs) {
+  const [eName, setEName] = useState(a.eitemToEdit.ename)
+  const [eSymbol, setEsymbol] = useState(a.eitemToEdit.esymbol)
 
   function saveEditHandler() {
     const args: FetchArgs = {
       method: 'POST',
-      apiSuffix: 'customers',
-      title: 'editCust',
+      apiSuffix: 'eitems',
+      title: 'edit-E',
       body: JSON.stringify({
         mode: 'edit',
-        cname: custName,
-        cphone: custPhone,
-        gooid: a.custToEdit.gooid,
-        cid: a.custToEdit.cid
+        ename: eName,
+        esymbol: eSymbol,
+        eid: a.eitemToEdit.eid
       }),
       setResData: a.setUpdateFlag
     }
@@ -35,31 +34,36 @@ export default function CustomerEditForm(a: editFormArgs) {
   }
 
   return (
-    <div className={styles.flexColumnContainer}>
+    <div className={stylesH.flexColumnContainer}>
       <p>
         Name:
         <input
           type="text"
           className={styles.inputCust}
           placeholder="Name"
-          pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
-          value={custName}
+          pattern="[a-zA-Zа-яА-Я\s\-\+]{1,50}"
+          value={eName}
           onChange={(event) =>
-            setCustName(event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s]/gi, ''))
+            setEName(event.target.value.replace(/[^a-zA-Zа-яА-Я\-\+\s]/gi, ''))
           }
         />
       </p>
       <p>
         {' '}
-        Phone:
+        Symbol:
         <input
           type="text"
           className={styles.inputCust}
-          placeholder="+x xxx xxx xxxx, xxxx"
-          pattern="^\+?[\d\s\-]{0,20}"
-          value={custPhone || ''}
+          placeholder="up to 7 symbols"
+          pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:]*"
+          value={eSymbol || ''}
           onChange={(event) =>
-            setCustPhone(event.target.value.replace(/[^\d\-\+\s]/g, ''))
+            setEsymbol(
+              event.target.value.replace(
+                /[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi,
+                ''
+              )
+            )
           }
         />
       </p>

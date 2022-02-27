@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import mysql from 'mysql2'
 import serialiseDate from '../../components/serialiseDate'
-import type { Product } from '../add'
+import type { Product } from '../plus'
 
 const pool = mysql.createPool({
   connectionLimit: 10,

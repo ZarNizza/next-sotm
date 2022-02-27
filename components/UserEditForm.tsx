@@ -1,29 +1,31 @@
-import { Dispatch, SetStateAction, useState } from 'react'
-import { Customer } from '../pages/plus'
+import { useState } from 'react'
+import { User } from '../pages/editUsers'
 import styles from './CustomerSelect.module.scss'
 import stylesH from '../styles/Home.module.css'
 import fetchHandler, { FetchArgs } from './fetchHandler'
 type editFormArgs = {
-  custToEdit: Customer
+  userToEdit: User
   setUpdateFlag: any
   cancelFlag: any
 }
 
-export default function CustomerEditForm(a: editFormArgs) {
-  const [custName, setCustName] = useState(a.custToEdit.cname)
-  const [custPhone, setCustPhone] = useState(a.custToEdit.cphone)
+export default function UserEditForm(a: editFormArgs) {
+  const [uName, setUName] = useState(a.userToEdit.uname)
+  const [uPhone, setUPhone] = useState(a.userToEdit.uphone)
+  const [tZone, setTzone] = useState(a.userToEdit.timezone)
 
   function saveEditHandler() {
     const args: FetchArgs = {
       method: 'POST',
-      apiSuffix: 'customers',
-      title: 'editCust',
+      apiSuffix: 'users',
+      title: 'editUser',
       body: JSON.stringify({
         mode: 'edit',
-        cname: custName,
-        cphone: custPhone,
-        gooid: a.custToEdit.gooid,
-        cid: a.custToEdit.cid
+        uname: uName,
+        uphone: uPhone,
+        gooid: a.userToEdit.gooid,
+        timezone: tZone,
+        uid: a.userToEdit.uid
       }),
       setResData: a.setUpdateFlag
     }
@@ -43,9 +45,9 @@ export default function CustomerEditForm(a: editFormArgs) {
           className={styles.inputCust}
           placeholder="Name"
           pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
-          value={custName}
+          value={uName}
           onChange={(event) =>
-            setCustName(event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s]/gi, ''))
+            setUName(event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s]/gi, ''))
           }
         />
       </p>
@@ -57,9 +59,23 @@ export default function CustomerEditForm(a: editFormArgs) {
           className={styles.inputCust}
           placeholder="+x xxx xxx xxxx, xxxx"
           pattern="^\+?[\d\s\-]{0,20}"
-          value={custPhone || ''}
+          value={uPhone || ''}
           onChange={(event) =>
-            setCustPhone(event.target.value.replace(/[^\d\-\+\s]/g, ''))
+            setUPhone(event.target.value.replace(/[^\d\-\+\s]/g, ''))
+          }
+        />
+      </p>
+      <p>
+        {' '}
+        Tzone:
+        <input
+          type="text"
+          className={styles.inputCust}
+          placeholder="+xx"
+          pattern="^\+?[\d\+\-]{0,3}"
+          value={tZone || ''}
+          onChange={(event) =>
+            setTzone(event.target.value.replace(/[^\d\-\+]/g, ''))
           }
         />
       </p>

@@ -197,10 +197,10 @@ const Home: NextPage = () => {
       .catch((error) => alert('! SYS: addProduct error - ' + error.message))
   }
   function input_P_ChHandler(pText: string) {
-    setProduct(pText.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:]/gi, ''))
+    setProduct(pText.replace(/[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:]/gi, ''))
   }
   function input_Psymbol_ChHandler(pSymbol: string) {
-    setPsymbol(pSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:\_]/gi, ''))
+    setPsymbol(pSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi, ''))
   }
 
   //  add ExpeneItem
@@ -333,7 +333,7 @@ const Home: NextPage = () => {
               value={product}
               onChange={(event) => input_P_ChHandler(event.target.value)}
               placeholder="Product description"
-              pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
+              pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:]*"
               className={styles.userInput}
             />
             <input
@@ -341,7 +341,7 @@ const Home: NextPage = () => {
               value={pSymbol}
               onChange={(event) => input_Psymbol_ChHandler(event.target.value)}
               placeholder="up to 7 symbols"
-              pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
+              pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:]*"
               className={styles.userInput}
             />
             <button onClick={add_P_handler}> + add Product </button>
@@ -352,7 +352,7 @@ const Home: NextPage = () => {
               value={eItem}
               onChange={(event) => input_E_ChHandler(event.target.value)}
               placeholder="Expense description"
-              pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
+              pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:]*"
               className={styles.userInput}
             />
             <input
@@ -360,7 +360,7 @@ const Home: NextPage = () => {
               value={eSymbol}
               onChange={(event) => input_Esymbol_ChHandler(event.target.value)}
               placeholder="up to 7 symbols"
-              pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
+              pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:]*"
               className={styles.userInput}
             />
             <button onClick={add_E_handler}> + add ExpItem </button>
@@ -392,20 +392,28 @@ const Home: NextPage = () => {
           </div>
           <div>- - - - - - - - - - - - - -</div>
           <div className={styles.blueButtons}>
-            <Link href="/users" passHref>
-              <button>go Users</button>
+            <Link href="/editUsers" passHref>
+              <button>edit Users</button>
             </Link>{' '}
             &nbsp;{' '}
-            <Link href="/customers" passHref>
-              <button>go Customers</button>
+            <Link href="/editCustomers" passHref>
+              <button>edit Customers</button>
             </Link>{' '}
             &nbsp;{' '}
-            <Link href="/products" passHref>
-              <button>go Products</button>
+            <Link href="/editProducts" passHref>
+              <button>edit Products</button>
             </Link>{' '}
             &nbsp;{' '}
-            <Link href="/expenses" passHref>
-              <button>go ExpenseItems</button>
+            <Link href="/editSales" passHref>
+              <button>edit Sales</button>
+            </Link>{' '}
+            &nbsp;{' '}
+            <Link href="/editEitems" passHref>
+              <button>edit ExpenseItems</button>
+            </Link>{' '}
+            &nbsp;{' '}
+            <Link href="/editXpenses" passHref>
+              <button>edit Xpenses</button>
             </Link>{' '}
           </div>
           <div>- - - - - - - - - - - - - -</div>

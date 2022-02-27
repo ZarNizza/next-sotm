@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useState } from 'react'
-import { Eitem } from '../pages/expenses'
+import { Eitem } from '../pages/minus'
 import styles from '../styles/Home.module.css'
 type newEitemArgs = {
   setEitems: Dispatch<SetStateAction<Eitem[]>>

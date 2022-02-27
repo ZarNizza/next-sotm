@@ -1,9 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import mysql from 'mysql2'
-import type { Eitem } from '../expenses'
+import type { Xpense } from '../minus'
 
 type ApiData = {
-  data?: Eitem[]
+  data?: Xpense[]
   error?: string
 }
 
@@ -19,45 +19,79 @@ export default function handler(
   res: NextApiResponse<ApiData>
 ) {
   const timeZone = '04'
+
   return new Promise((resolve, reject) => {
-    if (req.method === 'POST') {
-      const parsedReq = JSON.parse(req.body)
-      const today = new Date()
-      connection.query(
-        'INSERT INTO xpenses (xdate, xitem, xsum) VALUES (?, ?, ?)',
-        [
-          String(today.getFullYear()) +
-            '-' +
-            String(today.getMonth() + 1) +
-            '-' +
-            String(today.getDate()) +
-            'T' +
-            timeZone +
-            ':00:00',
-          Number(parsedReq.xitem),
-          Number(parsedReq.xsum)
-        ],
-        function (error, results, fields) {
-          if (error) {
-            res.status(500).json({ error: String(error) })
-          } else {
-            res.status(201).json({ data: results as Eitem[] })
-          }
-          resolve(null)
+    let sql: string = ''
+    let params: string[] = []
+
+    switch (req.method) {
+      case 'GET':
+        sql = 'SELECT * FROM xpenses'
+        break
+
+      case 'POST':
+        const parsedReq = JSON.parse(req.body)
+        console.log('!!!!!!!!!!! POST, parsedReq=', parsedReq)
+        switch (parsedReq.mode) {
+          case 'edit':
+            sql =
+              'UPDATE xpenses SET xdate="' +
+              parsedReq.xdate +
+              '", xitem="' +
+              String(parsedReq.xitem) +
+              '", xsum="' +
+              String(parsedReq.xsum) +
+              '" WHERE xid=' +
+              parsedReq.xid
+            break
+          case 'new':
+            const today = new Date()
+            const m0 = Number(today.getMonth()) < 9 ? '0' : ''
+            const d0 = Number(today.getDate()) < 9 ? '0' : ''
+            const sqlDate = !!parsedReq.xdate
+              ? parsedReq.xdate
+              : String(today.getFullYear()) +
+                '-' +
+                m0 +
+                String(today.getMonth() + 1) +
+                '-' +
+                d0 +
+                String(today.getDate()) +
+                'T' +
+                timeZone +
+                ':00:00'
+
+            sql = 'INSERT INTO xpenses (xdate, xitem, xsum) VALUES (?, ?, ?)'
+            params = [sqlDate, String(parsedReq.xitem), String(parsedReq.xsum)]
+            console.log('---------------------- new: ', sql, params)
+            break
+          case 'del':
+            sql = 'UPDATE xpenses SET xdel = 1 WHERE xid=' + parsedReq.xid
+            break
+          case 'restore':
+            sql = 'UPDATE xpenses SET xdel = 0 WHERE xid=' + parsedReq.xid
+            break
+          default:
+            console.log('! X - bad POST body.mode api request')
         }
-      )
-    } else if (req.method === 'GET') {
-      connection.query(
-        'SELECT * FROM eitems',
-        function (error, results, fields) {
-          if (error) {
-            res.status(500).json({ error: String(error) })
-          } else {
-            res.status(200).json({ data: (results as Eitem[]) || [] })
-          }
-          resolve(null)
+        break
+      default:
+        console.log('! X - bad body.MODE api request')
+        break
+    }
+    if (sql > '') {
+      console.log('=== sql OK === ', sql)
+      connection.query(sql, params, function (error, results, fields) {
+        if (error) {
+          res.status(500).json({ error: String(error) })
+        } else {
+          res.status(201).json({ data: (results as Xpense[]) || [] })
         }
-      )
+        resolve(null)
+      })
+    } else {
+      console.log('////////////// sql err, sql=', sql)
+      res.status(500).json({ error: '!xpenses - sql-error: empty query' })
     }
   })
 }

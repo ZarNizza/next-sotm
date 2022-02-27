@@ -1,5 +1,5 @@
 import styles from '../styles/Home.module.css'
-import type { Product } from '../pages/add'
+import type { Product } from '../pages/plus'
 
 type TableProps = {
   resData: Record<string, number | string | Date | null>[]

@@ -3,9 +3,8 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
-import { Customer } from './add'
+import { Customer } from './plus'
 import fetchHandler, { FetchArgs } from '../components/fetchHandler'
-import DBshort_ED_Table from '../components/DBshortEditDropTable'
 import CustomerSelect from '../components/CustomerSelect'
 import CustomerEditForm from '../components/CustomerEditForm'
 
@@ -60,7 +59,7 @@ const Home: NextPage = () => {
 
       <div className={styles.container}>
         <main className={styles.main}>
-          <h2>Customers:</h2>
+          <h2>Customers: {customers.length}</h2>
           <CustomerSelect
             customers={customers}
             setCurrentCustomer={setCurrentCustomer}
