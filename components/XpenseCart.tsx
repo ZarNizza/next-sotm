@@ -123,10 +123,7 @@ export default function XpenseCart(props: XpenseCartProps) {
           <p>
             <Link href="/">
               <a>
-                <span>
-                  &lt; &lt; &lt; &nbsp;&nbsp; Return to StartPage &nbsp;&nbsp;
-                  &gt; &gt; &gt;
-                </span>
+                <span>&lt; Return to StartPage &gt;</span>
               </a>
             </Link>
           </p>
