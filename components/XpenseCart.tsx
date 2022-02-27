@@ -141,7 +141,7 @@ export default function XpenseCart(props: XpenseCartProps) {
             </span>
             <button onClick={saveX_Handler} className={styles.buttonOk}>
               {' '}
-              Xsale it!
+              Xpense it!
             </button>
           </div>
         </>

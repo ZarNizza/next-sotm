@@ -48,10 +48,11 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <Head>
-        <title>Add Income</title>
+        <title>Sales accounting</title>
       </Head>
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
+          <h3>Sales accounting</h3>
           <CustomerSelect
             customers={customers}
             setCurrentCustomer={setCurrentCustomer}

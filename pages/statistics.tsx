@@ -207,10 +207,11 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <Head>
-        <title>Statistics</title>
+        <title>Profit Statistics</title>
       </Head>
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
+          <h3>Profit Statistics</h3>
           <CustomerSelect
             customers={customers}
             setCurrentCustomer={setCurrentCustomer}

@@ -31,10 +31,11 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <Head>
-        <title>Expenses</title>
+        <title>Сost accounting</title>
       </Head>
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
+          <h3>Сost accounting</h3>
           <NewEitem setEitems={setEitems} />
           <p>- - - - - - -</p>
           <EitemsStore
