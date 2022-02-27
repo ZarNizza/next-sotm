@@ -5,7 +5,6 @@ import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
 import { Customer } from './plus'
 import fetchHandler, { FetchArgs } from '../components/fetchHandler'
-import DBshort_ED_Table from '../components/DBshortEditDropTable'
 import CustomerSelect from '../components/CustomerSelect'
 import CustomerEditForm from '../components/CustomerEditForm'
 
