@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
 import { User } from '../pages/editUsers'
-import { Eitem } from '../pages/minus'
+import { Eitem, Xpense } from '../pages/minus'
 import { Customer, Product, Sale } from '../pages/plus'
 export type FetchArgs = {
   method: 'GET' | 'POST'
@@ -8,11 +8,12 @@ export type FetchArgs = {
   title: string
   body?: string
   setResData:
-    | Dispatch<SetStateAction<[] | User[]>>
-    | Dispatch<SetStateAction<[] | Sale[]>>
+    | Dispatch<SetStateAction<[] | Customer[]>>
     | Dispatch<SetStateAction<[] | Product[]>>
+    | Dispatch<SetStateAction<[] | Sale[]>>
     | Dispatch<SetStateAction<[] | Eitem[]>>
-    | Dispatch<SetStateAction<Customer[]>>
+    | Dispatch<SetStateAction<[] | Xpense[]>>
+    | Dispatch<SetStateAction<[] | User[]>>
     | Dispatch<SetStateAction<number>>
 }
 
