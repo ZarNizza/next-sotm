@@ -5,7 +5,7 @@ import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
 import initEitems from '../components/initEitems'
 import EitemsStore from '../components/EitemsStore'
-import ExpenseCart from '../components/ExpenseCart'
+import XpenseCart from '../components/XpenseCart'
 import NewEitem from '../components/NewEitem'
 
 export type Eitem = {
@@ -44,7 +44,7 @@ const Home: NextPage = () => {
             eCostRef={eCostRef}
             setGross={setGross}
           />{' '}
-          <ExpenseCart
+          <XpenseCart
             setSelectedEitems={setSelectedEitems}
             selectedEitems={selectedEitems}
             eItems={eItems}

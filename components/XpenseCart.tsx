@@ -9,7 +9,7 @@ import {
 } from 'react'
 import { Eitem } from '../pages/minus'
 
-type ExpenseCartProps = {
+type XpenseCartProps = {
   setSelectedEitems: Dispatch<SetStateAction<number[]>>
   selectedEitems: number[]
   eItems: Eitem[]
@@ -18,7 +18,7 @@ type ExpenseCartProps = {
   eCostRef: MutableRefObject<Record<number, number>>
 }
 
-export default function ProductCart(props: ExpenseCartProps) {
+export default function XpenseCart(props: XpenseCartProps) {
   const qqq = props.selectedEitems.map((eid: Eitem['eid']) => (
     <li key={eid}>
       <input
@@ -133,7 +133,7 @@ export default function ProductCart(props: ExpenseCartProps) {
         </>
       ) : (
         <>
-          <h3>&#9825; eCart</h3>
+          <h3>&#9825; Xpense Cart</h3>
           <ul>{qqq}</ul>
           <div className={styles.flexRow}>
             <span className={styles.grossSum}>
