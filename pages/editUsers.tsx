@@ -69,7 +69,6 @@ const Home: NextPage = () => {
     <Layout>
       <Head>
         <title>Users</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <div className={styles.container}>

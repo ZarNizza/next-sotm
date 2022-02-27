@@ -55,7 +55,6 @@ const Home: NextPage = () => {
     <Layout>
       <Head>
         <title>Xpenses</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <div className={styles.container}>
