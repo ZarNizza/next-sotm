@@ -32,21 +32,7 @@
   justify-content: space-between;
   align-items: center;
 }
-.footer {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
-  justify-content: center;
-  align-items: center;
-}
 
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-}
 .row {
   display: flex;
   flex-direction: row;
@@ -427,13 +413,4 @@ td.gross {
   border-radius: 5px;
   background-color: #eeffc5;
   padding: 2rem;
-}
-.footerLabel {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  font-size: large;
 }

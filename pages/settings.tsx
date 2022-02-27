@@ -20,7 +20,7 @@ const Home: NextPage = () => {
             </div>
           </Link>
           <Link href="/sys" passHref>
-            <div className={styles.square_gray}>
+            <div className={styles.square_purple}>
               <p> System </p>
             </div>
           </Link>
