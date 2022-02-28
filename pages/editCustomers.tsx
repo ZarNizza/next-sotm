@@ -7,6 +7,8 @@ import { Customer } from './plus'
 import fetchHandler, { FetchArgs } from '../components/fetchHandler'
 import CustomerSelect from '../components/CustomerSelect'
 import CustomerEditForm from '../components/CustomerEditForm'
+import DBshortTable from '../components/DBshortTable'
+// import DBshort_ED_Table from '../components/DBshortEditDropTable'
 
 const Home: NextPage = () => {
   const [customers, setCustomers] = useState<Customer[] | []>([])
@@ -54,7 +56,6 @@ const Home: NextPage = () => {
     <Layout>
       <Head>
         <title>Customers</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <div className={styles.container}>
@@ -81,13 +82,18 @@ const Home: NextPage = () => {
             />
           )}
 
-          {/* <div>
-            {customers === undefined || customers.length === 0 ? (
-              <p>No data - empty result</p>
-            ) : (
-              <DBshort_ED_Table resData={customers} target="customers" />
-            )}
-          </div> */}
+          <div>
+            {
+              customers === undefined || customers.length === 0 ? (
+                <p>No data - empty result</p>
+              ) : customers.length > 20 ? (
+                <p>.. long items list, see it on Sys page</p>
+              ) : (
+                <DBshortTable resData={customers} />
+              )
+              // <DBshortTable resData={customers} target="customers" />
+            }
+          </div>
         </main>
       </div>
     </Layout>

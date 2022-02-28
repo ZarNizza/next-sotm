@@ -15,40 +15,48 @@ const Home: NextPage = () => {
         <p>Admin / system settings.</p>
         <div className={styles.row}>
           <Link href="/editCustomers" passHref>
-            <div className={styles.square_plus}>
+            <div className={styles.square_orange}>
               <p> Customers </p>
             </div>
           </Link>
           <Link href="/sys" passHref>
-            <div className={styles.square_sys}>
+            <div className={styles.square_purple}>
               <p> System </p>
             </div>
           </Link>
         </div>
 
         <div className={styles.row}>
-          <div className={styles.square0}>
-            <Link href="/editProducts" passHref>
-              <div className={styles.halfsquare_top2}>
-                <p>Products</p>
-              </div>
-            </Link>
-            <Link href="/editSales" passHref>
-              <div className={styles.halfsquare_bottom}>
-                <p> Sales </p>
-              </div>
-            </Link>
-          </div>
+          <Link href="/editProducts" passHref>
+            <div className={styles.square_blue}>
+              <p>Products</p>
+            </div>
+          </Link>
+          <Link href="/editSales" passHref>
+            <div className={styles.square_green}>
+              <p> Sales </p>
+            </div>
+          </Link>
+        </div>
 
+        <div className={styles.row}>
+          <Link href="/editEitems" passHref>
+            <div className={styles.square_yellow}>
+              <p>Exp-items</p>
+            </div>
+          </Link>
+          <Link href="/editXpenses" passHref>
+            <div className={styles.square_pink}>
+              <p> Xpenses </p>
+            </div>
+          </Link>
+        </div>
+
+        <div className={styles.row}>
           <div className={styles.square0}>
-            <Link href="/editEitems" passHref>
-              <div className={styles.halfsquare_top}>
-                <p>Exp-items</p>
-              </div>
-            </Link>
-            <Link href="/editXpenses" passHref>
-              <div className={styles.halfsquare_bottom2}>
-                <p> Xpenses </p>
+            <Link href="/editUsers" passHref>
+              <div className={styles.halfsquare_top_orange}>
+                <p> Users </p>
               </div>
             </Link>
           </div>

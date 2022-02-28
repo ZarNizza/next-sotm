@@ -9,7 +9,7 @@ import {
 } from 'react'
 import { Eitem } from '../pages/minus'
 
-type ExpenseCartProps = {
+type XpenseCartProps = {
   setSelectedEitems: Dispatch<SetStateAction<number[]>>
   selectedEitems: number[]
   eItems: Eitem[]
@@ -18,7 +18,7 @@ type ExpenseCartProps = {
   eCostRef: MutableRefObject<Record<number, number>>
 }
 
-export default function ProductCart(props: ExpenseCartProps) {
+export default function XpenseCart(props: XpenseCartProps) {
   const qqq = props.selectedEitems.map((eid: Eitem['eid']) => (
     <li key={eid}>
       <input
@@ -81,10 +81,11 @@ export default function ProductCart(props: ExpenseCartProps) {
         alert('Attention: The Price must be a Number!')
       } else {
         const xsale = {
+          mode: 'new',
           xitem: eid,
           xsum: props.eCostRef.current[eid]
         }
-        fetch('/api/expenses', {
+        fetch('/api/xpenses', {
           method: 'POST',
           body: JSON.stringify(xsale)
         })
@@ -122,17 +123,14 @@ export default function ProductCart(props: ExpenseCartProps) {
           <p>
             <Link href="/">
               <a>
-                <span>
-                  &lt; &lt; &lt; &nbsp;&nbsp; Return to StartPage &nbsp;&nbsp;
-                  &gt; &gt; &gt;
-                </span>
+                <span>&lt; Return to StartPage &gt;</span>
               </a>
             </Link>
           </p>
         </>
       ) : (
         <>
-          <h3>&#9825; eCart</h3>
+          <h3>&#9825; Xpense Cart</h3>
           <ul>{qqq}</ul>
           <div className={styles.flexRow}>
             <span className={styles.grossSum}>
@@ -140,7 +138,7 @@ export default function ProductCart(props: ExpenseCartProps) {
             </span>
             <button onClick={saveX_Handler} className={styles.buttonOk}>
               {' '}
-              xSale it!
+              Xpense it!
             </button>
           </div>
         </>

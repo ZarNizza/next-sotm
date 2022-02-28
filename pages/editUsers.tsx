@@ -6,6 +6,7 @@ import Layout from '../components/layout'
 import fetchHandler, { FetchArgs } from '../components/fetchHandler'
 import UserSelect from '../components/UserSelect'
 import UserEditForm from '../components/UserEditForm'
+import DBshortTable from '../components/DBshortTable'
 
 export type User = {
   uid: number
@@ -68,7 +69,6 @@ const Home: NextPage = () => {
     <Layout>
       <Head>
         <title>Users</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <div className={styles.container}>
@@ -94,6 +94,19 @@ const Home: NextPage = () => {
               cancelFlag={cancelFlag}
             />
           )}
+
+          <div>
+            {
+              users === undefined || users.length === 0 ? (
+                <p>No data - empty result</p>
+              ) : users.length > 20 ? (
+                <p>.. long items list, see it on Sys page</p>
+              ) : (
+                <DBshortTable resData={users} />
+              )
+              // <DBshortTable resData={users} target="users" />
+            }
+          </div>
 
           {/* <div>
             {users === undefined || users.length === 0 ? (

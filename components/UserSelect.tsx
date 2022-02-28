@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, SetStateAction, useRef, useState } from 'react'
 import type { User } from '../pages/editUsers'
-import styles from './CustomerSelect.module.scss'
+import styles from './Select.module.scss'
 import stylesH from '../styles/Home.module.css'
 
 type UserSelectProps = {

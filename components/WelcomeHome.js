@@ -10,7 +10,7 @@ export default function WelcomeHome() {
         <title>Welcome Home!</title>
       </Head>
       <main className={styles.main}>
-        <h1>Sale and Fix</h1>
+        <h1>Sales and Profit</h1>
         <div className={styles.row}>
           <Link href="/plus" passHref>
             <div className={styles.square_plus}>

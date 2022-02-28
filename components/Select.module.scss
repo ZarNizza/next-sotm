@@ -16,7 +16,7 @@
 
 .custList,
 .newCust {
-  min-width: 25rem;
+  // min-width: 25rem;
   background-color: #fbfff2;
   margin: 2rem;
   padding: 0 2rem 1rem 2rem;
@@ -28,7 +28,7 @@
   margin-top: -5rem;
 }
 .custSelect {
-  min-width: 25rem;
+  // min-width: 25rem;
   background-color: #eeffc5;
   margin: 2rem;
   padding: 2rem 2rem;
@@ -45,13 +45,13 @@
 .custList ul li {
   list-style-type: none;
 }
-.custList input,
-.custSelect select {
-  min-width: 20rem;
-}
-.newCust input {
-  min-width: 20rem;
-}
+// .custList input,
+// .custSelect select {
+//   min-width: 20rem;
+// }
+// .newCust input {
+//   min-width: 20rem;
+// }
 
 .floatWrapper {
   position: absolute;

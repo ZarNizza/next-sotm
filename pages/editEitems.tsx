@@ -8,6 +8,7 @@ import DBshort_ED_Table from '../components/DBshortEditDropTable'
 import EitemSelect from '../components/EitemSelect'
 import EitemEditForm from '../components/EitemEditForm'
 import { Eitem } from './minus'
+import DBshortTable from '../components/DBshortTable'
 
 const Home: NextPage = () => {
   const [eItems, setEitems] = useState<Eitem[] | []>([])
@@ -54,7 +55,6 @@ const Home: NextPage = () => {
     <Layout>
       <Head>
         <title>Exp-items</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <div className={styles.container}>
@@ -81,6 +81,18 @@ const Home: NextPage = () => {
             />
           )}
 
+          <div>
+            {
+              eItems === undefined || eItems.length === 0 ? (
+                <p>No data - empty result</p>
+              ) : eItems.length > 20 ? (
+                <p>.. long items list, see it on Sys page</p>
+              ) : (
+                <DBshortTable resData={eItems} />
+              )
+              // <DBshortTable resData={customers} target="customers" />
+            }
+          </div>
           {/* <div>
             {eItems === undefined || eItems.length === 0 ? (
               <p>No data - empty result</p>

@@ -7,6 +7,7 @@ import { Xpense } from './minus'
 import fetchHandler, { FetchArgs } from '../components/fetchHandler'
 import XpenseSelect from '../components/XpenseSelect'
 import XpenseEditForm from '../components/XpenseEditForm'
+import DBshortTable from '../components/DBshortTable'
 
 const Home: NextPage = () => {
   const [xpenses, setXpenses] = useState<Xpense[] | []>([])
@@ -32,7 +33,7 @@ const Home: NextPage = () => {
   function xpensesInit() {
     const args: FetchArgs = {
       method: 'GET',
-      apiSuffix: 'expenses',
+      apiSuffix: 'xpenses',
       title: 'getXpense',
       setResData: setXpenses
     }
@@ -54,7 +55,6 @@ const Home: NextPage = () => {
     <Layout>
       <Head>
         <title>Xpenses</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <div className={styles.container}>
@@ -80,6 +80,19 @@ const Home: NextPage = () => {
               cancelFlag={cancelFlag}
             />
           )}
+
+          <div>
+            {
+              xpenses === undefined || xpenses.length === 0 ? (
+                <p>No data - empty result</p>
+              ) : xpenses.length > 20 ? (
+                <p>.. long items list, see it on Sys page</p>
+              ) : (
+                <DBshortTable resData={xpenses} />
+              )
+              // <DBshortTable resData={xpenses} target="xpenses" />
+            }
+          </div>
         </main>
       </div>
     </Layout>

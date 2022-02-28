@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import { Eitem } from '../pages/minus'
 import styles from '../styles/Home.module.css'
+import stylesC from './Select.module.scss'
 type newEitemArgs = {
   setEitems: Dispatch<SetStateAction<Eitem[]>>
 }
@@ -44,24 +45,33 @@ export default function NewEitem(args: newEitemArgs) {
   }
 
   return (
-    <div className={styles.sysButtons}>
-      <input
-        id="eInput"
-        value={eItem}
-        onChange={(event) => input_E_ChHandler(event.target.value)}
-        placeholder="New item description"
-        pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
-        className={styles.userInput}
-      />
-      <input
-        id="eSymbolInput"
-        value={eSymbol}
-        onChange={(event) => input_Esymbol_ChHandler(event.target.value)}
-        placeholder="ShrtDescr(max7symb)"
-        pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
-        className={styles.userInput}
-      />
-      <button onClick={add_E_handler}> + add new Item </button>
+    <div className={stylesC.custList}>
+      <p className={styles.title}>New Expense Item</p>
+      <div className={styles.sysButtons}>
+        Item description:
+        <input
+          id="eInput"
+          value={eItem}
+          onChange={(event) => input_E_ChHandler(event.target.value)}
+          placeholder="Item description"
+          pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
+          className={styles.userInput}
+        />
+      </div>
+      <div className={styles.sysButtons}>
+        Short name:
+        <input
+          id="eSymbolInput"
+          value={eSymbol}
+          onChange={(event) => input_Esymbol_ChHandler(event.target.value)}
+          placeholder="up to 7 symbols"
+          pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
+          className={styles.userInput}
+        />
+      </div>
+      <div className={styles.sysButtons}>
+        <button onClick={add_E_handler}> + add new Item </button>
+      </div>
     </div>
   )
 }

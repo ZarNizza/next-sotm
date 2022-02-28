@@ -39,7 +39,7 @@ export default function DBshort_ED_Table(props: TableProps) {
       apiSuffix = 'sales'
       break
     case 'xid':
-      apiSuffix = 'expenses'
+      apiSuffix = 'xpenses'
       break
     default:
       break

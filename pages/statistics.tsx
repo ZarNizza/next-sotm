@@ -207,10 +207,11 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <Head>
-        <title>Statistics</title>
+        <title>Profit Statistics</title>
       </Head>
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
+          <h3>Profit Statistics</h3>
           <CustomerSelect
             customers={customers}
             setCurrentCustomer={setCurrentCustomer}
@@ -218,7 +219,7 @@ const Home: NextPage = () => {
             setCustomers={setCustomers}
             mode="stat"
           />
-          <div className={styles.sysButtons}>
+          <div className={styles.miniInput}>
             <input
               type="text"
               placeholder="Start date"
@@ -235,23 +236,30 @@ const Home: NextPage = () => {
               onChange={(event) => finishDateChangeHandler(event.target.value)}
             />
           </div>
-          <div className={styles.gray}>Long period may cause too wide view</div>
+          <div className={styles.gray}>
+            Long period may cause tooooo wide view
+          </div>
           <div className={styles.miniButtons}>
-            <button onClick={setTodayHandler}>today</button>
-            <button onClick={setWeekHandler}>Week</button>
-            <button onClick={setThisMonthHandler}>this Month</button>
-            <button onClick={setFullMonthHandler}>Full Month</button>
-            <button onClick={setThisYearHandler}>this Year</button>
-            <button onClick={setFullYearHandler}>Full Year</button>
-            <button onClick={setAllHandler}>All</button>
+            <div className={styles.flexRowContainer}>
+              <button onClick={setTodayHandler}>today</button>
+              <button onClick={setWeekHandler}>Week</button>
+              <button onClick={setThisMonthHandler}>this Month</button>
+              <button onClick={setFullMonthHandler}>Full Month</button>
+              <button onClick={setThisYearHandler}>this Year</button>
+              <button onClick={setFullYearHandler}>Full Year</button>
+              <button onClick={setAllHandler}>All</button>
+            </div>
           </div>
           <div className={styles.orangeButtons}>
-            <button onClick={show_S_Handler}>Total S</button>
-            <button onClick={show_X_Handler}>Total X</button>
-            <button onClick={show_SX_Handler}>Total S + X</button>
-            <button onClick={show_S_Full_Handler}>S by days</button>
-            <button onClick={show_SX_Full_Handler}>S + X by days</button>
-            <button onClick={show_CS_Full_Handler}>Sells by Customer</button>
+            {' '}
+            <div className={styles.flexRowContainer}>
+              <button onClick={show_S_Handler}>Total S</button>
+              <button onClick={show_X_Handler}>Total X</button>
+              <button onClick={show_SX_Handler}>Total S + X</button>
+              <button onClick={show_S_Full_Handler}>S by days</button>
+              <button onClick={show_SX_Full_Handler}>S + X by days</button>
+              <button onClick={show_CS_Full_Handler}>Sells by Customer</button>
+            </div>
           </div>
           {resData === undefined || resData.length === 0 ? (
             <p className={styles.gray}>No data - empty result</p>

@@ -7,6 +7,7 @@ import fetchHandler, { FetchArgs } from '../components/fetchHandler'
 import ProductSelect from '../components/ProductSelect'
 import ProductEditForm from '../components/ProductEditForm'
 import { Product } from './plus'
+import DBshortTable from '../components/DBshortTable'
 
 const Home: NextPage = () => {
   const [products, setProducts] = useState<Product[] | []>([])
@@ -53,7 +54,6 @@ const Home: NextPage = () => {
     <Layout>
       <Head>
         <title>Products</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <div className={styles.container}>
@@ -79,6 +79,19 @@ const Home: NextPage = () => {
               cancelFlag={cancelFlag}
             />
           )}
+
+          <div>
+            {
+              products === undefined || products.length === 0 ? (
+                <p>No data - empty result</p>
+              ) : products.length > 20 ? (
+                <p>.. long items list, see it on Sys page</p>
+              ) : (
+                <DBshortTable resData={products} />
+              )
+              // <DBshortTable resData={products} target="products" />
+            }
+          </div>
         </main>
       </div>
     </Layout>
