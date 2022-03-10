@@ -264,7 +264,7 @@ const Home: NextPage = () => {
       .then((res) => res.json())
       .then((res) => {
         if (res.error) {
-          alert('SYS: ' + title + ' ERROR:' + res.error)
+          alert('SYS: ' + res.error)
         } else {
           console.log('SYS: ', title, ', res.data=', res.data)
         }
