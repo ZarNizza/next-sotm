@@ -1,6 +1,4 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import mysql from 'mysql2'
 import type { Customer } from '../plus'
 
 type ApiData = {
@@ -8,11 +6,16 @@ type ApiData = {
   error?: string
 }
 
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME
+const { Pool } = require('pg')
+const pool = new Pool({
+  connectionString: process.env.PG_URI,
+  ssl: {
+    rejectUnauthorized: false
+  }
+})
+pool.on('error', (err: any, client: any) => {
+  console.error('Unexpected error on idle client', err)
+  process.exit(-1)
 })
 
 export default function handler(
@@ -34,17 +37,17 @@ export default function handler(
         switch (parsedReq.mode) {
           case 'edit':
             sql =
-              'UPDATE customers SET cname="' +
+              "UPDATE customers SET cname='" +
               parsedReq.cname.substring(0, 50) +
-              '", cphone="' +
+              "', cphone='" +
               parsedReq.cphone.substring(0, 20) +
-              '", gooid="' +
+              "', gooid='" +
               String(parsedReq.gooid).substring(0, 20) +
-              '" WHERE cid=' +
+              "' WHERE cid=" +
               parsedReq.cid
             break
           case 'new':
-            sql = 'INSERT INTO customers (cname, cphone) VALUES (?, ?)'
+            sql = 'INSERT INTO customers (cname, cphone) VALUES ($1, $2)'
             params = [
               parsedReq.cname.substring(0, 50),
               parsedReq.cphone.substring(0, 20)
@@ -67,14 +70,24 @@ export default function handler(
     }
     if (sql > '') {
       console.log('=== sql OK === ', sql)
-      connection.query(sql, params, function (error, results, fields) {
-        if (error) {
-          res.status(500).json({ error: String(error) })
-        } else {
-          res.status(201).json({ data: (results as Customer[]) || [] })
-        }
-        resolve(null)
-      })
+      pool.connect().then((client: any) => {
+        return client
+          .query(sql, params)
+          .then((results: any) => {
+            res.status(200).json({ data: results.rows })
+            client.release()
+            console.log(results.rows)
+            resolve(null)
+          })
+          .catch((err: any) => {
+            res.status(500).json({
+              error: String(err)
+            })
+            client.release()
+            console.log(err.stack)
+            resolve(null)
+          })
+      }) //
     } else {
       console.log('////////////// sql err, sql=', sql)
       res.status(500).json({ error: '!customers - sql-error: empty query' })

@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import mysql from 'mysql2'
 import type { Sale } from '../plus'
 
 type ApiData = {
@@ -7,11 +6,16 @@ type ApiData = {
   error?: string
 }
 
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME
+const { Pool } = require('pg')
+const pool = new Pool({
+  connectionString: process.env.PG_URI,
+  ssl: {
+    rejectUnauthorized: false
+  }
+})
+pool.on('error', (err: any, client: any) => {
+  console.error('Unexpected error on idle client', err)
+  process.exit(-1)
 })
 
 export default function handler(
@@ -89,14 +93,24 @@ export default function handler(
     }
     if (sql > '') {
       console.log('=== sql OK === ', sql)
-      connection.query(sql, params, function (error, results, fields) {
-        if (error) {
-          res.status(500).json({ error: String(error) })
-        } else {
-          res.status(201).json({ data: (results as Sale[]) || [] })
-        }
-        resolve(null)
-      })
+      pool.connect().then((client: any) => {
+        return client
+          .query(sql, params)
+          .then((results: any) => {
+            res.status(200).json({ data: results.rows })
+            client.release()
+            console.log(results.rows)
+            resolve(null)
+          })
+          .catch((err: any) => {
+            res.status(500).json({
+              error: String(err)
+            })
+            client.release()
+            console.log(err.stack)
+            resolve(null)
+          })
+      }) //
     } else {
       console.log('////////////// sql err, sql=', sql)
       res.status(500).json({ error: '!sales - sql-error: empty query' })

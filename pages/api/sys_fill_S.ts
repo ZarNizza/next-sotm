@@ -1,35 +1,43 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import mysql from 'mysql2'
 import type { Sale, Customer, Product } from '../plus'
 
-const pool = mysql.createPool({
-  connectionLimit: 10,
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME
+const { Pool } = require('pg')
+const pool = new Pool({
+  connectionString: process.env.PG_URI,
+  ssl: {
+    rejectUnauthorized: false
+  }
+})
+pool.on('error', (err: any, client: any) => {
+  console.error('Unexpected error on idle client', err)
+  process.exit(-1)
 })
 
 function SaveSale(args: Sale) {
   return new Promise((resolveSS, rejectSS) => {
     console.log('========= SaveSale args === ', args)
-    pool.getConnection(function (err, connection) {
-      if (err) throw err // not connected!
-      connection.query(
-        'INSERT INTO sales (sdate, cust, prod, sum) VALUES (?, ?, ?, ?)',
-        [args.sdate, Number(args.cust), Number(args.prod), Number(args.sum)],
-        function (error, results, fields) {
-          connection.release()
-          if (error) {
-            rejectSS(error)
-          } else {
-            resolveSS(null)
-            return
-          }
-        }
-      )
-    })
-    resolveSS(null)
+    const sql =
+      'INSERT INTO sales (sdate, cust, prod, sum) VALUES ($1, $2, $3, $4)'
+    const params = [
+      args.sdate,
+      Number(args.cust),
+      Number(args.prod),
+      Number(args.sum)
+    ]
+    pool.connect().then((client: any) => {
+      return client
+        .query(sql, params)
+        .then((results: any) => {
+          client.release()
+          console.log(results.rows)
+          resolveSS(null)
+        })
+        .catch((err: any) => {
+          client.release()
+          console.log(err.stack)
+          resolveSS(null)
+        })
+    }) //
   })
 }
 
@@ -38,8 +46,6 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
   const customers = [1, 2]
   const products = [5, 6]
 
-  // let iDate = new Date()
-  // const findate = new Date()
   let iDate = new Date(2022, 1, 17, 12)
   const findate = new Date(2022, 1, 17, 12)
   let dates: string[] = []

@@ -1,14 +1,26 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import mysql from 'mysql2'
+// import mysql from 'mysql2'
 import serialiseDate from '../../components/serialiseDate'
 import type { Product } from '../plus'
 
-const pool = mysql.createPool({
-  connectionLimit: 10,
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME
+// const pool = mysql.createPool({
+//   connectionLimit: 10,
+//   host: process.env.DB_HOST,
+//   user: process.env.DB_USER,
+//   password: process.env.DB_PASS,
+//   database: process.env.DB_NAME
+// })
+
+const { Pool } = require('pg')
+const pool = new Pool({
+  connectionString: process.env.PG_URI,
+  ssl: {
+    rejectUnauthorized: false
+  }
+})
+pool.on('error', (err: any, client: any) => {
+  console.error('Unexpected error on idle client', err)
+  process.exit(-1)
 })
 
 const timeZone = '04'
@@ -23,50 +35,84 @@ export default async function sysHandler(
 ) {
   // init products
   const products = await new Promise<Product[]>((resolve, reject) => {
-    pool.getConnection(function (poolErr, connection) {
-      if (poolErr) {
-        resolve([])
-      } else {
-        connection.query(
-          'SELECT * FROM prod WHERE pdel = 0',
-          function (connError, results: Product[], fields) {
-            connection.release()
-            if (connError) {
-              console.log('!!!api/stat - init Products:', connError)
-              resolve([])
-            } else {
-              resolve(results)
-            }
-          }
-        )
-      }
-    })
+    const sql = 'SELECT * FROM prod WHERE pdel = 0'
+    pool.connect().then((client: any) => {
+      return client
+        .query(sql, [])
+        .then((results: any) => {
+          client.release()
+          console.log(results.rows)
+          resolve(results)
+        })
+        .catch((err: any) => {
+          client.release()
+          console.log(err.stack)
+          resolve([])
+        })
+    }) //
+    // pool.getConnection(function (poolErr, connection) {
+    //   if (poolErr) {
+    //     resolve([])
+    //   } else {
+    //     connection.query(
+    //       'SELECT * FROM prod WHERE pdel = 0',
+    //       function (connError, results: Product[], fields) {
+    //         connection.release()
+    //         if (connError) {
+    //           console.log('!!!api/stat - init Products:', connError)
+    //           resolve([])
+    //         } else {
+    //           resolve(results)
+    //         }
+    //       }
+    //     )
+    //   }
+    // })
   })
 
   return new Promise((resolve, reject) => {
     // common function
     function poolGetConnection(sqlQuery: string, source: string) {
-      pool.getConnection(function (err, connection) {
-        if (err) {
-          res.status(500).json({ error: String('DataBase not connected!') })
-          resolve('! DB not connected !')
-        } else {
-          connection.query(sqlQuery, function (error, results, fields) {
-            connection.release()
-            if (error) {
-              res.status(500).json({
-                error: String('sql error (X3)')
-              })
-              console.log('api/sql: error:', error)
-              reject(error)
-            } else {
-              res.status(201).json({ data: results, source: source })
-              resolve(results)
-              return results
-            }
+      pool.connect().then((client: any) => {
+        return client
+          .query(sqlQuery, [])
+          .then((results: any) => {
+            client.release()
+            res.status(201).json({ data: results, source: source })
+            console.log(results.rows)
+            resolve(results)
+            return results
           })
-        }
-      })
+          .catch((err: any) => {
+            client.release()
+            res.status(500).json({
+              error: String('sql error (X3)')
+            })
+            console.log(err.stack)
+            reject(err)
+          })
+      }) //
+      // pool.getConnection(function (err, connection) {
+      //   if (err) {
+      //     res.status(500).json({ error: String('DataBase not connected!') })
+      //     resolve('! DB not connected !')
+      //   } else {
+      //     connection.query(sqlQuery, function (error, results, fields) {
+      //       connection.release()
+      //       if (error) {
+      //         res.status(500).json({
+      //           error: String('sql error (X3)')
+      //         })
+      //         console.log('api/sql: error:', error)
+      //         reject(error)
+      //       } else {
+      //         res.status(201).json({ data: results, source: source })
+      //         resolve(results)
+      //         return results
+      //       }
+      //     })
+      //   }
+      // })
     }
 
     let sqlQuery = ''

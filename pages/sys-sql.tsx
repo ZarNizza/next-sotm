@@ -19,15 +19,13 @@ const Home: NextPage = () => {
       .then((res) => res.json())
       .then((res) => {
         if (res.error) {
-          alert('SYS_sql ERROR: ' + res.error)
+          alert('! SYS_sql: ' + res.error)
         } else {
-          console.log('SYS_sql: DB-sql = OK', res.data)
+          console.log('SYS_sql OK: ', res.data)
           setResData(() => res.data)
         }
       })
-      .catch((error) =>
-        console.log('! SYS_sql: DB-sql error - ', error.message)
-      )
+      .catch((error) => console.log('! SYS_sql: ', error.message))
   }
 
   return (
@@ -37,6 +35,16 @@ const Home: NextPage = () => {
           <title>System page</title>
         </Head>
         <main className={styles.main}>
+          <p>
+            SELECT * FROM pg_catalog.pg_tables WHERE schemaname !=
+            &apos;pg_catalog&apos; AND schemaname !=
+            &apos;information_schema&apos;
+          </p>
+          <p>
+            INSERT INTO abc(a, b, c, d) VALUES (&apos;A&apos;, &apos;B&apos;,
+            111, true)
+          </p>
+          <p> </p>
           <div>
             <input
               id="sqlInput"

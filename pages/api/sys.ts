@@ -1,13 +1,14 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import mysql from 'mysql2'
-
-const pool = mysql.createPool({
-  connectionLimit: 10,
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME
+const { Pool } = require('pg')
+const pool = new Pool({
+  connectionString: process.env.PG_URI,
+  ssl: {
+    rejectUnauthorized: false
+  }
+})
+pool.on('error', (err: any, client: any) => {
+  console.error('Unexpected error on idle client', err)
+  process.exit(-1)
 })
 
 export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
@@ -80,42 +81,47 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
 
       case 'restore_Users':
         sql =
-          'CREATE TABLE IF NOT EXISTS users (uid SMALLINT AUTO_INCREMENT PRIMARY KEY, uname VARCHAR(50), uphone VARCHAR(20), gooid VARCHAR(30), timezone TINYINT, udel TINYINT(1) DEFAULT 0, INDEX (uname, uphone))'
+          'CREATE TABLE IF NOT EXISTS users (uid SERIAL PRIMARY KEY, uname VARCHAR(50), uphone VARCHAR(20), gooid VARCHAR(30), timezone SMALLINT, udel SMALLINT DEFAULT 0)'
+        //CREATE INDEX u ON users (lower(uname), uphone)
         err_prefix = 'restore_Users'
         break
 
       case 'restore_Customers':
         sql =
-          'CREATE TABLE IF NOT EXISTS customers (cid SMALLINT AUTO_INCREMENT PRIMARY KEY, cname VARCHAR(50), cphone VARCHAR(20), gooid VARCHAR(30), cdel TINYINT(1) DEFAULT 0, INDEX (cname, cphone))'
+          'CREATE TABLE IF NOT EXISTS customers (cid SERIAL PRIMARY KEY, cname VARCHAR(50), cphone VARCHAR(20), gooid VARCHAR(30), cdel SMALLINT DEFAULT 0)'
+        //CREATE INDEX c ON customers (lower(cname), cphone)
         err_prefix = 'restore_Customers'
         break
 
       case 'restore_Products':
         sql =
-          'CREATE TABLE IF NOT EXISTS prod (pid SMALLINT AUTO_INCREMENT PRIMARY KEY, pname VARCHAR(50), psymbol VARCHAR(7), pdel TINYINT(1) DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS prod (pid SERIAL PRIMARY KEY, pname VARCHAR(50), psymbol VARCHAR(7), pdel SMALLINT DEFAULT 0)'
         err_prefix = 'restore_Products'
         break
 
       case 'restore_Sales':
         sql =
-          'CREATE TABLE IF NOT EXISTS sales (sid INT AUTO_INCREMENT PRIMARY KEY, sdate DATE, cust SMALLINT, prod SMALLINT, sum SMALLINT, sdel TINYINT(1) DEFAULT 0, INDEX (cust, prod, sdate))'
+          'CREATE TABLE IF NOT EXISTS sales (sid SERIAL PRIMARY KEY, sdate DATE, cust SMALLINT, prod SMALLINT, sum SMALLINT, sdel SMALLINT DEFAULT 0)'
+        //CREATE INDEX s ON sales (cust, prod, sdate)
         err_prefix = 'restore_Sales'
         break
 
       case 'restore_Xpenses':
         sql =
-          'CREATE TABLE IF NOT EXISTS xpenses (xid INT AUTO_INCREMENT PRIMARY KEY, xdate DATE, xitem SMALLINT, xsum SMALLINT, xdel TINYINT(1) DEFAULT 0, INDEX (xitem, xdate))'
+          'CREATE TABLE IF NOT EXISTS xpenses (xid SERIAL PRIMARY KEY, xdate DATE, xitem SMALLINT, xsum SMALLINT, xdel SMALLINT DEFAULT 0)'
+        //CREATE INDEX x ON xpenses (xitem, xdate)
         err_prefix = 'restore_Xpenses'
         break
 
       case 'restore_Eitems':
         sql =
-          'CREATE TABLE IF NOT EXISTS eitems (eid SMALLINT AUTO_INCREMENT PRIMARY KEY, ename VARCHAR(50), esymbol VARCHAR(7), edel TINYINT(1) DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS eitems (eid SERIAL PRIMARY KEY, ename VARCHAR(50), esymbol VARCHAR(7), edel SMALLINT DEFAULT 0)'
         err_prefix = 'restore_Eitems'
         break
 
       case 'show_Tables':
-        sql = 'SHOW TABLES'
+        sql =
+          "SELECT * FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' AND schemaname != 'information_schema'"
         err_prefix = 'show_Tables'
         retRes = true
         break
@@ -167,29 +173,27 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
     })
   } else {
     return new Promise((resolve, reject) => {
-      pool.getConnection(function (err, connection) {
-        if (err) {
-          // not connected!
-          res.status(500).json({
-            error: String('DataBase not connected!')
-          })
-          resolve('! DB not connected !')
-        } else {
-          connection.query(sql, function (error, results, fields) {
-            connection.release()
-            if (error) {
-              res
-                .status(500)
-                .json({ error: String('!api ' + err_prefix + ' err:' + error) })
-            } else {
-              retRes
-                ? res.status(200).json({ data: results })
-                : res.status(203).json({ data: 'OK' })
-            }
+      pool.connect().then((client: any) => {
+        return client
+          .query(sql, [])
+          .then((results: any) => {
+            retRes
+              ? res.status(200).json({ data: results.rows })
+              : res.status(203).json({ data: 'OK' })
+            client.release()
+            console.log(results.rows)
             resolve(null)
           })
-        }
-      }) //end pool...
+          .catch((err: any) => {
+            res.status(500).json({
+              error: String(err)
+            })
+            client.release()
+            console.log(err.stack)
+            resolve(null)
+          })
+      })
+
     }) //end Promise
   }
 }
