@@ -266,12 +266,12 @@ const Home: NextPage = () => {
         if (res.error) {
           alert('SYS: ' + res.error)
         } else {
-          console.log('SYS: ', title, ', res.data=', res.data)
+          console.log('SYS OK: ', res.data)
         }
         if (res.data !== undefined && res.data !== 'OK')
           setResData(() => res.data)
       })
-      .catch((error) => alert('! SYS: ' + title + ' error - ' + error.message))
+      .catch((error) => alert('! SYS ' + title + ' error - ' + error.message))
   }
 
   return (

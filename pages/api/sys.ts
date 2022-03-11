@@ -1,37 +1,13 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import mysql from 'mysql2'
-// process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
-// pg-sql
-const promise = require('bluebird')
-const initOptions = {
-  promiseLib: promise
-}
-const pgp = require('pg-promise')(initOptions)
-// See also: http://vitaly-t.github.io/pg-promise/module-pg-promise.html
-const cn = {
-  host: process.env.PG_HOST,
-  port: process.env.PG_PORT,
-  database: process.env.PG_DB,
-  user: process.env.PG_U,
-  password: process.env.PG_PASS,
-  ssl: true,
-  dialect: 'postgres',
-  dialectOptions: {
-    ssl: { require: true, rejectUnauthorized: false }
-  },
-  allowExitOnIdle: true
-}
-const db = pgp(cn)
 
-///* mysql */
-// const pool = mysql.createPool({
-//   connectionLimit: 10,
-//   host: process.env.DB_HOST,
-//   user: process.env.DB_USER,
-//   password: process.env.DB_PASS,
-//   database: process.env.DB_NAME
-// })
+const { Client } = require('pg')
+const client = new Client({
+  connectionString: process.env.PG_URI,
+  ssl: {
+    rejectUnauthorized: false
+  }
+})
+client.connect()
 
 export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
   let sql = ''
@@ -103,13 +79,15 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
 
       case 'restore_Users':
         sql =
-          'CREATE TABLE IF NOT EXISTS users (uid SMALLINT PRIMARY KEY, uname VARCHAR(50), uphone VARCHAR(20), gooid VARCHAR(30), timezone SMALLINT, udel SMALLINT DEFAULT 0, INDEX (uname, uphone))'
+          'CREATE TABLE IF NOT EXISTS users (uid SMALLINT PRIMARY KEY, uname VARCHAR(50), uphone VARCHAR(20), gooid VARCHAR(30), timezone SMALLINT, udel SMALLINT DEFAULT 0)'
+        //CREATE INDEX u ON users (lower(uname), uphone)
         err_prefix = 'restore_Users'
         break
 
       case 'restore_Customers':
         sql =
-          'CREATE TABLE IF NOT EXISTS customers (cid SMALLINT PRIMARY KEY, cname VARCHAR(50), cphone VARCHAR(20), gooid VARCHAR(30), cdel SMALLINT DEFAULT 0, INDEX (cname, cphone))'
+          'CREATE TABLE IF NOT EXISTS customers (cid SMALLINT PRIMARY KEY, cname VARCHAR(50), cphone VARCHAR(20), gooid VARCHAR(30), cdel SMALLINT DEFAULT 0)'
+        //CREATE INDEX c ON customers (lower(cname), cphone)
         err_prefix = 'restore_Customers'
         break
 
@@ -121,13 +99,15 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
 
       case 'restore_Sales':
         sql =
-          'CREATE TABLE IF NOT EXISTS sales (sid INT PRIMARY KEY, sdate DATE, cust SMALLINT, prod SMALLINT, sum SMALLINT, sdel SMALLINT DEFAULT 0, INDEX (cust, prod, sdate))'
+          'CREATE TABLE IF NOT EXISTS sales (sid INT PRIMARY KEY, sdate DATE, cust SMALLINT, prod SMALLINT, sum SMALLINT, sdel SMALLINT DEFAULT 0)'
+        //CREATE INDEX s ON sales (cust, prod, sdate)
         err_prefix = 'restore_Sales'
         break
 
       case 'restore_Xpenses':
         sql =
-          'CREATE TABLE IF NOT EXISTS xpenses (xid INT PRIMARY KEY, xdate DATE, xitem SMALLINT, xsum SMALLINT, xdel SMALLINT DEFAULT 0, INDEX (xitem, xdate))'
+          'CREATE TABLE IF NOT EXISTS xpenses (xid INT PRIMARY KEY, xdate DATE, xitem SMALLINT, xsum SMALLINT, xdel SMALLINT DEFAULT 0)'
+        //CREATE INDEX x ON xpenses (xitem, xdate)
         err_prefix = 'restore_Xpenses'
         break
 
@@ -138,7 +118,8 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         break
 
       case 'show_Tables':
-        sql = 'SHOW TABLES'
+        sql =
+          "SELECT * FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' AND schemaname != 'information_schema'"
         err_prefix = 'show_Tables'
         retRes = true
         break
@@ -190,45 +171,20 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
     })
   } else {
     return new Promise((resolve, reject) => {
-      db.any(sql, [true])
-        .then((results: any) => {
-          retRes
-            ? res.status(200).json({ data: results })
-            : res.status(203).json({ data: 'OK' })
-          console.log('* * * * * DATA:', results) // print data;
-          resolve(null)
-        })
-        .catch((err: any) => {
+      client.query(sql, [], (err: any, results: any) => {
+        if (err) {
           res.status(500).json({
-            error: String(' ! api ! ' + err_prefix + ' - ' + err)
+            error: String(err)
           })
-          console.log('! api ! ', err) // print the error;
-          resolve('!')
-        })
-      ///* mysql */
-      // pool.getConnection(function (err, connection) {
-      //   if (err) {
-      //     // not connected!
-      //     res.status(500).json({
-      //       error: String('DataBase not connected!')
-      //     })
-      //     resolve('! DB not connected !')
-      //   } else {
-      //     connection.query(sql, function (error, results, fields) {
-      //       connection.release()
-      //       if (error) {
-      //         res
-      //           .status(500)
-      //           .json({ error: String('!api ' + err_prefix + ' err:' + error) })
-      //       } else {
-      //         retRes
-      //           ? res.status(200).json({ data: results })
-      //           : res.status(203).json({ data: 'OK' })
-      //       }
-      //       resolve(null)
-      //     })
-      //   }
-      // }) //end pool...
+          resolve(null)
+        } else {
+          retRes
+            ? res.status(200).json({ data: results.rows })
+            : res.status(203).json({ data: 'OK' })
+          resolve(null)
+        }
+        console.log(err ? err.stack : results.rows)
+      })
     }) //end Promise
   }
 }

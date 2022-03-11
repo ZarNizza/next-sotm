@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import mysql from 'mysql2'
 
 const { Client } = require('pg')
 const client = new Client({
@@ -9,14 +8,6 @@ const client = new Client({
   }
 })
 client.connect()
-
-// const pool = mysql.createPool({
-//   connectionLimit: 10,
-//   host: process.env.DB_HOST,
-//   user: process.env.DB_USER,
-//   password: process.env.DB_PASS,
-//   database: process.env.DB_NAME
-// })
 
 export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
   return new Promise((resolve, reject) => {
@@ -29,34 +20,14 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
               res.status(500).json({
                 error: String(err)
               })
-              resolve('! DB not connected !')
+              resolve(null)
             } else {
-              res.status(202).json({ data: results })
+              res.status(202).json({ data: results.rows })
               resolve(null)
             }
-            console.log(err ? err.stack : results) // .rows[0].message
-
-            // client.end()
+            console.log(err ? err.stack : results.rows) // .rows[0].message
           })
-          // pool.getConnection(function (err, connection) {
-          //   if (err) {
-          //     res.status(500).json({ error: String('DataBase not connected!') })
-          //     resolve('! DB not connected !')
-          //   } else {
-          //     connection.query(
-          //       parsedReq.sqlString,
-          //       function (error, results, fields) {
-          //         if (error) {
-          //           res.status(500).json({ error: String(error) })
-          //           reject(error)
-          //         } else {
-          //           res.status(202).json({ data: results })
-          //           resolve(null)
-          //         }
-          //       }
-          //     )
-          //   }
-          // })
+
           break
         default:
           res.status(404).json({ data: '!api default case' })

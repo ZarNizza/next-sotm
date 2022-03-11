@@ -7,7 +7,6 @@ import { useState } from 'react'
 import type { Sale } from './plus'
 
 const Home: NextPage = () => {
-  console.log('! ! ! new, 11mar')
   const [resData, setResData] = useState<Sale[]>([])
   const [sqlString, setSQLstring] = useState<string>('')
 
@@ -20,15 +19,13 @@ const Home: NextPage = () => {
       .then((res) => res.json())
       .then((res) => {
         if (res.error) {
-          alert('SYS_sql ERROR: ' + res.error)
+          alert('! SYS_sql: ' + res.error)
         } else {
-          console.log('SYS_sql: DB-sql = OK', res.data)
+          console.log('SYS_sql OK: ', res.data)
           setResData(() => res.data)
         }
       })
-      .catch((error) =>
-        console.log('! SYS_sql: DB-sql error - ', error.message)
-      )
+      .catch((error) => console.log('! SYS_sql: ', error.message))
   }
 
   return (
@@ -38,6 +35,12 @@ const Home: NextPage = () => {
           <title>System page</title>
         </Head>
         <main className={styles.main}>
+          <p>
+            SELECT * FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog'
+            AND schemaname != 'information_schema'
+          </p>
+          <p>INSERT INTO abc(a, b, c, d) VALUES ('A', 'B', 111, true)</p>
+          <p> </p>
           <div>
             <input
               id="sqlInput"
