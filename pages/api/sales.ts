@@ -39,16 +39,14 @@ export default function handler(
         switch (parsedReq.mode) {
           case 'edit':
             sql =
-              'UPDATE sales SET sdate="' +
-              parsedReq.sdate +
-              '", cust="' +
-              String(parsedReq.cust) +
-              '", prod="' +
-              String(parsedReq.prod) +
-              '", sum="' +
-              String(parsedReq.sum) +
-              '" WHERE sid=' +
+              'UPDATE sales SET sdate=$1, cust=$2, prod=$3, sum=$4 WHERE sid=$5'
+            params = [
+              parsedReq.sdate,
+              String(parsedReq.cust),
+              String(parsedReq.prod),
+              String(parsedReq.sum),
               parsedReq.sid
+            ]
             break
           case 'new':
             const today = new Date()

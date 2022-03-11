@@ -38,15 +38,13 @@ export default function handler(
         console.log('!!!!!!!!!!! POST, parsedReq=', parsedReq)
         switch (parsedReq.mode) {
           case 'edit':
-            sql =
-              'UPDATE xpenses SET xdate="' +
-              parsedReq.xdate +
-              '", xitem="' +
-              String(parsedReq.xitem) +
-              '", xsum="' +
-              String(parsedReq.xsum) +
-              '" WHERE xid=' +
+            sql = 'UPDATE xpenses SET xdate=$1, xitem=$2, xsum=$3 WHERE xid=$4'
+            params = [
+              parsedReq.xdate,
+              String(parsedReq.xitem),
+              String(parsedReq.xsum),
               parsedReq.xid
+            ]
             break
           case 'new':
             const today = new Date()
@@ -67,7 +65,7 @@ export default function handler(
 
             sql = 'INSERT INTO xpenses (xdate, xitem, xsum) VALUES ($1, $2, $3)'
             params = [sqlDate, String(parsedReq.xitem), String(parsedReq.xsum)]
-            console.log('---------------------- new: ', sql, params)
+            console.log('---------------------- new: ', sql, ', ', params)
             break
           case 'del':
             sql = 'UPDATE xpenses SET xdel = 1 WHERE xid=' + parsedReq.xid
@@ -80,7 +78,7 @@ export default function handler(
         }
         break
       default:
-        console.log('! X - bad body.MODE api request')
+        console.log('! X - default.MODE api request')
         break
     }
     if (sql > '') {

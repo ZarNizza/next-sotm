@@ -37,16 +37,14 @@ export default function handler(
         switch (parsedReq.mode) {
           case 'edit':
             sql =
-              'UPDATE users SET uname="' +
-              parsedReq.uname.substring(0, 50) +
-              '", uphone="' +
-              parsedReq.uphone.substring(0, 20) +
-              '", gooid="' +
-              String(parsedReq.gooid).substring(0, 20) +
-              '", timezone="' +
-              String(parsedReq.timezone).substring(0, 3) +
-              '" WHERE uid=' +
+              'UPDATE users SET uname=$1, uphone=$2, gooid=$3, timezone=$4 WHERE uid=$5'
+            params = [
+              parsedReq.uname.substring(0, 50),
+              parsedReq.uphone.substring(0, 20),
+              String(parsedReq.gooid).substring(0, 20),
+              String(parsedReq.timezone).substring(0, 3),
               parsedReq.uid
+            ]
             break
           case 'new':
             sql =
