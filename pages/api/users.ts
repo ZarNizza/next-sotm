@@ -1,6 +1,4 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import mysql from 'mysql2'
 import type { User } from '../editUsers'
 
 type ApiData = {
@@ -8,11 +6,16 @@ type ApiData = {
   error?: string
 }
 
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME
+const { Pool } = require('pg')
+const pool = new Pool({
+  connectionString: process.env.PG_URI,
+  ssl: {
+    rejectUnauthorized: false
+  }
+})
+pool.on('error', (err: any, client: any) => {
+  console.error('Unexpected error on idle client', err)
+  process.exit(-1)
 })
 
 export default function handler(
@@ -48,9 +51,9 @@ export default function handler(
           case 'new':
             sql = 'INSERT INTO users (uname, uphone, timezone) VALUES (?, ?, ?)'
             params = [
-              parsedReq.uname.substring(0, 50),
-              parsedReq.uphone.substring(0, 20),
-              parsedReq.timezone.substring(0, 3)
+              String(parsedReq.uname).substring(0, 50),
+              String(parsedReq.uphone).substring(0, 20),
+              String(parsedReq.timezone).substring(0, 3)
             ]
             console.log('---------------------- new: ', sql, params)
             break
@@ -69,14 +72,24 @@ export default function handler(
         break
     }
     if (sql > '') {
-      connection.query(sql, params, function (error, results, fields) {
-        if (error) {
-          res.status(500).json({ error: String(error) })
-        } else {
-          res.status(201).json({ data: (results as User[]) || [] })
-        }
-        resolve(null)
-      })
+      pool.connect().then((client: any) => {
+        return client
+          .query(sql, params)
+          .then((results: any) => {
+            res.status(200).json({ data: results.rows })
+            client.release()
+            console.log(results.rows)
+            resolve(null)
+          })
+          .catch((err: any) => {
+            res.status(500).json({
+              error: String(err)
+            })
+            client.release()
+            console.log(err.stack)
+            resolve(null)
+          })
+      }) //
     } else {
       console.log('////////////// sql err, sql=', sql)
       res.status(500).json({ error: '!users - sql-error: empty query' })

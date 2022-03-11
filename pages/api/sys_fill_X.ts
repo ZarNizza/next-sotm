@@ -1,37 +1,39 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import mysql from 'mysql2'
 import serialiseDate from '../../components/serialiseDate'
 import type { Xpense } from '../minus'
 
-const pool = mysql.createPool({
-  connectionLimit: 10,
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME
+const { Pool } = require('pg')
+const pool = new Pool({
+  connectionString: process.env.PG_URI,
+  ssl: {
+    rejectUnauthorized: false
+  }
+})
+pool.on('error', (err: any, client: any) => {
+  console.error('Unexpected error on idle client', err)
+  process.exit(-1)
 })
 
 const timeZone = '04'
 
 function SaveXpense(args: Xpense) {
   return new Promise((resolveSS, rejectSS) => {
-    pool.getConnection(function (err, connection) {
-      if (err) throw err // not connected!
-      connection.query(
-        'INSERT INTO xpenses (xdate, xitem, xsum) VALUES (?, ?, ?)',
-        [args.xdate, Number(args.xitem), Number(args.xsum)],
-        function (error, results, fields) {
-          connection.release()
-          if (error) {
-            rejectSS(error)
-          } else {
-            resolveSS(null)
-            return
-          }
-        }
-      )
-    })
-    resolveSS(null)
+    const sql = 'INSERT INTO xpenses (xdate, xitem, xsum) VALUES ($1, $2, $3)'
+    const params = [args.xdate, Number(args.xitem), Number(args.xsum)]
+    pool.connect().then((client: any) => {
+      return client
+        .query(sql, params)
+        .then((results: any) => {
+          client.release()
+          console.log(results.rows)
+          resolveSS(null)
+        })
+        .catch((err: any) => {
+          client.release()
+          console.log(err.stack)
+          resolveSS(null)
+        })
+    }) //
   })
 }
 

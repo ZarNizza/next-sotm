@@ -179,7 +179,7 @@ const Home: NextPage = () => {
   //  add Product
 
   function add_P_handler() {
-    const prod = { mode: 'new', ptext: product, psymbol: pSymbol }
+    const prod = { mode: 'new', pname: product, psymbol: pSymbol }
     fetch('/api/products', {
       method: 'POST',
       body: JSON.stringify(prod)
@@ -196,8 +196,8 @@ const Home: NextPage = () => {
       })
       .catch((error) => alert('! SYS: addProduct error - ' + error.message))
   }
-  function input_P_ChHandler(pText: string) {
-    setProduct(pText.replace(/[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:]/gi, ''))
+  function input_P_ChHandler(pName: string) {
+    setProduct(pName.replace(/[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:]/gi, ''))
   }
   function input_Psymbol_ChHandler(pSymbol: string) {
     setPsymbol(pSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi, ''))

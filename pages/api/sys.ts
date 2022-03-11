@@ -1,13 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-
-const { Client } = require('pg')
-const client = new Client({
+const { Pool } = require('pg')
+const pool = new Pool({
   connectionString: process.env.PG_URI,
   ssl: {
     rejectUnauthorized: false
   }
 })
-client.connect()
+pool.on('error', (err: any, client: any) => {
+  console.error('Unexpected error on idle client', err)
+  process.exit(-1)
+})
 
 export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
   let sql = ''
@@ -79,41 +81,41 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
 
       case 'restore_Users':
         sql =
-          'CREATE TABLE IF NOT EXISTS users (uid SMALLINT PRIMARY KEY, uname VARCHAR(50), uphone VARCHAR(20), gooid VARCHAR(30), timezone SMALLINT, udel SMALLINT DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS users (uid SERIAL PRIMARY KEY, uname VARCHAR(50), uphone VARCHAR(20), gooid VARCHAR(30), timezone SMALLINT, udel SMALLINT DEFAULT 0)'
         //CREATE INDEX u ON users (lower(uname), uphone)
         err_prefix = 'restore_Users'
         break
 
       case 'restore_Customers':
         sql =
-          'CREATE TABLE IF NOT EXISTS customers (cid SMALLINT PRIMARY KEY, cname VARCHAR(50), cphone VARCHAR(20), gooid VARCHAR(30), cdel SMALLINT DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS customers (cid SERIAL PRIMARY KEY, cname VARCHAR(50), cphone VARCHAR(20), gooid VARCHAR(30), cdel SMALLINT DEFAULT 0)'
         //CREATE INDEX c ON customers (lower(cname), cphone)
         err_prefix = 'restore_Customers'
         break
 
       case 'restore_Products':
         sql =
-          'CREATE TABLE IF NOT EXISTS prod (pid SMALLINT PRIMARY KEY, pname VARCHAR(50), psymbol VARCHAR(7), pdel SMALLINT DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS prod (pid SERIAL PRIMARY KEY, pname VARCHAR(50), psymbol VARCHAR(7), pdel SMALLINT DEFAULT 0)'
         err_prefix = 'restore_Products'
         break
 
       case 'restore_Sales':
         sql =
-          'CREATE TABLE IF NOT EXISTS sales (sid INT PRIMARY KEY, sdate DATE, cust SMALLINT, prod SMALLINT, sum SMALLINT, sdel SMALLINT DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS sales (sid SERIAL PRIMARY KEY, sdate DATE, cust SMALLINT, prod SMALLINT, sum SMALLINT, sdel SMALLINT DEFAULT 0)'
         //CREATE INDEX s ON sales (cust, prod, sdate)
         err_prefix = 'restore_Sales'
         break
 
       case 'restore_Xpenses':
         sql =
-          'CREATE TABLE IF NOT EXISTS xpenses (xid INT PRIMARY KEY, xdate DATE, xitem SMALLINT, xsum SMALLINT, xdel SMALLINT DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS xpenses (xid SERIAL PRIMARY KEY, xdate DATE, xitem SMALLINT, xsum SMALLINT, xdel SMALLINT DEFAULT 0)'
         //CREATE INDEX x ON xpenses (xitem, xdate)
         err_prefix = 'restore_Xpenses'
         break
 
       case 'restore_Eitems':
         sql =
-          'CREATE TABLE IF NOT EXISTS eitems (eid SMALLINT PRIMARY KEY, ename VARCHAR(50), esymbol VARCHAR(7), edel SMALLINT DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS eitems (eid SERIAL PRIMARY KEY, ename VARCHAR(50), esymbol VARCHAR(7), edel SMALLINT DEFAULT 0)'
         err_prefix = 'restore_Eitems'
         break
 
@@ -171,20 +173,27 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
     })
   } else {
     return new Promise((resolve, reject) => {
-      client.query(sql, [], (err: any, results: any) => {
-        if (err) {
-          res.status(500).json({
-            error: String(err)
+      pool.connect().then((client: any) => {
+        return client
+          .query(sql, [])
+          .then((results: any) => {
+            retRes
+              ? res.status(200).json({ data: results.rows })
+              : res.status(203).json({ data: 'OK' })
+            client.release()
+            console.log(results.rows)
+            resolve(null)
           })
-          resolve(null)
-        } else {
-          retRes
-            ? res.status(200).json({ data: results.rows })
-            : res.status(203).json({ data: 'OK' })
-          resolve(null)
-        }
-        console.log(err ? err.stack : results.rows)
+          .catch((err: any) => {
+            res.status(500).json({
+              error: String(err)
+            })
+            client.release()
+            console.log(err.stack)
+            resolve(null)
+          })
       })
+
     }) //end Promise
   }
 }

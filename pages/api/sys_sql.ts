@@ -25,7 +25,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
               res.status(202).json({ data: results.rows })
               resolve(null)
             }
-            console.log(err ? err.stack : results.rows) // .rows[0].message
+            console.log(err ? err.stack : results.rows)
           })
 
           break
