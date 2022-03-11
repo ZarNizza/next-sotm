@@ -36,10 +36,14 @@ const Home: NextPage = () => {
         </Head>
         <main className={styles.main}>
           <p>
-            SELECT * FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog'
-            AND schemaname != 'information_schema'
+            SELECT * FROM pg_catalog.pg_tables WHERE schemaname !=
+            &apos;pg_catalog&apos; AND schemaname !=
+            &apos;information_schema&apos;
           </p>
-          <p>INSERT INTO abc(a, b, c, d) VALUES ('A', 'B', 111, true)</p>
+          <p>
+            INSERT INTO abc(a, b, c, d) VALUES (&apos;A&apos;, &apos;B&apos;,
+            111, true)
+          </p>
           <p> </p>
           <div>
             <input
