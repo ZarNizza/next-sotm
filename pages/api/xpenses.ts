@@ -65,7 +65,7 @@ export default function handler(
                 timeZone +
                 ':00:00'
 
-            sql = 'INSERT INTO xpenses (xdate, xitem, xsum) VALUES (?, ?, ?)'
+            sql = 'INSERT INTO xpenses (xdate, xitem, xsum) VALUES ($1, $2, $3)'
             params = [sqlDate, String(parsedReq.xitem), String(parsedReq.xsum)]
             console.log('---------------------- new: ', sql, params)
             break

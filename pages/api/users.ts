@@ -49,11 +49,12 @@ export default function handler(
               parsedReq.uid
             break
           case 'new':
-            sql = 'INSERT INTO users (uname, uphone, timezone) VALUES (?, ?, ?)'
+            sql =
+              'INSERT INTO users (uname, uphone, timezone) VALUES ($1, $2, $3)'
             params = [
-              String(parsedReq.uname).substring(0, 50),
-              String(parsedReq.uphone).substring(0, 20),
-              String(parsedReq.timezone).substring(0, 3)
+              parsedReq.uname.substring(0, 50),
+              parsedReq.uphone.substring(0, 20),
+              parsedReq.timezone.substring(0, 3)
             ]
             console.log('---------------------- new: ', sql, params)
             break

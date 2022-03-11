@@ -68,7 +68,7 @@ export default function handler(
                 ':00:00'
 
             sql =
-              'INSERT INTO sales (sdate, cust, prod, sum) VALUES (?, ?, ?, ?)'
+              'INSERT INTO sales (sdate, cust, prod, sum) VALUES ($1, $2, $3, $4)'
             params = [
               sqlDate,
               String(parsedReq.cust),

@@ -121,7 +121,12 @@ const Home: NextPage = () => {
   //  add User
 
   function add_U_handler() {
-    const user = { uname: userName, uphone: userPhone, timezone: timeZone }
+    const user = {
+      mode: 'new',
+      uname: userName,
+      uphone: userPhone,
+      timezone: timeZone
+    }
     fetch('/api/users', {
       method: 'POST',
       body: JSON.stringify(user)

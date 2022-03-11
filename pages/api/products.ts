@@ -46,11 +46,11 @@ export default function handler(
             break
           case 'new':
             sql =
-              'INSERT INTO prod (pname, psymbol) VALUES ("' +
+              "INSERT INTO prod (pname, psymbol) VALUES ('" +
               String(parsedReq.pname).substring(0, 50) +
-              '", "' +
+              "', '" +
               String(parsedReq.psymbol).substring(0, 7) +
-              '")'
+              "')"
             console.log('---------------------- new: ', sql, params)
             break
           case 'del':
