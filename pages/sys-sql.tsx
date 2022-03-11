@@ -7,6 +7,7 @@ import { useState } from 'react'
 import type { Sale } from './plus'
 
 const Home: NextPage = () => {
+  console.log('! ! ! new, 11mar')
   const [resData, setResData] = useState<Sale[]>([])
   const [sqlString, setSQLstring] = useState<string>('')
 
