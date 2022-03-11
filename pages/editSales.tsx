@@ -24,7 +24,7 @@ const Home: NextPage = () => {
     setUpdateFlag(() => 1)
     setCurrentSale({ sid: 0, sdate: '', cust: 0, prod: 0, sum: 0 })
     return alert(
-      'OK, Updated!\nTo refresh SalesList clear input area - press button (X).'
+      'OK, Updated!\n\nTo refresh SalesList clear input area - press button (X).'
     )
   }
   function cancelFlag() {

@@ -24,7 +24,7 @@ const Home: NextPage = () => {
     setUpdateFlag(() => 1)
     setCurrentCustomer({ cid: 0, cname: '', cphone: '', gooid: '' })
     return alert(
-      'OK, Updated!\nTo refresh CustomerList clear input area - press button (X).'
+      'OK, Updated!\n\nTo refresh CustomerList clear input area - press button (X).'
     )
   }
   function cancelFlag() {

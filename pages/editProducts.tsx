@@ -22,7 +22,7 @@ const Home: NextPage = () => {
     setUpdateFlag(() => 1)
     setCurrentProduct({ pid: 0, pname: '', psymbol: '' })
     return alert(
-      'OK, Updated!\nTo refresh Product List clear input area - press button (X).'
+      'OK, Updated!\n\nTo refresh Product List clear input area - press button (X).'
     )
   }
   function cancelFlag() {

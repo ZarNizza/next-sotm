@@ -31,7 +31,7 @@ const Home: NextPage = () => {
     setUpdateFlag(() => 1)
     setCurrentUser({ uid: 0, uname: '', uphone: '', gooid: '', timezone: '' })
     return alert(
-      'OK, Updated!\nTo refresh UserList clear input area - press button (X).'
+      'OK, Updated!\n\nTo refresh UserList clear input area - press button (X).'
     )
   }
   function cancelFlag() {

@@ -23,7 +23,7 @@ const Home: NextPage = () => {
     setUpdateFlag(() => 1)
     setCurrentEitem({ eid: 0, ename: '', esymbol: '' })
     return alert(
-      'OK, Updated!\nTo refresh E-item-List clear input area - press button (X).'
+      'OK, Updated!\n\nTo refresh E-item-List clear input area - press button (X).'
     )
   }
   function cancelFlag() {

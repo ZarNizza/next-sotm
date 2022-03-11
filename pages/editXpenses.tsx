@@ -23,7 +23,7 @@ const Home: NextPage = () => {
     setUpdateFlag(() => 1)
     setCurrentXpense({ xid: 0, xdate: '', xitem: 0, xsum: 0 })
     return alert(
-      'OK, Updated!\nTo refresh XpensesList clear input area - press button (X).'
+      'OK, Updated!\n\nTo refresh XpensesList clear input area - press button (X).'
     )
   }
   function cancelFlag() {
