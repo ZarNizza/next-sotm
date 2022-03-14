@@ -151,7 +151,7 @@ export default function CustomerSelect(props: CustSelectProps) {
   return (
     <>
       <div className={styles.custList}>
-        <p className={styles.title}>Customer</p>
+        {/* <p className={styles.title}>Customer</p> */}
         <button
           onClick={newButtonHandler}
           className={stylesH.plusButton}
@@ -159,17 +159,17 @@ export default function CustomerSelect(props: CustSelectProps) {
         >
           +New
         </button>
+        <button onClick={dropButtonHandler} className={stylesH.dropButton}>
+          X
+        </button>
         <input
           type="search"
           ref={customerInputRef}
-          placeholder="Search for a Customer"
+          placeholder="Select Customer"
           pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
           onChange={liveSearch}
           className={styles.inputCust}
         />
-        <button onClick={dropButtonHandler} className={stylesH.dropButton}>
-          X
-        </button>
       </div>
       <div
         className={styles.floatWrapper}
