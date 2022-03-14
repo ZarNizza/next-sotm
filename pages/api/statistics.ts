@@ -190,9 +190,9 @@ export default async function sysHandler(
               "SUM(CASE WHEN DATE(s.sdate) = '" +
               item +
               "' AND s.prod = p.pid " +
-              " THEN s.sum ELSE 0 END) AS '" +
+              ' THEN s.sum ELSE 0 END) AS "' +
               item.slice(5) +
-              "', ",
+              '", ',
             ''
           )
 
@@ -223,9 +223,9 @@ export default async function sysHandler(
               "SUM(CASE WHEN DATE(s.sdate) = '" +
               item +
               "' AND s.prod = p.pid " +
-              " THEN s.sum ELSE 0 END) AS '" +
+              ' THEN s.sum ELSE 0 END) AS "' +
               item.slice(5) +
-              "', ",
+              '", ',
             ''
           )
           sqlDXSum = dates.reduce(
@@ -234,9 +234,9 @@ export default async function sysHandler(
               "SUM(CASE WHEN DATE(x.xdate) = '" +
               item +
               "' AND x.xitem = e.eid " +
-              " THEN x.xsum ELSE 0 END) AS '" +
+              ' THEN x.xsum ELSE 0 END) AS "' +
               item.slice(5) +
-              "', ",
+              '", ',
             ''
           )
 
