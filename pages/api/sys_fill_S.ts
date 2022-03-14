@@ -44,10 +44,10 @@ function SaveSale(args: Sale) {
 export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
   console.log('NEW FILL SALES')
   const customers = [1, 2]
-  const products = [5, 6]
+  const products = [1, 2]
 
-  let iDate = new Date(2022, 1, 17, 12)
-  const findate = new Date(2022, 1, 17, 12)
+  let iDate = new Date(2022, 2, 12, 12)
+  const findate = new Date(2022, 2, 14, 12)
   let dates: string[] = []
 
   console.log('******** date=', findate, ' serDate=', serialiseDate(findate))
