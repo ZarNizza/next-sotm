@@ -127,14 +127,7 @@ export default function ProductSelect(props: ProductSelectProps) {
   return (
     <>
       <div className={styles.custList}>
-        <p className={styles.title}>Product</p>
-        <button
-          onClick={newButtonHandler}
-          className={stylesH.plusButton}
-          hidden={props.mode === 'stat'}
-        >
-          +New
-        </button>
+        {/* <p className={styles.title}>Product</p> */}
         <input
           type="search"
           ref={ProductInputRef}
@@ -143,6 +136,13 @@ export default function ProductSelect(props: ProductSelectProps) {
           onChange={liveSearch}
           className={styles.inputCust}
         />
+        <button
+          onClick={newButtonHandler}
+          className={stylesH.plusButton}
+          hidden={props.mode === 'stat'}
+        >
+          +New
+        </button>
         <button onClick={dropButtonHandler} className={stylesH.dropButton}>
           X
         </button>

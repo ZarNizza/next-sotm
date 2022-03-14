@@ -147,14 +147,7 @@ export default function UserSelect(props: UserSelectProps) {
   return (
     <>
       <div className={styles.custList}>
-        <p className={styles.title}>User</p>
-        <button
-          onClick={newButtonHandler}
-          className={stylesH.plusButton}
-          hidden={props.mode === 'stat'}
-        >
-          +New
-        </button>
+        {/* <p className={styles.title}>User</p> */}
         <input
           type="search"
           ref={userInputRef}
@@ -163,6 +156,13 @@ export default function UserSelect(props: UserSelectProps) {
           onChange={liveSearch}
           className={styles.inputCust}
         />
+        <button
+          onClick={newButtonHandler}
+          className={stylesH.plusButton}
+          hidden={props.mode === 'stat'}
+        >
+          +New
+        </button>
         <button onClick={dropButtonHandler} className={stylesH.dropButton}>
           X
         </button>

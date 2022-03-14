@@ -127,14 +127,7 @@ export default function EitemSelect(props: EitemSelectProps) {
   return (
     <>
       <div className={styles.custList}>
-        <p className={styles.title}>Eitem</p>
-        <button
-          onClick={newButtonHandler}
-          className={stylesH.plusButton}
-          hidden={props.mode === 'stat'}
-        >
-          +New
-        </button>
+        {/* <p className={styles.title}>Eitem</p> */}
         <input
           type="search"
           ref={eItemInputRef}
@@ -143,6 +136,13 @@ export default function EitemSelect(props: EitemSelectProps) {
           onChange={liveSearch}
           className={styles.inputCust}
         />
+        <button
+          onClick={newButtonHandler}
+          className={stylesH.plusButton}
+          hidden={props.mode === 'stat'}
+        >
+          +New
+        </button>
         <button onClick={dropButtonHandler} className={stylesH.dropButton}>
           X
         </button>
