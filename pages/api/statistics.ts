@@ -1,15 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-// import mysql from 'mysql2'
 import serialiseDate from '../../components/serialiseDate'
 import type { Product } from '../plus'
-
-// const pool = mysql.createPool({
-//   connectionLimit: 10,
-//   host: process.env.DB_HOST,
-//   user: process.env.DB_USER,
-//   password: process.env.DB_PASS,
-//   database: process.env.DB_NAME
-// })
 
 const { Pool } = require('pg')
 const pool = new Pool({
@@ -25,10 +16,6 @@ pool.on('error', (err: any, client: any) => {
 
 const timeZone = '04'
 
-//
-// !!!!!!!!! toDo: handle Deleted records (cust/prod/eitems)
-//
-
 export default async function sysHandler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -41,45 +28,29 @@ export default async function sysHandler(
         .query(sql, [])
         .then((results: any) => {
           client.release()
-          console.log(results.rows)
+          console.log('init Products result: ', results.rows)
           resolve(results)
         })
         .catch((err: any) => {
           client.release()
-          console.log(err.stack)
+          console.log('initProdERROR: ', err.stack)
           resolve([])
         })
     }) //
-    // pool.getConnection(function (poolErr, connection) {
-    //   if (poolErr) {
-    //     resolve([])
-    //   } else {
-    //     connection.query(
-    //       'SELECT * FROM prod WHERE pdel = 0',
-    //       function (connError, results: Product[], fields) {
-    //         connection.release()
-    //         if (connError) {
-    //           console.log('!!!api/stat - init Products:', connError)
-    //           resolve([])
-    //         } else {
-    //           resolve(results)
-    //         }
-    //       }
-    //     )
-    //   }
-    // })
   })
 
   return new Promise((resolve, reject) => {
     // common function
     function poolGetConnection(sqlQuery: string, source: string) {
+      console.log('\n\n pool sqlQuery: ', sqlQuery)
       pool.connect().then((client: any) => {
         return client
           .query(sqlQuery, [])
           .then((results: any) => {
             client.release()
-            res.status(201).json({ data: results, source: source })
-            console.log(results.rows)
+            res.status(201).json({ data: results.rows, source: source })
+            // console.log('Promise result:', results)
+            console.log('Promise result rows', results.rows, '\n\n')
             resolve(results)
             return results
           })
@@ -88,31 +59,10 @@ export default async function sysHandler(
             res.status(500).json({
               error: String('sql error (X3)')
             })
-            console.log(err.stack)
+            console.log('Promise ERROR: ', err.stack)
             reject(err)
           })
       }) //
-      // pool.getConnection(function (err, connection) {
-      //   if (err) {
-      //     res.status(500).json({ error: String('DataBase not connected!') })
-      //     resolve('! DB not connected !')
-      //   } else {
-      //     connection.query(sqlQuery, function (error, results, fields) {
-      //       connection.release()
-      //       if (error) {
-      //         res.status(500).json({
-      //           error: String('sql error (X3)')
-      //         })
-      //         console.log('api/sql: error:', error)
-      //         reject(error)
-      //       } else {
-      //         res.status(201).json({ data: results, source: source })
-      //         resolve(results)
-      //         return results
-      //       }
-      //     })
-      //   }
-      // })
     }
 
     let sqlQuery = ''
@@ -134,9 +84,9 @@ export default async function sysHandler(
     }
 
     let startDate = parsedReq.startDate
-      ? '"' + parsedReq.startDate + ' 00:00:00"'
-      : '"2020-01-01 00:00:00"'
-    let finishDate = '"2099-12-31 00:00:00"'
+      ? "'" + parsedReq.startDate + " 00:00:00'"
+      : "'2020-01-01 00:00:00'"
+    let finishDate = "'2099-12-31 00:00:00'"
 
     if (parsedReq.finishDate) {
       const fDate = new Date(parsedReq.finishDate)
@@ -146,7 +96,7 @@ export default async function sysHandler(
       finDate += String(fDate.getMonth() + 1) + '-'
       if (fDate.getDate() < 10) finDate += '0'
       finDate += String(fDate.getDate())
-      finishDate = '"' + finDate + ' 00:00:00"'
+      finishDate = "'" + finDate + " 00:00:00'"
     }
 
     if (startDate > finishDate) {
@@ -181,7 +131,7 @@ export default async function sysHandler(
             finishDate +
             ') ' +
             currentCustomer +
-            ' GROUP BY p.psymbol WITH ROLLUP'
+            ' GROUP BY ROLLUP (p.psymbol)'
 
           source = 'short'
 
@@ -198,7 +148,7 @@ export default async function sysHandler(
             ' AND ' +
             finishDate +
             ') ' +
-            ' GROUP BY e.esymbol WITH ROLLUP'
+            ' GROUP BY ROLLUP (e.esymbol)'
 
           source = 'short'
 
@@ -216,7 +166,7 @@ export default async function sysHandler(
             finishDate +
             ') ' +
             currentCustomer +
-            ' GROUP BY p.psymbol WITH ROLLUP ' +
+            ' GROUP BY ROLLUP (p.psymbol) ' +
             'UNION ALL ' +
             'SELECT e.esymbol, SUM(CASE WHEN x.xitem = e.eid THEN x.xsum ELSE 0 END) AS Xgross FROM eitems AS e' +
             ' LEFT JOIN xpenses AS x ON x.xitem = e.eid' +
@@ -225,7 +175,7 @@ export default async function sysHandler(
             ' AND ' +
             finishDate +
             ')' +
-            'GROUP BY e.esymbol WITH ROLLUP'
+            'GROUP BY ROLLUP (e.esymbol)'
 
           source = 'short'
 
@@ -237,12 +187,12 @@ export default async function sysHandler(
           sqlDPSum = dates.reduce(
             (sum, item, i) =>
               sum +
-              'SUM(CASE WHEN DATE(s.sdate) = "' +
+              "SUM(CASE WHEN DATE(s.sdate) = '" +
               item +
-              '" AND s.prod = p.pid ' +
-              ' THEN s.sum ELSE 0 END) AS "' +
+              "' AND s.prod = p.pid " +
+              " THEN s.sum ELSE 0 END) AS '" +
               item.slice(5) +
-              '", ',
+              "', ",
             ''
           )
 
@@ -258,7 +208,7 @@ export default async function sysHandler(
             finishDate +
             ') ' +
             currentCustomer +
-            ' GROUP BY p.psymbol WITH ROLLUP'
+            ' GROUP BY ROLLUP (p.psymbol)'
 
           source = 'fullSD'
 
@@ -270,23 +220,23 @@ export default async function sysHandler(
           sqlDPSum = dates.reduce(
             (sum, item, i) =>
               sum +
-              'SUM(CASE WHEN DATE(s.sdate) = "' +
+              "SUM(CASE WHEN DATE(s.sdate) = '" +
               item +
-              '" AND s.prod = p.pid ' +
-              ' THEN s.sum ELSE 0 END) AS "' +
+              "' AND s.prod = p.pid " +
+              " THEN s.sum ELSE 0 END) AS '" +
               item.slice(5) +
-              '", ',
+              "', ",
             ''
           )
           sqlDXSum = dates.reduce(
             (sum, item, i) =>
               sum +
-              'SUM(CASE WHEN DATE(x.xdate) = "' +
+              "SUM(CASE WHEN DATE(x.xdate) = '" +
               item +
-              '" AND x.xitem = e.eid ' +
-              ' THEN x.xsum ELSE 0 END) AS "' +
+              "' AND x.xitem = e.eid " +
+              " THEN x.xsum ELSE 0 END) AS '" +
               item.slice(5) +
-              '", ',
+              "', ",
             ''
           )
 
@@ -302,7 +252,7 @@ export default async function sysHandler(
             finishDate +
             ') ' +
             currentCustomer +
-            ' GROUP BY p.psymbol WITH ROLLUP' +
+            ' GROUP BY ROLLUP (p.psymbol)' +
             ' UNION ALL ' +
             'SELECT e.esymbol,' +
             sqlDXSum +
@@ -313,7 +263,7 @@ export default async function sysHandler(
             ' AND ' +
             finishDate +
             ') ' +
-            ' GROUP BY e.esymbol WITH ROLLUP'
+            ' GROUP BY ROLLUP (e.esymbol)'
 
           source = 'fullSD'
 
@@ -344,7 +294,7 @@ export default async function sysHandler(
             finishDate +
             ') ' +
             currentCustomer +
-            ' GROUP BY c.cname WITH ROLLUP'
+            ' GROUP BY ROLLUP (c.cname)'
 
           source = 'full'
 
