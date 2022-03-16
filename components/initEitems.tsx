@@ -9,7 +9,7 @@ export default function InitEitems(
       .then((res) => res.json())
       .then((res: { data: Eitem[] }) => {
         setEitems(() => res.data || [])
-        console.log('setEitems api res.data:', res.data)
+        // console.log('setEitems api res.data:', res.data)
       })
       .catch((error) =>
         console.log('! frontend fetch setEitems error - ', error.message)

@@ -9,7 +9,7 @@ export default function InitCustomers(
       .then((res) => res.json())
       .then((res: { data: Customer[] }) => {
         setCustomers(() => res.data || [])
-        console.log('Customers api res.data:', res.data)
+        // console.log('Customers api res.data:', res.data)
       })
       .catch((error) =>
         console.log('! frontend fetch Customer error - ', error.message)

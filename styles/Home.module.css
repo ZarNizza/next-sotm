@@ -3,8 +3,7 @@
   flex-flow: column wrap;
   justify-content: space-between;
   align-items: center;
-  width: 100vw;
-  overflow-x: scroll;
+  /* overflow-x: scroll; */
   overflow: scroll;
 }
 .flexRowContainer {
@@ -49,8 +48,8 @@
 .square0 {
   display: flex;
   flex-direction: column;
-  height: 10rem;
-  width: 10rem;
+  height: 8rem;
+  width: 8rem;
   border: none;
   margin: 1rem;
 }
@@ -65,8 +64,8 @@
 .square_stat,
 .square_sys {
   display: flex;
-  height: 10rem;
-  width: 10rem;
+  height: 8rem;
+  width: 8rem;
   border-radius: 10px;
   margin: 1rem;
 }
@@ -129,7 +128,7 @@
 .halfsquare_top {
   display: flex;
   height: 5rem;
-  width: 10rem;
+  width: 8rem;
   border: 1px solid #bb0;
   border-radius: 10px;
   margin: 0 0 0.5rem 0;
@@ -141,7 +140,7 @@
 .halfsquare_bottom {
   display: flex;
   height: 5rem;
-  width: 10rem;
+  width: 8rem;
   border: 1px solid darkblue;
   border-radius: 10px;
   margin: 0.5rem 0 0 0;
@@ -153,7 +152,7 @@
 .halfsquare_top2 {
   display: flex;
   height: 5rem;
-  width: 10rem;
+  width: 8rem;
   border: 1px solid #0b0;
   border-radius: 10px;
   margin: 0 0 0.5rem 0;
@@ -165,7 +164,7 @@
 .halfsquare_bottom2 {
   display: flex;
   height: 5rem;
-  width: 10rem;
+  width: 8rem;
   border: 1px solid hotpink;
   border-radius: 10px;
   margin: 0.5rem 0 0 0;
@@ -177,7 +176,7 @@
 .halfsquare_top_orange {
   display: flex;
   height: 5rem;
-  width: 10rem;
+  width: 8rem;
   border: 1px solid darkorange;
   border-radius: 10px;
   margin: 0 0 0.5rem 0;
