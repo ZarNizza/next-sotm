@@ -3,22 +3,28 @@ import { Eitem } from '../pages/minus'
 import styles from '../styles/Home.module.css'
 import AlertWin from '../components/AlertWin'
 
-type newEitemArgs = {
+type editEitemArgs = {
+  itemToEdit: Eitem
   setEitems: Dispatch<SetStateAction<Eitem[]>>
-  setNewFlag: Dispatch<SetStateAction<boolean>>
+  setUpdFlag: Dispatch<SetStateAction<boolean>>
 }
 
-export default function NewEitem(args: newEitemArgs) {
-  const [eItem, setEitem] = useState('')
-  const [eSymbol, setEsymbol] = useState('')
+export default function EitemEditForm(a: editEitemArgs) {
+  const [eName, setEitem] = useState(a.itemToEdit.ename)
+  const [eSymbol, setEsymbol] = useState(a.itemToEdit.esymbol)
 
   function add_E_handler() {
-    if (eItem === '' || eSymbol === '') {
+    if (eName === '' || eSymbol === '') {
       alert('! empty field !')
-      args.setNewFlag(false)
+      a.setUpdFlag(false)
       return
     }
-    const eitem = { mode: 'new', ename: eItem, esymbol: eSymbol }
+    const eitem = {
+      mode: 'edit',
+      ename: eName,
+      esymbol: eSymbol,
+      eid: a.itemToEdit.eid
+    }
     fetch('/api/eitems', {
       method: 'POST',
       body: JSON.stringify(eitem)
@@ -31,7 +37,7 @@ export default function NewEitem(args: newEitemArgs) {
           console.log('newEitem = OK', res)
           setEitem('')
           setEsymbol('')
-          args.setNewFlag(false)
+          a.setUpdFlag(false)
         }
       })
       .then(() => {
@@ -42,7 +48,7 @@ export default function NewEitem(args: newEitemArgs) {
               alert('newEitem reInit ERROR: ' + res.error)
             } else {
               console.log('newEitem reInit = OK', res)
-              args.setEitems(() => res.data)
+              a.setEitems(() => res.data)
             }
           })
       })
@@ -58,17 +64,17 @@ export default function NewEitem(args: newEitemArgs) {
   }
 
   function dropButtonHandler() {
-    args.setNewFlag(false)
+    a.setUpdFlag(false)
   }
 
   return (
     <div className={styles.blurBg}>
       <div className={styles.newForm}>
-        <p className={styles.title}>New Expense Item</p>
+        <p className={styles.title}>Edit Expense Item</p>
         <div className={styles.sysButtons}>
           <input
             id="eInput"
-            value={eItem}
+            value={eName}
             onChange={(event) => input_E_ChHandler(event.target.value)}
             placeholder="Item description"
             pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
@@ -87,7 +93,7 @@ export default function NewEitem(args: newEitemArgs) {
         </div>
         <div>
           <span className={styles.sysButtons}>
-            <button onClick={add_E_handler}> + add new Item </button>
+            <button onClick={add_E_handler}> Update Item </button>
           </span>
           <button onClick={dropButtonHandler} className={styles.dropButton}>
             X

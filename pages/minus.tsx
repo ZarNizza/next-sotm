@@ -44,7 +44,7 @@ const Home: NextPage = () => {
           ) : (
             ''
           )}
-          {/* <p>- - - - - - -</p> */}
+          <p> </p>
           <EitemsStore
             eItems={eItems}
             setSelectedEitems={setSelectedEitems}

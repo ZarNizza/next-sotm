@@ -8,32 +8,19 @@ interface EitemsStoreProps {
   eItems: Eitem[]
   setSelectedEitems: Dispatch<SetStateAction<number[]>>
   selectedEitems: number[]
-  eCostRef: MutableRefObject<Record<number, number>>
-  setGross: Dispatch<SetStateAction<number>>
   setNewFlag: Dispatch<SetStateAction<boolean>>
 }
 
-export default function EitemsStore(props: EitemsStoreProps) {
+export default function EitemsEditStore(props: EitemsStoreProps) {
   //
   function newHandler() {
     props.setNewFlag(true)
   }
   const eItemsCheckBoxesSet = props.eItems.map((item: Eitem) => {
     function checkHandler() {
-      props.setSelectedEitems((prevSelectedEitems) => {
-        if (item.eid) delete props.eCostRef.current[item.eid]
-        props.setGross(
-          Object.values(props.eCostRef.current).reduce(
-            (prev, curr) => prev + curr,
-            0
-          )
-        )
-        return prevSelectedEitems.includes(item.eid)
-          ? prevSelectedEitems.filter(
-              (product: Eitem['eid']) => product !== item.eid
-            )
-          : [...prevSelectedEitems, item.eid]
-      })
+      props.setSelectedEitems((prevSelectedEitem) =>
+        prevSelectedEitem.includes(item.eid) ? [] : [item.eid]
+      )
     }
 
     return (
