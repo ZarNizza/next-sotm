@@ -28,8 +28,8 @@ export default async function sysHandler(
         .query(sql, [])
         .then((results: any) => {
           client.release()
-          console.log('init Products result: ', results.rows)
-          resolve(results)
+          // console.log('init Products result: ', results.rows)
+          resolve(results.rows)
         })
         .catch((err: any) => {
           client.release()
@@ -42,7 +42,7 @@ export default async function sysHandler(
   return new Promise((resolve, reject) => {
     // common function
     function poolGetConnection(sqlQuery: string, source: string) {
-      console.log('\n\n pool sqlQuery: ', sqlQuery)
+      // console.log('\n\n pool sqlQuery: ', sqlQuery)
       pool.connect().then((client: any) => {
         return client
           .query(sqlQuery, [])
@@ -50,7 +50,7 @@ export default async function sysHandler(
             client.release()
             res.status(201).json({ data: results.rows, source: source })
             // console.log('Promise result:', results)
-            console.log('Promise result rows', results.rows, '\n\n')
+            // console.log('Promise result rows', results.rows, '\n\n')
             resolve(results)
             return results
           })

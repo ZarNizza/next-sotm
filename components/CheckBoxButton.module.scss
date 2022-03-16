@@ -7,7 +7,7 @@
   margin: 5px;
 
   &:hover {
-    background-color: orange;
+    background-color: palegreen;
   }
 }
 
@@ -26,6 +26,6 @@
   transition: 0.25s ease;
 }
 .chk:checked ~ div:hover {
-  background-color: palegreen;
+  background-color: orangered;
   transition: 0.25s ease;
 }

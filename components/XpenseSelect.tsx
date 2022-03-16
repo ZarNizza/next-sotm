@@ -137,14 +137,7 @@ export default function XpenseSelect(props: XpenseSelectProps) {
   return (
     <>
       <div className={styles.custList}>
-        <p className={styles.title}>Xpense</p>
-        <button
-          onClick={newButtonHandler}
-          className={stylesH.plusButton}
-          hidden={props.mode === 'stat'}
-        >
-          +New
-        </button>
+        {/* <p className={styles.title}>Xpense</p> */}
         <input
           type="search"
           ref={xpenseInputRef}
@@ -153,6 +146,13 @@ export default function XpenseSelect(props: XpenseSelectProps) {
           onChange={liveSearch}
           className={styles.inputCust}
         />
+        <button
+          onClick={newButtonHandler}
+          className={stylesH.plusButton}
+          hidden={props.mode === 'stat'}
+        >
+          +New
+        </button>
         <button onClick={dropButtonHandler} className={stylesH.dropButton}>
           X
         </button>

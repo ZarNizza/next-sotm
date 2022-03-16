@@ -18,21 +18,27 @@
 .newCust {
   // min-width: 25rem;
   background-color: #fbfff2;
-  margin: 2rem;
-  padding: 0 2rem 1rem 2rem;
-  border: 1px solid #aaa;
+  // background-color: #fafafa;
+  margin: 1rem 2rem;
+  // padding: 0 2rem 1rem 2rem;
+  padding: 1rem 2rem;
+  // border: 1px solid #aaa;
+  border: 1px solid lawngreen;
   border-radius: 10px;
 }
 .newCust {
-  background-color: #eeffc5;
+  // background-color: #eeffc5;
+  background-color: #fafafa;
   margin-top: -5rem;
 }
 .custSelect {
   // min-width: 25rem;
-  background-color: #eeffc5;
+  // background-color: #eeffc5;
+  background-color: #fafafa;
   margin: 2rem;
   padding: 2rem 2rem;
-  border: 1px solid #aaa;
+  // border: 1px solid #aaa;
+  border: 1px solid orange;
   border-radius: 10px;
 }
 .custList p,
@@ -67,6 +73,7 @@
 }
 .custSelect option {
   min-height: 3rem;
+  width: 17rem;
   padding: 1rem;
   font-size: large;
 }
@@ -82,3 +89,10 @@
   background-color: palegreen;
   transition: 0.25s ease;
 }
+
+@media (max-width: 469px) {
+  .inputCust {
+    width: 100%;
+    margin: 1rem 0 0.5rem 0 !important;
+  }
+} ;
