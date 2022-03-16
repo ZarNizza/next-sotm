@@ -179,27 +179,22 @@ const Home: NextPage = () => {
     setFinishDate(() => myDate('today'))
   }
   function setThisMonthHandler() {
-    alert('! Attention !\nLong period may cause too wide view')
     setStartDate(() => myDate('0M'))
     setFinishDate(() => myDate('today'))
   }
   function setFullMonthHandler() {
-    alert('! Attention !\nLong period may cause too wide view')
     setStartDate(() => myDate('FM'))
     setFinishDate(() => myDate('today'))
   }
   function setThisYearHandler() {
-    alert('! Attention !\nLong period may cause too wide view')
     setStartDate(() => myDate('0Y'))
     setFinishDate(() => myDate('today'))
   }
   function setFullYearHandler() {
-    alert('! Attention !\nLong period may cause too wide view')
     setStartDate(() => myDate('FY'))
     setFinishDate(() => myDate('today'))
   }
   function setAllHandler() {
-    alert('! Attention !\nLong period may cause too wide view')
     setStartDate(() => myDate('0'))
     setFinishDate(() => myDate('today'))
   }
