@@ -62,7 +62,7 @@ const Home: NextPage = () => {
           />
           <p>
             <span className={styles.tips}>
-              collect Products, set Costs and submit Sale
+              collect Products, set Costs, and submit Sale
             </span>
           </p>
           <ProductStore
