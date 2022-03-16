@@ -10,6 +10,20 @@
     background-color: palegreen;
   }
 }
+.rbNew {
+  display: flex;
+  height: 5rem;
+  width: 5rem;
+  border: 1px solid #07e;
+  border-radius: 10px;
+  margin: 5px;
+  background-color: lightskyblue;
+  color: white;
+
+  &:hover {
+    background-color: #3cb1ff;
+  }
+}
 
 .inputLabel {
   height: 100%;

@@ -15,7 +15,23 @@ export function CheckBoxButton(props: Props) {
       <input
         type="checkbox"
         onClick={props.onClick}
-        onChange={()=>{}}
+        onChange={() => {}}
+        className={styles.chk}
+        hidden
+        checked={props.checked}
+      />
+      <div className={styles.inputLabel}>{props.text}</div>
+    </label>
+  )
+}
+
+export function CheckBoxNewButton(props: Props) {
+  return (
+    <label className={styles.rbNew}>
+      <input
+        type="checkbox"
+        onClick={props.onClick}
+        onChange={() => {}}
         className={styles.chk}
         hidden
         checked={props.checked}

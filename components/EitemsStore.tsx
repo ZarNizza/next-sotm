@@ -1,4 +1,4 @@
-import { CheckBoxButton } from './CheckBoxButton'
+import { CheckBoxButton, CheckBoxNewButton } from './CheckBoxButton'
 import styles from '../styles/Home.module.css'
 import { Dispatch, MutableRefObject, SetStateAction } from 'react'
 import { Eitem } from '../pages/minus'
@@ -47,7 +47,7 @@ export default function EitemsStore(props: EitemsStoreProps) {
     )
   })
   eItemsCheckBoxesSet.push(
-    <CheckBoxButton
+    <CheckBoxNewButton
       key="new!"
       text="+New"
       onClick={newHandler}
