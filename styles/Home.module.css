@@ -4,6 +4,7 @@
   justify-content: space-between;
   align-items: center;
   width: 95vw;
+  max-height: 80vh;
   /* overflow-x: scroll; */
   overflow: scroll;
 }
