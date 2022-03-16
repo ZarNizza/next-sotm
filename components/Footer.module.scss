@@ -1,10 +1,17 @@
 .footer {
   display: flex;
   flex-flow: row wrap;
-  padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
+  padding: 2rem 0;
+  border-top: 1px solid #eaeaea;
+}
+.footerLine {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 95vw;
+  margin: auto;
 }
 .footer a {
   display: flex;

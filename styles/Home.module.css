@@ -3,6 +3,7 @@
   flex-flow: column wrap;
   justify-content: space-between;
   align-items: center;
+  width: 95vw;
   /* overflow-x: scroll; */
   overflow: scroll;
 }
@@ -201,7 +202,7 @@
 .halfsquare_top2 p,
 .halfsquare_bottom2 p {
   margin: auto;
-  font-size: 2rem;
+  /* font-size: 2rem; */
   padding-bottom: 0.5rem;
 }
 
