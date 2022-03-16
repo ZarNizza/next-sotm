@@ -25,7 +25,7 @@ export default function WelcomeHome() {
             </Link>
             <Link href="/minus" passHref>
               <div className={styles.halfsquare_bottom}>
-                <p> — </p>
+                <p> – </p>
               </div>
             </Link>
           </div>
