@@ -261,15 +261,17 @@ const Home: NextPage = () => {
               <button onClick={show_CS_Full_Handler}>Sells by Customer</button>
             </div>
           </div>
-          {resData === undefined || resData.length === 0 ? (
-            <p className={styles.gray}>No data - empty result</p>
-          ) : resSource === 'short' ? (
-            <DBshortTable resData={resData} />
-          ) : resSource === 'full' ? (
-            <DBfullTable resData={resData} products={products} />
-          ) : (
-            <DBfullDTable resData={resData} products={products} />
-          )}
+          <div className={styles.tableScroll}>
+            {resData === undefined || resData.length === 0 ? (
+              <p className={styles.gray}>No data - empty result</p>
+            ) : resSource === 'short' ? (
+              <DBshortTable resData={resData} />
+            ) : resSource === 'full' ? (
+              <DBfullTable resData={resData} products={products} />
+            ) : (
+              <DBfullDTable resData={resData} products={products} />
+            )}
+          </div>
         </div>
       </main>
     </Layout>

@@ -95,7 +95,7 @@ const Home: NextPage = () => {
             />
           )}
 
-          <div>
+          <div className={styles.tableScroll}>
             {
               users === undefined || users.length === 0 ? (
                 <p>No data - empty result</p>

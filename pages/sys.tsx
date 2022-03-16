@@ -433,11 +433,13 @@ const Home: NextPage = () => {
           <div className={styles.sysButtons}>
             <button onClick={show_Tables_handler}>SHOW TABLES</button>
           </div>
-          {resData === undefined || resData.length === 0 ? (
-            <p>No data - empty result</p>
-          ) : (
-            <DBshortTable resData={resData} />
-          )}
+          <div className={styles.tableScroll}>
+            {resData === undefined || resData.length === 0 ? (
+              <p>No data - empty result</p>
+            ) : (
+              <DBshortTable resData={resData} />
+            )}
+          </div>
           <p>.</p>
           <div>- - - - - - - - - - - - - -</div>
           <p>.</p>

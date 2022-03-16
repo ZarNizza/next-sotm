@@ -1,4 +1,4 @@
-.flexColumnContainer {
+.tableScroll {
   display: flex;
   flex-flow: column wrap;
   justify-content: space-between;
@@ -6,6 +6,12 @@
   width: 95vw;
   /* overflow-x: scroll; */
   overflow: scroll;
+}
+.flexColumnContainer {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  align-items: center;
 }
 .flexRowContainer {
   display: flex;
