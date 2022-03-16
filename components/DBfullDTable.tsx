@@ -9,7 +9,7 @@ type TableProps = {
 export default function DBfullDTable(props: TableProps) {
   const keys = Object.keys(props.resData[0])
   const nColumns = keys.length
-  console.log('nColumns=', nColumns, ' keys=', keys)
+  // console.log('nColumns=', nColumns, ' keys=', keys)
 
   if (props.resData === undefined || props.resData.length === 0) {
     return (

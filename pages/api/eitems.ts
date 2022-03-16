@@ -74,7 +74,7 @@ export default function handler(
           .then((results: any) => {
             res.status(200).json({ data: results.rows })
             client.release()
-            console.log(results.rows)
+            // console.log(results.rows)
             resolve(null)
           })
           .catch((err: any) => {

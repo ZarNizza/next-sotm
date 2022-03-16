@@ -23,7 +23,7 @@ export default function DBshort_ED_Table(props: TableProps) {
   const keys = Object.keys(props.resData[0])
   // const dataTitles = Array.from(Object.values(props.resData[0]))
   const idName = keys[0]
-  console.log('keys=', keys, ' idName=', idName)
+  // console.log('keys=', keys, ' idName=', idName)
   let apiSuffix = ''
   switch (idName) {
     case 'cid':
