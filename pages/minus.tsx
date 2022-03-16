@@ -25,8 +25,11 @@ const Home: NextPage = () => {
   const [selectedEitems, setSelectedEitems] = useState<Eitem['eid'][]>([])
   const eCostRef = useRef<Record<Eitem['eid'], number>>({})
   const [gross, setGross] = useState<number>(0)
+  const [newFlag, setNewFlag] = useState(false)
 
   initEitems(setEitems)
+
+  // useEffect(()=>{},[])
 
   return (
     <Layout>
@@ -36,14 +39,19 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
           <h3>Сost accounting</h3>
-          <NewEitem setEitems={setEitems} />
-          <p>- - - - - - -</p>
+          {newFlag ? (
+            <NewEitem setEitems={setEitems} setNewFlag={setNewFlag} />
+          ) : (
+            ''
+          )}
+          {/* <p>- - - - - - -</p> */}
           <EitemsStore
             eItems={eItems}
             setSelectedEitems={setSelectedEitems}
             selectedEitems={selectedEitems}
             eCostRef={eCostRef}
             setGross={setGross}
+            setNewFlag={setNewFlag}
           />{' '}
           <XpenseCart
             setSelectedEitems={setSelectedEitems}

@@ -2,6 +2,7 @@ import { CheckBoxButton } from './CheckBoxButton'
 import styles from '../styles/Home.module.css'
 import { Dispatch, MutableRefObject, SetStateAction } from 'react'
 import { Eitem } from '../pages/minus'
+import NewEitem from '../components/NewEitem'
 
 interface EitemsStoreProps {
   eItems: Eitem[]
@@ -9,10 +10,15 @@ interface EitemsStoreProps {
   selectedEitems: number[]
   eCostRef: MutableRefObject<Record<number, number>>
   setGross: Dispatch<SetStateAction<number>>
+  setNewFlag: Dispatch<SetStateAction<boolean>>
 }
 
 export default function EitemsStore(props: EitemsStoreProps) {
   //
+  function newHandler() {
+    console.log('NewEitem Click!')
+    props.setNewFlag(true)
+  }
   const eItemsCheckBoxesSet = props.eItems.map((item: Eitem) => {
     function checkHandler() {
       props.setSelectedEitems((prevSelectedEitems) => {
@@ -40,6 +46,13 @@ export default function EitemsStore(props: EitemsStoreProps) {
       />
     )
   })
-
+  eItemsCheckBoxesSet.push(
+    <CheckBoxButton
+      key="new!"
+      text="+New"
+      onClick={newHandler}
+      checked={false}
+    />
+  )
   return <div className={styles.flexRowContainer}>{eItemsCheckBoxesSet}</div>
 }
