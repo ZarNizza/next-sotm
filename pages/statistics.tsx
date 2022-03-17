@@ -256,17 +256,21 @@ const Home: NextPage = () => {
               <button onClick={show_CS_Full_Handler}>Sells by Customer</button>
             </div>
           </div>
-          <div className={styles.tableScroll}>
-            {resData === undefined || resData.length === 0 ? (
-              <p className={styles.gray}>No data - empty result</p>
-            ) : resSource === 'short' ? (
+          {resData === undefined || resData.length === 0 ? (
+            <p className={styles.gray}>No data - empty result</p>
+          ) : resSource === 'short' ? (
+            <div className={styles.tableScroll}>
               <DBshortTable resData={resData} />
-            ) : resSource === 'full' ? (
+            </div>
+          ) : resSource === 'full' ? (
+            <div className={styles.tableScroll}>
               <DBfullTable resData={resData} products={products} />
-            ) : (
+            </div>
+          ) : (
+            <div className={styles.tableScroll}>
               <DBfullDTable resData={resData} products={products} />
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </main>
     </Layout>
