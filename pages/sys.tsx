@@ -414,8 +414,10 @@ const Home: NextPage = () => {
           <div className={styles.sysButtons}>
             <button onClick={index_U_handler}>index U</button>
             <button onClick={index_C_handler}>index C</button>
+            <button> - </button>
             <button onClick={index_S_handler}>index S</button>
             <button onClick={index_X_handler}>index X</button>
+            <button> - </button>
           </div>
           <div>- - - - - - - - - - - - - -</div>
           <div className={styles.blueButtons}>
