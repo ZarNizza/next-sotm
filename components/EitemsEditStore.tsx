@@ -3,28 +3,28 @@ import styles from '../styles/Home.module.css'
 import { Dispatch, MutableRefObject, SetStateAction } from 'react'
 import { Eitem } from '../pages/minus'
 
-interface EitemsStoreProps {
+interface EitemsStoreArgs {
   eItems: Eitem[]
-  setSelectedEitems: Dispatch<SetStateAction<number[]>>
-  selectedEitems: number[]
+  setCurrEitem: Dispatch<SetStateAction<number>>
+  currEitem: number
   setNewFlag: Dispatch<SetStateAction<boolean>>
 }
 
-export default function EitemsEditStore(props: EitemsStoreProps) {
+export default function EitemsEditStore(arg: EitemsStoreArgs) {
   //
   function newHandler() {
-    props.setNewFlag(true)
+    arg.setNewFlag(true)
   }
-  const eItemsCheckBoxesSet = props.eItems.map((item: Eitem) => {
+  const eItemsCheckBoxesSet = arg.eItems.map((item: Eitem) => {
     function checkHandler() {
-      if (props.selectedEitems.length === 0) {
-        props.setSelectedEitems(() => [item.eid])
+      if (arg.currEitem === 0) {
+        arg.setCurrEitem(() => item.eid)
       } else {
-        if (props.selectedEitems[0] === item.eid) {
-          props.setSelectedEitems(() => [])
+        if (arg.currEitem === item.eid) {
+          arg.setCurrEitem(() => 0)
         } else {
-          props.setSelectedEitems(() => [])
-          setTimeout(() => props.setSelectedEitems(() => [item.eid]), 100)
+          arg.setCurrEitem(() => 0)
+          setTimeout(() => arg.setCurrEitem(() => item.eid), 100)
         }
       }
     }
@@ -34,7 +34,7 @@ export default function EitemsEditStore(props: EitemsStoreProps) {
         key={item.eid}
         text={item.esymbol}
         onClick={checkHandler}
-        checked={props.selectedEitems.includes(item.eid)}
+        checked={arg.currEitem === item.eid}
       />
     )
   })

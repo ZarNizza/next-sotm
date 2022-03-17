@@ -6,7 +6,7 @@ import styles from '../styles/Home.module.css'
 import initEitems from '../components/initEitems'
 import EitemsEditStore from '../components/EitemsEditStore'
 import EitemNew from '../components/EitemNew'
-import EitemEditForm from '../components/EitemEditForm2'
+import EitemEditForm from '../components/EitemEditForm'
 
 export type Eitem = {
   eid: number
@@ -22,9 +22,8 @@ export type Xpense = {
 
 const Home: NextPage = () => {
   const [eItems, setEitems] = useState<Eitem[]>([])
-  const [selectedEitems, setSelectedEitems] = useState<Eitem['eid'][]>([])
+  const [currEitem, setCurrEitem] = useState<Eitem['eid']>(0)
   const [newFlag, setNewFlag] = useState(false)
-  const [updFlag, setUpdFlag] = useState(false)
 
   initEitems(setEitems)
 
@@ -36,29 +35,32 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
           <h3>E-item settings</h3>
+          <EitemsEditStore
+            eItems={eItems}
+            setCurrEitem={setCurrEitem}
+            currEitem={currEitem}
+            setNewFlag={setNewFlag}
+          />{' '}
           {newFlag ? (
-            <EitemNew setEitems={setEitems} setNewFlag={setNewFlag} />
+            <EitemNew
+              setEitems={setEitems}
+              setNewFlag={setNewFlag}
+              setCurrEitem={setCurrEitem}
+            />
           ) : (
             ''
           )}
-          <p> </p>
-          <EitemsEditStore
-            eItems={eItems}
-            setSelectedEitems={setSelectedEitems}
-            selectedEitems={selectedEitems}
-            setNewFlag={setNewFlag}
-          />{' '}
-          {!!!selectedEitems[0] || selectedEitems[0] === 0 ? (
+          {currEitem === 0 ? (
             ''
           ) : (
             <EitemEditForm
               itemToEdit={
                 eItems.filter((item: Eitem) => {
-                  return item.eid === Number(selectedEitems[0])
+                  return item.eid === Number(currEitem)
                 })[0]
               }
               setEitems={setEitems}
-              setUpdFlag={setUpdFlag}
+              setCurrEitem={setCurrEitem}
             />
           )}
         </div>

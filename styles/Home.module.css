@@ -445,10 +445,11 @@ td.gross {
   align-items: center;
   width: 100vw;
   height: 100vh;
-  z-index: 99;
   background-color: rgba(255, 255, 255, 0.685);
 }
-.blurBg .newForm {
+.newForm {
+  position: relative;
+  z-index: 99;
   max-width: 26rem;
   background-color: #fbfff2;
   margin: 2rem auto;

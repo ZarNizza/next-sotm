@@ -1,79 +1,100 @@
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { Eitem } from '../pages/minus'
-import styles from './Select.module.scss'
-import stylesH from '../styles/Home.module.css'
-import fetchHandler, { FetchArgs } from './fetchHandler'
-type editFormArgs = {
-  eitemToEdit: Eitem
-  setUpdateFlag: any
-  cancelFlag: any
+import styles from '../styles/Home.module.css'
+
+type editEitemArgs = {
+  itemToEdit: Eitem
+  setEitems: Dispatch<SetStateAction<Eitem[]>>
+  setCurrEitem: Dispatch<SetStateAction<number>>
 }
 
-export default function EitemEditForm(a: editFormArgs) {
-  const [eName, setEName] = useState(a.eitemToEdit.ename)
-  const [eSymbol, setEsymbol] = useState(a.eitemToEdit.esymbol)
+export default function EitemEditForm(arg: editEitemArgs) {
+  const [eName, setEitem] = useState(arg.itemToEdit.ename)
+  const [eSymbol, setEsymbol] = useState(arg.itemToEdit.esymbol)
 
-  function saveEditHandler() {
-    const args: FetchArgs = {
-      method: 'POST',
-      apiSuffix: 'eitems',
-      title: 'edit-E',
-      body: JSON.stringify({
-        mode: 'edit',
-        ename: eName,
-        esymbol: eSymbol,
-        eid: a.eitemToEdit.eid
-      }),
-      setResData: a.setUpdateFlag
+  function upd_E_handler() {
+    if (eName === '' || eSymbol === '') {
+      alert('! empty field !')
+      arg.setCurrEitem(0)
+      return
     }
-    fetchHandler(args)
+    const eitem = {
+      mode: 'edit',
+      ename: eName,
+      esymbol: eSymbol,
+      eid: arg.itemToEdit.eid
+    }
+    fetch('/api/eitems', {
+      method: 'POST',
+      body: JSON.stringify(eitem)
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.error) {
+          alert('newEitem ERROR: ' + res.error)
+        } else {
+          console.log('newEitem = OK')
+          setEitem('')
+          setEsymbol('')
+          arg.setCurrEitem(0)
+        }
+      })
+      .then(() => {
+        fetch('api/eitems')
+          .then((res) => res.json())
+          .then((res) => {
+            if (res.error) {
+              alert('newEitem reInit ERROR: ' + res.error)
+            } else {
+              console.log('newEitem reInit = OK')
+              arg.setEitems(() => res.data)
+            }
+          })
+      })
+      .catch((error) => alert('! newEitem error - ' + error.message))
   }
 
-  function cancelHandler() {
-    return a.cancelFlag()
+  function input_Ename_ChHandler(eName: string) {
+    setEitem(eName.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:]/gi, ''))
+  }
+
+  function input_Esymbol_ChHandler(eSymbol: string) {
+    setEsymbol(eSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:\_]/gi, ''))
+  }
+
+  function dropButtonHandler() {
+    arg.setCurrEitem(0)
   }
 
   return (
-    <div className={stylesH.flexColumnContainer}>
-      <p>
-        Name:
+    <div className={styles.newForm}>
+      <p className={styles.title}>Edit Expense Item</p>
+      <div className={styles.sysButtons}>
         <input
-          type="text"
-          className={styles.inputCust}
-          placeholder="Name"
-          pattern="[a-zA-Zа-яА-Я\s\-\+]{1,50}"
+          id="eInput"
           value={eName}
-          onChange={(event) =>
-            setEName(event.target.value.replace(/[^a-zA-Zа-яА-Я\-\+\s]/gi, ''))
-          }
+          onChange={(event) => input_Ename_ChHandler(event.target.value)}
+          placeholder="Item description"
+          pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
+          className={styles.userInput}
         />
-      </p>
-      <p>
-        {' '}
-        Symbol:
+      </div>
+      <div className={styles.sysButtons}>
         <input
-          type="text"
-          className={styles.inputCust}
-          placeholder="up to 7 symbols"
-          pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:]*"
-          value={eSymbol || ''}
-          onChange={(event) =>
-            setEsymbol(
-              event.target.value.replace(
-                /[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi,
-                ''
-              )
-            )
-          }
+          id="eSymbolInput"
+          value={eSymbol}
+          onChange={(event) => input_Esymbol_ChHandler(event.target.value)}
+          placeholder="ShrtNam"
+          pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
+          className={styles.userInput}
         />
-      </p>
-
-      <div className={stylesH.flexRowContainer}>
-        <button onClick={saveEditHandler} className={stylesH.sysButton}>
-          Save
-        </button>
-        <button onClick={cancelHandler} className={stylesH.sysButton}>
-          Cancel
+      </div>
+      <div>
+        <span className={styles.sysButtons}>
+          <button onClick={upd_E_handler}> Update Item </button>
+        </span>
+        <button onClick={dropButtonHandler} className={styles.dropButton}>
+          X
         </button>
       </div>
     </div>

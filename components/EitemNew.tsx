@@ -5,16 +5,18 @@ import styles from '../styles/Home.module.css'
 type newEitemArgs = {
   setEitems: Dispatch<SetStateAction<Eitem[]>>
   setNewFlag: Dispatch<SetStateAction<boolean>>
+  setCurrEitem: Dispatch<SetStateAction<number>>
 }
 
-export default function EitemNew(args: newEitemArgs) {
+export default function EitemNew(arg: newEitemArgs) {
   const [eItem, setEitem] = useState('')
   const [eSymbol, setEsymbol] = useState('')
+  arg.setCurrEitem(() => 0)
 
   function add_E_handler() {
     if (eItem === '' || eSymbol === '') {
       alert('! empty field !')
-      args.setNewFlag(false)
+      arg.setNewFlag(false)
       return
     }
     const eitem = { mode: 'new', ename: eItem, esymbol: eSymbol }
@@ -30,7 +32,7 @@ export default function EitemNew(args: newEitemArgs) {
           console.log('newEitem = OK', res)
           setEitem('')
           setEsymbol('')
-          args.setNewFlag(false)
+          arg.setNewFlag(false)
         }
       })
       .then(() => {
@@ -41,7 +43,7 @@ export default function EitemNew(args: newEitemArgs) {
               alert('newEitem reInit ERROR: ' + res.error)
             } else {
               console.log('newEitem reInit = OK', res)
-              args.setEitems(() => res.data)
+              arg.setEitems(() => res.data)
             }
           })
       })
@@ -57,41 +59,39 @@ export default function EitemNew(args: newEitemArgs) {
   }
 
   function dropButtonHandler() {
-    args.setNewFlag(false)
+    arg.setNewFlag(false)
   }
 
   return (
-    <div className={styles.blurBg}>
-      <div className={styles.newForm}>
-        <p className={styles.title}>New Expense Item</p>
-        <div className={styles.sysButtons}>
-          <input
-            id="eInput"
-            value={eItem}
-            onChange={(event) => input_E_ChHandler(event.target.value)}
-            placeholder="Item description"
-            pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
-            className={styles.userInput}
-          />
-        </div>
-        <div className={styles.sysButtons}>
-          <input
-            id="eSymbolInput"
-            value={eSymbol}
-            onChange={(event) => input_Esymbol_ChHandler(event.target.value)}
-            placeholder="ShrtNam"
-            pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
-            className={styles.userInput}
-          />
-        </div>
-        <div>
-          <span className={styles.sysButtons}>
-            <button onClick={add_E_handler}> + add new Item </button>
-          </span>
-          <button onClick={dropButtonHandler} className={styles.dropButton}>
-            X
-          </button>
-        </div>
+    <div className={styles.newForm}>
+      <p className={styles.title}>New Expense Item</p>
+      <div className={styles.sysButtons}>
+        <input
+          id="eInput"
+          value={eItem}
+          onChange={(event) => input_E_ChHandler(event.target.value)}
+          placeholder="Item description"
+          pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
+          className={styles.userInput}
+        />
+      </div>
+      <div className={styles.sysButtons}>
+        <input
+          id="eSymbolInput"
+          value={eSymbol}
+          onChange={(event) => input_Esymbol_ChHandler(event.target.value)}
+          placeholder="ShrtNam"
+          pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
+          className={styles.userInput}
+        />
+      </div>
+      <div>
+        <span className={styles.sysButtons}>
+          <button onClick={add_E_handler}> + add new Item </button>
+        </span>
+        <button onClick={dropButtonHandler} className={styles.dropButton}>
+          X
+        </button>
       </div>
     </div>
   )
