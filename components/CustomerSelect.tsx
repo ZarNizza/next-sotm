@@ -1,11 +1,4 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState
-} from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useRef, useState } from 'react'
 import type { Customer } from '../pages/plus'
 import styles from './Select.module.scss'
 import stylesH from '../styles/Home.module.css'
@@ -22,24 +15,9 @@ export default function CustomerSelect(props: CustSelectProps) {
   const [searchTerm, setSearchTerm] = useState('')
   const [currCust, setCurrCust] = useState()
   const customerInputRef = useRef<HTMLInputElement>(null)
-  // const csResultsList = document.getElementById('cSearchResultsList')
   const [flagNewCustomer, setFlagNewCustomer] = useState('')
   const [newCust, setNewCust] = useState('')
   const [newPhone, setNewPhone] = useState('')
-
-  // useEffect(() => {
-  //   if (csResultsList !== null) {
-  //     csResultsList.innerHTML = ''
-  //     props.customers
-  //       .filter((item: Customer) => {
-  //         return item.cname.toLowerCase().includes(searchTerm)
-  //       })
-  //       .forEach((item: Customer) => {
-  //         const opt = new Option(item.cname, String(item.cid))
-  //         csResultsList.appendChild(opt)
-  //       })
-  //   }
-  // }, [searchTerm])
 
   function liveSearch(e: ChangeEvent<HTMLInputElement>) {
     const st = e.target.value.toLowerCase()

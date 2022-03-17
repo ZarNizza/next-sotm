@@ -18,6 +18,7 @@ const Home: NextPage = () => {
     xsum: 0
   })
   const [updateFlag, setUpdateFlag] = useState(0)
+  const [showTableFlag, setShowTableFlag] = useState(false)
 
   function setUpdF() {
     setUpdateFlag(() => 1)
@@ -28,6 +29,9 @@ const Home: NextPage = () => {
   }
   function cancelFlag() {
     return setCurrentXpense({ xid: 0, xdate: '', xitem: 0, xsum: 0 })
+  }
+  function setShowTableHandler() {
+    setShowTableFlag(() => !showTableFlag)
   }
   //
   function xpensesInit() {
@@ -67,6 +71,7 @@ const Home: NextPage = () => {
             setXpense={setXpenses}
             mode="new"
           />
+
           {currentXpense.xid === 0 ? (
             ''
           ) : (
@@ -81,13 +86,20 @@ const Home: NextPage = () => {
             />
           )}
 
-          <div className={styles.tableScroll}>
-            {xpenses === undefined || xpenses.length === 0 ? (
-              <p>No data - empty result</p>
-            ) : xpenses.length > 20 ? (
-              <p>.. long items list, see it on Sys page</p>
+          <div className={styles.flexColumnContainer}>
+            <button onClick={setShowTableHandler} className={styles.sysButton}>
+              Show/Hide all
+            </button>
+            {showTableFlag ? (
+              xpenses === undefined || xpenses.length === 0 ? (
+                <p>No data - empty result</p>
+              ) : (
+                <div className={styles.tableScroll}>
+                  <DBshortTable resData={xpenses} />
+                </div>
+              )
             ) : (
-              <DBshortTable resData={xpenses} />
+              <></>
             )}
           </div>
         </main>

@@ -35,7 +35,7 @@ export default function CustomerEditForm(a: editFormArgs) {
   }
 
   return (
-    <div className={styles.flexColumnContainer}>
+    <div className={stylesH.newForm}>
       <p>
         Name:
         <input

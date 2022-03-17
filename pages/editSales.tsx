@@ -19,6 +19,7 @@ const Home: NextPage = () => {
     sum: 0
   })
   const [updateFlag, setUpdateFlag] = useState(0)
+  const [showTableFlag, setShowTableFlag] = useState(false)
 
   function setUpdF() {
     setUpdateFlag(() => 1)
@@ -29,6 +30,9 @@ const Home: NextPage = () => {
   }
   function cancelFlag() {
     return setCurrentSale({ sid: 0, sdate: '', cust: 0, prod: 0, sum: 0 })
+  }
+  function setShowTableHandler() {
+    setShowTableFlag(() => !showTableFlag)
   }
   //
   function salesInit() {
@@ -68,6 +72,7 @@ const Home: NextPage = () => {
             setSale={setSales}
             mode="new"
           />
+
           {currentSale.sid === 0 ? (
             ''
           ) : (
@@ -82,13 +87,20 @@ const Home: NextPage = () => {
             />
           )}
 
-          <div className={styles.tableScroll}>
-            {sales === undefined || sales.length === 0 ? (
-              <p>No data - empty result</p>
-            ) : sales.length > 20 ? (
-              <p>.. long items list, see it on Sys page</p>
+          <div className={styles.flexColumnContainer}>
+            <button onClick={setShowTableHandler} className={styles.sysButton}>
+              Show/Hide all
+            </button>
+            {showTableFlag ? (
+              sales === undefined || sales.length === 0 ? (
+                <p>No data - empty result</p>
+              ) : (
+                <div className={styles.tableScroll}>
+                  <DBshortTable resData={sales} />
+                </div>
+              )
             ) : (
-              <DBshortTable resData={sales} />
+              <></>
             )}
           </div>
         </main>

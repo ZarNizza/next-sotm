@@ -19,6 +19,7 @@ const Home: NextPage = () => {
     gooid: ''
   })
   const [updateFlag, setUpdateFlag] = useState(0)
+  const [showTableFlag, setShowTableFlag] = useState(false)
 
   function setUpdF() {
     setUpdateFlag(() => 1)
@@ -29,6 +30,9 @@ const Home: NextPage = () => {
   }
   function cancelFlag() {
     return setCurrentCustomer({ cid: 0, cname: '', cphone: '', gooid: '' })
+  }
+  function setShowTableHandler() {
+    setShowTableFlag(() => !showTableFlag)
   }
   //
   function custInit() {
@@ -68,6 +72,7 @@ const Home: NextPage = () => {
             setCustomers={setCustomers}
             mode="new"
           />
+
           {currentCustomer.cid === 0 ? (
             ''
           ) : (
@@ -82,13 +87,20 @@ const Home: NextPage = () => {
             />
           )}
 
-          <div className={styles.tableScroll}>
-            {customers === undefined || customers.length === 0 ? (
-              <p>No data - empty result</p>
-            ) : customers.length > 20 ? (
-              <p>.. long items list, see it on Sys page</p>
+          <div className={styles.flexColumnContainer}>
+            <button onClick={setShowTableHandler} className={styles.sysButton}>
+              Show/Hide all
+            </button>
+            {showTableFlag ? (
+              customers === undefined || customers.length === 0 ? (
+                <p>No data - empty result</p>
+              ) : (
+                <div className={styles.tableScroll}>
+                  <DBshortTable resData={customers} />
+                </div>
+              )
             ) : (
-              <DBshortTable resData={customers} />
+              <></>
             )}
           </div>
         </main>
