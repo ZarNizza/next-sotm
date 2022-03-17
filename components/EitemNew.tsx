@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { Eitem } from '../pages/minus'
 import styles from '../styles/Home.module.css'
 

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
 import initEitems from '../components/initEitems'
-import EitemsEditStore from '../components/EitemsEditStore'
+import EitemEditStore from '../components/EitemEditStore'
 import EitemNew from '../components/EitemNew'
 import EitemEditForm from '../components/EitemEditForm'
 
@@ -35,7 +35,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
           <h3>E-item settings</h3>
-          <EitemsEditStore
+          <EitemEditStore
             eItems={eItems}
             setCurrEitem={setCurrEitem}
             currEitem={currEitem}

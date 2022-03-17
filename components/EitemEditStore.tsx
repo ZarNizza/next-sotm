@@ -1,6 +1,6 @@
 import { CheckBoxButton, CheckBoxNewButton } from './CheckBoxButton'
 import styles from '../styles/Home.module.css'
-import { Dispatch, MutableRefObject, SetStateAction } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import { Eitem } from '../pages/minus'
 
 interface EitemsStoreArgs {
@@ -10,7 +10,7 @@ interface EitemsStoreArgs {
   setNewFlag: Dispatch<SetStateAction<boolean>>
 }
 
-export default function EitemsEditStore(arg: EitemsStoreArgs) {
+export default function EitemEditStore(arg: EitemsStoreArgs) {
   //
   function newHandler() {
     arg.setNewFlag(true)

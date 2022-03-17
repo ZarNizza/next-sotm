@@ -3,7 +3,7 @@ import styles from '../styles/Home.module.css'
 import { Dispatch, MutableRefObject, SetStateAction } from 'react'
 import { Eitem } from '../pages/minus'
 
-interface EitemsStoreProps {
+interface EitemsStoreArgs {
   eItems: Eitem[]
   setSelectedEitems: Dispatch<SetStateAction<number[]>>
   selectedEitems: number[]
@@ -12,17 +12,17 @@ interface EitemsStoreProps {
   setNewFlag: Dispatch<SetStateAction<boolean>>
 }
 
-export default function EitemsStore(props: EitemsStoreProps) {
+export default function EitemStore(arg: EitemsStoreArgs) {
   //
   function newHandler() {
-    props.setNewFlag(true)
+    arg.setNewFlag(true)
   }
-  const eItemsCheckBoxesSet = props.eItems.map((item: Eitem) => {
+  const eItemsCheckBoxesSet = arg.eItems.map((item: Eitem) => {
     function checkHandler() {
-      props.setSelectedEitems((prevSelectedEitems) => {
-        if (item.eid) delete props.eCostRef.current[item.eid]
-        props.setGross(
-          Object.values(props.eCostRef.current).reduce(
+      arg.setSelectedEitems((prevSelectedEitems) => {
+        if (item.eid) delete arg.eCostRef.current[item.eid]
+        arg.setGross(
+          Object.values(arg.eCostRef.current).reduce(
             (prev, curr) => prev + curr,
             0
           )
@@ -40,7 +40,7 @@ export default function EitemsStore(props: EitemsStoreProps) {
         key={item.eid}
         text={item.esymbol}
         onClick={checkHandler}
-        checked={props.selectedEitems.includes(item.eid)}
+        checked={arg.selectedEitems.includes(item.eid)}
       />
     )
   })

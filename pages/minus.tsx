@@ -4,7 +4,7 @@ import { useRef, useState } from 'react'
 import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
 import initEitems from '../components/initEitems'
-import EitemsStore from '../components/EitemsStore'
+import EitemStore from '../components/EitemStore'
 import XpenseCart from '../components/XpenseCart'
 import EitemNew from '../components/EitemNew'
 
@@ -43,7 +43,7 @@ const Home: NextPage = () => {
             ''
           )}
           <p> </p>
-          <EitemsStore
+          <EitemStore
             eItems={eItems}
             setSelectedEitems={setSelectedEitems}
             selectedEitems={selectedEitems}
