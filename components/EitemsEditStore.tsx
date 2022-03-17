@@ -18,9 +18,16 @@ export default function EitemsEditStore(props: EitemsStoreProps) {
   }
   const eItemsCheckBoxesSet = props.eItems.map((item: Eitem) => {
     function checkHandler() {
-      props.setSelectedEitems((prevSelectedEitem) =>
-        prevSelectedEitem.includes(item.eid) ? [] : [item.eid]
-      )
+      if (props.selectedEitems.length === 0) {
+        props.setSelectedEitems(() => [item.eid])
+      } else {
+        if (props.selectedEitems[0] === item.eid) {
+          props.setSelectedEitems(() => [])
+        } else {
+          props.setSelectedEitems(() => [])
+          setTimeout(() => props.setSelectedEitems(() => [item.eid]), 100)
+        }
+      }
     }
 
     return (
