@@ -1,96 +1,59 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
-import styles from '../styles/Home.module.css'
+import { useState } from 'react'
 import Layout from '../components/layout'
-import fetchHandler, { FetchArgs } from '../components/fetchHandler'
-import ProductSelect from '../components/ProductSelect'
+import styles from '../styles/Home.module.css'
+import type { Product } from './plus'
+import initProducts from '../components/initProducts'
+import ProductEditStore from '../components/ProductEditStore'
+import ProductNew from '../components/ProductNew'
 import ProductEditForm from '../components/ProductEditForm'
-import { Product } from './plus'
-import DBshortTable from '../components/DBshortTable'
 
 const Home: NextPage = () => {
-  const [products, setProducts] = useState<Product[] | []>([])
-  const [currentProduct, setCurrentProduct] = useState<Product>({
-    pid: 0,
-    pname: '',
-    psymbol: ''
-  })
-  const [updateFlag, setUpdateFlag] = useState(0)
+  const [pItems, setPitems] = useState<Product[]>([])
+  const [currPitem, setCurrPitem] = useState<Product['pid']>(0)
+  const [newFlag, setNewFlag] = useState(false)
 
-  function setUpdF() {
-    setUpdateFlag(() => 1)
-    setCurrentProduct({ pid: 0, pname: '', psymbol: '' })
-    return alert(
-      'OK, Updated!\n\nTo refresh Product List clear input area - press button (X).'
-    )
-  }
-  function cancelFlag() {
-    return setCurrentProduct({ pid: 0, pname: '', psymbol: '' })
-  }
-  //
-  function pInit() {
-    const args: FetchArgs = {
-      method: 'GET',
-      apiSuffix: 'products',
-      title: 'getProducts',
-      setResData: setProducts
-    }
-    fetchHandler(args)
-  }
-
-  useEffect(() => {
-    pInit()
-  }, [])
-
-  useEffect(() => {
-    if (updateFlag === 1) {
-      pInit()
-      setUpdateFlag(() => 0)
-    }
-  }, [updateFlag])
+  initProducts(setPitems)
 
   return (
     <Layout>
       <Head>
-        <title>Products</title>
+        <title>Product settings</title>
       </Head>
-
-      <div className={styles.container}>
-        <main className={styles.main}>
-          <h2>Products: {products.length}</h2>
-          <ProductSelect
-            products={products}
-            setCurrentProduct={setCurrentProduct}
-            currentProduct={currentProduct}
-            setProducts={setProducts}
-            mode="new"
-          />
-          {currentProduct.pid === 0 ? (
+      <main className={styles.main}>
+        <div className={styles.flexColumnContainer}>
+          <h3>Product settings</h3>
+          <ProductEditStore
+            pItems={pItems}
+            setCurrPitem={setCurrPitem}
+            currPitem={currPitem}
+            setNewFlag={setNewFlag}
+          />{' '}
+          {newFlag ? (
+            <ProductNew
+              setPitems={setPitems}
+              setNewFlag={setNewFlag}
+              setCurrPitem={setCurrPitem}
+            />
+          ) : (
+            ''
+          )}
+          {currPitem === 0 ? (
             ''
           ) : (
             <ProductEditForm
-              productToEdit={
-                products.filter((item: Product) => {
-                  return item.pid === Number(currentProduct.pid)
+              itemToEdit={
+                pItems.filter((item: Product) => {
+                  return item.pid === Number(currPitem)
                 })[0]
               }
-              setUpdateFlag={setUpdF}
-              cancelFlag={cancelFlag}
+              setPitems={setPitems}
+              setCurrPitem={setCurrPitem}
             />
           )}
-
-          <div className={styles.tableScroll}>
-            {products === undefined || products.length === 0 ? (
-              <p>No data - empty result</p>
-            ) : products.length > 20 ? (
-              <p>.. long items list, see it on Sys page</p>
-            ) : (
-              <DBshortTable resData={products} />
-            )}
-          </div>
-        </main>
-      </div>
+        </div>
+      </main>
     </Layout>
   )
 }

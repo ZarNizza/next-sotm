@@ -2,28 +2,24 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import { Product } from '../pages/plus'
 import styles from '../styles/Home.module.css'
 
-type editPitemArgs = {
-  itemToEdit: Product
+type newProductArgs = {
   setPitems: Dispatch<SetStateAction<Product[]>>
-  setCurrPitem: Dispatch<SetStateAction<number>>
+  setNewFlag: Dispatch<SetStateAction<boolean>>
+  setCurrPitem?: Dispatch<SetStateAction<number>>
 }
 
-export default function ProductEditForm(arg: editPitemArgs) {
-  const [pName, setPitem] = useState(arg.itemToEdit.pname)
-  const [pSymbol, setPsymbol] = useState(arg.itemToEdit.psymbol)
+export default function PitemNew(arg: newProductArgs) {
+  const [pItem, setPitem] = useState('')
+  const [pSymbol, setPsymbol] = useState('')
+  if (!!arg.setCurrPitem) arg.setCurrPitem(() => 0)
 
-  function upd_P_handler() {
-    if (pName === '' || pSymbol === '') {
+  function add_P_handler() {
+    if (pItem === '' || pSymbol === '') {
       alert('! empty field !')
-      arg.setCurrPitem(0)
+      arg.setNewFlag(false)
       return
     }
-    const pitem = {
-      mode: 'edit',
-      pname: pName,
-      psymbol: pSymbol,
-      pid: arg.itemToEdit.pid
-    }
+    const pitem = { mode: 'new', pname: pItem, psymbol: pSymbol }
     fetch('/api/products', {
       method: 'POST',
       body: JSON.stringify(pitem)
@@ -33,10 +29,10 @@ export default function ProductEditForm(arg: editPitemArgs) {
         if (res.error) {
           alert('newPitem ERROR: ' + res.error)
         } else {
-          console.log('newPitem = OK')
+          console.log('newPitem = OK', res)
           setPitem('')
           setPsymbol('')
-          arg.setCurrPitem(0)
+          arg.setNewFlag(false)
         }
       })
       .then(() => {
@@ -46,7 +42,7 @@ export default function ProductEditForm(arg: editPitemArgs) {
             if (res.error) {
               alert('newPitem reInit ERROR: ' + res.error)
             } else {
-              console.log('newPitem reInit = OK')
+              console.log('newPitem reInit = OK', res)
               arg.setPitems(() => res.data)
             }
           })
@@ -54,7 +50,7 @@ export default function ProductEditForm(arg: editPitemArgs) {
       .catch((error) => alert('! newPitem error - ' + error.message))
   }
 
-  function input_Pname_ChHandler(pName: string) {
+  function input_P_ChHandler(pName: string) {
     setPitem(pName.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:]/gi, ''))
   }
 
@@ -63,17 +59,17 @@ export default function ProductEditForm(arg: editPitemArgs) {
   }
 
   function dropButtonHandler() {
-    arg.setCurrPitem(0)
+    arg.setNewFlag(false)
   }
 
   return (
     <div className={styles.newForm}>
-      <p className={styles.title}>Edit Product Item</p>
+      <p className={styles.title}>New Product Item</p>
       <div className={styles.sysButtons}>
         <input
           id="pInput"
-          value={pName}
-          onChange={(event) => input_Pname_ChHandler(event.target.value)}
+          value={pItem}
+          onChange={(event) => input_P_ChHandler(event.target.value)}
           placeholder="Item description"
           pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
           className={styles.userInput}
@@ -91,7 +87,7 @@ export default function ProductEditForm(arg: editPitemArgs) {
       </div>
       <div>
         <span className={styles.sysButtons}>
-          <button onClick={upd_P_handler}> Update Item </button>
+          <button onClick={add_P_handler}> + add new Item </button>
         </span>
         <button onClick={dropButtonHandler} className={styles.dropButton}>
           X
