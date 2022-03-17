@@ -119,6 +119,26 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         err_prefix = 'restore_Eitems'
         break
 
+      case 'index_Users':
+        sql = 'CREATE INDEX u ON users (lower(uname), uphone)'
+        err_prefix = 'index_Users'
+        break
+
+      case 'index_Customers':
+        sql = 'CREATE INDEX c ON customers (lower(cname), cphone)'
+        err_prefix = 'index_Customers'
+        break
+
+      case 'index_Sales':
+        sql = 'CREATE INDEX s ON sales (cust, prod, sdate)'
+        err_prefix = 'index_Sales'
+        break
+
+      case 'index_Xpenses':
+        sql = 'CREATE INDEX x ON xpenses (xitem, xdate)'
+        err_prefix = 'index_Xpenses'
+        break
+
       case 'show_Tables':
         sql =
           "SELECT * FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' AND schemaname != 'information_schema'"

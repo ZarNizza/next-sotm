@@ -91,6 +91,22 @@ const Home: NextPage = () => {
     sys_handler('restore_Eitems')
   }
 
+  function index_U_handler() {
+    sys_handler('index_Users')
+  }
+
+  function index_C_handler() {
+    sys_handler('index_Customers')
+  }
+
+  function index_S_handler() {
+    sys_handler('index_Sales')
+  }
+
+  function index_X_handler() {
+    sys_handler('index_Xpenses')
+  }
+
   function show_Tables_handler() {
     sys_handler('show_Tables')
   }
@@ -394,6 +410,12 @@ const Home: NextPage = () => {
             <button onClick={restore_S_handler}>restore S</button>
             <button onClick={restore_X_handler}>restore X</button>
             <button onClick={restore_E_handler}>restore E</button>
+          </div>
+          <div className={styles.sysButtons}>
+            <button onClick={index_U_handler}>index U</button>
+            <button onClick={index_C_handler}>index C</button>
+            <button onClick={index_S_handler}>index S</button>
+            <button onClick={index_X_handler}>index X</button>
           </div>
           <div>- - - - - - - - - - - - - -</div>
           <div className={styles.blueButtons}>
