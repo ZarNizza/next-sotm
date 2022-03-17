@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { Eitem } from '../pages/minus'
 import styles from '../styles/Home.module.css'
-import AlertWin from '../components/AlertWin'
 
 type editEitemArgs = {
   itemToEdit: Eitem
@@ -13,7 +12,7 @@ export default function EitemEditForm(a: editEitemArgs) {
   const [eName, setEitem] = useState(a.itemToEdit.ename)
   const [eSymbol, setEsymbol] = useState(a.itemToEdit.esymbol)
 
-  function add_E_handler() {
+  function upd_E_handler() {
     if (eName === '' || eSymbol === '') {
       alert('! empty field !')
       a.setUpdFlag(false)
@@ -34,7 +33,7 @@ export default function EitemEditForm(a: editEitemArgs) {
         if (res.error) {
           alert('newEitem ERROR: ' + res.error)
         } else {
-          console.log('newEitem = OK', res)
+          console.log('newEitem = OK')
           setEitem('')
           setEsymbol('')
           a.setUpdFlag(false)
@@ -47,7 +46,7 @@ export default function EitemEditForm(a: editEitemArgs) {
             if (res.error) {
               alert('newEitem reInit ERROR: ' + res.error)
             } else {
-              console.log('newEitem reInit = OK', res)
+              console.log('newEitem reInit = OK')
               a.setEitems(() => res.data)
             }
           })
@@ -55,7 +54,7 @@ export default function EitemEditForm(a: editEitemArgs) {
       .catch((error) => alert('! newEitem error - ' + error.message))
   }
 
-  function input_E_ChHandler(eName: string) {
+  function input_Ename_ChHandler(eName: string) {
     setEitem(eName.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:]/gi, ''))
   }
 
@@ -75,7 +74,7 @@ export default function EitemEditForm(a: editEitemArgs) {
           <input
             id="eInput"
             value={eName}
-            onChange={(event) => input_E_ChHandler(event.target.value)}
+            onChange={(event) => input_Ename_ChHandler(event.target.value)}
             placeholder="Item description"
             pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
             className={styles.userInput}
@@ -93,7 +92,7 @@ export default function EitemEditForm(a: editEitemArgs) {
         </div>
         <div>
           <span className={styles.sysButtons}>
-            <button onClick={add_E_handler}> Update Item </button>
+            <button onClick={upd_E_handler}> Update Item </button>
           </span>
           <button onClick={dropButtonHandler} className={styles.dropButton}>
             X
