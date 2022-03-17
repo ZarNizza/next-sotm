@@ -2,7 +2,6 @@ import { CheckBoxButton, CheckBoxNewButton } from './CheckBoxButton'
 import styles from '../styles/Home.module.css'
 import { Dispatch, MutableRefObject, SetStateAction } from 'react'
 import { Eitem } from '../pages/minus'
-import NewEitem from '../components/NewEitem'
 
 interface EitemsStoreProps {
   eItems: Eitem[]

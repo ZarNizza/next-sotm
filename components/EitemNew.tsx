@@ -1,14 +1,13 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { Eitem } from '../pages/minus'
 import styles from '../styles/Home.module.css'
-import AlertWin from '../components/AlertWin'
 
 type newEitemArgs = {
   setEitems: Dispatch<SetStateAction<Eitem[]>>
   setNewFlag: Dispatch<SetStateAction<boolean>>
 }
 
-export default function NewEitem(args: newEitemArgs) {
+export default function EitemNew(args: newEitemArgs) {
   const [eItem, setEitem] = useState('')
   const [eSymbol, setEsymbol] = useState('')
 
