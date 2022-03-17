@@ -104,7 +104,6 @@ const Home: NextPage = () => {
               ) : (
                 <DBshortTable resData={users} />
               )
-              // <DBshortTable resData={users} target="users" />
             }
           </div>
 

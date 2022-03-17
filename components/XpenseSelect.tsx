@@ -117,7 +117,8 @@ export default function XpenseSelect(props: XpenseSelectProps) {
       .filter((item: Xpense) => {
         return (
           item.xdate.toLowerCase().includes(searchTerm) ||
-          String(item.xitem).includes(searchTerm)
+          String(item.xitem).includes(searchTerm) ||
+          String(item.xid).includes(searchTerm)
         )
       })
       .map((item: Xpense) => {

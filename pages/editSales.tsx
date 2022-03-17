@@ -83,16 +83,13 @@ const Home: NextPage = () => {
           )}
 
           <div className={styles.tableScroll}>
-            {
-              sales === undefined || sales.length === 0 ? (
-                <p>No data - empty result</p>
-              ) : sales.length > 20 ? (
-                <p>.. long items list, see it on Sys page</p>
-              ) : (
-                <DBshortTable resData={sales} />
-              )
-              // <DBshortTable resData={sales} target="sales" />
-            }
+            {sales === undefined || sales.length === 0 ? (
+              <p>No data - empty result</p>
+            ) : sales.length > 20 ? (
+              <p>.. long items list, see it on Sys page</p>
+            ) : (
+              <DBshortTable resData={sales} />
+            )}
           </div>
         </main>
       </div>

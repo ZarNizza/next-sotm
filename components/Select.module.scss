@@ -16,28 +16,20 @@
 
 .custList,
 .newCust {
-  // min-width: 25rem;
   background-color: #fbfff2;
-  // background-color: #fafafa;
   margin: 1rem 2rem;
-  // padding: 0 2rem 1rem 2rem;
   padding: 1rem 2rem;
-  // border: 1px solid #aaa;
   border: 1px solid lawngreen;
   border-radius: 10px;
 }
 .newCust {
-  // background-color: #eeffc5;
   background-color: #fafafa;
   margin-top: -5rem;
 }
 .custSelect {
-  // min-width: 25rem;
-  // background-color: #eeffc5;
   background-color: #fafafa;
   margin: 2rem;
   padding: 2rem 2rem;
-  // border: 1px solid #aaa;
   border: 1px solid orange;
   border-radius: 10px;
 }
@@ -51,24 +43,16 @@
 .custList ul li {
   list-style-type: none;
 }
-// .custList input,
-// .custSelect select {
-//   min-width: 20rem;
-// }
-// .newCust input {
-//   min-width: 20rem;
-// }
 
 .floatWrapper {
   position: absolute;
-  top: 12rem;
+  top: 16rem;
   z-index: 18;
 }
 .custSelect {
   display: flex;
 }
 .custSelect select {
-  // margin-bottom: 1rem;
   height: 12rem;
 }
 .custSelect option {

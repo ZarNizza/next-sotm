@@ -6,7 +6,6 @@ type TableProps = {
 }
 
 export default function DBshortTable(props: TableProps) {
-  // console.log('------------+++++++++++++++---------- resData', props.resData)
   const keys = Object.keys(props.resData[0])
 
   if (props.resData === undefined || props.resData.length === 0) {
@@ -19,7 +18,6 @@ export default function DBshortTable(props: TableProps) {
   } else {
     return (
       <div className={styles.flexColumnContainer}>
-        <p>---------- s ----------</p>
         <table>
           <thead>
             <tr key={Math.random()}>

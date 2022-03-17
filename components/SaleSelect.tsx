@@ -121,7 +121,8 @@ export default function SaleSelect(props: SaleSelectProps) {
         return (
           item.sdate.toLowerCase().includes(searchTerm) ||
           String(item.cust).includes(searchTerm) ||
-          String(item.prod).includes(searchTerm)
+          String(item.prod).includes(searchTerm) ||
+          String(item.sid).includes(searchTerm)
         )
       })
       .map((item: Sale) => {
