@@ -5,13 +5,13 @@ import styles from '../styles/Home.module.css'
 type newEitemArgs = {
   setEitems: Dispatch<SetStateAction<Eitem[]>>
   setNewFlag: Dispatch<SetStateAction<boolean>>
-  setCurrEitem: Dispatch<SetStateAction<number>>
+  setCurrEitem?: Dispatch<SetStateAction<number>>
 }
 
 export default function EitemNew(arg: newEitemArgs) {
   const [eItem, setEitem] = useState('')
   const [eSymbol, setEsymbol] = useState('')
-  arg.setCurrEitem(() => 0)
+  if (!!arg.setCurrEitem) arg.setCurrEitem(() => 0)
 
   function add_E_handler() {
     if (eItem === '' || eSymbol === '') {
