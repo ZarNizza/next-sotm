@@ -20,7 +20,6 @@ export default function DBfullTable(props: TableProps) {
   } else {
     return (
       <div className={styles.flexColumnContainer}>
-        <p>----------- f ---------</p>
         <table>
           <thead>
             <tr key={Math.random()}>

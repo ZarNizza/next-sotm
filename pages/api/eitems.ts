@@ -28,7 +28,7 @@ export default function handler(
 
     switch (req.method) {
       case 'GET':
-        sql = 'SELECT * FROM eitems'
+        sql = 'SELECT * FROM eitems ORDER BY esymbol'
         break
 
       case 'POST':
