@@ -5,8 +5,8 @@
   align-items: center;
   max-width: 95vw;
   max-height: 80vh;
-  /* overflow-x: scroll; */
   overflow: scroll;
+  margin-top: 1rem;
 }
 .flexColumnContainer {
   display: flex;
