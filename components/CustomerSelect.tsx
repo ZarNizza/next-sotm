@@ -51,6 +51,11 @@ export default function CustomerSelect(props: CustSelectProps) {
     setFlagNewCustomer(() => 'Y')
   }
   function saveNewHandler() {
+    if (newName === '' || newPhone === '') {
+      alert('! empty field !')
+      setFlagNewCustomer(() => '')
+      return
+    }
     return new Promise((resolveSS, rejectSS) => {
       const body = { mode: 'new', cname: newName, cphone: newPhone }
       fetch('/api/customers', {

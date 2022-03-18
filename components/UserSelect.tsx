@@ -65,6 +65,11 @@ export default function UserSelect(props: UserSelectProps) {
     setFlagNewUser(() => 'Y')
   }
   function saveNewHandler() {
+    if (newName === '' || newPhone === '') {
+      alert('! empty field !')
+      setFlagNewUser(() => '')
+      return
+    }
     return new Promise((resolveSS, rejectSS) => {
       const body = {
         mode: 'new',
