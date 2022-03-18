@@ -119,10 +119,18 @@ export default function CustomerSelect(props: CustSelectProps) {
           </option>
         )
       })
+    if (cList.length === 0) return <></>
     return (
-      <select onChange={liveST} size={4}>
-        {cList}
-      </select>
+      <div
+        className={styles.floatWrapper}
+        hidden={searchTerm === '' || props.currentCustomer.cid > 0}
+      >
+        <div className={styles.custSelect}>
+          <select onChange={liveST} size={4}>
+            {cList}
+          </select>
+        </div>
+      </div>
     )
   }
 
@@ -149,14 +157,7 @@ export default function CustomerSelect(props: CustSelectProps) {
           X
         </button>
       </div>
-      <div
-        className={styles.floatWrapper}
-        hidden={searchTerm === '' || props.currentCustomer.cid > 0}
-      >
-        <div className={styles.custSelect}>
-          <CLSresList />
-        </div>
-      </div>
+      <CLSresList />
 
       <div className={styles.floatWrapper} hidden={flagNewCustomer === ''}>
         <div className={styles.newCust}>
