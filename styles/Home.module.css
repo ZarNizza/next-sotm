@@ -224,6 +224,8 @@
   width: 5rem;
   height: 5rem;
   background-color: #a2a;
+  background-image: url('../public/BeHappy100.png');
+  background-size: contain;
   color: blanchedalmond;
   margin: 0.5rem 0 0.5rem -1rem;
   display: flex;
