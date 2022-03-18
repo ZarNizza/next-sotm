@@ -86,7 +86,8 @@ export default function ProductCart(props: ProductCartProps) {
         alert('Attention: The Price must be a Number!')
       } else {
         const sale = {
-          customer: props.currentCustomer.cid,
+          mode: 'new',
+          cust: props.currentCustomer.cid,
           prod: pid,
           sum: props.prodCostRef.current[pid]
         }
