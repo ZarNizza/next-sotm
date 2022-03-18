@@ -13,10 +13,9 @@ type CustSelectProps = {
 
 export default function CustomerSelect(props: CustSelectProps) {
   const [searchTerm, setSearchTerm] = useState('')
-  const [currCust, setCurrCust] = useState()
   const customerInputRef = useRef<HTMLInputElement>(null)
   const [flagNewCustomer, setFlagNewCustomer] = useState('')
-  const [newCust, setNewCust] = useState('')
+  const [newName, setNewName] = useState('')
   const [newPhone, setNewPhone] = useState('')
 
   function liveSearch(e: ChangeEvent<HTMLInputElement>) {
@@ -53,7 +52,7 @@ export default function CustomerSelect(props: CustSelectProps) {
   }
   function saveNewHandler() {
     return new Promise((resolveSS, rejectSS) => {
-      const body = { mode: 'new', cname: newCust, cphone: newPhone }
+      const body = { mode: 'new', cname: newName, cphone: newPhone }
       fetch('/api/customers', {
         method: 'POST',
         body: JSON.stringify(body)
@@ -94,7 +93,7 @@ export default function CustomerSelect(props: CustSelectProps) {
         })
       })
       .then(() => {
-        setNewCust(() => '')
+        setNewName(() => '')
         setNewPhone(() => '')
         setFlagNewCustomer(() => '')
       })
@@ -102,7 +101,7 @@ export default function CustomerSelect(props: CustSelectProps) {
   }
 
   function cancelNewHandler() {
-    setNewCust(() => '')
+    setNewName(() => '')
     setNewPhone(() => '')
     setFlagNewCustomer(() => '')
   }
@@ -168,9 +167,9 @@ export default function CustomerSelect(props: CustSelectProps) {
               className={styles.inputCust}
               placeholder="Name"
               pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
-              value={newCust}
+              value={newName}
               onChange={(event) =>
-                setNewCust(
+                setNewName(
                   event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s]/gi, '')
                 )
               }
