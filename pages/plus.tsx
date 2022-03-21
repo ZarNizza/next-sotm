@@ -55,9 +55,9 @@ const Home: NextPage = () => {
           <h3>Sales accounting</h3>
           <CustomerSelect
             customers={customers}
-            setCurrentCustomer={setCurrentCustomer}
-            currentCustomer={currentCustomer}
             setCustomers={setCustomers}
+            currentCustomer={currentCustomer}
+            setCurrentCustomer={setCurrentCustomer}
             mode="new"
           />
           <p>

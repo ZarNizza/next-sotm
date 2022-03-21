@@ -1,25 +1,18 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  MouseEventHandler,
-  SetStateAction,
-  useRef,
-  useState
-} from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useRef, useState } from 'react'
 import type { Customer } from '../pages/plus'
 import styles from './Select.module.scss'
 import stylesH from '../styles/Home.module.css'
 
 type CustSelectProps = {
   customers: Customer[]
-  setCustomers: Dispatch<SetStateAction<Customer[] | []>>
-  currentCustomer: Customer
   setCurrentCustomer: Dispatch<SetStateAction<Customer>>
+  currentCustomer: Customer
+  setCustomers: Dispatch<SetStateAction<Customer[] | []>>
   mode: string
 }
 
-export default function CustomerSelect(arg: CustSelectProps) {
-  const [searchWord, setSearchWord] = useState('')
+export default function CustomerSelect(props: CustSelectProps) {
+  const [searchTerm, setSearchTerm] = useState('')
   const customerInputRef = useRef<HTMLInputElement>(null)
   const [flagNewCustomer, setFlagNewCustomer] = useState('')
   const [newName, setNewName] = useState('')
@@ -27,15 +20,33 @@ export default function CustomerSelect(arg: CustSelectProps) {
 
   function liveSearch(e: ChangeEvent<HTMLInputElement>) {
     const st = e.target.value.toLowerCase()
-    setSearchWord(() => st)
-    arg.setCurrentCustomer({ cid: 0, cname: '', cphone: '', gooid: '' })
+    setSearchTerm(() => st)
+    props.setCurrentCustomer({ cid: 0, cname: '', cphone: '', gooid: '' })
+  }
+
+  function liveST(e: ChangeEvent<HTMLSelectElement>) {
+    const indexST = e.target.value
+    const st = props.customers.filter((item: Customer) => {
+      return item.cid === Number(indexST)
+    })
+    if (st.length === 1 && customerInputRef.current !== null) {
+      const curr = st[0]
+      customerInputRef.current.value = curr.cname
+      props.setCurrentCustomer({
+        cid: Number(curr.cid),
+        cname: curr.cname,
+        cphone: curr.cphone,
+        gooid: curr.gooid
+      })
+    }
   }
 
   function dropButtonHandler() {
-    setSearchWord(() => '')
+    setSearchTerm(() => '')
     if (customerInputRef.current !== null) customerInputRef.current.value = ''
-    arg.setCurrentCustomer({ cid: 0, cname: '', cphone: '', gooid: '' })
+    props.setCurrentCustomer({ cid: 0, cname: '', cphone: '', gooid: '' })
   }
+
   function newButtonHandler() {
     setFlagNewCustomer(() => 'Y')
   }
@@ -76,7 +87,7 @@ export default function CustomerSelect(arg: CustSelectProps) {
                 alert('DataBase error: X3')
                 rejectUC(apiRes.error)
               } else {
-                arg.setCustomers(() => apiRes.data || [])
+                props.setCustomers(() => apiRes.data || [])
                 resolveUC(apiRes)
               }
             })
@@ -93,63 +104,66 @@ export default function CustomerSelect(arg: CustSelectProps) {
       })
       .catch()
   }
+
   function cancelNewHandler() {
     setNewName(() => '')
     setNewPhone(() => '')
     setFlagNewCustomer(() => '')
   }
 
-  function setCurr(eid: any) {
-    const st = arg.customers.filter((item: Customer) => {
-      return item.cid === Number(eid)
-    })
-    if (st.length === 1 && customerInputRef.current !== null) {
-      const curr = st[0]
-      customerInputRef.current.value = curr.cname
-      arg.setCurrentCustomer({
-        cid: Number(curr.cid),
-        cname: curr.cname,
-        cphone: curr.cphone,
-        gooid: curr.gooid
-      })
-    }
-  }
-
-  function LiveSearchList() {
-    if (arg.currentCustomer.cid > 0) return <></>
-
-    let cList = arg.customers
+  function CLSresList() {
+    let cList = props.customers
       .filter((item: Customer) => {
-        return item.cname.toLowerCase().includes(searchWord)
+        return item.cname.toLowerCase().includes(searchTerm)
       })
       .map((item: Customer) => {
         return (
-          <div
-            key={item.cid}
-            onClick={() => setCurr(item.cid)}
-            className={styles.csOpt}
-          >
+          <option value={item.cid} key={item.cid}>
             {item.cname}
-          </div>
+          </option>
         )
       })
-
     if (cList.length === 0) return <></>
-
     return (
       <div
         className={styles.floatWrapper}
-        hidden={searchWord === '' || arg.currentCustomer.cid > 0}
+        hidden={searchTerm === '' || props.currentCustomer.cid > 0}
       >
-        <div className={styles.custSelect2}>{cList}</div>
+        <div className={styles.custSelect}>
+          <select onChange={liveST} size={4}>
+            {cList}
+          </select>
+        </div>
       </div>
     )
   }
 
-  function NewForm() {
-    if (flagNewCustomer === '') return <></>
-    return (
-      <div className={styles.floatWrapper}>
+  return (
+    <>
+      <div className={styles.custList}>
+        {/* <p className={styles.title}>Customer</p> */}
+        <input
+          type="search"
+          ref={customerInputRef}
+          placeholder="Select Customer"
+          pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
+          onChange={liveSearch}
+          className={styles.inputCust}
+        />
+        <button
+          onClick={newButtonHandler}
+          className={stylesH.plusButton}
+          hidden={props.mode === 'stat'}
+        >
+          +New
+        </button>
+        <button onClick={dropButtonHandler} className={stylesH.dropButton}>
+          X
+        </button>
+      </div>
+      <CLSresList />
+
+      <div className={styles.floatWrapper} hidden={flagNewCustomer === ''}>
         <div className={styles.newCust}>
           <p className={styles.title}>New Customer</p>
           <p>
@@ -188,33 +202,6 @@ export default function CustomerSelect(arg: CustSelectProps) {
           </p>
         </div>
       </div>
-    )
-  }
-
-  return (
-    <>
-      <div className={styles.custList}>
-        <input
-          type="search"
-          ref={customerInputRef}
-          placeholder="Customer name"
-          pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
-          onChange={liveSearch}
-          className={styles.inputCust}
-        />
-        <button
-          onClick={newButtonHandler}
-          className={stylesH.plusButton}
-          hidden={arg.mode === 'stat'}
-        >
-          +New
-        </button>
-        <button onClick={dropButtonHandler} className={stylesH.dropButton}>
-          X
-        </button>
-      </div>
-      <LiveSearchList />
-      <NewForm />
     </>
   )
 }

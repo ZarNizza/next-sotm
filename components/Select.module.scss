@@ -74,6 +74,38 @@
   transition: 0.25s ease;
 }
 
+.custSelect2 {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 15rem;
+  background-color: #fff;
+  margin: 2rem;
+  padding: 2rem 2rem;
+  border: 1px solid limegreen;
+  border-radius: 10px;
+}
+.custSelect2 .csOpt {
+  display: flex;
+  min-height: 3rem;
+  width: 17rem;
+  padding: 1rem;
+  font-size: large;
+  background-color: #fafff5;
+}
+.custSelect2 .csOpt:hover {
+  background-color: #d5f2ff;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+.custSelect2 .csOpt:nth-child(odd) {
+  background-color: #fffff5;
+}
+.custSelect2 .csOpt:nth-child(odd):hover {
+  background-color: #d5f2ff;
+  transition: 0.25s ease;
+}
+
 @media (max-width: 469px) {
   .inputCust {
     width: 100%;
