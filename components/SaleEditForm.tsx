@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Sale } from '../pages/plus'
-import styles from './Select.module.scss'
-import stylesH from '../styles/Home.module.css'
+import styles from '../styles/Home.module.css'
 import fetchHandler, { FetchArgs } from './fetchHandler'
 
 type editFormArgs = {
@@ -39,8 +38,9 @@ export default function SaleEditForm(a: editFormArgs) {
   }
 
   return (
-    <div className={styles.flexColumnContainer}>
-      <p>
+    <div className={styles.newSeditForm}>
+      <p className={styles.title}>Edit Sale Item</p>
+      <div className={styles.sysButtons}>
         Date:
         <input
           type="text"
@@ -52,9 +52,8 @@ export default function SaleEditForm(a: editFormArgs) {
             setSdate(event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s\d]/gi, ''))
           }
         />
-      </p>
-      <p>
-        {' '}
+      </div>
+      <div className={styles.sysButtons}>
         Cust:
         <input
           type="text"
@@ -66,9 +65,8 @@ export default function SaleEditForm(a: editFormArgs) {
             setScust(Number(event.target.value.replace(/[^\d]/g, '')))
           }
         />
-      </p>
-      <p>
-        {' '}
+      </div>
+      <div className={styles.sysButtons}>
         Prod:
         <input
           type="text"
@@ -80,9 +78,8 @@ export default function SaleEditForm(a: editFormArgs) {
             setSprod(Number(event.target.value.replace(/[^\d]/g, '')))
           }
         />
-      </p>
-      <p>
-        {' '}
+      </div>
+      <div className={styles.sysButtons}>
         Sum:
         <input
           type="text"
@@ -94,14 +91,14 @@ export default function SaleEditForm(a: editFormArgs) {
             setSsum(Number(event.target.value.replace(/[^\d]/g, '')))
           }
         />
-      </p>
+      </div>
 
-      <div className={stylesH.flexRowContainer}>
-        <button onClick={saveEditHandler} className={stylesH.sysButton}>
-          Save
-        </button>
-        <button onClick={cancelHandler} className={stylesH.sysButton}>
-          Cancel
+      <div>
+        <span className={styles.sysButtons}>
+          <button onClick={saveEditHandler}> Update Item </button>
+        </span>
+        <button onClick={cancelHandler} className={styles.dropButton}>
+          X
         </button>
       </div>
     </div>

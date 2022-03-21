@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Xpense } from '../pages/minus'
-import styles from './Select.module.scss'
-import stylesH from '../styles/Home.module.css'
+import styles from '../styles/Home.module.css'
 import fetchHandler, { FetchArgs } from './fetchHandler'
 
 type editFormArgs = {
@@ -37,13 +36,13 @@ export default function XpenseEditForm(a: editFormArgs) {
   }
 
   return (
-    <div className={styles.flexColumnContainer}>
-      <p>Edit Xpense</p>
-      <p>
+    <div className={styles.newXeditForm}>
+      <p className={styles.title}>Edit Xpense Item</p>
+      <div className={styles.sysButtons}>
         Date:
         <input
           type="text"
-          className={styles.inputCust}
+          className={styles.userInput}
           placeholder="Name"
           pattern="[a-zA-Zа-яА-Я\s\-\d]{1,50}"
           value={xDate}
@@ -51,13 +50,12 @@ export default function XpenseEditForm(a: editFormArgs) {
             setXdate(event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s\d]/gi, ''))
           }
         />
-      </p>
-      <p>
-        {' '}
+      </div>
+      <div className={styles.sysButtons}>
         Item:
         <input
           type="text"
-          className={styles.inputCust}
+          className={styles.userInput}
           placeholder="xxxx"
           pattern="^[\d]{0,20}"
           value={xItem || ''}
@@ -65,13 +63,12 @@ export default function XpenseEditForm(a: editFormArgs) {
             setXitem(Number(event.target.value.replace(/[^\d]/g, '')))
           }
         />
-      </p>
-      <p>
-        {' '}
+      </div>
+      <div className={styles.sysButtons}>
         Sum:
         <input
           type="text"
-          className={styles.inputCust}
+          className={styles.userInput}
           placeholder="xxxx"
           pattern="^[\d]{0,20}"
           value={xSum || ''}
@@ -79,14 +76,14 @@ export default function XpenseEditForm(a: editFormArgs) {
             setXsum(Number(event.target.value.replace(/[^\d]/g, '')))
           }
         />
-      </p>
+      </div>
 
-      <div className={stylesH.flexRowContainer}>
-        <button onClick={saveEditHandler} className={stylesH.sysButton}>
-          Save
-        </button>
-        <button onClick={cancelHandler} className={stylesH.sysButton}>
-          Cancel
+      <div>
+        <span className={styles.sysButtons}>
+          <button onClick={saveEditHandler}> Update Item </button>
+        </span>
+        <button onClick={cancelHandler} className={styles.dropButton}>
+          X
         </button>
       </div>
     </div>

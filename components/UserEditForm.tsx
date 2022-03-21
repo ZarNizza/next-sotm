@@ -37,9 +37,8 @@ export default function UserEditForm(a: editFormArgs) {
   }
 
   return (
-    <div className={styles.flexColumnContainer}>
+    <div className={stylesH.newUeditForm}>
       <p>
-        Name:
         <input
           type="text"
           className={styles.inputCust}
@@ -53,7 +52,6 @@ export default function UserEditForm(a: editFormArgs) {
       </p>
       <p>
         {' '}
-        Phone:
         <input
           type="text"
           className={styles.inputCust}

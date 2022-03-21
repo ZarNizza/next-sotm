@@ -52,7 +52,10 @@
 .main h3 {
   margin: 0 auto;
 }
-
+.title {
+  margin: 0 0 0.3rem 0;
+  color: darkolivegreen;
+}
 .square0 {
   display: flex;
   flex-direction: column;
@@ -451,9 +454,12 @@ td.gross {
 }
 
 .newForm,
-.newCEditForm,
-.newEEditForm,
-.newPEditForm {
+.newCeditForm,
+.newUeditForm,
+.newSeditForm,
+.newXeditForm,
+.newEeditForm,
+.newPeditForm {
   position: relative;
   z-index: 99;
   max-width: 26rem;
@@ -467,16 +473,28 @@ td.gross {
   background-color: #fbfff2;
   border: 1px solid lawngreen;
 }
-.newCEditForm {
+.newCeditForm {
   background-color: #ffd900;
   border: 1px solid orange;
 }
-.newEEditForm {
-  background-color: #00ffaa;
-  border: 1px solid rgb(0, 252, 231);
+.newSeditForm {
+  background-color: #7fff7f;
+  border: 1px solid lawngreen;
 }
-.newPEditForm {
-  background-color: #00aeff;
+.newXeditForm {
+  background-color: #ff98f1;
+  border: 1px solid #ff00d4;
+}
+.newUeditForm {
+  background-color: #cc00ff;
+  border: 1px solid #8600a7;
+}
+.newEeditForm {
+  background-color: #fff89b;
+  border: 1px solid #f1ff31;
+}
+.newPeditForm {
+  background-color: #959cff;
   border: 1px solid #8200fc;
 }
 

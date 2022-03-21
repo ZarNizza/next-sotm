@@ -67,7 +67,7 @@ export default function ProductEditForm(arg: editPitemArgs) {
   }
 
   return (
-    <div className={styles.newPEditForm}>
+    <div className={styles.newPeditForm}>
       <p className={styles.title}>Edit Product Item</p>
       <div className={styles.sysButtons}>
         <input
