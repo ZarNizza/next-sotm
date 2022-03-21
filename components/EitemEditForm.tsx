@@ -67,7 +67,7 @@ export default function EitemEditForm(arg: editEitemArgs) {
   }
 
   return (
-    <div className={styles.newForm}>
+    <div className={styles.newEEditForm}>
       <p className={styles.title}>Edit Expense Item</p>
       <div className={styles.sysButtons}>
         <input

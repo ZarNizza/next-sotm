@@ -35,7 +35,7 @@ export default function CustomerEditForm(a: editFormArgs) {
   }
 
   return (
-    <div className={stylesH.newForm}>
+    <div className={stylesH.newCEditForm}>
       <p>
         Name:
         <input

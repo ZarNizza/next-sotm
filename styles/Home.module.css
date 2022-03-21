@@ -425,7 +425,7 @@ td.gross {
 .gray {
   color: gray;
 }
-.editForm {
+.newE {
   display: flex;
   flex-flow: column wrap;
   justify-content: space-between;
@@ -449,15 +449,35 @@ td.gross {
   height: 100vh;
   background-color: rgba(255, 255, 255, 0.685);
 }
-.newForm {
+
+.newForm,
+.newCEditForm,
+.newEEditForm,
+.newPEditForm {
   position: relative;
   z-index: 99;
   max-width: 26rem;
-  background-color: #fbfff2;
+
   margin: 2rem auto;
   padding: 1rem 2rem;
-  border: 1px solid lawngreen;
+
   border-radius: 10px;
+}
+.newForm {
+  background-color: #fbfff2;
+  border: 1px solid lawngreen;
+}
+.newCEditForm {
+  background-color: #ffd900;
+  border: 1px solid orange;
+}
+.newEEditForm {
+  background-color: #00ffaa;
+  border: 1px solid rgb(0, 252, 231);
+}
+.newPEditForm {
+  background-color: #00aeff;
+  border: 1px solid #8200fc;
 }
 
 @media (max-width: 469px) {
