@@ -11,25 +11,26 @@ import DBshortTable from '../components/DBshortTable'
 // import DBshort_ED_Table from '../components/DBshortEditDropTable'
 
 const Home: NextPage = () => {
-  const [customers, setCustomers] = useState<Customer[] | []>([])
-  const [currentCustomer, setCurrentCustomer] = useState<Customer>({
+  const cust0 = {
     cid: 0,
     cname: '',
     cphone: '',
     gooid: ''
-  })
+  }
+  const [customers, setCustomers] = useState<Customer[] | []>([])
+  const [currentCustomer, setCurrentCustomer] = useState<Customer>(cust0)
   const [updateFlag, setUpdateFlag] = useState(0)
   const [showTableFlag, setShowTableFlag] = useState(false)
 
   function setUpdF() {
     setUpdateFlag(() => 1)
-    setCurrentCustomer({ cid: 0, cname: '', cphone: '', gooid: '' })
+    setCurrentCustomer(() => cust0)
     return alert(
       'OK, Updated!\n\nTo refresh CustomerList clear input area - press button (X).'
     )
   }
   function cancelFlag() {
-    return setCurrentCustomer({ cid: 0, cname: '', cphone: '', gooid: '' })
+    return setCurrentCustomer(() => cust0)
   }
   function setShowTableHandler() {
     setShowTableFlag(() => !showTableFlag)
