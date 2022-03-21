@@ -13,7 +13,12 @@
   font-weight: 100;
   font-size: medium;
 }
-
+.flexRow {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
 .custList,
 .newCust {
   background-color: #fbfff2;
@@ -23,7 +28,7 @@
   border-radius: 10px;
 }
 .newCust {
-  background-color: #fafafa;
+  background-color: #d3ff58;
   margin-top: -5rem;
 }
 .custSelect {
@@ -74,35 +79,39 @@
   transition: 0.25s ease;
 }
 
-.custSelect2 {
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
-  height: 15rem;
-  background-color: #fff;
+.selectListForm {
+  background-color: #d3ff58;
   margin: 2rem;
   padding: 2rem 2rem;
   border: 1px solid limegreen;
   border-radius: 10px;
 }
-.custSelect2 .csOpt {
+
+.selectList {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 15rem;
+}
+.selectList .csOpt {
   display: flex;
   min-height: 3rem;
   width: 17rem;
   padding: 1rem;
   font-size: large;
   background-color: #fafff5;
+  // border-top: 1px solid #eee;
 }
-.custSelect2 .csOpt:hover {
-  background-color: #d5f2ff;
+.selectList .csOpt:hover {
+  background-color: #b8ff7e;
   cursor: pointer;
   transition: 0.25s ease;
 }
-.custSelect2 .csOpt:nth-child(odd) {
-  background-color: #fffff5;
+.selectList .csOpt:nth-child(odd) {
+  background-color: #fff;
 }
-.custSelect2 .csOpt:nth-child(odd):hover {
-  background-color: #d5f2ff;
+.selectList .csOpt:nth-child(odd):hover {
+  background-color: #b8ff7e;
   transition: 0.25s ease;
 }
 

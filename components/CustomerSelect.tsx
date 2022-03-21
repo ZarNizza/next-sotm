@@ -27,6 +27,7 @@ export default function CustomerSelect(arg: CustSelectProps) {
 
   function liveSearch(e: ChangeEvent<HTMLInputElement>) {
     const st = e.target.value.toLowerCase()
+    // if (st.length < 3) return
     setSearchWord(() => st)
     arg.setCurrentCustomer({ cid: 0, cname: '', cphone: '', gooid: '' })
   }
@@ -99,24 +100,8 @@ export default function CustomerSelect(arg: CustSelectProps) {
     setFlagNewCustomer(() => '')
   }
 
-  function setCurr(eid: any) {
-    const st = arg.customers.filter((item: Customer) => {
-      return item.cid === Number(eid)
-    })
-    if (st.length === 1 && customerInputRef.current !== null) {
-      const curr = st[0]
-      customerInputRef.current.value = curr.cname
-      arg.setCurrentCustomer({
-        cid: Number(curr.cid),
-        cname: curr.cname,
-        cphone: curr.cphone,
-        gooid: curr.gooid
-      })
-    }
-  }
-
   function LiveSearchList() {
-    if (arg.currentCustomer.cid > 0) return <></>
+    if (searchWord === '' || arg.currentCustomer.cid > 0) return <></>
 
     let cList = arg.customers
       .filter((item: Customer) => {
@@ -137,13 +122,28 @@ export default function CustomerSelect(arg: CustSelectProps) {
     if (cList.length === 0) return <></>
 
     return (
-      <div
-        className={styles.floatWrapper}
-        hidden={searchWord === '' || arg.currentCustomer.cid > 0}
-      >
-        <div className={styles.custSelect2}>{cList}</div>
+      <div className={styles.floatWrapper}>
+        <div className={styles.selectListForm}>
+          <div className={styles.selectList}>{cList}</div>
+        </div>
       </div>
     )
+  }
+
+  function setCurr(eid: any) {
+    const st = arg.customers.filter((item: Customer) => {
+      return item.cid === Number(eid)
+    })
+    if (st.length === 1 && customerInputRef.current !== null) {
+      const curr = st[0]
+      customerInputRef.current.value = curr.cname
+      arg.setCurrentCustomer({
+        cid: Number(curr.cid),
+        cname: curr.cname,
+        cphone: curr.cphone,
+        gooid: curr.gooid
+      })
+    }
   }
 
   function NewForm() {
@@ -178,7 +178,7 @@ export default function CustomerSelect(arg: CustSelectProps) {
               }
             />
           </p>
-          <p>
+          <p className={styles.flexRow}>
             <button onClick={saveNewHandler} className={stylesH.sysButton}>
               Save
             </button>
