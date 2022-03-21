@@ -71,8 +71,8 @@ const Home: NextPage = () => {
         <title>Users</title>
       </Head>
 
-      <div className={styles.container}>
-        <main className={styles.main}>
+      <main className={styles.main}>
+        <div className={styles.flexColumnContainer}>
           <h2>Users: {users.length}</h2>
           <UserSelect
             users={users}
@@ -96,15 +96,13 @@ const Home: NextPage = () => {
           )}
 
           <div className={styles.tableScroll}>
-            {
-              users === undefined || users.length === 0 ? (
-                <p>No data - empty result</p>
-              ) : users.length > 20 ? (
-                <p>.. long items list, see it on Sys page</p>
-              ) : (
-                <DBshortTable resData={users} />
-              )
-            }
+            {users === undefined || users.length === 0 ? (
+              <p>No data - empty result</p>
+            ) : users.length > 20 ? (
+              <p>.. long items list, see it on Sys page</p>
+            ) : (
+              <DBshortTable resData={users} />
+            )}
           </div>
 
           {/* <div>
@@ -114,8 +112,8 @@ const Home: NextPage = () => {
               <DBshort_ED_Table resData={users} target="users" />
             )}
           </div> */}
-        </main>
-      </div>
+        </div>
+      </main>
     </Layout>
   )
 }

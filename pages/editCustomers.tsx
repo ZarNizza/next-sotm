@@ -62,8 +62,8 @@ const Home: NextPage = () => {
         <title>Customers</title>
       </Head>
 
-      <div className={styles.container}>
-        <main className={styles.main}>
+      <main className={styles.main}>
+        <div className={styles.flexColumnContainer}>
           <h2>Customers: {customers.length}</h2>
           <CustomerSelect
             customers={customers}
@@ -103,8 +103,8 @@ const Home: NextPage = () => {
               <></>
             )}
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
     </Layout>
   )
 }
