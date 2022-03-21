@@ -17,50 +17,49 @@ export type User = {
 }
 
 const Home: NextPage = () => {
-  const [users, setUsers] = useState<User[] | []>([])
-  const [currentUser, setCurrentUser] = useState<User>({
+  const user0 = {
     uid: 0,
     uname: '',
     uphone: '',
     gooid: '',
     timezone: ''
-  })
+  }
+  const [users, setUsers] = useState<User[] | []>([])
+  const [currentUser, setCurrentUser] = useState<User>(user0)
   const [updateFlag, setUpdateFlag] = useState(0)
+  const [showTableFlag, setShowTableFlag] = useState(false)
 
   function setUpdF() {
     setUpdateFlag(() => 1)
-    setCurrentUser({ uid: 0, uname: '', uphone: '', gooid: '', timezone: '' })
+    setCurrentUser(() => user0)
     return alert(
-      'OK, Updated!\n\nTo refresh UserList clear input area - press button (X).'
+      'OK, Updated!\n\nTo refresh UsersList clear input area - press button (X).'
     )
   }
   function cancelFlag() {
-    return setCurrentUser({
-      uid: 0,
-      uname: '',
-      uphone: '',
-      gooid: '',
-      timezone: ''
-    })
+    return setCurrentUser(() => user0)
+  }
+  function setShowTableHandler() {
+    setShowTableFlag(() => !showTableFlag)
   }
   //
-  function uInit() {
+  function userInit() {
     const args: FetchArgs = {
       method: 'GET',
       apiSuffix: 'users',
-      title: 'getUser',
+      title: 'getUsers',
       setResData: setUsers
     }
     fetchHandler(args)
   }
 
   useEffect(() => {
-    uInit()
+    userInit()
   }, [])
 
   useEffect(() => {
     if (updateFlag === 1) {
-      uInit()
+      userInit()
       setUpdateFlag(() => 0)
     }
   }, [updateFlag])
@@ -81,6 +80,7 @@ const Home: NextPage = () => {
             setUsers={setUsers}
             mode="new"
           />
+
           {currentUser.uid === 0 ? (
             ''
           ) : (
@@ -95,23 +95,22 @@ const Home: NextPage = () => {
             />
           )}
 
-          <div className={styles.tableScroll}>
-            {users === undefined || users.length === 0 ? (
-              <p>No data - empty result</p>
-            ) : users.length > 20 ? (
-              <p>.. long items list, see it on Sys page</p>
+          <div className={styles.flexColumnContainer}>
+            <button onClick={setShowTableHandler} className={styles.sysButton}>
+              Show/Hide all
+            </button>
+            {showTableFlag ? (
+              users === undefined || users.length === 0 ? (
+                <p>No data - empty result</p>
+              ) : (
+                <div className={styles.tableScroll}>
+                  <DBshortTable resData={users} />
+                </div>
+              )
             ) : (
-              <DBshortTable resData={users} />
+              <></>
             )}
           </div>
-
-          {/* <div>
-            {users === undefined || users.length === 0 ? (
-              <p>No data - empty result</p>
-            ) : (
-              <DBshort_ED_Table resData={users} target="users" />
-            )}
-          </div> */}
         </div>
       </main>
     </Layout>
