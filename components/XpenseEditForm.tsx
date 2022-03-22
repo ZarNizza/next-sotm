@@ -12,7 +12,7 @@ type editFormArgs = {
 export default function XpenseEditForm(a: editFormArgs) {
   const [xDate, setXdate] = useState(a.xpenseToEdit.date.slice(0, 10))
   const [xItem, setXitem] = useState(a.xpenseToEdit.xitem)
-  const [xSum, setXsum] = useState(a.xpenseToEdit.xsum)
+  const [xSum, setXsum] = useState(a.xpenseToEdit.sum)
 
   function saveEditHandler() {
     const args: FetchArgs = {
@@ -23,7 +23,7 @@ export default function XpenseEditForm(a: editFormArgs) {
         mode: 'edit',
         date: xDate,
         xitem: xItem,
-        xsum: xSum,
+        sum: xSum,
         id: a.xpenseToEdit.id
       }),
       setResData: a.setUpdateFlag

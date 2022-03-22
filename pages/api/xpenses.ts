@@ -38,11 +38,11 @@ export default function handler(
         console.log('!!!!!!!!!!! POST, parsedReq=', parsedReq)
         switch (parsedReq.mode) {
           case 'edit':
-            sql = 'UPDATE xpenses SET date=$1, xitem=$2, xsum=$3 WHERE id=$4'
+            sql = 'UPDATE xpenses SET date=$1, xitem=$2, sum=$3 WHERE id=$4'
             params = [
               parsedReq.date,
               String(parsedReq.xitem),
-              String(parsedReq.xsum),
+              String(parsedReq.sum),
               parsedReq.id
             ]
             break
@@ -63,8 +63,8 @@ export default function handler(
                 timeZone +
                 ':00:00'
 
-            sql = 'INSERT INTO xpenses (date, xitem, xsum) VALUES ($1, $2, $3)'
-            params = [sqlDate, String(parsedReq.xitem), String(parsedReq.xsum)]
+            sql = 'INSERT INTO xpenses (date, xitem, sum) VALUES ($1, $2, $3)'
+            params = [sqlDate, String(parsedReq.xitem), String(parsedReq.sum)]
             console.log('---------------------- new: ', sql, ', ', params)
             break
           case 'del':

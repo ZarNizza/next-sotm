@@ -22,7 +22,7 @@ export default function XpenseSelect(props: XpenseSelectProps) {
   function liveSearch(e: ChangeEvent<HTMLInputElement>) {
     const st = e.target.value.toLowerCase()
     setSearchTerm(() => st)
-    props.setCurrentXpense({ id: 0, date: '', xitem: 0, xsum: 0 })
+    props.setCurrentXpense({ id: 0, date: '', xitem: 0, sum: 0 })
   }
 
   function liveST(e: ChangeEvent<HTMLSelectElement>) {
@@ -37,7 +37,7 @@ export default function XpenseSelect(props: XpenseSelectProps) {
         id: Number(curr.id),
         date: curr.date,
         xitem: curr.xitem,
-        xsum: curr.xsum
+        sum: curr.sum
       })
     }
   }
@@ -45,7 +45,7 @@ export default function XpenseSelect(props: XpenseSelectProps) {
   function dropButtonHandler() {
     setSearchTerm(() => '')
     if (xpenseInputRef.current !== null) xpenseInputRef.current.value = ''
-    props.setCurrentXpense({ id: 0, date: '', xitem: 0, xsum: 0 })
+    props.setCurrentXpense({ id: 0, date: '', xitem: 0, sum: 0 })
   }
 
   function newButtonHandler() {
@@ -57,7 +57,7 @@ export default function XpenseSelect(props: XpenseSelectProps) {
         mode: 'new',
         date: newXdate,
         xitem: newXitem,
-        xsum: newXsum
+        sum: newXsum
       }
       fetch('/api/xpenses', {
         method: 'POST',
@@ -124,7 +124,7 @@ export default function XpenseSelect(props: XpenseSelectProps) {
       .map((item: Xpense) => {
         return (
           <option value={item.id} key={item.id}>
-            {item.date}, i={item.xitem}, xsum={item.xsum}
+            {item.date}, i={item.xitem}, sum={item.sum}
           </option>
         )
       })

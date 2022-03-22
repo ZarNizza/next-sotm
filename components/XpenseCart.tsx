@@ -83,7 +83,7 @@ export default function XpenseCart(props: XpenseCartProps) {
         const xsale = {
           mode: 'new',
           xitem: id,
-          xsum: props.eCostRef.current[id]
+          sum: props.eCostRef.current[id]
         }
         fetch('/api/xpenses', {
           method: 'POST',

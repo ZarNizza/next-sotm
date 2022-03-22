@@ -17,7 +17,7 @@ export type Xpense = {
   id?: number
   date: string
   xitem: number
-  xsum: number
+  sum: number
 }
 
 const Home: NextPage = () => {

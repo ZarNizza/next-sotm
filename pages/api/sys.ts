@@ -108,7 +108,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
 
       case 'restore_Xpenses':
         sql =
-          'CREATE TABLE IF NOT EXISTS xpenses (id SERIAL PRIMARY KEY, date DATE, xitem SMALLINT, xsum SMALLINT, del SMALLINT DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS xpenses (id SERIAL PRIMARY KEY, date DATE, xitem SMALLINT, sum SMALLINT, del SMALLINT DEFAULT 0)'
         //CREATE INDEX x ON xpenses (xitem, date)
         err_prefix = 'restore_Xpenses'
         break

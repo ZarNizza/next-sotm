@@ -15,20 +15,20 @@ const Home: NextPage = () => {
     id: 0,
     date: '',
     xitem: 0,
-    xsum: 0
+    sum: 0
   })
   const [updateFlag, setUpdateFlag] = useState(0)
   const [showTableFlag, setShowTableFlag] = useState(false)
 
   function setUpdF() {
     setUpdateFlag(() => 1)
-    setCurrentXpense({ id: 0, date: '', xitem: 0, xsum: 0 })
+    setCurrentXpense({ id: 0, date: '', xitem: 0, sum: 0 })
     return alert(
       'OK, Updated!\n\nTo refresh XpensesList clear input area - press button (X).'
     )
   }
   function cancelFlag() {
-    return setCurrentXpense({ id: 0, date: '', xitem: 0, xsum: 0 })
+    return setCurrentXpense({ id: 0, date: '', xitem: 0, sum: 0 })
   }
   function setShowTableHandler() {
     setShowTableFlag(() => !showTableFlag)

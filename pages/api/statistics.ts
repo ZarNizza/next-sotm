@@ -141,7 +141,7 @@ export default async function sysHandler(
         //
         case 'show_X':
           sqlQuery =
-            'SELECT e.symbol, SUM(CASE WHEN x.xitem = e.id THEN x.xsum ELSE 0 END) AS Xgross FROM eitems AS e' +
+            'SELECT e.symbol, SUM(CASE WHEN x.xitem = e.id THEN x.sum ELSE 0 END) AS Xgross FROM eitems AS e' +
             ' LEFT JOIN xpenses AS x ON x.xitem = e.id' +
             ' WHERE (e.del = 0) AND (x.del = 0) AND (x.date BETWEEN ' +
             startDate +
@@ -168,7 +168,7 @@ export default async function sysHandler(
             currentCustomer +
             ' GROUP BY ROLLUP (p.symbol) ORDER BY p.symbol) ' +
             'UNION ALL ' +
-            '(SELECT e.symbol, SUM(CASE WHEN x.xitem = e.id THEN x.xsum ELSE 0 END) AS Xgross FROM eitems AS e' +
+            '(SELECT e.symbol, SUM(CASE WHEN x.xitem = e.id THEN x.sum ELSE 0 END) AS Xgross FROM eitems AS e' +
             ' LEFT JOIN xpenses AS x ON x.xitem = e.id' +
             ' WHERE (e.del = 0) AND (x.del = 0) AND (x.date BETWEEN ' +
             startDate +
@@ -234,7 +234,7 @@ export default async function sysHandler(
               "SUM(CASE WHEN DATE(x.date) = '" +
               item +
               "' AND x.xitem = e.id " +
-              ' THEN x.xsum ELSE 0 END) AS "' +
+              ' THEN x.sum ELSE 0 END) AS "' +
               item.slice(5) +
               '", ',
             ''
@@ -256,7 +256,7 @@ export default async function sysHandler(
             ' UNION ALL ' +
             '(SELECT e.symbol,' +
             sqlDXSum +
-            ' SUM(CASE WHEN x.xitem = e.id THEN x.xsum ELSE 0 END) AS Xgross FROM eitems AS e' +
+            ' SUM(CASE WHEN x.xitem = e.id THEN x.sum ELSE 0 END) AS Xgross FROM eitems AS e' +
             ' LEFT JOIN xpenses AS x ON x.xitem = e.id' +
             ' WHERE (e.del = 0) AND (x.del = 0) AND (x.date BETWEEN ' +
             startDate +
