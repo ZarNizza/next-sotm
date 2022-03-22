@@ -21,7 +21,7 @@ type CustSelectProps = {
 export default function CustomerSelect(arg: CustSelectProps) {
   const [searchWord, setSearchWord] = useState('')
   const customerInputRef = useRef<HTMLInputElement>(null)
-  const [flagNewCustomer, setFlagNewCustomer] = useState('')
+  const [flagNew, setFlagNewCustomer] = useState('')
   const [newName, setNewName] = useState('')
   const [newPhone, setNewPhone] = useState('')
 
@@ -146,10 +146,32 @@ export default function CustomerSelect(arg: CustSelectProps) {
     }
   }
 
-  function NewForm() {
-    if (flagNewCustomer === '') return <></>
-    return (
-      <div className={styles.floatWrapper}>
+  return (
+    <>
+      <div className={styles.custList}>
+        <input
+          type="search"
+          ref={customerInputRef}
+          placeholder="Customer name"
+          pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
+          onChange={liveSearch}
+          className={styles.inputCust}
+        />
+        <button
+          onClick={newButtonHandler}
+          className={stylesH.plusButton}
+          hidden={arg.mode === 'stat'}
+        >
+          +New
+        </button>
+        <button onClick={dropButtonHandler} className={stylesH.dropButton}>
+          X
+        </button>
+      </div>
+
+      <LiveSearchList />
+
+      <div className={styles.floatWrapper} hidden={flagNew === ''}>
         <div className={styles.newCust}>
           <p className={styles.title}>New Customer</p>
           <p>
@@ -188,33 +210,6 @@ export default function CustomerSelect(arg: CustSelectProps) {
           </p>
         </div>
       </div>
-    )
-  }
-
-  return (
-    <>
-      <div className={styles.custList}>
-        <input
-          type="search"
-          ref={customerInputRef}
-          placeholder="Customer name"
-          pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
-          onChange={liveSearch}
-          className={styles.inputCust}
-        />
-        <button
-          onClick={newButtonHandler}
-          className={stylesH.plusButton}
-          hidden={arg.mode === 'stat'}
-        >
-          +New
-        </button>
-        <button onClick={dropButtonHandler} className={stylesH.dropButton}>
-          X
-        </button>
-      </div>
-      <LiveSearchList />
-      <NewForm />
     </>
   )
 }
