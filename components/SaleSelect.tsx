@@ -23,20 +23,20 @@ export default function SaleSelect(props: SaleSelectProps) {
   function liveSearch(e: ChangeEvent<HTMLInputElement>) {
     const st = e.target.value.toLowerCase()
     setSearchTerm(() => st)
-    props.setCurrentSale({ sid: 0, sdate: '', cust: 0, prod: 0, sum: 0 })
+    props.setCurrentSale({ id: 0, date: '', cust: 0, prod: 0, sum: 0 })
   }
 
   function liveST(e: ChangeEvent<HTMLSelectElement>) {
     const indexST = e.target.value
     const st = props.sales.filter((item: Sale) => {
-      return item.sid === Number(indexST)
+      return item.id === Number(indexST)
     })
     if (st.length === 1 && saleInputRef.current !== null) {
       const curr = st[0]
-      saleInputRef.current.value = curr.sdate
+      saleInputRef.current.value = curr.date
       props.setCurrentSale({
-        sid: Number(curr.sid),
-        sdate: curr.sdate,
+        id: Number(curr.id),
+        date: curr.date,
         cust: curr.cust,
         prod: curr.prod,
         sum: curr.sum
@@ -47,7 +47,7 @@ export default function SaleSelect(props: SaleSelectProps) {
   function dropButtonHandler() {
     setSearchTerm(() => '')
     if (saleInputRef.current !== null) saleInputRef.current.value = ''
-    props.setCurrentSale({ sid: 0, sdate: '', cust: 0, prod: 0, sum: 0 })
+    props.setCurrentSale({ id: 0, date: '', cust: 0, prod: 0, sum: 0 })
   }
 
   function newButtonHandler() {
@@ -57,7 +57,7 @@ export default function SaleSelect(props: SaleSelectProps) {
     return new Promise((resolveSS, rejectSS) => {
       const body = {
         mode: 'new',
-        sdate: newSdate,
+        date: newSdate,
         cust: newScust,
         prod: newSprod,
         sum: newSsum
@@ -119,16 +119,16 @@ export default function SaleSelect(props: SaleSelectProps) {
     let cList = props.sales
       .filter((item: Sale) => {
         return (
-          item.sdate.toLowerCase().includes(searchTerm) ||
+          item.date.toLowerCase().includes(searchTerm) ||
           String(item.cust).includes(searchTerm) ||
           String(item.prod).includes(searchTerm) ||
-          String(item.sid).includes(searchTerm)
+          String(item.id).includes(searchTerm)
         )
       })
       .map((item: Sale) => {
         return (
-          <option value={item.sid} key={item.sid}>
-            {item.sdate}, c={item.cust}, p={item.prod}, sum={item.sum}
+          <option value={item.id} key={item.id}>
+            {item.date}, c={item.cust}, p={item.prod}, sum={item.sum}
           </option>
         )
       })
@@ -164,7 +164,7 @@ export default function SaleSelect(props: SaleSelectProps) {
       </div>
       <div
         className={styles.floatWrapper}
-        hidden={searchTerm === '' || !!props.currentSale.sid}
+        hidden={searchTerm === '' || !!props.currentSale.id}
       >
         <div className={styles.custSelect}>
           <CLSresList />

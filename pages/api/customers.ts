@@ -28,7 +28,7 @@ export default function handler(
 
     switch (req.method) {
       case 'GET':
-        sql = 'SELECT * FROM customers ORDER BY cname'
+        sql = 'SELECT * FROM customers ORDER BY name'
         break
 
       case 'POST':
@@ -37,28 +37,28 @@ export default function handler(
         switch (parsedReq.mode) {
           case 'edit':
             sql =
-              "UPDATE customers SET cname='" +
-              parsedReq.cname.substring(0, 50) +
-              "', cphone='" +
-              parsedReq.cphone.substring(0, 20) +
+              "UPDATE customers SET name='" +
+              parsedReq.name.substring(0, 50) +
+              "', phone='" +
+              parsedReq.phone.substring(0, 20) +
               "', gooid='" +
               String(parsedReq.gooid).substring(0, 20) +
-              "' WHERE cid=" +
-              parsedReq.cid
+              "' WHERE id=" +
+              parsedReq.id
             break
           case 'new':
-            sql = 'INSERT INTO customers (cname, cphone) VALUES ($1, $2)'
+            sql = 'INSERT INTO customers (name, phone) VALUES ($1, $2)'
             params = [
-              parsedReq.cname.substring(0, 50),
-              parsedReq.cphone.substring(0, 20)
+              parsedReq.name.substring(0, 50),
+              parsedReq.phone.substring(0, 20)
             ]
             console.log('---------------------- new: ', sql, params)
             break
           case 'del':
-            sql = 'UPDATE customers SET cdel = 1 WHERE cid=' + parsedReq.cid
+            sql = 'UPDATE customers SET del = 1 WHERE id=' + parsedReq.id
             break
           case 'restore':
-            sql = 'UPDATE customers SET cdel = 0 WHERE cid=' + parsedReq.cid
+            sql = 'UPDATE customers SET del = 0 WHERE id=' + parsedReq.id
             break
           default:
             console.log('! cust - bad POST body.mode api request')

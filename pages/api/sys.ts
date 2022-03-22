@@ -81,61 +81,61 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
 
       case 'restore_Users':
         sql =
-          'CREATE TABLE IF NOT EXISTS users (uid SERIAL PRIMARY KEY, uname VARCHAR(50), uphone VARCHAR(20), gooid VARCHAR(30), timezone SMALLINT, udel SMALLINT DEFAULT 0)'
-        //CREATE INDEX u ON users (lower(uname), uphone)
+          'CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, name VARCHAR(50), phone VARCHAR(20), gooid VARCHAR(30), timezone SMALLINT, del SMALLINT DEFAULT 0)'
+        //CREATE INDEX u ON users (lower(name), phone)
         err_prefix = 'restore_Users'
         break
 
       case 'restore_Customers':
         sql =
-          'CREATE TABLE IF NOT EXISTS customers (cid SERIAL PRIMARY KEY, cname VARCHAR(50), cphone VARCHAR(20), gooid VARCHAR(30), cdel SMALLINT DEFAULT 0)'
-        //CREATE INDEX c ON customers (lower(cname), cphone)
+          'CREATE TABLE IF NOT EXISTS customers (id SERIAL PRIMARY KEY, name VARCHAR(50), phone VARCHAR(20), gooid VARCHAR(30), del SMALLINT DEFAULT 0)'
+        //CREATE INDEX c ON customers (lower(name), phone)
         err_prefix = 'restore_Customers'
         break
 
       case 'restore_Products':
         sql =
-          'CREATE TABLE IF NOT EXISTS prod (pid SERIAL PRIMARY KEY, pname VARCHAR(50), psymbol VARCHAR(7), pdel SMALLINT DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS prod (id SERIAL PRIMARY KEY, name VARCHAR(50), symbol VARCHAR(7), del SMALLINT DEFAULT 0)'
         err_prefix = 'restore_Products'
         break
 
       case 'restore_Sales':
         sql =
-          'CREATE TABLE IF NOT EXISTS sales (sid SERIAL PRIMARY KEY, sdate DATE, cust SMALLINT, prod SMALLINT, sum SMALLINT, sdel SMALLINT DEFAULT 0)'
-        //CREATE INDEX s ON sales (cust, prod, sdate)
+          'CREATE TABLE IF NOT EXISTS sales (id SERIAL PRIMARY KEY, date DATE, cust SMALLINT, prod SMALLINT, sum SMALLINT, del SMALLINT DEFAULT 0)'
+        //CREATE INDEX s ON sales (cust, prod, date)
         err_prefix = 'restore_Sales'
         break
 
       case 'restore_Xpenses':
         sql =
-          'CREATE TABLE IF NOT EXISTS xpenses (xid SERIAL PRIMARY KEY, xdate DATE, xitem SMALLINT, xsum SMALLINT, xdel SMALLINT DEFAULT 0)'
-        //CREATE INDEX x ON xpenses (xitem, xdate)
+          'CREATE TABLE IF NOT EXISTS xpenses (id SERIAL PRIMARY KEY, date DATE, xitem SMALLINT, xsum SMALLINT, del SMALLINT DEFAULT 0)'
+        //CREATE INDEX x ON xpenses (xitem, date)
         err_prefix = 'restore_Xpenses'
         break
 
       case 'restore_Eitems':
         sql =
-          'CREATE TABLE IF NOT EXISTS eitems (eid SERIAL PRIMARY KEY, ename VARCHAR(50), esymbol VARCHAR(7), edel SMALLINT DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS eitems (id SERIAL PRIMARY KEY, name VARCHAR(50), symbol VARCHAR(7), del SMALLINT DEFAULT 0)'
         err_prefix = 'restore_Eitems'
         break
 
       case 'index_Users':
-        sql = 'CREATE INDEX u ON users (lower(uname), uphone)'
+        sql = 'CREATE INDEX u ON users (lower(name), phone)'
         err_prefix = 'index_Users'
         break
 
       case 'index_Customers':
-        sql = 'CREATE INDEX c ON customers (lower(cname), cphone)'
+        sql = 'CREATE INDEX c ON customers (lower(name), phone)'
         err_prefix = 'index_Customers'
         break
 
       case 'index_Sales':
-        sql = 'CREATE INDEX s ON sales (cust, prod, sdate)'
+        sql = 'CREATE INDEX s ON sales (cust, prod, date)'
         err_prefix = 'index_Sales'
         break
 
       case 'index_Xpenses':
-        sql = 'CREATE INDEX x ON xpenses (xitem, xdate)'
+        sql = 'CREATE INDEX x ON xpenses (xitem, date)'
         err_prefix = 'index_Xpenses'
         break
 

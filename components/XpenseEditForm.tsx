@@ -10,7 +10,7 @@ type editFormArgs = {
 }
 
 export default function XpenseEditForm(a: editFormArgs) {
-  const [xDate, setXdate] = useState(a.xpenseToEdit.xdate.slice(0, 10))
+  const [xDate, setXdate] = useState(a.xpenseToEdit.date.slice(0, 10))
   const [xItem, setXitem] = useState(a.xpenseToEdit.xitem)
   const [xSum, setXsum] = useState(a.xpenseToEdit.xsum)
 
@@ -21,10 +21,10 @@ export default function XpenseEditForm(a: editFormArgs) {
       title: 'edit-X',
       body: JSON.stringify({
         mode: 'edit',
-        xdate: xDate,
+        date: xDate,
         xitem: xItem,
         xsum: xSum,
-        xid: a.xpenseToEdit.xid
+        id: a.xpenseToEdit.id
       }),
       setResData: a.setUpdateFlag
     }

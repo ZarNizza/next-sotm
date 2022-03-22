@@ -30,7 +30,7 @@ export default function handler(
 
     switch (req.method) {
       case 'GET':
-        sql = 'SELECT * FROM sales ORDER BY sdate'
+        sql = 'SELECT * FROM sales ORDER BY date'
         break
 
       case 'POST':
@@ -39,21 +39,21 @@ export default function handler(
         switch (parsedReq.mode) {
           case 'edit':
             sql =
-              'UPDATE sales SET sdate=$1, cust=$2, prod=$3, sum=$4 WHERE sid=$5'
+              'UPDATE sales SET date=$1, cust=$2, prod=$3, sum=$4 WHERE id=$5'
             params = [
-              parsedReq.sdate,
+              parsedReq.date,
               String(parsedReq.cust),
               String(parsedReq.prod),
               String(parsedReq.sum),
-              parsedReq.sid
+              parsedReq.id
             ]
             break
           case 'new':
             const today = new Date()
             const m0 = Number(today.getMonth()) < 9 ? '0' : ''
             const d0 = Number(today.getDate()) < 9 ? '0' : ''
-            const sqlDate = !!parsedReq.sdate
-              ? parsedReq.sdate
+            const sqlDate = !!parsedReq.date
+              ? parsedReq.date
               : String(today.getFullYear()) +
                 '-' +
                 m0 +
@@ -66,7 +66,7 @@ export default function handler(
                 ':00:00'
 
             sql =
-              'INSERT INTO sales (sdate, cust, prod, sum) VALUES ($1, $2, $3, $4)'
+              'INSERT INTO sales (date, cust, prod, sum) VALUES ($1, $2, $3, $4)'
             params = [
               sqlDate,
               String(parsedReq.cust),
@@ -76,10 +76,10 @@ export default function handler(
             console.log('---------------------- new: ', sql, params)
             break
           case 'del':
-            sql = 'UPDATE sales SET sdel = 1 WHERE sid=' + parsedReq.sid
+            sql = 'UPDATE sales SET del = 1 WHERE id=' + parsedReq.id
             break
           case 'restore':
-            sql = 'UPDATE sales SET sdel = 0 WHERE sid=' + parsedReq.sid
+            sql = 'UPDATE sales SET del = 0 WHERE id=' + parsedReq.id
             break
           default:
             console.log('! S - bad POST body.mode api request')

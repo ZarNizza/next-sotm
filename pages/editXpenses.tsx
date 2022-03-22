@@ -12,8 +12,8 @@ import DBshortTable from '../components/DBshortTable'
 const Home: NextPage = () => {
   const [xpenses, setXpenses] = useState<Xpense[] | []>([])
   const [currentXpense, setCurrentXpense] = useState<Xpense>({
-    xid: 0,
-    xdate: '',
+    id: 0,
+    date: '',
     xitem: 0,
     xsum: 0
   })
@@ -22,13 +22,13 @@ const Home: NextPage = () => {
 
   function setUpdF() {
     setUpdateFlag(() => 1)
-    setCurrentXpense({ xid: 0, xdate: '', xitem: 0, xsum: 0 })
+    setCurrentXpense({ id: 0, date: '', xitem: 0, xsum: 0 })
     return alert(
       'OK, Updated!\n\nTo refresh XpensesList clear input area - press button (X).'
     )
   }
   function cancelFlag() {
-    return setCurrentXpense({ xid: 0, xdate: '', xitem: 0, xsum: 0 })
+    return setCurrentXpense({ id: 0, date: '', xitem: 0, xsum: 0 })
   }
   function setShowTableHandler() {
     setShowTableFlag(() => !showTableFlag)
@@ -72,13 +72,13 @@ const Home: NextPage = () => {
             mode="new"
           />
 
-          {currentXpense.xid === 0 ? (
+          {currentXpense.id === 0 ? (
             ''
           ) : (
             <XpenseEditForm
               xpenseToEdit={
                 xpenses.filter((item: Xpense) => {
-                  return item.xid === Number(currentXpense.xid)
+                  return item.id === Number(currentXpense.id)
                 })[0]
               }
               setUpdateFlag={setUpdF}

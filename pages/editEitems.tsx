@@ -9,20 +9,20 @@ import EitemNew from '../components/EitemNew'
 import EitemEditForm from '../components/EitemEditForm'
 
 export type Eitem = {
-  eid: number
-  ename: string
-  esymbol: string
+  id: number
+  name: string
+  symbol: string
 }
 export type Xpense = {
-  xid?: number
-  xdate: string
+  id?: number
+  date: string
   xitem: number
   xsum: number
 }
 
 const Home: NextPage = () => {
   const [eItems, setEitems] = useState<Eitem[]>([])
-  const [currEitem, setCurrEitem] = useState<Eitem['eid']>(0)
+  const [currEitem, setCurrEitem] = useState<Eitem['id']>(0)
   const [newFlag, setNewFlag] = useState(false)
 
   initEitems(setEitems)
@@ -56,7 +56,7 @@ const Home: NextPage = () => {
             <EitemEditForm
               itemToEdit={
                 eItems.filter((item: Eitem) => {
-                  return item.eid === Number(currEitem)
+                  return item.id === Number(currEitem)
                 })[0]
               }
               setEitems={setEitems}

@@ -18,23 +18,23 @@ export default function EitemEditStore(arg: EitemsStoreArgs) {
   const eItemsCheckBoxesSet = arg.eItems.map((item: Eitem) => {
     function checkHandler() {
       if (arg.currEitem === 0) {
-        arg.setCurrEitem(() => item.eid)
+        arg.setCurrEitem(() => item.id)
       } else {
-        if (arg.currEitem === item.eid) {
+        if (arg.currEitem === item.id) {
           arg.setCurrEitem(() => 0)
         } else {
           arg.setCurrEitem(() => 0)
-          setTimeout(() => arg.setCurrEitem(() => item.eid), 100)
+          setTimeout(() => arg.setCurrEitem(() => item.id), 100)
         }
       }
     }
 
     return (
       <CheckBoxButton
-        key={item.eid}
-        text={item.esymbol}
+        key={item.id}
+        text={item.symbol}
         onClick={checkHandler}
-        checked={arg.currEitem === item.eid}
+        checked={arg.currEitem === item.id}
       />
     )
   })

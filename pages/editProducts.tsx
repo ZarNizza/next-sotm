@@ -11,7 +11,7 @@ import ProductEditForm from '../components/ProductEditForm'
 
 const Home: NextPage = () => {
   const [pItems, setPitems] = useState<Product[]>([])
-  const [currPitem, setCurrPitem] = useState<Product['pid']>(0)
+  const [currPitem, setCurrPitem] = useState<Product['id']>(0)
   const [newFlag, setNewFlag] = useState(false)
 
   initProducts(setPitems)
@@ -45,7 +45,7 @@ const Home: NextPage = () => {
             <ProductEditForm
               itemToEdit={
                 pItems.filter((item: Product) => {
-                  return item.pid === Number(currPitem)
+                  return item.id === Number(currPitem)
                 })[0]
               }
               setPitems={setPitems}

@@ -9,21 +9,21 @@ import XpenseCart from '../components/XpenseCart'
 import EitemNew from '../components/EitemNew'
 
 export type Eitem = {
-  eid: number
-  ename: string
-  esymbol: string
+  id: number
+  name: string
+  symbol: string
 }
 export type Xpense = {
-  xid?: number
-  xdate: string
+  id?: number
+  date: string
   xitem: number
   xsum: number
 }
 
 const Home: NextPage = () => {
   const [eItems, setEitems] = useState<Eitem[]>([])
-  const [selectedEitems, setSelectedEitems] = useState<Eitem['eid'][]>([])
-  const eCostRef = useRef<Record<Eitem['eid'], number>>({})
+  const [selectedEitems, setSelectedEitems] = useState<Eitem['id'][]>([])
+  const eCostRef = useRef<Record<Eitem['id'], number>>({})
   const [gross, setGross] = useState<number>(0)
   const [newFlag, setNewFlag] = useState(false)
 

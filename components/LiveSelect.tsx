@@ -6,49 +6,79 @@ import {
   useRef,
   useState
 } from 'react'
-import type { Customer } from '../pages/plus'
+import type { Customer, Sale } from '../pages/plus'
+import type { Xpense } from '../pages/minus'
+import type { User } from '../pages/editUsers'
 import styles from './Select.module.scss'
 import stylesH from '../styles/Home.module.css'
 
-type CustSelectProps = {
-  customers: Customer[]
-  setCustomers: Dispatch<SetStateAction<Customer[] | []>>
-  currentCustomer: Customer
-  setCurrentCustomer: Dispatch<SetStateAction<Customer>>
+type SelectArgs = {
+  items: Customer[] | User[] | Sale[] | Xpense[]
+  setItems: Dispatch<
+    SetStateAction<Customer[] | User[] | Sale[] | Xpense[] | []>
+  >
+  currentItem: Customer | User | Sale | Xpense
+  setCurrentItem: Dispatch<SetStateAction<Customer | User | Sale | Xpense>>
   mode: string
+  type: string
 }
 
-export default function CustomerSelect(arg: CustSelectProps) {
+export default function Select(arg: SelectArgs) {
   const [searchWord, setSearchWord] = useState('')
   const customerInputRef = useRef<HTMLInputElement>(null)
-  const [flagNewCustomer, setFlagNewCustomer] = useState('')
+  const [flagNewItem, setFlagNewItem] = useState('')
   const [newName, setNewName] = useState('')
   const [newPhone, setNewPhone] = useState('')
+  const [newGooid, setNewGooid] = useState('')
+  const [newTimeZone, setNewTimeZone] = useState('')
+  let item0: SetStateAction<Customer | User | Sale | Xpense>
+
+  switch (arg.type) {
+    case 'C': {
+      item0 = { id: 0, name: '', phone: '', gooid: '' }
+      break
+    }
+    case 'U': {
+      item0 = { id: 0, name: '', phone: '', gooid: '', timezone: '' }
+      break
+    }
+    case 'S': {
+      item0 = { id: 0, date: '', cust: 0, prod: 0, sum: 0 }
+      break
+    }
+    case 'X': {
+      item0 = { id: 0, date: '', xitem: 0, xsum: 0 }
+      break
+    }
+    default: {
+      console.log('LiveSelect !!! empty item type.')
+      return
+    }
+  }
 
   function liveSearch(e: ChangeEvent<HTMLInputElement>) {
     const st = e.target.value.toLowerCase()
-    // if (st.length < 3) return
     setSearchWord(() => st)
-    arg.setCurrentCustomer({ id: 0, name: '', phone: '', gooid: '' })
+    arg.setCurrentItem(item0)
   }
 
   function dropButtonHandler() {
     setSearchWord(() => '')
     if (customerInputRef.current !== null) customerInputRef.current.value = ''
-    arg.setCurrentCustomer({ id: 0, name: '', phone: '', gooid: '' })
+    arg.setCurrentItem(item0)
   }
   function newButtonHandler() {
-    setFlagNewCustomer(() => 'Y')
+    setFlagNewItem(() => 'Y')
   }
   function saveNewHandler() {
     if (newName === '' || newPhone === '') {
       alert('! empty field !')
-      setFlagNewCustomer(() => '')
+      setFlagNewItem(() => '')
       return
     }
     return new Promise((resolveSS, rejectSS) => {
       const body = { mode: 'new', name: newName, phone: newPhone }
-      fetch('/api/customers', {
+      fetch('/api/items', {
         method: 'POST',
         body: JSON.stringify(body)
       })
@@ -69,7 +99,7 @@ export default function CustomerSelect(arg: CustSelectProps) {
     })
       .then(() => {
         new Promise((resolveUC, rejectUC) => {
-          fetch('/api/customers')
+          fetch('/api/items')
             .then((apiRes) => apiRes.json())
             .then((apiRes) => {
               if (apiRes.error) {
@@ -77,7 +107,7 @@ export default function CustomerSelect(arg: CustSelectProps) {
                 alert('DataBase error: X3')
                 rejectUC(apiRes.error)
               } else {
-                arg.setCustomers(() => apiRes.data || [])
+                arg.setItems(() => apiRes.data || [])
                 resolveUC(apiRes)
               }
             })
@@ -90,24 +120,24 @@ export default function CustomerSelect(arg: CustSelectProps) {
       .then(() => {
         setNewName(() => '')
         setNewPhone(() => '')
-        setFlagNewCustomer(() => '')
+        setFlagNewItem(() => '')
       })
       .catch()
   }
   function cancelNewHandler() {
     setNewName(() => '')
     setNewPhone(() => '')
-    setFlagNewCustomer(() => '')
+    setFlagNewItem(() => '')
   }
 
   function LiveSearchList() {
-    if (searchWord === '' || arg.currentCustomer.id > 0) return <></>
+    if (searchWord === '' || arg.currentItem.id > 0) return <></>
 
-    let cList = arg.customers
-      .filter((item: Customer) => {
+    let cList = arg.items
+      .filter((item: Customer | User | Sale | Xpense) => {
         return item.name.toLowerCase().includes(searchWord)
       })
-      .map((item: Customer) => {
+      .map((item: Customer | User | Sale | Xpense) => {
         return (
           <div
             key={item.id}
@@ -131,13 +161,13 @@ export default function CustomerSelect(arg: CustSelectProps) {
   }
 
   function setCurr(id: any) {
-    const st = arg.customers.filter((item: Customer) => {
+    const st = arg.items.filter((item: Customer | User | Sale | Xpense) => {
       return item.id === Number(id)
     })
     if (st.length === 1 && customerInputRef.current !== null) {
       const curr = st[0]
       customerInputRef.current.value = curr.name
-      arg.setCurrentCustomer({
+      arg.setCurrentItem({
         id: Number(curr.id),
         name: curr.name,
         phone: curr.phone,
@@ -147,7 +177,7 @@ export default function CustomerSelect(arg: CustSelectProps) {
   }
 
   function NewForm() {
-    if (flagNewCustomer === '') return <></>
+    if (flagNewItem === '') return <></>
     return (
       <div className={styles.floatWrapper}>
         <div className={styles.newCust}>

@@ -17,27 +17,27 @@ export default function ProductStore(props: ProductStoreProps) {
     //
     function checkHandler() {
       props.setSelectedProducts((prevSelectedProducts) => {
-        if (item.pid) delete props.prodCostRef.current[item.pid]
+        if (item.id) delete props.prodCostRef.current[item.id]
         props.setGross(
           Object.values(props.prodCostRef.current).reduce(
             (prev, curr) => prev + curr,
             0
           )
         )
-        return prevSelectedProducts.includes(item.pid)
+        return prevSelectedProducts.includes(item.id)
           ? prevSelectedProducts.filter(
-              (product: Product['pid']) => product !== item.pid
+              (product: Product['id']) => product !== item.id
             )
-          : [...prevSelectedProducts, item.pid]
+          : [...prevSelectedProducts, item.id]
       })
     }
 
     return (
       <CheckBoxButton
-        key={item.pid}
-        text={item.psymbol}
+        key={item.id}
+        text={item.symbol}
         onClick={checkHandler}
-        checked={props.selectedProducts.includes(item.pid)}
+        checked={props.selectedProducts.includes(item.id)}
       />
     )
   })

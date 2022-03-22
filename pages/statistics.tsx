@@ -21,9 +21,9 @@ type apiBody = {
 const Home: NextPage = () => {
   const [customers, setCustomers] = useState<Customer[]>([])
   const [currentCustomer, setCurrentCustomer] = useState<Customer>({
-    cid: 0,
-    cname: '',
-    cphone: '',
+    id: 0,
+    name: '',
+    phone: '',
     gooid: ''
   })
   InitCustomers(setCustomers)
@@ -31,7 +31,7 @@ const Home: NextPage = () => {
   InitProducts(setProducts)
 
   const [resData, setResData] = useState<Sale[]>([
-    // { sid: 0, sdate: '2022-02-02', cust: 0, prod: 0, sum: 0 }
+    // { id: 0, date: '2022-02-02', cust: 0, prod: 0, sum: 0 }
   ])
   const [resSource, setResSource] = useState('')
   const [startDate, setStartDate] = useState(myDate('today'))

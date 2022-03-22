@@ -28,7 +28,7 @@ export default function handler(
 
     switch (req.method) {
       case 'GET':
-        sql = 'SELECT * FROM prod ORDER BY psymbol'
+        sql = 'SELECT * FROM prod ORDER BY symbol'
         break
 
       case 'POST':
@@ -36,26 +36,26 @@ export default function handler(
         console.log('!!!!!!!!!!! POST, parsedReq=', parsedReq)
         switch (parsedReq.mode) {
           case 'edit':
-            sql = 'UPDATE prod SET pname=$1, psymbol=$2 WHERE pid=$3'
+            sql = 'UPDATE prod SET name=$1, symbol=$2 WHERE id=$3'
             params = [
-              parsedReq.pname.substring(0, 50),
-              parsedReq.psymbol.substring(0, 7),
-              parsedReq.pid
+              parsedReq.name.substring(0, 50),
+              parsedReq.symbol.substring(0, 7),
+              parsedReq.id
             ]
             break
           case 'new':
-            sql = 'INSERT INTO prod (pname, psymbol) VALUES ($1, $2)'
+            sql = 'INSERT INTO prod (name, symbol) VALUES ($1, $2)'
             params = [
-              parsedReq.pname.substring(0, 50),
-              parsedReq.psymbol.substring(0, 7)
+              parsedReq.name.substring(0, 50),
+              parsedReq.symbol.substring(0, 7)
             ]
             console.log('---------------------- new: ', sql, params)
             break
           case 'del':
-            sql = 'UPDATE prod SET pdel = 1 WHERE pid=' + parsedReq.pid
+            sql = 'UPDATE prod SET del = 1 WHERE id=' + parsedReq.id
             break
           case 'restore':
-            sql = 'UPDATE prod SET pdel = 0 WHERE pid=' + parsedReq.pid
+            sql = 'UPDATE prod SET del = 0 WHERE id=' + parsedReq.id
             break
           default:
             console.log('! Prod - bad POST body.mode api request')

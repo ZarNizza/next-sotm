@@ -18,8 +18,8 @@ const timeZone = '04'
 
 function SaveXpense(args: Xpense) {
   return new Promise((resolveSS, rejectSS) => {
-    const sql = 'INSERT INTO xpenses (xdate, xitem, xsum) VALUES ($1, $2, $3)'
-    const params = [args.xdate, Number(args.xitem), Number(args.xsum)]
+    const sql = 'INSERT INTO xpenses (date, xitem, xsum) VALUES ($1, $2, $3)'
+    const params = [args.date, Number(args.xitem), Number(args.xsum)]
     pool.connect().then((client: any) => {
       return client
         .query(sql, params)
@@ -52,9 +52,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
   return Promise.all(
     expItems
       .map((xitem) => {
-        return dates.map((xdate) => {
+        return dates.map((date) => {
           const xsum = xitem
-          return SaveXpense({ xdate, xitem, xsum })
+          return SaveXpense({ date, xitem, xsum })
         })
       })
       .flat(1)

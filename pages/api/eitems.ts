@@ -28,7 +28,7 @@ export default function handler(
 
     switch (req.method) {
       case 'GET':
-        sql = 'SELECT * FROM eitems ORDER BY esymbol'
+        sql = 'SELECT * FROM eitems ORDER BY symbol'
         break
 
       case 'POST':
@@ -37,26 +37,26 @@ export default function handler(
         switch (parsedReq.mode) {
           case 'edit':
             sql =
-              "UPDATE eitems SET ename='" +
-              parsedReq.ename.substring(0, 50) +
-              "', esymbol='" +
-              parsedReq.esymbol.substring(0, 7) +
-              "' WHERE eid=" +
-              parsedReq.eid
+              "UPDATE eitems SET name='" +
+              parsedReq.name.substring(0, 50) +
+              "', symbol='" +
+              parsedReq.symbol.substring(0, 7) +
+              "' WHERE id=" +
+              parsedReq.id
             break
           case 'new':
-            sql = 'INSERT INTO eitems (ename, esymbol) VALUES ($1, $2)'
+            sql = 'INSERT INTO eitems (name, symbol) VALUES ($1, $2)'
             params = [
-              parsedReq.ename.substring(0, 50),
-              parsedReq.esymbol.substring(0, 7)
+              parsedReq.name.substring(0, 50),
+              parsedReq.symbol.substring(0, 7)
             ]
             console.log('---------------------- new: ', sql, params)
             break
           case 'del':
-            sql = 'UPDATE eitems SET edel = 1 WHERE eid=' + parsedReq.eid
+            sql = 'UPDATE eitems SET del = 1 WHERE id=' + parsedReq.id
             break
           case 'restore':
-            sql = 'UPDATE eitems SET edel = 0 WHERE eid=' + parsedReq.eid
+            sql = 'UPDATE eitems SET del = 0 WHERE id=' + parsedReq.id
             break
           default:
             console.log('! Eitems - bad POST body.mode api request')

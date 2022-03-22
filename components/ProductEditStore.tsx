@@ -18,23 +18,23 @@ export default function ProductEditStore(arg: ProductsStoreArgs) {
   const pItemsCheckBoxesSet = arg.pItems.map((item: Product) => {
     function checkHandler() {
       if (arg.currPitem === 0) {
-        arg.setCurrPitem(() => item.pid)
+        arg.setCurrPitem(() => item.id)
       } else {
-        if (arg.currPitem === item.pid) {
+        if (arg.currPitem === item.id) {
           arg.setCurrPitem(() => 0)
         } else {
           arg.setCurrPitem(() => 0)
-          setTimeout(() => arg.setCurrPitem(() => item.pid), 100)
+          setTimeout(() => arg.setCurrPitem(() => item.id), 100)
         }
       }
     }
 
     return (
       <CheckBoxButton
-        key={item.pid}
-        text={item.psymbol}
+        key={item.id}
+        text={item.symbol}
         onClick={checkHandler}
-        checked={arg.currPitem === item.pid}
+        checked={arg.currPitem === item.id}
       />
     )
   })

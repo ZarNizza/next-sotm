@@ -10,8 +10,8 @@ type editFormArgs = {
 }
 
 export default function CustomerEditForm(a: editFormArgs) {
-  const [custName, setCustName] = useState(a.custToEdit.cname)
-  const [custPhone, setCustPhone] = useState(a.custToEdit.cphone)
+  const [custName, setCustName] = useState(a.custToEdit.name)
+  const [custPhone, setCustPhone] = useState(a.custToEdit.phone)
 
   function saveEditHandler() {
     const args: FetchArgs = {
@@ -20,10 +20,10 @@ export default function CustomerEditForm(a: editFormArgs) {
       title: 'editCust',
       body: JSON.stringify({
         mode: 'edit',
-        cname: custName,
-        cphone: custPhone,
+        name: custName,
+        phone: custPhone,
         gooid: a.custToEdit.gooid,
-        cid: a.custToEdit.cid
+        id: a.custToEdit.id
       }),
       setResData: a.setUpdateFlag
     }

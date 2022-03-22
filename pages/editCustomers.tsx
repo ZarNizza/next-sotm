@@ -12,9 +12,9 @@ import DBshortTable from '../components/DBshortTable'
 
 const Home: NextPage = () => {
   const cust0 = {
-    cid: 0,
-    cname: '',
-    cphone: '',
+    id: 0,
+    name: '',
+    phone: '',
     gooid: ''
   }
   const [customers, setCustomers] = useState<Customer[] | []>([])
@@ -74,13 +74,13 @@ const Home: NextPage = () => {
             mode="new"
           />
 
-          {currentCustomer.cid === 0 ? (
+          {currentCustomer.id === 0 ? (
             ''
           ) : (
             <CustomerEditForm
               custToEdit={
                 customers.filter((item: Customer) => {
-                  return item.cid === Number(currentCustomer.cid)
+                  return item.id === Number(currentCustomer.id)
                 })[0]
               }
               setUpdateFlag={setUpdF}

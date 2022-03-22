@@ -20,18 +20,17 @@ export default function EditForm(arg: EditFormArgs) {
   function saveEdit() {
     console.log('++++ save editItem +++', editItem)
 
-  let  args: { title: string; body: string; apiSuffix: string } = {
-
-    apiSuffix : 'customers',
-    title : 'edit',
-    body : JSON.stringify({
-      mode: 'edit',
-      cname: editItem.cname,
-      cphone: editItem.cphone,
-      gooid: editItem.gooid,
-      cid: editItem.cid
-    })
-  }
+    let args: { title: string; body: string; apiSuffix: string } = {
+      apiSuffix: 'customers',
+      title: 'edit',
+      body: JSON.stringify({
+        mode: 'edit',
+        name: editItem.name,
+        phone: editItem.phone,
+        gooid: editItem.gooid,
+        id: editItem.id
+      })
+    }
     fetch('/api/' + args.apiSuffix, { method: 'POST', body: args.body })
       .then((res) => res.json())
       .then((res) => {

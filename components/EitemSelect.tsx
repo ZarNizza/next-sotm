@@ -21,21 +21,21 @@ export default function EitemSelect(props: EitemSelectProps) {
   function liveSearch(e: ChangeEvent<HTMLInputElement>) {
     const st = e.target.value.toLowerCase()
     setSearchTerm(() => st)
-    props.setCurrentEitem({ eid: 0, ename: '', esymbol: '' })
+    props.setCurrentEitem({ id: 0, name: '', symbol: '' })
   }
 
   function liveST(e: ChangeEvent<HTMLSelectElement>) {
     const indexST = e.target.value
     const st = props.eItems.filter((item: Eitem) => {
-      return item.eid === Number(indexST)
+      return item.id === Number(indexST)
     })
     if (st.length === 1 && eItemInputRef.current !== null) {
       const curr = st[0]
-      eItemInputRef.current.value = curr.ename
+      eItemInputRef.current.value = curr.name
       props.setCurrentEitem({
-        eid: Number(curr.eid),
-        ename: curr.ename,
-        esymbol: curr.esymbol
+        id: Number(curr.id),
+        name: curr.name,
+        symbol: curr.symbol
       })
     }
   }
@@ -43,7 +43,7 @@ export default function EitemSelect(props: EitemSelectProps) {
   function dropButtonHandler() {
     setSearchTerm(() => '')
     if (eItemInputRef.current !== null) eItemInputRef.current.value = ''
-    props.setCurrentEitem({ eid: 0, ename: '', esymbol: '' })
+    props.setCurrentEitem({ id: 0, name: '', symbol: '' })
   }
 
   function newButtonHandler() {
@@ -51,7 +51,7 @@ export default function EitemSelect(props: EitemSelectProps) {
   }
   function saveNewHandler() {
     return new Promise((resolveSS, rejectSS) => {
-      const body = { mode: 'new', ename: newEname, esymbol: newEsymbol }
+      const body = { mode: 'new', name: newEname, symbol: newEsymbol }
       fetch('/api/eitems', {
         method: 'POST',
         body: JSON.stringify(body)
@@ -108,12 +108,12 @@ export default function EitemSelect(props: EitemSelectProps) {
   function SearchResultsList() {
     let iList = props.eItems
       .filter((item: Eitem) => {
-        return item.ename.toLowerCase().includes(searchTerm)
+        return item.name.toLowerCase().includes(searchTerm)
       })
       .map((item: Eitem) => {
         return (
-          <option value={item.eid} key={item.eid}>
-            {item.ename}
+          <option value={item.id} key={item.id}>
+            {item.name}
           </option>
         )
       })
@@ -149,7 +149,7 @@ export default function EitemSelect(props: EitemSelectProps) {
       </div>
       <div
         className={styles.floatWrapper}
-        hidden={searchTerm === '' || props.currentEitem.eid > 0}
+        hidden={searchTerm === '' || props.currentEitem.id > 0}
       >
         <div className={styles.custSelect}>
           <SearchResultsList />

@@ -22,7 +22,7 @@ export default async function sysHandler(
 ) {
   // init products
   const products = await new Promise<Product[]>((resolve, reject) => {
-    const sql = 'SELECT * FROM prod WHERE pdel = 0 ORDER BY psymbol'
+    const sql = 'SELECT * FROM prod WHERE del = 0 ORDER BY symbol'
     pool.connect().then((client: any) => {
       return client
         .query(sql, [])
@@ -77,9 +77,9 @@ export default async function sysHandler(
     const parsedReq = JSON.parse(req.body)
 
     if (typeof parsedReq.currentCustomer !== 'undefined') {
-      if (parsedReq.currentCustomer.cid !== 0) {
-        currentCustomer = ` AND (c.cid = ${parsedReq.currentCustomer.cid}) AND (c.cdel = 0) `
-        currCustJoin = ' LEFT JOIN customers AS c ON c.cid = s.cust'
+      if (parsedReq.currentCustomer.id !== 0) {
+        currentCustomer = ` AND (c.id = ${parsedReq.currentCustomer.id}) AND (c.del = 0) `
+        currCustJoin = ' LEFT JOIN customers AS c ON c.id = s.cust'
       }
     }
 
@@ -122,16 +122,16 @@ export default async function sysHandler(
         //
         case 'show_S':
           sqlQuery =
-            'SELECT p.psymbol, SUM(CASE WHEN s.prod = p.pid THEN s.sum ELSE 0 END) AS gross FROM prod AS p ' +
-            ' LEFT JOIN sales AS s ON s.prod = p.pid' +
+            'SELECT p.symbol, SUM(CASE WHEN s.prod = p.id THEN s.sum ELSE 0 END) AS gross FROM prod AS p ' +
+            ' LEFT JOIN sales AS s ON s.prod = p.id' +
             currCustJoin +
-            ' WHERE (p.pdel = 0) AND (s.sdel = 0) AND (s.sdate BETWEEN ' +
+            ' WHERE (p.del = 0) AND (s.del = 0) AND (s.date BETWEEN ' +
             startDate +
             ' AND ' +
             finishDate +
             ') ' +
             currentCustomer +
-            ' GROUP BY ROLLUP (p.psymbol) ORDER BY p.psymbol'
+            ' GROUP BY ROLLUP (p.symbol) ORDER BY p.symbol'
 
           source = 'short'
 
@@ -141,14 +141,14 @@ export default async function sysHandler(
         //
         case 'show_X':
           sqlQuery =
-            'SELECT e.esymbol, SUM(CASE WHEN x.xitem = e.eid THEN x.xsum ELSE 0 END) AS Xgross FROM eitems AS e' +
-            ' LEFT JOIN xpenses AS x ON x.xitem = e.eid' +
-            ' WHERE (e.edel = 0) AND (x.xdel = 0) AND (x.xdate BETWEEN ' +
+            'SELECT e.symbol, SUM(CASE WHEN x.xitem = e.id THEN x.xsum ELSE 0 END) AS Xgross FROM eitems AS e' +
+            ' LEFT JOIN xpenses AS x ON x.xitem = e.id' +
+            ' WHERE (e.del = 0) AND (x.del = 0) AND (x.date BETWEEN ' +
             startDate +
             ' AND ' +
             finishDate +
             ') ' +
-            ' GROUP BY ROLLUP (e.esymbol) ORDER BY e.esymbol'
+            ' GROUP BY ROLLUP (e.symbol) ORDER BY e.symbol'
 
           source = 'short'
 
@@ -157,25 +157,25 @@ export default async function sysHandler(
         //
         case 'show_SX':
           sqlQuery =
-            '(SELECT p.psymbol, SUM(CASE WHEN s.prod = p.pid THEN s.sum ELSE 0 END) AS gross FROM prod AS p' +
-            ' LEFT JOIN sales AS s ON s.prod = p.pid' +
+            '(SELECT p.symbol, SUM(CASE WHEN s.prod = p.id THEN s.sum ELSE 0 END) AS gross FROM prod AS p' +
+            ' LEFT JOIN sales AS s ON s.prod = p.id' +
             currCustJoin +
-            ' WHERE (p.pdel = 0) AND (s.sdel = 0) AND (s.sdate BETWEEN ' +
+            ' WHERE (p.del = 0) AND (s.del = 0) AND (s.date BETWEEN ' +
             startDate +
             ' AND ' +
             finishDate +
             ') ' +
             currentCustomer +
-            ' GROUP BY ROLLUP (p.psymbol) ORDER BY p.psymbol) ' +
+            ' GROUP BY ROLLUP (p.symbol) ORDER BY p.symbol) ' +
             'UNION ALL ' +
-            '(SELECT e.esymbol, SUM(CASE WHEN x.xitem = e.eid THEN x.xsum ELSE 0 END) AS Xgross FROM eitems AS e' +
-            ' LEFT JOIN xpenses AS x ON x.xitem = e.eid' +
-            ' WHERE (e.edel = 0) AND (x.xdel = 0) AND (x.xdate BETWEEN ' +
+            '(SELECT e.symbol, SUM(CASE WHEN x.xitem = e.id THEN x.xsum ELSE 0 END) AS Xgross FROM eitems AS e' +
+            ' LEFT JOIN xpenses AS x ON x.xitem = e.id' +
+            ' WHERE (e.del = 0) AND (x.del = 0) AND (x.date BETWEEN ' +
             startDate +
             ' AND ' +
             finishDate +
             ')' +
-            'GROUP BY ROLLUP (e.esymbol) ORDER BY e.esymbol)'
+            'GROUP BY ROLLUP (e.symbol) ORDER BY e.symbol)'
 
           source = 'short'
 
@@ -187,9 +187,9 @@ export default async function sysHandler(
           sqlDPSum = dates.reduce(
             (sum, item, i) =>
               sum +
-              "SUM(CASE WHEN DATE(s.sdate) = '" +
+              "SUM(CASE WHEN DATE(s.date) = '" +
               item +
-              "' AND s.prod = p.pid " +
+              "' AND s.prod = p.id " +
               ' THEN s.sum ELSE 0 END) AS "' +
               item.slice(5) +
               '", ',
@@ -197,18 +197,18 @@ export default async function sysHandler(
           )
 
           sqlQuery =
-            'SELECT p.psymbol, ' +
+            'SELECT p.symbol, ' +
             sqlDPSum +
-            ' SUM(CASE WHEN s.prod = p.pid THEN s.sum ELSE 0 END) AS sum FROM prod AS p' +
-            ' LEFT JOIN sales AS s ON s.prod = p.pid' +
+            ' SUM(CASE WHEN s.prod = p.id THEN s.sum ELSE 0 END) AS sum FROM prod AS p' +
+            ' LEFT JOIN sales AS s ON s.prod = p.id' +
             currCustJoin +
-            ' WHERE (p.pdel = 0) AND (s.sdel = 0) AND (s.sdate BETWEEN ' +
+            ' WHERE (p.del = 0) AND (s.del = 0) AND (s.date BETWEEN ' +
             startDate +
             ' AND ' +
             finishDate +
             ') ' +
             currentCustomer +
-            ' GROUP BY ROLLUP (p.psymbol) ORDER BY p.psymbol'
+            ' GROUP BY ROLLUP (p.symbol) ORDER BY p.symbol'
 
           source = 'fullSD'
 
@@ -220,9 +220,9 @@ export default async function sysHandler(
           sqlDPSum = dates.reduce(
             (sum, item, i) =>
               sum +
-              "SUM(CASE WHEN DATE(s.sdate) = '" +
+              "SUM(CASE WHEN DATE(s.date) = '" +
               item +
-              "' AND s.prod = p.pid " +
+              "' AND s.prod = p.id " +
               ' THEN s.sum ELSE 0 END) AS "' +
               item.slice(5) +
               '", ',
@@ -231,9 +231,9 @@ export default async function sysHandler(
           sqlDXSum = dates.reduce(
             (sum, item, i) =>
               sum +
-              "SUM(CASE WHEN DATE(x.xdate) = '" +
+              "SUM(CASE WHEN DATE(x.date) = '" +
               item +
-              "' AND x.xitem = e.eid " +
+              "' AND x.xitem = e.id " +
               ' THEN x.xsum ELSE 0 END) AS "' +
               item.slice(5) +
               '", ',
@@ -241,29 +241,29 @@ export default async function sysHandler(
           )
 
           sqlQuery =
-            '(SELECT p.psymbol, ' +
+            '(SELECT p.symbol, ' +
             sqlDPSum +
-            ' SUM(CASE WHEN s.prod = p.pid THEN s.sum ELSE 0 END) AS sum FROM prod AS p' +
-            ' LEFT JOIN sales AS s ON s.prod = p.pid' +
+            ' SUM(CASE WHEN s.prod = p.id THEN s.sum ELSE 0 END) AS sum FROM prod AS p' +
+            ' LEFT JOIN sales AS s ON s.prod = p.id' +
             currCustJoin +
-            ' WHERE (p.pdel = 0) AND (s.sdel = 0) AND (s.sdate BETWEEN ' +
+            ' WHERE (p.del = 0) AND (s.del = 0) AND (s.date BETWEEN ' +
             startDate +
             ' AND ' +
             finishDate +
             ') ' +
             currentCustomer +
-            ' GROUP BY ROLLUP (p.psymbol) ORDER BY p.psymbol)' +
+            ' GROUP BY ROLLUP (p.symbol) ORDER BY p.symbol)' +
             ' UNION ALL ' +
-            '(SELECT e.esymbol,' +
+            '(SELECT e.symbol,' +
             sqlDXSum +
-            ' SUM(CASE WHEN x.xitem = e.eid THEN x.xsum ELSE 0 END) AS Xgross FROM eitems AS e' +
-            ' LEFT JOIN xpenses AS x ON x.xitem = e.eid' +
-            ' WHERE (e.edel = 0) AND (x.xdel = 0) AND (x.xdate BETWEEN ' +
+            ' SUM(CASE WHEN x.xitem = e.id THEN x.xsum ELSE 0 END) AS Xgross FROM eitems AS e' +
+            ' LEFT JOIN xpenses AS x ON x.xitem = e.id' +
+            ' WHERE (e.del = 0) AND (x.del = 0) AND (x.date BETWEEN ' +
             startDate +
             ' AND ' +
             finishDate +
             ') ' +
-            ' GROUP BY ROLLUP (e.esymbol) ORDER BY e.esymbol)'
+            ' GROUP BY ROLLUP (e.symbol) ORDER BY e.symbol)'
 
           source = 'fullSD'
 
@@ -276,25 +276,25 @@ export default async function sysHandler(
           sqlProdSum = products.reduce(
             (sum, item) =>
               sum +
-              'SUM(CASE WHEN s.cust = c.cid AND s.prod = ' +
-              item.pid +
+              'SUM(CASE WHEN s.cust = c.id AND s.prod = ' +
+              item.id +
               ' THEN s.sum ELSE 0 END) AS pSum' +
-              String(item.pid) +
+              String(item.id) +
               ', ',
             ''
           )
           sqlQuery =
-            'SELECT c.cname,' +
+            'SELECT c.name,' +
             sqlProdSum +
             ' SUM(s.sum) AS gross FROM customers AS c' +
-            ' LEFT JOIN sales AS s ON s.cust = c.cid' +
-            ' WHERE (c.cdel = 0) AND (s.sdel = 0) AND (s.sdate BETWEEN ' +
+            ' LEFT JOIN sales AS s ON s.cust = c.id' +
+            ' WHERE (c.del = 0) AND (s.del = 0) AND (s.date BETWEEN ' +
             startDate +
             ' AND ' +
             finishDate +
             ') ' +
             currentCustomer +
-            ' GROUP BY ROLLUP (c.cname) ORDER BY c.cname'
+            ' GROUP BY ROLLUP (c.name) ORDER BY c.name'
 
           source = 'full'
 

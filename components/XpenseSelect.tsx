@@ -22,20 +22,20 @@ export default function XpenseSelect(props: XpenseSelectProps) {
   function liveSearch(e: ChangeEvent<HTMLInputElement>) {
     const st = e.target.value.toLowerCase()
     setSearchTerm(() => st)
-    props.setCurrentXpense({ xid: 0, xdate: '', xitem: 0, xsum: 0 })
+    props.setCurrentXpense({ id: 0, date: '', xitem: 0, xsum: 0 })
   }
 
   function liveST(e: ChangeEvent<HTMLSelectElement>) {
     const indexST = e.target.value
     const st = props.xpenses.filter((item: Xpense) => {
-      return item.xid === Number(indexST)
+      return item.id === Number(indexST)
     })
     if (st.length === 1 && xpenseInputRef.current !== null) {
       const curr = st[0]
-      xpenseInputRef.current.value = curr.xdate
+      xpenseInputRef.current.value = curr.date
       props.setCurrentXpense({
-        xid: Number(curr.xid),
-        xdate: curr.xdate,
+        id: Number(curr.id),
+        date: curr.date,
         xitem: curr.xitem,
         xsum: curr.xsum
       })
@@ -45,7 +45,7 @@ export default function XpenseSelect(props: XpenseSelectProps) {
   function dropButtonHandler() {
     setSearchTerm(() => '')
     if (xpenseInputRef.current !== null) xpenseInputRef.current.value = ''
-    props.setCurrentXpense({ xid: 0, xdate: '', xitem: 0, xsum: 0 })
+    props.setCurrentXpense({ id: 0, date: '', xitem: 0, xsum: 0 })
   }
 
   function newButtonHandler() {
@@ -55,7 +55,7 @@ export default function XpenseSelect(props: XpenseSelectProps) {
     return new Promise((resolveSS, rejectSS) => {
       const body = {
         mode: 'new',
-        xdate: newXdate,
+        date: newXdate,
         xitem: newXitem,
         xsum: newXsum
       }
@@ -116,15 +116,15 @@ export default function XpenseSelect(props: XpenseSelectProps) {
     let cList = props.xpenses
       .filter((item: Xpense) => {
         return (
-          item.xdate.toLowerCase().includes(searchTerm) ||
+          item.date.toLowerCase().includes(searchTerm) ||
           String(item.xitem).includes(searchTerm) ||
-          String(item.xid).includes(searchTerm)
+          String(item.id).includes(searchTerm)
         )
       })
       .map((item: Xpense) => {
         return (
-          <option value={item.xid} key={item.xid}>
-            {item.xdate}, i={item.xitem}, xsum={item.xsum}
+          <option value={item.id} key={item.id}>
+            {item.date}, i={item.xitem}, xsum={item.xsum}
           </option>
         )
       })
@@ -160,7 +160,7 @@ export default function XpenseSelect(props: XpenseSelectProps) {
       </div>
       <div
         className={styles.floatWrapper}
-        hidden={searchTerm === '' || !!props.currentXpense.xid}
+        hidden={searchTerm === '' || !!props.currentXpense.id}
       >
         <div className={styles.custSelect}>
           <CLSresList />

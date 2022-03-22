@@ -17,7 +17,7 @@ const Home: NextPage = () => {
   const [eItem, setEitem] = useState('')
   const [eSymbol, setEsymbol] = useState('')
   const [resData, setResData] = useState([
-    { sid: 0, sdate: '2022-02-02', cust: 0, prod: 0, sum: 0 }
+    { id: 0, date: '2022-02-02', cust: 0, prod: 0, sum: 0 }
   ])
 
   function clear_U_handler() {
@@ -139,8 +139,8 @@ const Home: NextPage = () => {
   function add_U_handler() {
     const user = {
       mode: 'new',
-      uname: userName,
-      uphone: userPhone,
+      name: userName,
+      phone: userPhone,
       timezone: timeZone
     }
     fetch('/api/users', {
@@ -173,7 +173,7 @@ const Home: NextPage = () => {
   //  add Customer
 
   function add_C_handler() {
-    const cust = { mode: 'new', cname: customerName, cphone: customerPhone }
+    const cust = { mode: 'new', name: customerName, phone: customerPhone }
     fetch('/api/customers', {
       method: 'POST',
       body: JSON.stringify(cust)
@@ -200,7 +200,7 @@ const Home: NextPage = () => {
   //  add Product
 
   function add_P_handler() {
-    const prod = { mode: 'new', pname: product, psymbol: pSymbol }
+    const prod = { mode: 'new', name: product, symbol: pSymbol }
     fetch('/api/products', {
       method: 'POST',
       body: JSON.stringify(prod)
@@ -227,7 +227,7 @@ const Home: NextPage = () => {
   //  add ExpeneItem
 
   function add_E_handler() {
-    const eitem = { mode: 'new', ename: eItem, esymbol: eSymbol }
+    const eitem = { mode: 'new', name: eItem, symbol: eSymbol }
     fetch('/api/eitems', {
       method: 'POST',
       body: JSON.stringify(eitem)

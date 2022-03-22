@@ -19,25 +19,25 @@ type XpenseCartProps = {
 }
 
 export default function XpenseCart(props: XpenseCartProps) {
-  const qqq = props.selectedEitems.map((eid: Eitem['eid']) => (
-    <li key={eid}>
+  const qqq = props.selectedEitems.map((id: Eitem['id']) => (
+    <li key={id}>
       <input
         type="text"
-        onChange={inputSumChangeHandler(eid)}
+        onChange={inputSumChangeHandler(id)}
         className={styles.inputSum}
         placeholder="price"
         pattern="^[\d]{0,6}"
       />{' '}
       {
         (
-          props.eItems.find((item: Eitem) => item.eid === eid) ?? {
-            ename: 'xxx'
+          props.eItems.find((item: Eitem) => item.id === id) ?? {
+            name: 'xxx'
           }
-        ).ename
+        ).name
       }{' '}
       <button
-        value={eid}
-        onClick={dropButtonHandler(eid)}
+        value={id}
+        onClick={dropButtonHandler(id)}
         className={stylesH.dropButton}
       >
         {' X '}
@@ -45,24 +45,24 @@ export default function XpenseCart(props: XpenseCartProps) {
     </li>
   ))
 
-  function dropButtonHandler(eid: Eitem['eid']) {
+  function dropButtonHandler(id: Eitem['id']) {
     return () => {
       props.setSelectedEitems((prevSelectedEitems) => {
-        delete props.eCostRef.current[eid]
+        delete props.eCostRef.current[id]
         props.setGross(
           Object.values(props.eCostRef.current).reduce(
             (prev, curr) => prev + curr,
             0
           )
         )
-        return prevSelectedEitems.filter((eItem) => eItem !== Number(eid))
+        return prevSelectedEitems.filter((eItem) => eItem !== Number(id))
       })
     }
   }
 
-  function inputSumChangeHandler(eid: Eitem['eid']) {
+  function inputSumChangeHandler(id: Eitem['id']) {
     const handler: ChangeEventHandler<HTMLInputElement> = (event) => {
-      props.eCostRef.current[eid] = Number(
+      props.eCostRef.current[id] = Number(
         event.target.value.replace(/[^\d]/g, '')
       )
       props.setGross(
@@ -76,14 +76,14 @@ export default function XpenseCart(props: XpenseCartProps) {
   }
 
   function saveX_Handler() {
-    props.selectedEitems.map((eid: number) => {
-      if (isNaN(props.eCostRef.current[eid])) {
+    props.selectedEitems.map((id: number) => {
+      if (isNaN(props.eCostRef.current[id])) {
         alert('Attention: The Price must be a Number!')
       } else {
         const xsale = {
           mode: 'new',
-          xitem: eid,
-          xsum: props.eCostRef.current[eid]
+          xitem: id,
+          xsum: props.eCostRef.current[id]
         }
         fetch('/api/xpenses', {
           method: 'POST',
@@ -96,9 +96,9 @@ export default function XpenseCart(props: XpenseCartProps) {
               alert('DataBase error: X3')
             } else {
               props.setSelectedEitems((prevSelectedEitems) =>
-                prevSelectedEitems.filter((eItem) => eItem !== Number(eid))
+                prevSelectedEitems.filter((eItem) => eItem !== Number(id))
               )
-              delete props.eCostRef.current[eid]
+              delete props.eCostRef.current[id]
             }
           })
           .catch((error) => {

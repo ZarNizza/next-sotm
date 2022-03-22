@@ -19,7 +19,7 @@ export default function PitemNew(arg: newProductArgs) {
       arg.setNewFlag(false)
       return
     }
-    const pitem = { mode: 'new', pname: pItem, psymbol: pSymbol }
+    const pitem = { mode: 'new', name: pItem, symbol: pSymbol }
     fetch('/api/products', {
       method: 'POST',
       body: JSON.stringify(pitem)

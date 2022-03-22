@@ -10,20 +10,20 @@ import CustomerSelect from '../components/CustomerSelect'
 import { useRef, useState } from 'react'
 
 export type Customer = {
-  cid: number
-  cname: string
-  cphone: string | null
+  id: number
+  name: string
+  phone: string | null
   gooid: string | null
 }
 export type Product = {
-  pid: number
-  pname: string
-  psymbol: string
+  id: number
+  name: string
+  symbol: string
 }
 
 export type Sale = {
-  sid?: number
-  sdate: string
+  id?: number
+  date: string
   cust: number
   prod: number
   sum: number
@@ -32,14 +32,14 @@ export type Sale = {
 const Home: NextPage = () => {
   const [customers, setCustomers] = useState<Customer[]>([])
   const [currentCustomer, setCurrentCustomer] = useState<Customer>({
-    cid: 0,
-    cname: '',
-    cphone: '',
+    id: 0,
+    name: '',
+    phone: '',
     gooid: ''
   })
   const [products, setProducts] = useState<Product[]>([])
-  const [selectedProducts, setSelectedProducts] = useState<Product['pid'][]>([])
-  const prodCostRef = useRef<Record<Product['pid'], number>>({})
+  const [selectedProducts, setSelectedProducts] = useState<Product['id'][]>([])
+  const prodCostRef = useRef<Record<Product['id'], number>>({})
   const [gross, setGross] = useState<number>(0)
 
   InitCustomers(setCustomers)

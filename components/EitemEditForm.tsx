@@ -9,8 +9,8 @@ type editEitemArgs = {
 }
 
 export default function EitemEditForm(arg: editEitemArgs) {
-  const [eName, setEitem] = useState(arg.itemToEdit.ename)
-  const [eSymbol, setEsymbol] = useState(arg.itemToEdit.esymbol)
+  const [eName, setEitem] = useState(arg.itemToEdit.name)
+  const [eSymbol, setEsymbol] = useState(arg.itemToEdit.symbol)
 
   function upd_E_handler() {
     if (eName === '' || eSymbol === '') {
@@ -20,9 +20,9 @@ export default function EitemEditForm(arg: editEitemArgs) {
     }
     const eitem = {
       mode: 'edit',
-      ename: eName,
-      esymbol: eSymbol,
-      eid: arg.itemToEdit.eid
+      name: eName,
+      symbol: eSymbol,
+      id: arg.itemToEdit.id
     }
     fetch('/api/eitems', {
       method: 'POST',

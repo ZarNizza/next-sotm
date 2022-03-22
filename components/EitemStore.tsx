@@ -20,27 +20,27 @@ export default function EitemStore(arg: EitemsStoreArgs) {
   const eItemsCheckBoxesSet = arg.eItems.map((item: Eitem) => {
     function checkHandler() {
       arg.setSelectedEitems((prevSelectedEitems) => {
-        if (item.eid) delete arg.eCostRef.current[item.eid]
+        if (item.id) delete arg.eCostRef.current[item.id]
         arg.setGross(
           Object.values(arg.eCostRef.current).reduce(
             (prev, curr) => prev + curr,
             0
           )
         )
-        return prevSelectedEitems.includes(item.eid)
+        return prevSelectedEitems.includes(item.id)
           ? prevSelectedEitems.filter(
-              (product: Eitem['eid']) => product !== item.eid
+              (product: Eitem['id']) => product !== item.id
             )
-          : [...prevSelectedEitems, item.eid]
+          : [...prevSelectedEitems, item.id]
       })
     }
 
     return (
       <CheckBoxButton
-        key={item.eid}
-        text={item.esymbol}
+        key={item.id}
+        text={item.symbol}
         onClick={checkHandler}
-        checked={arg.selectedEitems.includes(item.eid)}
+        checked={arg.selectedEitems.includes(item.id)}
       />
     )
   })

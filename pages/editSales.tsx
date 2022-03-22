@@ -12,8 +12,8 @@ import DBshortTable from '../components/DBshortTable'
 const Home: NextPage = () => {
   const [sales, setSales] = useState<Sale[] | []>([])
   const [currentSale, setCurrentSale] = useState<Sale>({
-    sid: 0,
-    sdate: '',
+    id: 0,
+    date: '',
     cust: 0,
     prod: 0,
     sum: 0
@@ -23,13 +23,13 @@ const Home: NextPage = () => {
 
   function setUpdF() {
     setUpdateFlag(() => 1)
-    setCurrentSale({ sid: 0, sdate: '', cust: 0, prod: 0, sum: 0 })
+    setCurrentSale({ id: 0, date: '', cust: 0, prod: 0, sum: 0 })
     return alert(
       'OK, Updated!\n\nTo refresh SalesList clear input area - press button (X).'
     )
   }
   function cancelFlag() {
-    return setCurrentSale({ sid: 0, sdate: '', cust: 0, prod: 0, sum: 0 })
+    return setCurrentSale({ id: 0, date: '', cust: 0, prod: 0, sum: 0 })
   }
   function setShowTableHandler() {
     setShowTableFlag(() => !showTableFlag)
@@ -73,13 +73,13 @@ const Home: NextPage = () => {
             mode="new"
           />
 
-          {currentSale.sid === 0 ? (
+          {currentSale.id === 0 ? (
             ''
           ) : (
             <SaleEditForm
               saleToEdit={
                 sales.filter((item: Sale) => {
-                  return item.sid === Number(currentSale.sid)
+                  return item.id === Number(currentSale.id)
                 })[0]
               }
               setUpdateFlag={setUpdF}

@@ -19,7 +19,7 @@ export default function EitemNew(arg: newEitemArgs) {
       arg.setNewFlag(false)
       return
     }
-    const eitem = { mode: 'new', ename: eItem, esymbol: eSymbol }
+    const eitem = { mode: 'new', name: eItem, symbol: eSymbol }
     fetch('/api/eitems', {
       method: 'POST',
       body: JSON.stringify(eitem)

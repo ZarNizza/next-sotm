@@ -38,20 +38,20 @@ export default function handler(
         console.log('!!!!!!!!!!! POST, parsedReq=', parsedReq)
         switch (parsedReq.mode) {
           case 'edit':
-            sql = 'UPDATE xpenses SET xdate=$1, xitem=$2, xsum=$3 WHERE xid=$4'
+            sql = 'UPDATE xpenses SET date=$1, xitem=$2, xsum=$3 WHERE id=$4'
             params = [
-              parsedReq.xdate,
+              parsedReq.date,
               String(parsedReq.xitem),
               String(parsedReq.xsum),
-              parsedReq.xid
+              parsedReq.id
             ]
             break
           case 'new':
             const today = new Date()
             const m0 = Number(today.getMonth()) < 9 ? '0' : ''
             const d0 = Number(today.getDate()) < 9 ? '0' : ''
-            const sqlDate = !!parsedReq.xdate
-              ? parsedReq.xdate
+            const sqlDate = !!parsedReq.date
+              ? parsedReq.date
               : String(today.getFullYear()) +
                 '-' +
                 m0 +
@@ -63,15 +63,15 @@ export default function handler(
                 timeZone +
                 ':00:00'
 
-            sql = 'INSERT INTO xpenses (xdate, xitem, xsum) VALUES ($1, $2, $3)'
+            sql = 'INSERT INTO xpenses (date, xitem, xsum) VALUES ($1, $2, $3)'
             params = [sqlDate, String(parsedReq.xitem), String(parsedReq.xsum)]
             console.log('---------------------- new: ', sql, ', ', params)
             break
           case 'del':
-            sql = 'UPDATE xpenses SET xdel = 1 WHERE xid=' + parsedReq.xid
+            sql = 'UPDATE xpenses SET del = 1 WHERE id=' + parsedReq.id
             break
           case 'restore':
-            sql = 'UPDATE xpenses SET xdel = 0 WHERE xid=' + parsedReq.xid
+            sql = 'UPDATE xpenses SET del = 0 WHERE id=' + parsedReq.id
             break
           default:
             console.log('! X - bad POST body.mode api request')

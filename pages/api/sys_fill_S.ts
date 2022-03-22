@@ -17,9 +17,9 @@ function SaveSale(args: Sale) {
   return new Promise((resolveSS, rejectSS) => {
     console.log('========= SaveSale args === ', args)
     const sql =
-      'INSERT INTO sales (sdate, cust, prod, sum) VALUES ($1, $2, $3, $4)'
+      'INSERT INTO sales (date, cust, prod, sum) VALUES ($1, $2, $3, $4)'
     const params = [
-      args.sdate,
+      args.date,
       Number(args.cust),
       Number(args.prod),
       Number(args.sum)
@@ -60,9 +60,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
     customers
       .map((cust) => {
         return products.map((prod) => {
-          return dates.map((sdate) => {
+          return dates.map((date) => {
             const sum = cust * prod
-            return SaveSale({ cust, prod, sdate, sum })
+            return SaveSale({ cust, prod, date, sum })
           })
         })
       })

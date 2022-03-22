@@ -21,21 +21,21 @@ export default function ProductSelect(props: ProductSelectProps) {
   function liveSearch(e: ChangeEvent<HTMLInputElement>) {
     const st = e.target.value.toLowerCase()
     setSearchTerm(() => st)
-    props.setCurrentProduct({ pid: 0, pname: '', psymbol: '' })
+    props.setCurrentProduct({ id: 0, name: '', symbol: '' })
   }
 
   function liveST(e: ChangeEvent<HTMLSelectElement>) {
     const indexST = e.target.value
     const st = props.products.filter((item: Product) => {
-      return item.pid === Number(indexST)
+      return item.id === Number(indexST)
     })
     if (st.length === 1 && ProductInputRef.current !== null) {
       const curr = st[0]
-      ProductInputRef.current.value = curr.pname
+      ProductInputRef.current.value = curr.name
       props.setCurrentProduct({
-        pid: Number(curr.pid),
-        pname: curr.pname,
-        psymbol: curr.psymbol
+        id: Number(curr.id),
+        name: curr.name,
+        symbol: curr.symbol
       })
     }
   }
@@ -43,7 +43,7 @@ export default function ProductSelect(props: ProductSelectProps) {
   function dropButtonHandler() {
     setSearchTerm(() => '')
     if (ProductInputRef.current !== null) ProductInputRef.current.value = ''
-    props.setCurrentProduct({ pid: 0, pname: '', psymbol: '' })
+    props.setCurrentProduct({ id: 0, name: '', symbol: '' })
   }
 
   function newButtonHandler() {
@@ -51,7 +51,7 @@ export default function ProductSelect(props: ProductSelectProps) {
   }
   function saveNewHandler() {
     return new Promise((resolveSS, rejectSS) => {
-      const body = { mode: 'new', pname: newPname, psymbol: newPsymbol }
+      const body = { mode: 'new', name: newPname, symbol: newPsymbol }
       fetch('/api/products', {
         method: 'POST',
         body: JSON.stringify(body)
@@ -108,12 +108,12 @@ export default function ProductSelect(props: ProductSelectProps) {
   function SearchResultsList() {
     let iList = props.products
       .filter((item: Product) => {
-        return item.pname.toLowerCase().includes(searchTerm)
+        return item.name.toLowerCase().includes(searchTerm)
       })
       .map((item: Product) => {
         return (
-          <option value={item.pid} key={item.pid}>
-            {item.pname}
+          <option value={item.id} key={item.id}>
+            {item.name}
           </option>
         )
       })
@@ -149,7 +149,7 @@ export default function ProductSelect(props: ProductSelectProps) {
       </div>
       <div
         className={styles.floatWrapper}
-        hidden={searchTerm === '' || props.currentProduct.pid > 0}
+        hidden={searchTerm === '' || props.currentProduct.id > 0}
       >
         <div className={styles.custSelect}>
           <SearchResultsList />

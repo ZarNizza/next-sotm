@@ -20,25 +20,25 @@ type ProductCartProps = {
 }
 
 export default function ProductCart(props: ProductCartProps) {
-  const qqq = props.selectedProducts.map((pid: Product['pid']) => (
-    <li key={pid}>
+  const qqq = props.selectedProducts.map((id: Product['id']) => (
+    <li key={id}>
       <input
         type="text"
-        onChange={inputSumChangeHandler(pid)}
+        onChange={inputSumChangeHandler(id)}
         className={styles.inputSum}
         placeholder="price"
         pattern="^[\d]{0,6}"
       />{' '}
       {
         (
-          props.products.find((item: Product) => item.pid === pid) ?? {
-            pname: 'xxx'
+          props.products.find((item: Product) => item.id === id) ?? {
+            name: 'xxx'
           }
-        ).pname
+        ).name
       }{' '}
       <button
-        value={pid}
-        onClick={dropButtonHandler(pid)}
+        value={id}
+        onClick={dropButtonHandler(id)}
         className={stylesH.dropButton}
       >
         {' X '}
@@ -46,24 +46,24 @@ export default function ProductCart(props: ProductCartProps) {
     </li>
   ))
 
-  function dropButtonHandler(pid: Product['pid']) {
+  function dropButtonHandler(id: Product['id']) {
     return () => {
       props.setSelectedProducts((prevSelectedProducts) => {
-        delete props.prodCostRef.current[pid]
+        delete props.prodCostRef.current[id]
         props.setGross(
           Object.values(props.prodCostRef.current).reduce(
             (prev, curr) => prev + curr,
             0
           )
         )
-        return prevSelectedProducts.filter((product) => product !== Number(pid))
+        return prevSelectedProducts.filter((product) => product !== Number(id))
       })
     }
   }
 
-  function inputSumChangeHandler(pid: Product['pid']) {
+  function inputSumChangeHandler(id: Product['id']) {
     const handler: ChangeEventHandler<HTMLInputElement> = (event) => {
-      props.prodCostRef.current[pid] = Number(
+      props.prodCostRef.current[id] = Number(
         event.target.value.replace(/[^\d]/g, '')
       )
       props.setGross(
@@ -77,19 +77,19 @@ export default function ProductCart(props: ProductCartProps) {
   }
 
   function saveSaleHandler() {
-    if (props.currentCustomer.cid === 0) {
+    if (props.currentCustomer.id === 0) {
       alert('Attention: Select Customer!')
       return
     }
-    props.selectedProducts.map((pid: number) => {
-      if (isNaN(props.prodCostRef.current[pid])) {
+    props.selectedProducts.map((id: number) => {
+      if (isNaN(props.prodCostRef.current[id])) {
         alert('Attention: The Price must be a Number!')
       } else {
         const sale = {
           mode: 'new',
-          cust: props.currentCustomer.cid,
-          prod: pid,
-          sum: props.prodCostRef.current[pid]
+          cust: props.currentCustomer.id,
+          prod: id,
+          sum: props.prodCostRef.current[id]
         }
         fetch('/api/sales', {
           method: 'POST',
@@ -102,11 +102,9 @@ export default function ProductCart(props: ProductCartProps) {
               alert('DataBase error: X3')
             } else {
               props.setSelectedProducts((prevSelectedProducts) =>
-                prevSelectedProducts.filter(
-                  (product) => product !== Number(pid)
-                )
+                prevSelectedProducts.filter((product) => product !== Number(id))
               )
-              delete props.prodCostRef.current[pid]
+              delete props.prodCostRef.current[id]
             }
           })
           .catch((error) => {

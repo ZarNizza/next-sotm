@@ -23,9 +23,9 @@ export default function UserSelect(props: UserSelectProps) {
     const st = e.target.value.toLowerCase()
     setSearchTerm(() => st)
     props.setCurrentUser({
-      uid: 0,
-      uname: '',
-      uphone: '',
+      id: 0,
+      name: '',
+      phone: '',
       gooid: '',
       timezone: ''
     })
@@ -34,15 +34,15 @@ export default function UserSelect(props: UserSelectProps) {
   function liveST(e: ChangeEvent<HTMLSelectElement>) {
     const indexST = e.target.value
     const st = props.users.filter((item: User) => {
-      return item.uid === Number(indexST)
+      return item.id === Number(indexST)
     })
     if (st.length === 1 && userInputRef.current !== null) {
       const curr = st[0]
-      userInputRef.current.value = curr.uname
+      userInputRef.current.value = curr.name
       props.setCurrentUser({
-        uid: Number(curr.uid),
-        uname: curr.uname,
-        uphone: curr.uphone,
+        id: Number(curr.id),
+        name: curr.name,
+        phone: curr.phone,
         gooid: curr.gooid,
         timezone: ''
       })
@@ -53,9 +53,9 @@ export default function UserSelect(props: UserSelectProps) {
     setSearchTerm(() => '')
     if (userInputRef.current !== null) userInputRef.current.value = ''
     props.setCurrentUser({
-      uid: 0,
-      uname: '',
-      uphone: '',
+      id: 0,
+      name: '',
+      phone: '',
       gooid: '',
       timezone: ''
     })
@@ -73,8 +73,8 @@ export default function UserSelect(props: UserSelectProps) {
     return new Promise((resolveSS, rejectSS) => {
       const body = {
         mode: 'new',
-        uname: newName,
-        uphone: newPhone,
+        name: newName,
+        phone: newPhone,
         timezone: newTimeZone
       }
       fetch('/api/users', {
@@ -133,12 +133,12 @@ export default function UserSelect(props: UserSelectProps) {
   function CLSresList() {
     let cList = props.users
       .filter((item: User) => {
-        return item.uname.toLowerCase().includes(searchTerm)
+        return item.name.toLowerCase().includes(searchTerm)
       })
       .map((item: User) => {
         return (
-          <option value={item.uid} key={item.uid}>
-            {item.uname}
+          <option value={item.id} key={item.id}>
+            {item.name}
           </option>
         )
       })
@@ -174,7 +174,7 @@ export default function UserSelect(props: UserSelectProps) {
       </div>
       <div
         className={styles.floatWrapper}
-        hidden={searchTerm === '' || props.currentUser.uid > 0}
+        hidden={searchTerm === '' || props.currentUser.id > 0}
       >
         <div className={styles.custSelect}>
           <CLSresList />

@@ -33,7 +33,7 @@ export default function DBfullDTable(props: TableProps) {
             {/* <tr key={Math.random()}>
               <td key={Math.random()}>Customer</td>
               {props.products.map((el) => (
-                <td key={Math.random()}>{el.psymbol}</td>
+                <td key={Math.random()}>{el.symbol}</td>
               ))}
               <td key={Math.random()}>Sum</td>
             </tr> */}
@@ -46,7 +46,7 @@ export default function DBfullDTable(props: TableProps) {
                     <td
                       key={Math.random()}
                       className={
-                        item.cname === null || item.psymbol === null
+                        item.name === null || item.symbol === null
                           ? styles.gross
                           : ''
                       }
@@ -54,7 +54,7 @@ export default function DBfullDTable(props: TableProps) {
                       {typeof elem === 'number'
                         ? String(elem)
                         : elem === null &&
-                          (item.cname === null || item.psymbol === null)
+                          (item.name === null || item.symbol === null)
                         ? 'Total:'
                         : elem === null
                         ? ' '

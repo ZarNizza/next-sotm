@@ -10,7 +10,7 @@ type editFormArgs = {
 }
 
 export default function SaleEditForm(a: editFormArgs) {
-  const [sDate, setSdate] = useState(a.saleToEdit.sdate.slice(0, 10))
+  const [sDate, setSdate] = useState(a.saleToEdit.date.slice(0, 10))
   const [sCust, setScust] = useState(a.saleToEdit.cust)
   const [sProd, setSprod] = useState(a.saleToEdit.prod)
   const [sSum, setSsum] = useState(a.saleToEdit.sum)
@@ -22,11 +22,11 @@ export default function SaleEditForm(a: editFormArgs) {
       title: 'edit-S',
       body: JSON.stringify({
         mode: 'edit',
-        sdate: sDate,
+        date: sDate,
         cust: sCust,
         prod: sProd,
         sum: sSum,
-        sid: a.saleToEdit.sid
+        id: a.saleToEdit.id
       }),
       setResData: a.setUpdateFlag
     }

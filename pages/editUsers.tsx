@@ -9,18 +9,18 @@ import UserEditForm from '../components/UserEditForm'
 import DBshortTable from '../components/DBshortTable'
 
 export type User = {
-  uid: number
-  uname: string
-  uphone: string | null
+  id: number
+  name: string
+  phone: string | null
   gooid: string | null
   timezone: string | null
 }
 
 const Home: NextPage = () => {
   const user0 = {
-    uid: 0,
-    uname: '',
-    uphone: '',
+    id: 0,
+    name: '',
+    phone: '',
     gooid: '',
     timezone: ''
   }
@@ -81,13 +81,13 @@ const Home: NextPage = () => {
             mode="new"
           />
 
-          {currentUser.uid === 0 ? (
+          {currentUser.id === 0 ? (
             ''
           ) : (
             <UserEditForm
               userToEdit={
                 users.filter((item: User) => {
-                  return item.uid === Number(currentUser.uid)
+                  return item.id === Number(currentUser.id)
                 })[0]
               }
               setUpdateFlag={setUpdF}

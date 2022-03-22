@@ -10,8 +10,8 @@ type editFormArgs = {
 }
 
 export default function UserEditForm(a: editFormArgs) {
-  const [uName, setUName] = useState(a.userToEdit.uname)
-  const [uPhone, setUPhone] = useState(a.userToEdit.uphone)
+  const [uName, setUName] = useState(a.userToEdit.name)
+  const [uPhone, setUPhone] = useState(a.userToEdit.phone)
   const [tZone, setTzone] = useState(a.userToEdit.timezone)
 
   function saveEditHandler() {
@@ -21,11 +21,11 @@ export default function UserEditForm(a: editFormArgs) {
       title: 'editUser',
       body: JSON.stringify({
         mode: 'edit',
-        uname: uName,
-        uphone: uPhone,
+        name: uName,
+        phone: uPhone,
         gooid: a.userToEdit.gooid,
         timezone: tZone,
-        uid: a.userToEdit.uid
+        id: a.userToEdit.id
       }),
       setResData: a.setUpdateFlag
     }

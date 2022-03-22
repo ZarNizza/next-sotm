@@ -9,8 +9,8 @@ type editPitemArgs = {
 }
 
 export default function ProductEditForm(arg: editPitemArgs) {
-  const [pName, setPitem] = useState(arg.itemToEdit.pname)
-  const [pSymbol, setPsymbol] = useState(arg.itemToEdit.psymbol)
+  const [pName, setPitem] = useState(arg.itemToEdit.name)
+  const [pSymbol, setPsymbol] = useState(arg.itemToEdit.symbol)
 
   function upd_P_handler() {
     if (pName === '' || pSymbol === '') {
@@ -20,9 +20,9 @@ export default function ProductEditForm(arg: editPitemArgs) {
     }
     const pitem = {
       mode: 'edit',
-      pname: pName,
-      psymbol: pSymbol,
-      pid: arg.itemToEdit.pid
+      name: pName,
+      symbol: pSymbol,
+      id: arg.itemToEdit.id
     }
     fetch('/api/products', {
       method: 'POST',
