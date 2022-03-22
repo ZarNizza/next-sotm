@@ -26,28 +26,55 @@ type SelectArgs = {
 export default function Select(arg: SelectArgs) {
   const [searchWord, setSearchWord] = useState('')
   const customerInputRef = useRef<HTMLInputElement>(null)
-  const [flagNewItem, setFlagNewItem] = useState('')
+  const [flagNew, setFlagNewItem] = useState('')
   const [newName, setNewName] = useState('')
   const [newPhone, setNewPhone] = useState('')
   const [newGooid, setNewGooid] = useState('')
   const [newTimeZone, setNewTimeZone] = useState('')
+  const [newDate, setNewDate] = useState('')
+  const [newCust, setNewCust] = useState('')
+  const [newProd, setNewProd] = useState('')
+  const [newXitem, setNewXitem] = useState('')
+  const [newSum, setNewSum] = useState('')
+
   let item0: SetStateAction<Customer | User | Sale | Xpense>
+  let apiName: string
+  let body: {
+    mode: string
+    name?: string
+    phone?: string
+    gooid?: string
+    timezone?: string
+    date?: string
+    cust?: string
+    prod?: string
+    xitem?: string
+    sum?: string
+  }
 
   switch (arg.type) {
     case 'C': {
       item0 = { id: 0, name: '', phone: '', gooid: '' }
+      apiName = 'customers'
+      body = { mode: 'new', name: newName, phone: newPhone }
       break
     }
     case 'U': {
       item0 = { id: 0, name: '', phone: '', gooid: '', timezone: '' }
+      apiName = 'users'
+      body = { mode: 'new', name: newName, phone: newPhone }
       break
     }
     case 'S': {
       item0 = { id: 0, date: '', cust: 0, prod: 0, sum: 0 }
+      apiName = 'sales'
+      body = { mode: 'new' }
       break
     }
     case 'X': {
-      item0 = { id: 0, date: '', xitem: 0, xsum: 0 }
+      item0 = { id: 0, date: '', xitem: 0, sum: 0 }
+      apiName = 'xpenses'
+      body = { mode: 'new' }
       break
     }
     default: {
@@ -70,6 +97,7 @@ export default function Select(arg: SelectArgs) {
   function newButtonHandler() {
     setFlagNewItem(() => 'Y')
   }
+
   function saveNewHandler() {
     if (newName === '' || newPhone === '') {
       alert('! empty field !')
@@ -77,15 +105,16 @@ export default function Select(arg: SelectArgs) {
       return
     }
     return new Promise((resolveSS, rejectSS) => {
-      const body = { mode: 'new', name: newName, phone: newPhone }
-      fetch('/api/items', {
+      fetch('/api/' + apiName, {
         method: 'POST',
         body: JSON.stringify(body)
       })
         .then((res) => res.json())
         .then((res) => {
           if (res.error) {
-            console.log('--- saveNew DB/api error: ' + res.error)
+            console.log(
+              '---  ' + arg.type + 'saveNew DB/api error: ' + res.error
+            )
             alert('DataBase error: X3')
             rejectSS(res.error)
           } else {
@@ -93,17 +122,24 @@ export default function Select(arg: SelectArgs) {
           }
         })
         .catch((error) => {
-          console.log('--- catch saveNew fetch error - ', error)
+          console.log(
+            '---  ' + arg.type + 'catch saveNew fetch error - ',
+            error
+          )
           alert('fetch data error: X3')
         })
     })
       .then(() => {
         new Promise((resolveUC, rejectUC) => {
-          fetch('/api/items')
+          fetch('/api/' + apiName)
             .then((apiRes) => apiRes.json())
             .then((apiRes) => {
               if (apiRes.error) {
-                console.log('--- CustSelect DB/api error: ' + apiRes.error)
+                console.log(
+                  '--- ',
+                  arg.type,
+                  ' Select DB/api error: ' + apiRes.error
+                )
                 alert('DataBase error: X3')
                 rejectUC(apiRes.error)
               } else {
@@ -112,8 +148,13 @@ export default function Select(arg: SelectArgs) {
               }
             })
             .catch((error) => {
-              console.log('--- catch CustSelect fetch error - ', error)
-              alert('fetch data error: X3')
+              console.log(
+                '--- catch ',
+                arg.type,
+                ' Select fetch error - ',
+                error
+              )
+              alert('fetch ' + arg.type + ' data error: X3')
             })
         })
       })
@@ -124,62 +165,208 @@ export default function Select(arg: SelectArgs) {
       })
       .catch()
   }
+
   function cancelNewHandler() {
     setNewName(() => '')
     setNewPhone(() => '')
     setFlagNewItem(() => '')
   }
 
-  function LiveSearchList() {
-    if (searchWord === '' || arg.currentItem.id > 0) return <></>
+  // function LiveSearchList() {
+  //   if (searchWord === '' || (!!arg.currentItem.id && arg.currentItem.id > 0))
+  //     return <></>
 
-    let cList = arg.items
-      .filter((item: Customer | User | Sale | Xpense) => {
-        return item.name.toLowerCase().includes(searchWord)
-      })
-      .map((item: Customer | User | Sale | Xpense) => {
-        return (
-          <div
-            key={item.id}
-            onClick={() => setCurr(item.id)}
-            className={styles.csOpt}
-          >
-            {item.name}
-          </div>
-        )
-      })
+  //   let cList: any
 
-    if (cList.length === 0) return <></>
+  //   switch (arg.type) {
+  //     case 'C': {
+  //       cList = arg.items
+  //         .filter((item: Customer) => {
+  //           return item.name.toLowerCase().includes(searchWord)
+  //         })
+  //         .map((item: Customer) => {
+  //           return (
+  //             <div
+  //               key={item.id}
+  //               onClick={() => setCurrC(item.id)}
+  //               className={styles.csOpt}
+  //             >
+  //               {item.name}
+  //             </div>
+  //           )
+  //         })
+  //       break
+  //     }
+  //     case 'U': {
+  //       cList = arg.items
+  //         .filter((item: User) => {
+  //           return item.name.toLowerCase().includes(searchWord)
+  //         })
+  //         .map((item: User) => {
+  //           return (
+  //             <div
+  //               key={item.id}
+  //               onClick={() => setCurrU(item.id)}
+  //               className={styles.csOpt}
+  //             >
+  //               {item.name}
+  //             </div>
+  //           )
+  //         })
+  //       break
+  //     }
+  //     case 'S': {
+  //       cList = arg.items
+  //         .filter((item: Sale) => {
+  //           return (
+  //             String(item.id).includes(searchWord) ||
+  //             String(item.cust).includes(searchWord) ||
+  //             String(item.prod).includes(searchWord) ||
+  //             item.date.toLowerCase().includes(searchWord)
+  //           )
+  //         })
+  //         .map((item: Sale) => {
+  //           return (
+  //             <div
+  //               key={item.id}
+  //               onClick={() => setCurrS(item.id)}
+  //               className={styles.csOpt}
+  //             >
+  //               id={item.id}, c={item.cust}, p={item.prod}, sum=
+  //               {item.sum}, {item.date}
+  //             </div>
+  //           )
+  //         })
+  //       break
+  //     }
+  //     case 'X': {
+  //       cList = arg.items
+  //         .filter((item: Xpense) => {
+  //           return (
+  //             String(item.id).includes(searchWord) ||
+  //             item.date.toLowerCase().includes(searchWord) ||
+  //             String(item.xitem).includes(searchWord)
+  //           )
+  //         })
+  //         .map((item: Xpense) => {
+  //           return (
+  //             <div
+  //               key={item.id}
+  //               onClick={() => setCurrX(item.id)}
+  //               className={styles.csOpt}
+  //             >
+  //               id:{item.id}, xi={item.xitem}, sum={item.sum}, {item.date}
+  //             </div>
+  //           )
+  //         })
+  //       break
+  //     }
+  //     default: {
+  //       console.log('! LiveSearchList argType undefined !')
+  //     }
+  //   }
 
-    return (
-      <div className={styles.floatWrapper}>
-        <div className={styles.selectListForm}>
-          <div className={styles.selectList}>{cList}</div>
-        </div>
+  //   if (cList.length === 0) return <></>
+
+  //   return (
+  //     <div className={styles.floatWrapper}>
+  //       <div className={styles.selectListForm}>
+  //         <div className={styles.selectList}>{cList}</div>
+  //       </div>
+  //     </div>
+  //   )
+  // }
+
+  // function setCurrC(id: any) {
+  //   const st = arg.items.filter((item: Customer) => {
+  //     return item.id === Number(id)
+  //   })
+  //   if (st.length === 1 && customerInputRef.current !== null) {
+  //     const curr = st[0]
+  //     customerInputRef.current.value = curr.name
+  //     arg.setCurrentItem({
+  //       id: Number(curr.id),
+  //       name: curr.name,
+  //       phone: curr.phone,
+  //       gooid: curr.gooid
+  //     })
+  //   }
+  // }
+
+  // function setCurrU(id: any) {
+  //   const st = arg.items.filter((item: User) => {
+  //     return item.id === Number(id)
+  //   })
+  //   if (st.length === 1 && customerInputRef.current !== null) {
+  //     const curr = st[0]
+  //     customerInputRef.current.value = curr.name
+  //     arg.setCurrentItem({
+  //       id: Number(curr.id),
+  //       name: curr.name,
+  //       phone: curr.phone,
+  //       gooid: curr.gooid
+  //     })
+  //   }
+  // }
+
+  // function setCurrS(id: any) {
+  //   const st = arg.items.filter((item: Sale) => {
+  //     return item.id === Number(id)
+  //   })
+  //   if (st.length === 1 && customerInputRef.current !== null) {
+  //     const curr = st[0]
+  //     customerInputRef.current.value = curr.name
+  //     arg.setCurrentItem({
+  //       id: Number(curr.id),
+  //       name: curr.name,
+  //       phone: curr.phone,
+  //       gooid: curr.gooid
+  //     })
+  //   }
+  // }
+
+  // function setCurrX(id: any) {
+  //   const st = arg.items.filter((item: Xpense) => {
+  //     return item.id === Number(id)
+  //   })
+  //   if (st.length === 1 && customerInputRef.current !== null) {
+  //     const curr = st[0]
+  //     customerInputRef.current.value = curr.name
+  //     arg.setCurrentItem({
+  //       id: Number(curr.id),
+  //       name: curr.name,
+  //       phone: curr.phone,
+  //       gooid: curr.gooid
+  //     })
+  //   }
+  // }
+
+  return (
+    <>
+      <div className={styles.custList}>
+        <input
+          type="search"
+          ref={customerInputRef}
+          placeholder="Customer name"
+          pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
+          onChange={liveSearch}
+          className={styles.inputCust}
+        />
+        <button
+          onClick={newButtonHandler}
+          className={stylesH.plusButton}
+          hidden={arg.mode === 'stat'}
+        >
+          +New
+        </button>
+        <button onClick={dropButtonHandler} className={stylesH.dropButton}>
+          X
+        </button>
       </div>
-    )
-  }
 
-  function setCurr(id: any) {
-    const st = arg.items.filter((item: Customer | User | Sale | Xpense) => {
-      return item.id === Number(id)
-    })
-    if (st.length === 1 && customerInputRef.current !== null) {
-      const curr = st[0]
-      customerInputRef.current.value = curr.name
-      arg.setCurrentItem({
-        id: Number(curr.id),
-        name: curr.name,
-        phone: curr.phone,
-        gooid: curr.gooid
-      })
-    }
-  }
+      {/* <LiveSearchList /> */}
 
-  function NewForm() {
-    if (flagNewItem === '') return <></>
-    return (
-      <div className={styles.floatWrapper}>
+      <div className={styles.floatWrapper} hidden={flagNew === ''}>
         <div className={styles.newCust}>
           <p className={styles.title}>New Customer</p>
           <p>
@@ -218,33 +405,6 @@ export default function Select(arg: SelectArgs) {
           </p>
         </div>
       </div>
-    )
-  }
-
-  return (
-    <>
-      <div className={styles.custList}>
-        <input
-          type="search"
-          ref={customerInputRef}
-          placeholder="Customer name"
-          pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
-          onChange={liveSearch}
-          className={styles.inputCust}
-        />
-        <button
-          onClick={newButtonHandler}
-          className={stylesH.plusButton}
-          hidden={arg.mode === 'stat'}
-        >
-          +New
-        </button>
-        <button onClick={dropButtonHandler} className={stylesH.dropButton}>
-          X
-        </button>
-      </div>
-      <LiveSearchList />
-      <NewForm />
     </>
   )
 }
