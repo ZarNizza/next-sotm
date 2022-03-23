@@ -1,23 +1,17 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { useState } from 'react'
 import { Customer } from '../pages/plus'
 import styles from './Select.module.scss'
 import stylesH from '../styles/Home.module.css'
 import fetchHandler, { FetchArgs } from './fetchHandler'
 type editFormArgs = {
   custToEdit: Customer
-  setUpdateFlag: any
-  cancelFlag: any
+  updateFunc: any
+  resetParams: any
 }
 
 export default function CustomerEditForm(a: editFormArgs) {
   const [custName, setCustName] = useState(a.custToEdit.name)
   const [custPhone, setCustPhone] = useState(a.custToEdit.phone)
-  const cust0 = {
-    id: 0,
-    name: '',
-    phone: '',
-    gooid: ''
-  }
 
   function saveEditHandler() {
     const args: FetchArgs = {
@@ -31,13 +25,16 @@ export default function CustomerEditForm(a: editFormArgs) {
         gooid: a.custToEdit.gooid,
         id: a.custToEdit.id
       }),
-      setResData: a.setUpdateFlag
+      setResData: console.log
     }
-    fetchHandler(args)
-  }
-
-  function cancelHandler() {
-    return a.cancelFlag(() => cust0)
+    const f = new Promise((resolve, reject) => {
+      fetchHandler(args)
+      resolve(null)
+    })
+    f.then(() => {
+      console.log('update promise')
+      a.updateFunc()
+    })
   }
 
   return (
@@ -74,7 +71,7 @@ export default function CustomerEditForm(a: editFormArgs) {
         <button onClick={saveEditHandler} className={stylesH.sysButton}>
           Save
         </button>
-        <button onClick={cancelHandler} className={stylesH.sysButton}>
+        <button onClick={() => a.resetParams()} className={stylesH.sysButton}>
           Cancel
         </button>
       </div>

@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
 import { Customer } from './plus'
@@ -8,7 +8,6 @@ import fetchHandler, { FetchArgs } from '../components/fetchHandler'
 import CustomerSelect from '../components/CustomerSelect'
 import CustomerEditForm from '../components/CustomerEditForm'
 import DBshortTable from '../components/DBshortTable'
-// import DBshort_ED_Table from '../components/DBshortEditDropTable'
 
 const Home: NextPage = () => {
   const cust0 = {
@@ -19,21 +18,19 @@ const Home: NextPage = () => {
   }
   const [customers, setCustomers] = useState<Customer[] | []>([])
   const [currentCustomer, setCurrentCustomer] = useState<Customer>(cust0)
-  const [updateFlag, setUpdateFlag] = useState(0)
   const [showTableFlag, setShowTableFlag] = useState(false)
+  const liveRef = useRef<HTMLInputElement>(null)
   const [searchWord, setSearchWord] = useState('')
   const [flagNew, setFlagNew] = useState('')
 
-  function setUpdF() {
-    setUpdateFlag(() => 1)
-    setCurrentCustomer(() => cust0)
-    return alert(
-      'OK, Updated!\n\nTo refresh CustomerList clear input area - press button (X).'
-    )
+  function updateFunc() {
+    custInit()
+    resetParams()
   }
-  function cancelFlag() {
+  function resetParams() {
     setSearchWord('')
-    setCurrentCustomer(cust0)
+    setCurrentCustomer(() => cust0)
+    if (liveRef.current !== null) liveRef.current.value = ''
     return
   }
   function setShowTableHandler() {
@@ -54,13 +51,6 @@ const Home: NextPage = () => {
     custInit()
   }, [])
 
-  useEffect(() => {
-    if (updateFlag === 1) {
-      custInit()
-      setUpdateFlag(() => 0)
-    }
-  }, [updateFlag])
-
   return (
     <Layout>
       <Head>
@@ -72,9 +62,10 @@ const Home: NextPage = () => {
           <h2>Customers: {customers.length}</h2>
           <CustomerSelect
             customers={customers}
-            setCurrentCustomer={setCurrentCustomer}
-            currentCustomer={currentCustomer}
             setCustomers={setCustomers}
+            currentCustomer={currentCustomer}
+            setCurrentCustomer={setCurrentCustomer}
+            liveRef={liveRef}
             searchWord={searchWord}
             setSearchWord={setSearchWord}
             flagNew={flagNew}
@@ -91,8 +82,8 @@ const Home: NextPage = () => {
                   return item.id === Number(currentCustomer.id)
                 })[0]
               }
-              setUpdateFlag={setUpdF}
-              cancelFlag={cancelFlag}
+              updateFunc={updateFunc}
+              resetParams={resetParams}
             />
           )}
 

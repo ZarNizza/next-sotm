@@ -1,9 +1,8 @@
 import {
   ChangeEvent,
   Dispatch,
-  MouseEventHandler,
+  RefObject,
   SetStateAction,
-  useRef,
   useState
 } from 'react'
 import type { Customer } from '../pages/plus'
@@ -15,6 +14,7 @@ type CustSelectProps = {
   setCustomers: Dispatch<SetStateAction<Customer[] | []>>
   currentCustomer: Customer
   setCurrentCustomer: Dispatch<SetStateAction<Customer>>
+  liveRef: RefObject<HTMLInputElement>
   searchWord: string
   setSearchWord: Dispatch<SetStateAction<string>>
   flagNew: string
@@ -23,23 +23,25 @@ type CustSelectProps = {
 }
 
 export default function CustomerSelect(arg: CustSelectProps) {
-  const customerInputRef = useRef<HTMLInputElement>(null)
   const [newName, setNewName] = useState('')
   const [newPhone, setNewPhone] = useState('')
 
   function liveSearch(e: ChangeEvent<HTMLInputElement>) {
     const st = e.target.value.toLowerCase()
-    // if (st.length < 3) return
     arg.setSearchWord(() => st)
     arg.setCurrentCustomer({ id: 0, name: '', phone: '', gooid: '' })
   }
 
-  function dropButtonHandler() {
+  function dropHandler() {
     arg.setSearchWord(() => '')
-    if (customerInputRef.current !== null) customerInputRef.current.value = ''
+    if (arg.liveRef.current !== null) arg.liveRef.current.value = ''
     arg.setCurrentCustomer({ id: 0, name: '', phone: '', gooid: '' })
+    setNewName(() => '')
+    setNewPhone(() => '')
+    arg.setFlagNew(() => '')
   }
   function newButtonHandler() {
+    dropHandler()
     arg.setFlagNew(() => 'Y')
   }
   function saveNewHandler() {
@@ -48,7 +50,7 @@ export default function CustomerSelect(arg: CustSelectProps) {
       arg.setFlagNew(() => '')
       return
     }
-    return new Promise((resolveSS, rejectSS) => {
+    return new Promise((resolveNew, rejectNew) => {
       const body = { mode: 'new', name: newName, phone: newPhone }
       fetch('/api/customers', {
         method: 'POST',
@@ -59,9 +61,9 @@ export default function CustomerSelect(arg: CustSelectProps) {
           if (res.error) {
             console.log('--- saveNew DB/api error: ' + res.error)
             alert('DataBase error: X3')
-            rejectSS(res.error)
+            rejectNew(res.error)
           } else {
-            resolveSS(res)
+            resolveNew(res)
           }
         })
         .catch((error) => {
@@ -70,17 +72,17 @@ export default function CustomerSelect(arg: CustSelectProps) {
         })
     })
       .then(() => {
-        new Promise((resolveUC, rejectUC) => {
+        new Promise((resolveUpd, rejectUpd) => {
           fetch('/api/customers')
             .then((apiRes) => apiRes.json())
             .then((apiRes) => {
               if (apiRes.error) {
                 console.log('--- CustSelect DB/api error: ' + apiRes.error)
                 alert('DataBase error: X3')
-                rejectUC(apiRes.error)
+                rejectUpd(apiRes.error)
               } else {
                 arg.setCustomers(() => apiRes.data || [])
-                resolveUC(apiRes)
+                resolveUpd(apiRes)
               }
             })
             .catch((error) => {
@@ -89,17 +91,8 @@ export default function CustomerSelect(arg: CustSelectProps) {
             })
         })
       })
-      .then(() => {
-        setNewName(() => '')
-        setNewPhone(() => '')
-        arg.setFlagNew(() => '')
-      })
+      .then(() => dropHandler())
       .catch()
-  }
-  function cancelNewHandler() {
-    setNewName(() => '')
-    setNewPhone(() => '')
-    arg.setFlagNew(() => '')
   }
 
   function LiveSearchList() {
@@ -136,9 +129,9 @@ export default function CustomerSelect(arg: CustSelectProps) {
     const st = arg.customers.filter((item: Customer) => {
       return item.id === Number(id)
     })
-    if (st.length === 1 && customerInputRef.current !== null) {
+    if (st.length === 1 && arg.liveRef.current !== null) {
       const curr = st[0]
-      customerInputRef.current.value = curr.name
+      arg.liveRef.current.value = curr.name
       arg.setCurrentCustomer({
         id: Number(curr.id),
         name: curr.name,
@@ -153,7 +146,7 @@ export default function CustomerSelect(arg: CustSelectProps) {
       <div className={styles.custList}>
         <input
           type="search"
-          ref={customerInputRef}
+          ref={arg.liveRef}
           placeholder="Customer name"
           pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
           onChange={liveSearch}
@@ -166,7 +159,7 @@ export default function CustomerSelect(arg: CustSelectProps) {
         >
           +New
         </button>
-        <button onClick={dropButtonHandler} className={stylesH.dropButton}>
+        <button onClick={dropHandler} className={stylesH.dropButton}>
           X
         </button>
       </div>
@@ -206,7 +199,7 @@ export default function CustomerSelect(arg: CustSelectProps) {
             <button onClick={saveNewHandler} className={stylesH.sysButton}>
               Save
             </button>
-            <button onClick={cancelNewHandler} className={stylesH.sysButton}>
+            <button onClick={dropHandler} className={stylesH.sysButton}>
               Cancel
             </button>
           </p>
