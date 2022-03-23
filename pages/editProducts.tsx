@@ -1,10 +1,10 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
 import type { Product } from './plus'
-import initProducts from '../components/initProducts'
+import Init from '../components/Init'
 import ProductEditStore from '../components/ProductEditStore'
 import ProductNew from '../components/ProductNew'
 import ProductEditForm from '../components/ProductEditForm'
@@ -14,7 +14,9 @@ const Home: NextPage = () => {
   const [currPitem, setCurrPitem] = useState<Product['id']>(0)
   const [newFlag, setNewFlag] = useState(false)
 
-  initProducts(setPitems)
+  useEffect(() => {
+    Init(setPitems, 'products')
+  }, [])
 
   return (
     <Layout>

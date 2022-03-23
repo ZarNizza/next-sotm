@@ -2,12 +2,11 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
-import InitCustomers from '../components/initCustomers'
-import InitProducts from '../components/initProducts'
+import Init from '../components/Init'
 import ProductStore from '../components/ProductStore'
 import ProductCart from '../components/ProductCart'
 import CustomerSelect from '../components/CustomerSelect'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export type Customer = {
   id: number
@@ -30,20 +29,38 @@ export type Sale = {
 }
 
 const Home: NextPage = () => {
-  const [customers, setCustomers] = useState<Customer[]>([])
-  const [currentCustomer, setCurrentCustomer] = useState<Customer>({
+  const cust0 = {
     id: 0,
     name: '',
     phone: '',
     gooid: ''
-  })
+  }
+  const [customers, setCustomers] = useState<Customer[]>([])
+  const [currentCustomer, setCurrentCustomer] = useState<Customer>(cust0)
   const [products, setProducts] = useState<Product[]>([])
   const [selectedProducts, setSelectedProducts] = useState<Product['id'][]>([])
   const prodCostRef = useRef<Record<Product['id'], number>>({})
   const [gross, setGross] = useState<number>(0)
+  const liveRef = useRef<HTMLInputElement>(null)
+  const [searchWord, setSearchWord] = useState('')
 
-  InitCustomers(setCustomers)
-  InitProducts(setProducts)
+  useEffect(() => {
+    Init(setCustomers, 'customers')
+    Init(setProducts, 'products')
+  }, [])
+
+  function updateFunc() {
+    Init(setCustomers, 'customers')
+    resetParams()
+    return
+  }
+
+  function resetParams() {
+    setSearchWord('')
+    setCurrentCustomer(() => cust0)
+    if (liveRef.current !== null) liveRef.current.value = ''
+    return
+  }
 
   return (
     <Layout>
@@ -54,10 +71,13 @@ const Home: NextPage = () => {
         <div className={styles.flexColumnContainer}>
           <h3>Sales accounting</h3>
           <CustomerSelect
-            customers={customers}
-            setCustomers={setCustomers}
-            currentCustomer={currentCustomer}
-            setCurrentCustomer={setCurrentCustomer}
+            items={customers}
+            currentItem={currentCustomer}
+            setCurrentItem={setCurrentCustomer}
+            liveRef={liveRef}
+            searchWord={searchWord}
+            setSearchWord={setSearchWord}
+            updateFunc={updateFunc}
             mode="new"
           />
           <p>

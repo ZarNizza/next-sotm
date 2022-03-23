@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { useRef, useState } from 'react'
 import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
-import initEitems from '../components/initEitems'
+import Init from '../components/Init'
 import EitemStore from '../components/EitemStore'
 import XpenseCart from '../components/XpenseCart'
 import EitemNew from '../components/EitemNew'
@@ -27,7 +27,7 @@ const Home: NextPage = () => {
   const [gross, setGross] = useState<number>(0)
   const [newFlag, setNewFlag] = useState(false)
 
-  initEitems(setEitems)
+  Init(setEitems, 'eitems')
 
   return (
     <Layout>

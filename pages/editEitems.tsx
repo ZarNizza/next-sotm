@@ -1,9 +1,9 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
-import initEitems from '../components/initEitems'
+import Init from '../components/Init'
 import EitemEditStore from '../components/EitemEditStore'
 import EitemNew from '../components/EitemNew'
 import EitemEditForm from '../components/EitemEditForm'
@@ -25,7 +25,9 @@ const Home: NextPage = () => {
   const [currEitem, setCurrEitem] = useState<Eitem['id']>(0)
   const [newFlag, setNewFlag] = useState(false)
 
-  initEitems(setEitems)
+  useEffect(() => {
+    Init(setEitems, 'eitems')
+  }, [])
 
   return (
     <Layout>

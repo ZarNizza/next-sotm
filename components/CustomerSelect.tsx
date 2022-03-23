@@ -16,7 +16,7 @@ type CustSelectProps = {
   liveRef: RefObject<HTMLInputElement>
   searchWord: string
   setSearchWord: Dispatch<SetStateAction<string>>
-  updateFunc: any
+  updateFunc?: any
   mode: string
 }
 
@@ -61,7 +61,7 @@ export default function CustomerSelect(a: CustSelectProps) {
           console.log('--- saveNew DB/api error: ' + res.error)
           alert('DataBase error: X3')
         } else {
-          a.updateFunc()
+          if (!!a.updateFunc()) a.updateFunc()
         }
       })
       .then(() => dropHandler())

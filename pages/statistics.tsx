@@ -1,14 +1,13 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
 import { Sale, Product, Customer } from './plus'
+import Init from '../components/Init'
 import DBshortTable from '../components/DBshortTable'
 import DBfullTable from '../components/DBfullTable'
 import DBfullDTable from '../components/DBfullDTable'
-import InitCustomers from '../components/initCustomers'
-import InitProducts from '../components/initProducts'
 import CustomerSelect from '../components/CustomerSelect'
 
 type apiBody = {
@@ -19,23 +18,27 @@ type apiBody = {
 }
 
 const Home: NextPage = () => {
-  const [customers, setCustomers] = useState<Customer[]>([])
-  const [currentCustomer, setCurrentCustomer] = useState<Customer>({
+  const cust0 = {
     id: 0,
     name: '',
     phone: '',
     gooid: ''
-  })
-  InitCustomers(setCustomers)
+  }
+  const [customers, setCustomers] = useState<Customer[]>([])
+  const [currentCustomer, setCurrentCustomer] = useState<Customer>(cust0)
   const [products, setProducts] = useState<Product[]>([])
-  InitProducts(setProducts)
+  const liveRef = useRef<HTMLInputElement>(null)
+  const [searchWord, setSearchWord] = useState('')
 
-  const [resData, setResData] = useState<Sale[]>([
-    // { id: 0, date: '2022-02-02', cust: 0, prod: 0, sum: 0 }
-  ])
+  const [resData, setResData] = useState<Sale[]>([])
   const [resSource, setResSource] = useState('')
   const [startDate, setStartDate] = useState(myDate('today'))
   const [finishDate, setFinishDate] = useState(myDate('today'))
+
+  useEffect(() => {
+    Init(setCustomers, 'customers')
+    Init(setProducts, 'products')
+  }, [])
 
   function fetch_Handler(body: apiBody) {
     fetch('/api/statistics', { method: 'POST', body: JSON.stringify(body) })
@@ -215,10 +218,12 @@ const Home: NextPage = () => {
         <div className={styles.flexColumnContainer}>
           <h3>Profit Statistics</h3>
           <CustomerSelect
-            customers={customers}
-            setCurrentCustomer={setCurrentCustomer}
-            currentCustomer={currentCustomer}
-            setCustomers={setCustomers}
+            items={customers}
+            currentItem={currentCustomer}
+            setCurrentItem={setCurrentCustomer}
+            liveRef={liveRef}
+            searchWord={searchWord}
+            setSearchWord={setSearchWord}
             mode="stat"
           />
           <div className={styles.miniInput}>
