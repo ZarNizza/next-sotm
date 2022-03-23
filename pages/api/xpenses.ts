@@ -14,7 +14,7 @@ const pool = new Pool({
   }
 })
 pool.on('error', (err: any, client: any) => {
-  console.error('Unexpected error on idle client', err)
+  console.error('X3 error on DB: ', err)
   process.exit(-1)
 })
 
@@ -35,7 +35,7 @@ export default function handler(
 
       case 'POST':
         const parsedReq = JSON.parse(req.body)
-        console.log('!!!!!!!!!!! POST, parsedReq=', parsedReq)
+        // console.log('!!!!!!!!!!! POST, parsedReq=', parsedReq)
         switch (parsedReq.mode) {
           case 'edit':
             sql = 'UPDATE xpenses SET date=$1, xitem=$2, sum=$3 WHERE id=$4'
@@ -65,7 +65,7 @@ export default function handler(
 
             sql = 'INSERT INTO xpenses (date, xitem, sum) VALUES ($1, $2, $3)'
             params = [sqlDate, String(parsedReq.xitem), String(parsedReq.sum)]
-            console.log('---------------------- new: ', sql, ', ', params)
+            console.log('--- new: ', sql, ', ', params)
             break
           case 'del':
             sql = 'UPDATE xpenses SET del = 1 WHERE id=' + parsedReq.id

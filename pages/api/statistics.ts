@@ -10,7 +10,7 @@ const pool = new Pool({
   }
 })
 pool.on('error', (err: any, client: any) => {
-  console.error('Unexpected error on idle client', err)
+  console.error('X3 error on DB: ', err)
   process.exit(-1)
 })
 

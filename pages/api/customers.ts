@@ -14,7 +14,7 @@ const pool = new Pool({
   }
 })
 pool.on('error', (err: any, client: any) => {
-  console.error('Unexpected error on idle client', err)
+  console.error('X3 error on DB: ', err)
   process.exit(-1)
 })
 
@@ -33,7 +33,7 @@ export default function handler(
 
       case 'POST':
         const parsedReq = JSON.parse(req.body)
-        console.log('!!!!!!!!!!! POST, parsedReq=', parsedReq)
+        // console.log('!!!!!!!!!!! POST, parsedReq=', parsedReq)
         switch (parsedReq.mode) {
           case 'edit':
             sql =
@@ -52,7 +52,7 @@ export default function handler(
               parsedReq.name.substring(0, 50),
               parsedReq.phone.substring(0, 20)
             ]
-            console.log('---------------------- new: ', sql, params)
+            console.log('--- new: ', sql, params)
             break
           case 'del':
             sql = 'UPDATE customers SET del = 1 WHERE id=' + parsedReq.id
@@ -69,7 +69,7 @@ export default function handler(
         break
     }
     if (sql > '') {
-      console.log('=== sql OK === ', sql)
+      // console.log('=== sql OK === ', sql)
       pool.connect().then((client: any) => {
         return client
           .query(sql, params)
