@@ -3,15 +3,16 @@ import { Customer } from '../pages/plus'
 import styles from './Select.module.scss'
 import stylesH from '../styles/Home.module.css'
 import fetchHandler, { FetchArgs } from './fetchHandler'
+
 type editFormArgs = {
-  custToEdit: Customer
+  itemToEdit: Customer
   updateFunc: any
   resetParams: any
 }
 
 export default function CustomerEditForm(a: editFormArgs) {
-  const [custName, setCustName] = useState(a.custToEdit.name)
-  const [custPhone, setCustPhone] = useState(a.custToEdit.phone)
+  const [custName, setCustName] = useState(a.itemToEdit.name)
+  const [custPhone, setCustPhone] = useState(a.itemToEdit.phone)
 
   function saveEditHandler() {
     const args: FetchArgs = {
@@ -22,19 +23,18 @@ export default function CustomerEditForm(a: editFormArgs) {
         mode: 'edit',
         name: custName,
         phone: custPhone,
-        gooid: a.custToEdit.gooid,
-        id: a.custToEdit.id
+        gooid: a.itemToEdit.gooid,
+        id: a.itemToEdit.id
       }),
       setResData: console.log
     }
-    const f = new Promise((resolve, reject) => {
-      fetchHandler(args)
-      resolve(null)
-    })
-    f.then(() => {
-      console.log('update promise')
-      a.updateFunc()
-    })
+
+    fetchHandler(args)
+      .then(() => {
+        console.log('update promise')
+        a.updateFunc()
+      })
+      .catch((err) => console.log('update promise - ', err))
   }
 
   return (

@@ -10,97 +10,69 @@ import styles from './Select.module.scss'
 import stylesH from '../styles/Home.module.css'
 
 type CustSelectProps = {
-  customers: Customer[]
-  setCustomers: Dispatch<SetStateAction<Customer[] | []>>
-  currentCustomer: Customer
-  setCurrentCustomer: Dispatch<SetStateAction<Customer>>
+  items: Customer[]
+  currentItem: Customer
+  setCurrentItem: Dispatch<SetStateAction<Customer>>
   liveRef: RefObject<HTMLInputElement>
   searchWord: string
   setSearchWord: Dispatch<SetStateAction<string>>
-  flagNew: string
-  setFlagNew: Dispatch<SetStateAction<string>>
+  updateFunc: any
   mode: string
 }
 
-export default function CustomerSelect(arg: CustSelectProps) {
+export default function CustomerSelect(a: CustSelectProps) {
+  const [flagNew, setFlagNew] = useState('')
   const [newName, setNewName] = useState('')
   const [newPhone, setNewPhone] = useState('')
+  let item0 = { id: 0, name: '', phone: '', gooid: '' }
 
   function liveSearch(e: ChangeEvent<HTMLInputElement>) {
     const st = e.target.value.toLowerCase()
-    arg.setSearchWord(() => st)
-    arg.setCurrentCustomer({ id: 0, name: '', phone: '', gooid: '' })
+    a.setSearchWord(() => st)
+    a.setCurrentItem(item0)
   }
 
   function dropHandler() {
-    arg.setSearchWord(() => '')
-    if (arg.liveRef.current !== null) arg.liveRef.current.value = ''
-    arg.setCurrentCustomer({ id: 0, name: '', phone: '', gooid: '' })
+    a.setSearchWord(() => '')
+    if (a.liveRef.current !== null) a.liveRef.current.value = ''
+    a.setCurrentItem(item0)
     setNewName(() => '')
     setNewPhone(() => '')
-    arg.setFlagNew(() => '')
+    setFlagNew(() => '')
   }
   function newButtonHandler() {
     dropHandler()
-    arg.setFlagNew(() => 'Y')
+    setFlagNew(() => 'Y')
   }
   function saveNewHandler() {
     if (newName === '' || newPhone === '') {
       alert('! empty field !')
-      arg.setFlagNew(() => '')
+      setFlagNew(() => '')
       return
     }
-    return new Promise((resolveNew, rejectNew) => {
-      const body = { mode: 'new', name: newName, phone: newPhone }
-      fetch('/api/customers', {
-        method: 'POST',
-        body: JSON.stringify(body)
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          if (res.error) {
-            console.log('--- saveNew DB/api error: ' + res.error)
-            alert('DataBase error: X3')
-            rejectNew(res.error)
-          } else {
-            resolveNew(res)
-          }
-        })
-        .catch((error) => {
-          console.log('--- catch saveNew fetch error - ', error)
-          alert('fetch data error: X3')
-        })
+    const body = { mode: 'new', name: newName, phone: newPhone }
+    fetch('/api/customers', {
+      method: 'POST',
+      body: JSON.stringify(body)
     })
-      .then(() => {
-        new Promise((resolveUpd, rejectUpd) => {
-          fetch('/api/customers')
-            .then((apiRes) => apiRes.json())
-            .then((apiRes) => {
-              if (apiRes.error) {
-                console.log('--- CustSelect DB/api error: ' + apiRes.error)
-                alert('DataBase error: X3')
-                rejectUpd(apiRes.error)
-              } else {
-                arg.setCustomers(() => apiRes.data || [])
-                resolveUpd(apiRes)
-              }
-            })
-            .catch((error) => {
-              console.log('--- catch CustSelect fetch error - ', error)
-              alert('fetch data error: X3')
-            })
-        })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.error) {
+          console.log('--- saveNew DB/api error: ' + res.error)
+          alert('DataBase error: X3')
+        } else {
+          a.updateFunc()
+        }
       })
       .then(() => dropHandler())
-      .catch()
   }
 
   function LiveSearchList() {
-    if (arg.searchWord === '' || arg.currentCustomer.id > 0) return <></>
+    if (a.searchWord === '' || a.currentItem.id > 0) return <></>
 
-    let cList = arg.customers
+    let cList = a.items
       .filter((item: Customer) => {
-        return item.name.toLowerCase().includes(arg.searchWord)
+        return item.name.toLowerCase().includes(a.searchWord)
       })
       .map((item: Customer) => {
         return (
@@ -126,13 +98,13 @@ export default function CustomerSelect(arg: CustSelectProps) {
   }
 
   function setCurr(id: any) {
-    const st = arg.customers.filter((item: Customer) => {
+    const st = a.items.filter((item: Customer) => {
       return item.id === Number(id)
     })
-    if (st.length === 1 && arg.liveRef.current !== null) {
+    if (st.length === 1 && a.liveRef.current !== null) {
       const curr = st[0]
-      arg.liveRef.current.value = curr.name
-      arg.setCurrentCustomer({
+      a.liveRef.current.value = curr.name
+      a.setCurrentItem({
         id: Number(curr.id),
         name: curr.name,
         phone: curr.phone,
@@ -146,7 +118,7 @@ export default function CustomerSelect(arg: CustSelectProps) {
       <div className={styles.custList}>
         <input
           type="search"
-          ref={arg.liveRef}
+          ref={a.liveRef}
           placeholder="Customer name"
           pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
           onChange={liveSearch}
@@ -155,7 +127,7 @@ export default function CustomerSelect(arg: CustSelectProps) {
         <button
           onClick={newButtonHandler}
           className={stylesH.plusButton}
-          hidden={arg.mode === 'stat'}
+          hidden={a.mode === 'stat'}
         >
           +New
         </button>
@@ -166,7 +138,7 @@ export default function CustomerSelect(arg: CustSelectProps) {
 
       <LiveSearchList />
 
-      <div className={styles.floatWrapper} hidden={arg.flagNew === ''}>
+      <div className={styles.floatWrapper} hidden={flagNew === ''}>
         <div className={styles.newCust}>
           <p className={styles.title}>New Customer</p>
           <p>
