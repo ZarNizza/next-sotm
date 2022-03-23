@@ -15,35 +15,37 @@ type CustSelectProps = {
   setCustomers: Dispatch<SetStateAction<Customer[] | []>>
   currentCustomer: Customer
   setCurrentCustomer: Dispatch<SetStateAction<Customer>>
+  searchWord: string
+  setSearchWord: Dispatch<SetStateAction<string>>
+  flagNew: string
+  setFlagNew: Dispatch<SetStateAction<string>>
   mode: string
 }
 
 export default function CustomerSelect(arg: CustSelectProps) {
-  const [searchWord, setSearchWord] = useState('')
   const customerInputRef = useRef<HTMLInputElement>(null)
-  const [flagNew, setFlagNewCustomer] = useState('')
   const [newName, setNewName] = useState('')
   const [newPhone, setNewPhone] = useState('')
 
   function liveSearch(e: ChangeEvent<HTMLInputElement>) {
     const st = e.target.value.toLowerCase()
     // if (st.length < 3) return
-    setSearchWord(() => st)
+    arg.setSearchWord(() => st)
     arg.setCurrentCustomer({ id: 0, name: '', phone: '', gooid: '' })
   }
 
   function dropButtonHandler() {
-    setSearchWord(() => '')
+    arg.setSearchWord(() => '')
     if (customerInputRef.current !== null) customerInputRef.current.value = ''
     arg.setCurrentCustomer({ id: 0, name: '', phone: '', gooid: '' })
   }
   function newButtonHandler() {
-    setFlagNewCustomer(() => 'Y')
+    arg.setFlagNew(() => 'Y')
   }
   function saveNewHandler() {
     if (newName === '' || newPhone === '') {
       alert('! empty field !')
-      setFlagNewCustomer(() => '')
+      arg.setFlagNew(() => '')
       return
     }
     return new Promise((resolveSS, rejectSS) => {
@@ -90,22 +92,22 @@ export default function CustomerSelect(arg: CustSelectProps) {
       .then(() => {
         setNewName(() => '')
         setNewPhone(() => '')
-        setFlagNewCustomer(() => '')
+        arg.setFlagNew(() => '')
       })
       .catch()
   }
   function cancelNewHandler() {
     setNewName(() => '')
     setNewPhone(() => '')
-    setFlagNewCustomer(() => '')
+    arg.setFlagNew(() => '')
   }
 
   function LiveSearchList() {
-    if (searchWord === '' || arg.currentCustomer.id > 0) return <></>
+    if (arg.searchWord === '' || arg.currentCustomer.id > 0) return <></>
 
     let cList = arg.customers
       .filter((item: Customer) => {
-        return item.name.toLowerCase().includes(searchWord)
+        return item.name.toLowerCase().includes(arg.searchWord)
       })
       .map((item: Customer) => {
         return (
@@ -171,7 +173,7 @@ export default function CustomerSelect(arg: CustSelectProps) {
 
       <LiveSearchList />
 
-      <div className={styles.floatWrapper} hidden={flagNew === ''}>
+      <div className={styles.floatWrapper} hidden={arg.flagNew === ''}>
         <div className={styles.newCust}>
           <p className={styles.title}>New Customer</p>
           <p>

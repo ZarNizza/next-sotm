@@ -12,6 +12,12 @@ type editFormArgs = {
 export default function CustomerEditForm(a: editFormArgs) {
   const [custName, setCustName] = useState(a.custToEdit.name)
   const [custPhone, setCustPhone] = useState(a.custToEdit.phone)
+  const cust0 = {
+    id: 0,
+    name: '',
+    phone: '',
+    gooid: ''
+  }
 
   function saveEditHandler() {
     const args: FetchArgs = {
@@ -31,7 +37,7 @@ export default function CustomerEditForm(a: editFormArgs) {
   }
 
   function cancelHandler() {
-    return a.cancelFlag()
+    return a.cancelFlag(() => cust0)
   }
 
   return (

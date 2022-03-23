@@ -21,6 +21,8 @@ const Home: NextPage = () => {
   const [currentCustomer, setCurrentCustomer] = useState<Customer>(cust0)
   const [updateFlag, setUpdateFlag] = useState(0)
   const [showTableFlag, setShowTableFlag] = useState(false)
+  const [searchWord, setSearchWord] = useState('')
+  const [flagNew, setFlagNew] = useState('')
 
   function setUpdF() {
     setUpdateFlag(() => 1)
@@ -30,7 +32,9 @@ const Home: NextPage = () => {
     )
   }
   function cancelFlag() {
-    return setCurrentCustomer(() => cust0)
+    setSearchWord('')
+    setCurrentCustomer(cust0)
+    return
   }
   function setShowTableHandler() {
     setShowTableFlag(() => !showTableFlag)
@@ -71,6 +75,10 @@ const Home: NextPage = () => {
             setCurrentCustomer={setCurrentCustomer}
             currentCustomer={currentCustomer}
             setCustomers={setCustomers}
+            searchWord={searchWord}
+            setSearchWord={setSearchWord}
+            flagNew={flagNew}
+            setFlagNew={setFlagNew}
             mode="new"
           />
 
