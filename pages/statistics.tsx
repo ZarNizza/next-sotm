@@ -131,6 +131,9 @@ const Home: NextPage = () => {
     switch (mark) {
       case 'today':
         break
+      case 'yesterday':
+        myDate.setDate(today.getDate() - 1)
+        break
       case '0W':
         myDate.setDate(today.getDate() - 6)
         break
@@ -173,6 +176,10 @@ const Home: NextPage = () => {
   function setTodayHandler() {
     setStartDate(() => myDate('today'))
     setFinishDate(() => myDate('today'))
+  }
+  function setYesterdayHandler() {
+    setStartDate(() => myDate('yesterday'))
+    setFinishDate(() => myDate('yesterday'))
   }
   function setWeekHandler() {
     setStartDate(() => myDate('0W'))
@@ -236,7 +243,8 @@ const Home: NextPage = () => {
           </div>
           <div className={styles.miniButtons}>
             <div className={styles.flexRowContainer}>
-              <button onClick={setTodayHandler}>today</button>
+              <button onClick={setTodayHandler}>Today</button>
+              <button onClick={setYesterdayHandler}>Yesterday</button>
               <button onClick={setWeekHandler}>Week</button>
               <button onClick={setThisMonthHandler}>this Month</button>
               <button onClick={setFullMonthHandler}>Full Month</button>
