@@ -18,7 +18,7 @@ export type FetchArgs = {
 }
 
 export default function fetchHandler(arg: FetchArgs) {
-  fetch(
+  return fetch(
     '/api/' + arg.apiSuffix,
     arg.body ? { method: arg.method, body: arg.body } : {}
   )
