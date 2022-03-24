@@ -5,11 +5,8 @@ import styles from '../styles/Home.module.css'
 import Init from '../components/Init'
 import ProductStore from '../components/ProductStore'
 import ProductCart from '../components/ProductCart'
-import CustomerSelect from '../components/CustomerSelect'
 import LiveSelect from '../components/LiveSelectCUSX'
 import { useEffect, useRef, useState } from 'react'
-import type { Xpense } from './minus'
-import type { User } from './editUsers'
 
 export type Customer = {
   id: number
@@ -85,16 +82,6 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
           <h3>Sales accounting</h3>
-          <CustomerSelect
-            items={customers}
-            currentItem={currentCustomer}
-            setCurrentItem={setCurrentCustomer}
-            liveRef={liveRef}
-            searchWord={searchWord}
-            setSearchWord={setSearchWord}
-            updateFunc={updateFunc}
-            mode="new"
-          />
           <LiveSelect
             items={customers}
             currentItem={currentCustomer}
