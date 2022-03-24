@@ -6,7 +6,10 @@ import Init from '../components/Init'
 import ProductStore from '../components/ProductStore'
 import ProductCart from '../components/ProductCart'
 import CustomerSelect from '../components/CustomerSelect'
+import LiveSelect from '../components/LiveSelectCUSX'
 import { useEffect, useRef, useState } from 'react'
+import type { Xpense } from './minus'
+import type { User } from './editUsers'
 
 export type Customer = {
   id: number
@@ -28,15 +31,28 @@ export type Sale = {
   sum: number
 }
 
+export type Item0 = {
+  id: number
+  name?: string
+  phone?: string
+  gooid?: string
+  timezone?: string
+  date?: string
+  cust?: number
+  prod?: number
+  xitem?: number
+  sum?: number
+}
+
 const Home: NextPage = () => {
-  const cust0 = {
+  let cust0: Customer = {
     id: 0,
     name: '',
     phone: '',
     gooid: ''
   }
   const [customers, setCustomers] = useState<Customer[]>([])
-  const [currentCustomer, setCurrentCustomer] = useState<Customer>(cust0)
+  const [currentCustomer, setCurrentCustomer] = useState(cust0)
   const [products, setProducts] = useState<Product[]>([])
   const [selectedProducts, setSelectedProducts] = useState<Product['id'][]>([])
   const prodCostRef = useRef<Record<Product['id'], number>>({})
@@ -52,7 +68,6 @@ const Home: NextPage = () => {
   function updateFunc() {
     Init(setCustomers, 'customers')
     resetParams()
-    return
   }
 
   function resetParams() {
@@ -78,6 +93,17 @@ const Home: NextPage = () => {
             searchWord={searchWord}
             setSearchWord={setSearchWord}
             updateFunc={updateFunc}
+            mode="new"
+          />
+          <LiveSelect
+            items={customers}
+            currentItem={currentCustomer}
+            setCurrentItem={setCurrentCustomer}
+            liveRef={liveRef}
+            searchWord={searchWord}
+            setSearchWord={setSearchWord}
+            updateFunc={updateFunc}
+            type="C"
             mode="new"
           />
           <p>

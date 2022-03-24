@@ -5,25 +5,36 @@ import {
   SetStateAction,
   useState
 } from 'react'
-import type { Customer, Sale } from '../pages/plus'
+import type { Customer, Sale, Item0 } from '../pages/plus'
 import type { Xpense } from '../pages/minus'
 import type { User } from '../pages/editUsers'
 import styles from './Select.module.scss'
 import stylesH from '../styles/Home.module.css'
 
+/** Hello */
 type SelectArgs = {
   items: Customer[] | User[] | Sale[] | Xpense[]
   currentItem: Customer | User | Sale | Xpense
-  setCurrentItem: Dispatch<SetStateAction<Customer | User | Sale | Xpense>>
+  setCurrentItem: (anything: any) => void
+  // | ((customer: Customer) => void)
+  // | ((user: User) => void)
+  // | ((sale: Sale) => void)
+  // | ((xpense: Xpense) => void)
+  //  Dispatch<SetStateAction<Customer | User | Sale | Xpense>>
+  // | Dispatch<SetStateAction<Customer>>
+  //   | Dispatch<SetStateAction<User>>
+  //   | Dispatch<SetStateAction<Sale>>
+  //   | Dispatch<SetStateAction<Xpense>>
   liveRef: RefObject<HTMLInputElement>
   searchWord: string
   setSearchWord: Dispatch<SetStateAction<string>>
-  updateFunc?: any
+  updateFunc?: () => void
   mode: string
   type: string
 }
+type T = SelectArgs['setCurrentItem']
 
-export default function LiveSelect(a: SelectArgs) {
+const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
   const [flagNew, setFlagNew] = useState('')
   const [newName, setNewName] = useState('')
   const [newPhone, setNewPhone] = useState('')
@@ -98,7 +109,7 @@ export default function LiveSelect(a: SelectArgs) {
     }
     default: {
       console.log('LiveSelect !!! empty api.item type.')
-      return
+      return <></>
     }
   }
 
@@ -177,7 +188,7 @@ export default function LiveSelect(a: SelectArgs) {
           console.log('--- saveNew DB/api error: ' + res.error)
           alert('DataBase error: X3')
         } else {
-          if (!!a.updateFunc()) a.updateFunc()
+          if (!!a.updateFunc) a.updateFunc()
         }
       })
       .then(() => dropHandler())
@@ -289,10 +300,12 @@ export default function LiveSelect(a: SelectArgs) {
   }
 
   function setCurrC(currId: number) {
+    type T3 = typeof a.setCurrentItem
     const st = (a.items as Customer[]).filter((item) => {
       return item.id === currId
     })
     if (st.length === 1 && a.liveRef.current !== null) {
+      type T4 = typeof a.setCurrentItem
       const curr = st[0]
       a.liveRef.current.value = curr.name
       a.setCurrentItem({
@@ -303,6 +316,7 @@ export default function LiveSelect(a: SelectArgs) {
       })
     }
   }
+
   function setCurrU(currId: number) {
     const st = (a.items as User[]).filter((item) => {
       return item.id === currId
@@ -319,6 +333,7 @@ export default function LiveSelect(a: SelectArgs) {
       })
     }
   }
+
   function setCurrS(currId: number) {
     const st = (a.items as Sale[]).filter((item) => {
       return item.id === currId
@@ -338,13 +353,14 @@ export default function LiveSelect(a: SelectArgs) {
         curr.date
       a.setCurrentItem({
         id: curr.id,
-        cust: curr.cust,
-        prod: curr.prod,
-        sum: curr.sum,
-        date: curr.date
+        date: curr.date,
+        cust: Number(curr.cust),
+        prod: Number(curr.prod),
+        sum: Number(curr.sum)
       })
     }
   }
+
   function setCurrX(currId: number) {
     const st = (a.items as Xpense[]).filter((item) => {
       return item.id === currId
@@ -362,9 +378,9 @@ export default function LiveSelect(a: SelectArgs) {
         curr.date
       a.setCurrentItem({
         id: curr.id,
-        xitem: curr.xitem,
-        sum: curr.sum,
-        date: curr.date
+        date: curr.date,
+        xitem: Number(curr.xitem),
+        sum: Number(curr.sum)
       })
     }
   }
@@ -530,3 +546,5 @@ export default function LiveSelect(a: SelectArgs) {
     </>
   )
 }
+
+export default LiveSelect
