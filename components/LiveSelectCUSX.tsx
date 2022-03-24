@@ -11,20 +11,12 @@ import type { User } from '../pages/editUsers'
 import styles from './Select.module.scss'
 import stylesH from '../styles/Home.module.css'
 
-/** Hello */
+/** Arguments/Props for this Select component */
 type SelectArgs = {
   items: Customer[] | User[] | Sale[] | Xpense[]
   currentItem: Customer | User | Sale | Xpense
   setCurrentItem: (anything: any) => void
-  // | ((customer: Customer) => void)
-  // | ((user: User) => void)
-  // | ((sale: Sale) => void)
-  // | ((xpense: Xpense) => void)
-  //  Dispatch<SetStateAction<Customer | User | Sale | Xpense>>
-  // | Dispatch<SetStateAction<Customer>>
-  //   | Dispatch<SetStateAction<User>>
-  //   | Dispatch<SetStateAction<Sale>>
-  //   | Dispatch<SetStateAction<Xpense>>
+
   liveRef: RefObject<HTMLInputElement>
   searchWord: string
   setSearchWord: Dispatch<SetStateAction<string>>
