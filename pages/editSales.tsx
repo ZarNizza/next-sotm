@@ -1,60 +1,56 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
 import { Sale } from './plus'
 import fetchHandler, { FetchArgs } from '../components/fetchHandler'
-import SaleSelect from '../components/SaleSelect'
-import SaleEditForm from '../components/SaleEditForm'
+import LiveSelect from '../components/LiveSelectCUSX'
+import EditForm from '../components/EditForm'
 import DBshortTable from '../components/DBshortTable'
 
 const Home: NextPage = () => {
-  const [sales, setSales] = useState<Sale[] | []>([])
-  const [currentSale, setCurrentSale] = useState<Sale>({
+  const item0 = {
     id: 0,
     date: '',
     cust: 0,
     prod: 0,
     sum: 0
-  })
-  const [updateFlag, setUpdateFlag] = useState(0)
+  }
+  const [items, setItems] = useState<Sale[] | []>([])
+  const [currentItem, setCurrentItem] = useState<Sale>(item0)
   const [showTableFlag, setShowTableFlag] = useState(false)
+  const liveRef = useRef<HTMLInputElement>(null)
+  const [searchWord, setSearchWord] = useState('')
 
-  function setUpdF() {
-    setUpdateFlag(() => 1)
-    setCurrentSale({ id: 0, date: '', cust: 0, prod: 0, sum: 0 })
-    return alert(
-      'OK, Updated!\n\nTo refresh SalesList clear input area - press button (X).'
-    )
+  useEffect(() => {
+    init()
+  }, [])
+
+  function updateFunc() {
+    init()
+    resetParams()
+    return
   }
-  function cancelFlag() {
-    return setCurrentSale({ id: 0, date: '', cust: 0, prod: 0, sum: 0 })
-  }
-  function setShowTableHandler() {
-    setShowTableFlag(() => !showTableFlag)
-  }
-  //
-  function salesInit() {
+
+  function init() {
     const args: FetchArgs = {
       method: 'GET',
       apiSuffix: 'sales',
       title: 'getSale',
-      setResData: setSales
+      setResData: setItems
     }
     fetchHandler(args)
   }
 
-  useEffect(() => {
-    salesInit()
-  }, [])
+  function resetParams() {
+    setSearchWord('')
+    setCurrentItem(() => item0)
+    if (liveRef.current !== null) liveRef.current.value = ''
+    return
+  }
 
-  useEffect(() => {
-    if (updateFlag === 1) {
-      salesInit()
-      setUpdateFlag(() => 0)
-    }
-  }, [updateFlag])
+  //
 
   return (
     <Layout>
@@ -64,39 +60,47 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
-          <h2>Sales: {sales.length}</h2>
-          <SaleSelect
-            sales={sales}
-            setCurrentSale={setCurrentSale}
-            currentSale={currentSale}
-            setSale={setSales}
+          <h2>Sales: {items.length}</h2>
+          <LiveSelect
+            items={items}
+            currentItem={currentItem}
+            setCurrentItem={setCurrentItem}
+            liveRef={liveRef}
+            searchWord={searchWord}
+            setSearchWord={setSearchWord}
+            updateFunc={updateFunc}
+            type="S"
             mode="new"
           />
 
-          {currentSale.id === 0 ? (
+          {currentItem.id === 0 ? (
             ''
           ) : (
-            <SaleEditForm
-              saleToEdit={
-                sales.filter((item: Sale) => {
-                  return item.id === Number(currentSale.id)
+            <EditForm
+              itemToEdit={
+                items.filter((item: Sale) => {
+                  return item.id === Number(currentItem.id)
                 })[0]
               }
-              setUpdateFlag={setUpdF}
-              cancelFlag={cancelFlag}
+              updateFunc={updateFunc}
+              resetParams={resetParams}
+              type="S"
             />
           )}
 
           <div className={styles.flexColumnContainer}>
-            <button onClick={setShowTableHandler} className={styles.sysButton}>
+            <button
+              onClick={() => setShowTableFlag(!showTableFlag)}
+              className={styles.sysButton}
+            >
               Show/Hide all
             </button>
             {showTableFlag ? (
-              sales === undefined || sales.length === 0 ? (
+              items === undefined || items.length === 0 ? (
                 <p>No data - empty result</p>
               ) : (
                 <div className={styles.tableScroll}>
-                  <DBshortTable resData={sales} />
+                  <DBshortTable resData={items} />
                 </div>
               )
             ) : (
