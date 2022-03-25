@@ -1,117 +1,278 @@
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
-import styles from '../styles/Home.module.css'
-import fetchHandler from './fetchHandler'
-// import EditFormArgs from './DBshortEditDropTable'
+import { useState } from 'react'
+import { Customer, Product, Sale } from '../pages/plus'
+import { Eitem, Xpense } from '../pages/minus'
+import { User } from '../pages/editUsers'
+import styles from './Select.module.scss'
+import stylesH from '../styles/Home.module.css'
+import fetchHandler, { FetchArgs } from './fetchHandler'
 
-type EditFormArgs = {
-  setIdToEdit: Dispatch<SetStateAction<number>>
-  idName: string
-  keys: string[]
-  itemToEdit: Record<string, string | number | Date | null>[]
-  // setItemToEdit: Dispatch<
-  //   SetStateAction<Record<string, string | number | Date | null>[]>
-  //>
+type editFormArgs = {
+  itemToEdit: any
+  updateFunc: any
+  resetParams: any
+  type: 'C' | 'U' | 'P' | 'E' | 'S' | 'X'
 }
+//  {
+// id: number
+// name?: string
+// phone?: string
+// gooid?: string
+// timezone?: string
+// symbol?: string
+// date?: string
+// cust?: number
+// prod?: number
+// xitem?: number
+// sum?: number
+// }
 
-export default function EditForm(arg: EditFormArgs) {
-  const [editItem, setEditItem] = useState<any>(arg.itemToEdit[0])
-  const [focus, setFocus] = useState(0)
+export default function EditForm(a: editFormArgs) {
+  const [newName, setNewName] = useState(a.itemToEdit.name || '')
+  const [newPhone, setNewPhone] = useState(a.itemToEdit.phone || '')
+  const [newGooid, setNewGooid] = useState(a.itemToEdit.gooid || '')
+  const [newTimeZone, setNewTimeZone] = useState(a.itemToEdit.timezone || '')
+  const [newSymbol, setNewSymbol] = useState(a.itemToEdit.symbol || '')
+  const [newDate, setNewDate] = useState(a.itemToEdit.date || '')
+  const [newCust, setNewCust] = useState(a.itemToEdit.cust || 0)
+  const [newProd, setNewProd] = useState(a.itemToEdit.prod || 0)
+  const [newXitem, setNewXitem] = useState(a.itemToEdit.xitem || 0)
+  const [newSum, setNewSum] = useState(a.itemToEdit.sum || 0)
 
-  function saveEdit() {
-    console.log('++++ save editItem +++', editItem)
+  function saveEditHandler() {
+    let apiName: string = ''
+    let apiBody: string = ''
 
-    let args: { title: string; body: string; apiSuffix: string } = {
-      apiSuffix: 'customers',
-      title: 'edit',
-      body: JSON.stringify({
-        mode: 'edit',
-        name: editItem.name,
-        phone: editItem.phone,
-        gooid: editItem.gooid,
-        id: editItem.id
-      })
+    switch (a.type) {
+      case 'C': {
+        apiName = 'customers'
+        apiBody = JSON.stringify({
+          mode: 'edit',
+          name: newName,
+          phone: newPhone,
+          gooid: a.itemToEdit.gooid,
+          id: a.itemToEdit.id
+        })
+        break
+      }
+      case 'U': {
+        apiName = 'users'
+        apiBody = JSON.stringify({
+          mode: 'edit',
+          name: newName,
+          phone: newPhone,
+          gooid: newGooid,
+          timezone: newTimeZone,
+          id: a.itemToEdit.id
+        })
+        break
+      }
+      case 'P': {
+        apiName = 'products'
+        apiBody = JSON.stringify({
+          mode: 'edit',
+          name: newName,
+          symbol: newSymbol,
+          id: a.itemToEdit.id
+        })
+        break
+      }
+      case 'E': {
+        apiName = 'eitems'
+        apiBody = JSON.stringify({
+          mode: 'edit',
+          name: newName,
+          symbol: newSymbol,
+          id: a.itemToEdit.id
+        })
+        break
+      }
+      case 'S': {
+        apiName = 'sales'
+        apiBody = JSON.stringify({
+          mode: 'edit',
+          date: newDate,
+          cust: newCust,
+          prod: newProd,
+          sum: newSum,
+          id: a.itemToEdit.id
+        })
+        break
+      }
+      case 'X': {
+        apiName = 'xpenses'
+        apiBody = JSON.stringify({
+          mode: 'edit',
+          date: newDate,
+          xitem: newXitem,
+          sum: newSum,
+          id: a.itemToEdit.id
+        })
+        break
+      }
     }
-    fetch('/api/' + args.apiSuffix, { method: 'POST', body: args.body })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.error) {
-          alert(args.apiSuffix + ': ' + args.title + ' ERROR:' + res.error)
-        } else {
-          console.log(
-            args.apiSuffix,
-            args.title,
-            '>>>>>>>>> resData=',
-            res.data
-          )
-          // if (res.data !== undefined && res.data !== 'OK')
-          //   args.setResData(() => res.data)
-        }
-      })
-      .catch((error) =>
-        alert(
-          '! ' +
-            args.apiSuffix +
-            ': ' +
-            args.title +
-            ' error - ' +
-            error.message
-        )
-      )
-    // arg.setItemToEdit(() => editItem)
-    arg.setIdToEdit(() => 0)
-  }
-  function cancelEdit() {
-    arg.setIdToEdit(() => 0)
-    // arg.setItemToEdit(() => [])
-  }
 
-  // function inputChangeHandler(e: ChangeEvent<HTMLInputElement>, key: string) {
-  //   let item = Object.assign({}, editItem)
-  //   console.log('----{}--- item_0 =', item)
-  //   item[key] = e.target.value
-  //   console.log('======= item_1 =', item)
-  //   setEditItem(() => item)
-  // }
+    const args: FetchArgs = {
+      method: 'POST',
+      apiSuffix: apiName,
+      title: 'edit',
+      body: apiBody,
+      setResData: console.log
+    }
+
+    fetchHandler(args)
+      .then(() => {
+        console.log('update promise')
+        a.updateFunc()
+      })
+      .catch((err) => console.log('update promise - ', err))
+  }
 
   return (
-    <div className={styles.editForm}>
-      {editItem === undefined
-        ? ''
-        : Object.keys(editItem).map((k, i) => {
-            if (k !== arg.idName) {
-              return (
-                <input
-                  type="text"
-                  name={k}
-                  value={
-                    editItem && editItem[k] !== null ? String(editItem[k]) : ''
-                  }
-                  onChange={(event) =>
-                    setEditItem((prev: any) => {
-                      setFocus(() => i)
-                      let a = Object.assign({}, prev)
-                      a[k] = event.target.value
-                      return a
-                    })
-                  }
-                  key={Math.random()}
-                  autoFocus={i === focus ? true : false}
-                />
-              )
-            }
-          })}
-      <p> </p>
-      <div className={styles.flexRowContainer}>
-        <button className={styles.sysButton} onClick={saveEdit}>
+    <div className={stylesH.newCeditForm}>
+      <p hidden={a.type === 'S' || a.type === 'X'}>
+        Name:
+        <input
+          type="text"
+          className={styles.inputCust}
+          placeholder="Name"
+          pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
+          value={newName || ''}
+          onChange={(event) =>
+            setNewName(event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s]/gi, ''))
+          }
+        />
+      </p>
+      <p hidden={a.type !== 'P' && a.type !== 'E'}>
+        Symbol:
+        <input
+          type="text"
+          className={styles.inputCust}
+          placeholder="Symbol"
+          pattern="[a-zA-Zа-яА-Я\s\-]{1,7}"
+          value={newName || ''}
+          onChange={(event) =>
+            setNewSymbol(
+              event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s]/gi, '')
+            )
+          }
+        />
+      </p>
+      <p hidden={a.type !== 'C' && a.type !== 'U'}>
+        Phone:
+        <input
+          type="text"
+          className={styles.inputCust}
+          placeholder="+x xxx xxx xxxx, xxxx"
+          pattern="^\+?[\d\s\-]{0,20}"
+          value={newPhone || ''}
+          onChange={(event) =>
+            setNewPhone(event.target.value.replace(/[^\d\-\+\s]/g, ''))
+          }
+        />
+      </p>
+      {/* <p hidden={a.type !== 'C' && a.type !== 'U'}>
+        GooId
+        <input
+          type="text"
+          className={styles.inputCust}
+          placeholder="goo-id"
+          pattern="^[\d\s\-]{0,20}"
+          value={newGooid || ''}
+          onChange={(event) =>
+            setNewGooid(event.target.value.replace(/[^\d\-\+\s]/g, ''))
+          }
+        />
+      </p> */}
+      <p hidden={a.type !== 'U'}>
+        Tzone:
+        <input
+          type="text"
+          className={styles.inputCust}
+          placeholder="+xx"
+          pattern="^\+?[\d\+\-]{0,3}"
+          value={newTimeZone || ''}
+          onChange={(event) =>
+            setNewTimeZone(event.target.value.replace(/[^\d\-\+]/g, ''))
+          }
+        />
+      </p>
+      <p hidden={a.type !== 'S' && a.type !== 'X'}>
+        Date:
+        <input
+          type="text"
+          className={styles.inputCust}
+          placeholder="Name"
+          pattern="[a-zA-Zа-яА-Я\s\-\d]{1,50}"
+          value={newDate || ''}
+          onChange={(event) =>
+            setNewDate(
+              event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s\d]/gi, '')
+            )
+          }
+        />
+      </p>
+      <p hidden={a.type !== 'S' && a.type !== 'X'}>
+        {' '}
+        Cust:
+        <input
+          type="text"
+          className={styles.inputCust}
+          placeholder="xxxx"
+          pattern="^[\d]{0,20}"
+          value={newCust || ''}
+          onChange={(event) =>
+            setNewCust(Number(event.target.value.replace(/[^\d]/g, '')))
+          }
+        />
+      </p>
+      <p hidden={a.type !== 'S' && a.type !== 'X'}>
+        Prod:
+        <input
+          type="text"
+          className={styles.inputCust}
+          placeholder="xxxx"
+          pattern="^[\d]{0,20}"
+          value={newProd || ''}
+          onChange={(event) =>
+            setNewProd(Number(event.target.value.replace(/[^\d]/g, '')))
+          }
+        />
+      </p>
+      <p hidden={a.type !== 'X'}>
+        X-item:
+        <input
+          type="text"
+          className={styles.userInput}
+          placeholder="xxxx"
+          pattern="^[\d]{0,20}"
+          value={newXitem || ''}
+          onChange={(event) =>
+            setNewXitem(Number(event.target.value.replace(/[^\d]/g, '')))
+          }
+        />
+      </p>
+      <p hidden={a.type !== 'S' && a.type !== 'X'}>
+        Sum:
+        <input
+          type="text"
+          className={styles.inputCust}
+          placeholder="xxxx"
+          pattern="^[\d]{0,20}"
+          value={newSum || ''}
+          onChange={(event) =>
+            setNewSum(Number(event.target.value.replace(/[^\d]/g, '')))
+          }
+        />
+      </p>
+
+      <div className={stylesH.flexRowContainer}>
+        <button onClick={saveEditHandler} className={stylesH.sysButton}>
           Save
         </button>
-        <button className={styles.sysButton} onClick={cancelEdit}>
+        <button onClick={() => a.resetParams()} className={stylesH.sysButton}>
           Cancel
         </button>
       </div>
     </div>
   )
-}
-function fetchArgs(fetchArgs: any) {
-  throw new Error('Function not implemented.')
 }
