@@ -5,7 +5,7 @@ import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
 import { Customer } from './plus'
 import fetchHandler, { FetchArgs } from '../components/fetchHandler'
-import CustomerSelect from '../components/CustomerSelect'
+import LiveSelect from '../components/LiveSelectCUSX'
 import CustomerEditForm from '../components/CustomerEditForm'
 import DBshortTable from '../components/DBshortTable'
 
@@ -60,14 +60,15 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
           <h2>Customers: {items.length}</h2>
-          <CustomerSelect
+          <LiveSelect
             items={items}
             currentItem={currentItem}
             setCurrentItem={setCurrentItem}
             liveRef={liveRef}
             searchWord={searchWord}
             setSearchWord={setSearchWord}
-            updateFunc={init}
+            updateFunc={updateFunc}
+            type="C"
             mode="new"
           />
 
