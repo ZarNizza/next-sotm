@@ -507,7 +507,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
             X-item:
             <input
               type="text"
-              className={styles.userInput}
+              className={styles.inputCust}
               placeholder="xxxx"
               pattern="^[\d]{0,20}"
               value={newXitem || ''}
