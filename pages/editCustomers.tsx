@@ -6,7 +6,7 @@ import Layout from '../components/layout'
 import { Customer } from './plus'
 import fetchHandler, { FetchArgs } from '../components/fetchHandler'
 import LiveSelect from '../components/LiveSelectCUSX'
-import CustomerEditForm from '../components/CustomerEditForm'
+import EditForm from '../components/EditForm'
 import DBshortTable from '../components/DBshortTable'
 
 const Home: NextPage = () => {
@@ -75,7 +75,7 @@ const Home: NextPage = () => {
           {currentItem.id === 0 ? (
             ''
           ) : (
-            <CustomerEditForm
+            <EditForm
               itemToEdit={
                 items.filter((item: Customer) => {
                   return item.id === Number(currentItem.id)
@@ -83,6 +83,7 @@ const Home: NextPage = () => {
               }
               updateFunc={updateFunc}
               resetParams={resetParams}
+              type="C"
             />
           )}
 
