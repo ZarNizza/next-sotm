@@ -1,59 +1,55 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
 import { Xpense } from './minus'
 import fetchHandler, { FetchArgs } from '../components/fetchHandler'
-import XpenseSelect from '../components/XpenseSelect'
-import XpenseEditForm from '../components/XpenseEditForm'
+import LiveSelect from '../components/LiveSelectCUSX'
+import EditForm from '../components/EditForm'
 import DBshortTable from '../components/DBshortTable'
 
 const Home: NextPage = () => {
-  const [xpenses, setXpenses] = useState<Xpense[] | []>([])
-  const [currentXpense, setCurrentXpense] = useState<Xpense>({
+  const cust0 = {
     id: 0,
     date: '',
     xitem: 0,
     sum: 0
-  })
-  const [updateFlag, setUpdateFlag] = useState(0)
+  }
+  const [items, setItems] = useState<Xpense[] | []>([])
+  const [currentItem, setCurrentItem] = useState<Xpense>(cust0)
   const [showTableFlag, setShowTableFlag] = useState(false)
+  const liveRef = useRef<HTMLInputElement>(null)
+  const [searchWord, setSearchWord] = useState('')
 
-  function setUpdF() {
-    setUpdateFlag(() => 1)
-    setCurrentXpense({ id: 0, date: '', xitem: 0, sum: 0 })
-    return alert(
-      'OK, Updated!\n\nTo refresh XpensesList clear input area - press button (X).'
-    )
+  useEffect(() => {
+    init()
+  }, [])
+
+  function updateFunc() {
+    init()
+    resetParams()
+    return
   }
-  function cancelFlag() {
-    return setCurrentXpense({ id: 0, date: '', xitem: 0, sum: 0 })
-  }
-  function setShowTableHandler() {
-    setShowTableFlag(() => !showTableFlag)
-  }
-  //
-  function xpensesInit() {
+
+  function init() {
     const args: FetchArgs = {
       method: 'GET',
       apiSuffix: 'xpenses',
-      title: 'getXpense',
-      setResData: setXpenses
+      title: 'getX',
+      setResData: setItems
     }
     fetchHandler(args)
   }
 
-  useEffect(() => {
-    xpensesInit()
-  }, [])
+  function resetParams() {
+    setSearchWord('')
+    setCurrentItem(() => cust0)
+    if (liveRef.current !== null) liveRef.current.value = ''
+    return
+  }
 
-  useEffect(() => {
-    if (updateFlag === 1) {
-      xpensesInit()
-      setUpdateFlag(() => 0)
-    }
-  }, [updateFlag])
+  //
 
   return (
     <Layout>
@@ -63,39 +59,47 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
-          <h2>Xpenses: {xpenses.length}</h2>
-          <XpenseSelect
-            xpenses={xpenses}
-            setCurrentXpense={setCurrentXpense}
-            currentXpense={currentXpense}
-            setXpense={setXpenses}
+          <h2>Xpenses: {items.length}</h2>
+          <LiveSelect
+            items={items}
+            currentItem={currentItem}
+            setCurrentItem={setCurrentItem}
+            liveRef={liveRef}
+            searchWord={searchWord}
+            setSearchWord={setSearchWord}
+            updateFunc={updateFunc}
+            type="X"
             mode="new"
           />
 
-          {currentXpense.id === 0 ? (
+          {currentItem.id === 0 ? (
             ''
           ) : (
-            <XpenseEditForm
-              xpenseToEdit={
-                xpenses.filter((item: Xpense) => {
-                  return item.id === Number(currentXpense.id)
+            <EditForm
+              itemToEdit={
+                items.filter((item: Xpense) => {
+                  return item.id === Number(currentItem.id)
                 })[0]
               }
-              setUpdateFlag={setUpdF}
-              cancelFlag={cancelFlag}
+              updateFunc={updateFunc}
+              resetParams={resetParams}
+              type="X"
             />
           )}
 
           <div className={styles.flexColumnContainer}>
-            <button onClick={setShowTableHandler} className={styles.sysButton}>
+            <button
+              onClick={() => setShowTableFlag(!showTableFlag)}
+              className={styles.sysButton}
+            >
               Show/Hide all
             </button>
             {showTableFlag ? (
-              xpenses === undefined || xpenses.length === 0 ? (
+              items === undefined || items.length === 0 ? (
                 <p>No data - empty result</p>
               ) : (
                 <div className={styles.tableScroll}>
-                  <DBshortTable resData={xpenses} />
+                  <DBshortTable resData={items} />
                 </div>
               )
             ) : (
