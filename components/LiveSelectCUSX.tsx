@@ -149,7 +149,12 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
         break
       }
       case 'S': {
-        if (newDate === '' || newCust === '' || newProd === '' || newSum) {
+        if (
+          newDate === '' ||
+          newCust === '' ||
+          newProd === '' ||
+          newSum === ''
+        ) {
           alert('! empty field !')
           setFlagNew(() => '')
           return
@@ -157,7 +162,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
         break
       }
       case 'X': {
-        if (newDate === '' || newXitem === '' || newSum) {
+        if (newDate === '' || newXitem === '' || newSum === '') {
           alert('! empty field !')
           setFlagNew(() => '')
           return
@@ -461,12 +466,12 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
             <input
               type="text"
               className={styles.inputCust}
-              placeholder="Name"
-              pattern="[a-zA-Zа-яА-Я\s\-\d]{1,50}"
+              placeholder="2022-02-02"
+              pattern="[a-zA-Zа-яА-Я\s\-\d:\.]{1,50}"
               value={newDate || ''}
               onChange={(event) =>
                 setNewDate(
-                  event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s\d]/gi, '')
+                  event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s\d:\.]/gi, '')
                 )
               }
             />
