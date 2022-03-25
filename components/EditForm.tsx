@@ -204,11 +204,11 @@ export default function EditForm(a: editFormArgs) {
           type="text"
           className={styles.inputCust}
           placeholder="Name"
-          pattern="[a-zA-Zа-яА-Я\s\-\d]{1,50}"
+          pattern="[a-zA-Zа-яА-Я\s\-\d:\.]{1,50}"
           value={newDate || ''}
           onChange={(event) =>
             setNewDate(
-              event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s\d]/gi, '')
+              event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s\d:\.]/gi, '')
             )
           }
         />
