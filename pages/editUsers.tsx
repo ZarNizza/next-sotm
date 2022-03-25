@@ -1,11 +1,11 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
 import fetchHandler, { FetchArgs } from '../components/fetchHandler'
-import UserSelect from '../components/UserSelect'
-import UserEditForm from '../components/UserEditForm'
+import LiveSelect from '../components/LiveSelectCUSX'
+import EditForm from '../components/EditForm'
 import DBshortTable from '../components/DBshortTable'
 
 export type User = {
@@ -17,52 +17,47 @@ export type User = {
 }
 
 const Home: NextPage = () => {
-  const user0 = {
+  const cust0 = {
     id: 0,
     name: '',
     phone: '',
     gooid: '',
     timezone: ''
   }
-  const [users, setUsers] = useState<User[] | []>([])
-  const [currentUser, setCurrentUser] = useState<User>(user0)
-  const [updateFlag, setUpdateFlag] = useState(0)
+  const [items, setItems] = useState<User[] | []>([])
+  const [currentItem, setCurrentItem] = useState<User>(cust0)
   const [showTableFlag, setShowTableFlag] = useState(false)
+  const liveRef = useRef<HTMLInputElement>(null)
+  const [searchWord, setSearchWord] = useState('')
 
-  function setUpdF() {
-    setUpdateFlag(() => 1)
-    setCurrentUser(() => user0)
-    return alert(
-      'OK, Updated!\n\nTo refresh UsersList clear input area - press button (X).'
-    )
+  useEffect(() => {
+    init()
+  }, [])
+
+  function updateFunc() {
+    init()
+    resetParams()
+    return
   }
-  function cancelFlag() {
-    return setCurrentUser(() => user0)
-  }
-  function setShowTableHandler() {
-    setShowTableFlag(() => !showTableFlag)
-  }
-  //
-  function userInit() {
+
+  function init() {
     const args: FetchArgs = {
       method: 'GET',
       apiSuffix: 'users',
-      title: 'getUsers',
-      setResData: setUsers
+      title: 'getUser',
+      setResData: setItems
     }
     fetchHandler(args)
   }
 
-  useEffect(() => {
-    userInit()
-  }, [])
+  function resetParams() {
+    setSearchWord('')
+    setCurrentItem(() => cust0)
+    if (liveRef.current !== null) liveRef.current.value = ''
+    return
+  }
 
-  useEffect(() => {
-    if (updateFlag === 1) {
-      userInit()
-      setUpdateFlag(() => 0)
-    }
-  }, [updateFlag])
+  //
 
   return (
     <Layout>
@@ -72,39 +67,47 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
-          <h2>Users: {users.length}</h2>
-          <UserSelect
-            users={users}
-            setCurrentUser={setCurrentUser}
-            currentUser={currentUser}
-            setUsers={setUsers}
+          <h2>Users: {items.length}</h2>
+          <LiveSelect
+            items={items}
+            currentItem={currentItem}
+            setCurrentItem={setCurrentItem}
+            liveRef={liveRef}
+            searchWord={searchWord}
+            setSearchWord={setSearchWord}
+            updateFunc={updateFunc}
+            type="U"
             mode="new"
           />
 
-          {currentUser.id === 0 ? (
+          {currentItem.id === 0 ? (
             ''
           ) : (
-            <UserEditForm
-              userToEdit={
-                users.filter((item: User) => {
-                  return item.id === Number(currentUser.id)
+            <EditForm
+              itemToEdit={
+                items.filter((item: User) => {
+                  return item.id === Number(currentItem.id)
                 })[0]
               }
-              setUpdateFlag={setUpdF}
-              cancelFlag={cancelFlag}
+              updateFunc={updateFunc}
+              resetParams={resetParams}
+              type="U"
             />
           )}
 
           <div className={styles.flexColumnContainer}>
-            <button onClick={setShowTableHandler} className={styles.sysButton}>
+            <button
+              onClick={() => setShowTableFlag(!showTableFlag)}
+              className={styles.sysButton}
+            >
               Show/Hide all
             </button>
             {showTableFlag ? (
-              users === undefined || users.length === 0 ? (
+              items === undefined || items.length === 0 ? (
                 <p>No data - empty result</p>
               ) : (
                 <div className={styles.tableScroll}>
-                  <DBshortTable resData={users} />
+                  <DBshortTable resData={items} />
                 </div>
               )
             ) : (
