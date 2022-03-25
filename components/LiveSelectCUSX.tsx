@@ -476,7 +476,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
               }
             />
           </p>
-          <p hidden={a.type !== 'S' && a.type !== 'X'}>
+          <p hidden={a.type !== 'S'}>
             {' '}
             Cust:
             <input
@@ -490,7 +490,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
               }
             />
           </p>
-          <p hidden={a.type !== 'S' && a.type !== 'X'}>
+          <p hidden={a.type !== 'S'}>
             Prod:
             <input
               type="text"
