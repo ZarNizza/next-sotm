@@ -135,10 +135,12 @@ export default function EditForm(a: editFormArgs) {
           type="text"
           className={styles.inputCust}
           placeholder="Name"
-          pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
+          pattern="[a-zA-Zа-яА-Я\s\-\d]{1,50}"
           value={newName || ''}
           onChange={(event) =>
-            setNewName(event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s]/gi, ''))
+            setNewName(
+              event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s\d]/gi, '')
+            )
           }
         />
       </p>
@@ -148,11 +150,11 @@ export default function EditForm(a: editFormArgs) {
           type="text"
           className={styles.inputCust}
           placeholder="Symbol"
-          pattern="[a-zA-Zа-яА-Я\s\-]{1,7}"
-          value={newName || ''}
+          pattern="[a-zA-Zа-яА-Я\s\-\d]{1,7}"
+          value={newSymbol || ''}
           onChange={(event) =>
             setNewSymbol(
-              event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s]/gi, '')
+              event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s\d]/gi, '')
             )
           }
         />
