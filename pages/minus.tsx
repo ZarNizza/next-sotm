@@ -36,7 +36,7 @@ const Home: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
-          <h3>Сost accounting</h3>
+          <h3>СOST</h3>
           {newFlag ? (
             <EitemNew setEitems={setEitems} setNewFlag={setNewFlag} />
           ) : (

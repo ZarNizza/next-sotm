@@ -11,8 +11,7 @@ const Home: NextPage = () => {
         <title>Settings</title>
       </Head>
       <main className={styles.main}>
-        <h3>Settings page</h3>
-        <p>Admin / system settings.</p>
+        <h3>SETTINGS</h3>
         <div className={styles.row}>
           <Link href="/editCustomers" passHref>
             <div className={styles.square_orange}>
