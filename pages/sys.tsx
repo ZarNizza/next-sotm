@@ -105,6 +105,7 @@ const Home: NextPage = () => {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   function sys_handler(title: string) {
+    if (!confirm('... Sure?')) return
     fetch('/api/sys', { method: 'POST', body: title })
       .then((res) => res.json())
       .then((res) => {
