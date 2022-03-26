@@ -19,36 +19,6 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     switch (req.body) {
       //
-      case 'clear_Users':
-        sql = 'TRUNCATE TABLE users'
-        err_prefix = 'clear_Users'
-        break
-
-      case 'clear_Customers':
-        sql = 'TRUNCATE TABLE customers'
-        err_prefix = 'clear_Customers'
-        break
-
-      case 'clear_Products':
-        sql = 'TRUNCATE TABLE prod'
-        err_prefix = 'clear_Products'
-        break
-
-      case 'clear_Sales':
-        sql = 'TRUNCATE TABLE sales'
-        err_prefix = 'clear_Sales'
-        break
-
-      case 'clear_Xpenses':
-        sql = 'TRUNCATE TABLE xpenses'
-        err_prefix = 'clear_Xpenses'
-        break
-
-      case 'clear_Eitems':
-        sql = 'TRUNCATE TABLE eitems'
-        err_prefix = 'clear_Eitems'
-        break
-
       case 'drop_Users':
         sql = 'DROP TABLE users'
         err_prefix = 'drop_Users'
