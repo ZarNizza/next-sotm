@@ -79,6 +79,7 @@
   width: 8rem;
   border-radius: 10px;
   margin: 1rem;
+  color: white;
 }
 .square_plus,
 .square_stat,
@@ -87,57 +88,64 @@
 }
 .square_orange,
 .square_plus {
-  border: 1px solid darkorange;
+  /* border: 1px solid #fff1b8; */
+  background: linear-gradient(-15deg, #faad14 70%, #fff1b8);
 }
 .square_orange:hover,
 .square_plus:hover {
-  background-color: orange;
+  /* background-color: orange; */
   cursor: pointer;
 }
 .square_green,
 .square_stat {
-  border: 1px solid #0b0;
+  /* border: 1px solid #f4ffb8; */
+  background: linear-gradient(-15deg, #a0d911 70%, #f4ffb8);
 }
 .square_green:hover,
 .square_stat:hover {
-  background-color: yellowgreen;
+  /* background-color: yellowgreen; */
   cursor: pointer;
 }
 .square_purple,
 .square_sys {
-  border: 1px solid darkviolet;
+  /* border: 1px solid #efdbff; */
+  background: linear-gradient(-15deg, #722ed1 70%, #efdbff);
 }
 .square_purple:hover,
 .square_sys:hover {
-  background-color: violet;
+  /* background-color: violet; */
   cursor: pointer;
 }
 .square_yellow {
-  border: 1px solid #bb0;
+  /* border: 1px solid #ffffb8; */
+  background: linear-gradient(-15deg, #fadb14 70%, #ffffb8);
 }
 .square_yellow:hover {
-  background-color: yellow;
+  /* background-color: yellow; */
   cursor: pointer;
 }
 .square_blue {
-  border: 1px solid darkblue;
+  /* border: 1px solid #bae7ff; */
+  background: linear-gradient(-15deg, #1890ff 70%, #bae7ff);
 }
 .square_blue:hover {
-  background-color: steelblue;
+  /* background-color: steelblue; */
   cursor: pointer;
 }
 .square_pink {
-  border: 1px solid hotpink;
+  /* border: 1px solid pink; */
+  background: linear-gradient(-15deg, hotpink 70%, pink);
 }
 .square_pink:hover {
-  background-color: hotpink;
+  /* background-color: hotpink; */
   cursor: pointer;
 }
 .square_gray {
-  border: 1px solid lightgray;
+  /* border: 1px solid gainsboro; */
+  background: linear-gradient(-15deg, lightgray 70%, gainsboro);
 }
 .square_gray:hover {
-  background-color: gainsboro;
+  /* background-color: gainsboro; */
   cursor: pointer;
 }
 
@@ -145,9 +153,11 @@
   display: flex;
   height: 5rem;
   width: 8rem;
-  border: 1px solid #bb0;
+  /* border: 1px solid #ffffb8; */
   border-radius: 10px;
   margin: 0 0 0.5rem 0;
+  background: linear-gradient(-15deg, #fadb14 70%, #ffffb8);
+  color: white;
 }
 .halfsquare_top:hover {
   background-color: yellow;
@@ -157,9 +167,11 @@
   display: flex;
   height: 5rem;
   width: 8rem;
-  border: 1px solid darkblue;
+  /* border: 1px solid #bae7ff; */
   border-radius: 10px;
   margin: 0.5rem 0 0 0;
+  background: linear-gradient(-15deg, #1890ff 70%, #bae7ff);
+  color: white;
 }
 .halfsquare_bottom:hover {
   background-color: steelblue;
@@ -193,9 +205,11 @@
   display: flex;
   height: 5rem;
   width: 8rem;
-  border: 1px solid darkorange;
+  border: 1px solid orange;
   border-radius: 10px;
   margin: 0 0 0.5rem 0;
+  background: linear-gradient(-60deg, orangered 10%, orange);
+  color: white;
 }
 .halfsquare_top_orange:hover {
   background-color: orange;

@@ -43,45 +43,53 @@
   width: 4rem;
   border-radius: 10px;
   margin: 5px;
+  color: white;
 }
 .rb_o {
-  border: 1px solid darkorange;
+  // border: 1px solid darkorange;
+  background: linear-gradient(-15deg, #faad14 70%, #fff1b8);
 }
 .rb_o:hover {
   background-color: orange;
 }
 .rb_y {
-  border: 1px solid #bb0;
+  // border: 1px solid #bb0;
+  background: linear-gradient(-15deg, #fadb14 70%, #ffffb8);
 }
 .rb_y:hover {
   background-color: yellow;
 }
 .rb_g {
-  border: 1px solid darkgreen;
+  // border: 1px solid darkgreen;
+  background: linear-gradient(-15deg, #a0d911 70%, #f4ffb8);
 }
 .rb_g:hover {
   background-color: yellowgreen;
 }
 .rb_b {
-  border: 1px solid blue;
+  // border: 1px solid blue;
+  background: linear-gradient(-15deg, #1890ff 70%, #bae7ff);
 }
 .rb_b:hover {
   background-color: steelblue;
 }
 .rb_p {
-  border: 1px solid darkviolet;
+  // border: 1px solid darkviolet;
+  background: linear-gradient(-15deg, #722ed1 70%, #efdbff);
 }
 .rb_p:hover {
   background-color: violet;
 }
 .rb_pink {
-  border: 1px solid hotpink;
+  // border: 1px solid hotpink;
+  background: linear-gradient(-15deg, hotpink 70%, pink);
 }
 .rb_pink:hover {
   background-color: hotpink;
 }
 .rb_gray {
-  border: 1px solid lightgray;
+  // border: 1px solid lightgray;
+  background: linear-gradient(-15deg, lightgray 70%, gainsboro);
 }
 .rb_gray:hover {
   background-color: gainsboro;
