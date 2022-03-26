@@ -159,7 +159,10 @@ const Home: NextPage = () => {
             <button onClick={show_E_handler}>show E</button>
           </div>
           <div className={styles.sysButtons}>
-            <button onClick={show_Tables_handler}>SHOW TABLES</button>
+            <button onClick={show_Tables_handler}>TABLES LIST</button>
+            <Link href="/sys-sql" passHref>
+              <button>- SQL -</button>
+            </Link>
           </div>
           <div className={styles.tableScroll}>
             {resData === undefined || resData.length === 0 ? (
@@ -167,14 +170,6 @@ const Home: NextPage = () => {
             ) : (
               <DBshortTable resData={resData} />
             )}
-          </div>
-          <p>.</p>
-          <div>- - - - - - - - - - - - - -</div>
-          <p>.</p>
-          <div className={styles.sysButtons}>
-            <Link href="/sys-sql" passHref>
-              <button>- SQL -</button>
-            </Link>
           </div>
         </main>
       </div>

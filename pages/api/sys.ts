@@ -111,7 +111,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
 
       case 'show_Tables':
         sql =
-          "SELECT * FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' AND schemaname != 'information_schema'"
+          "SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' AND schemaname != 'information_schema' GROUP BY tablename"
         err_prefix = 'show_Tables'
         retRes = true
         break
