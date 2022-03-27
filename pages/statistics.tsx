@@ -8,7 +8,7 @@ import Init from '../components/Init'
 import DBshortTable from '../components/DBshortTable'
 import DBfullTable from '../components/DBfullTable'
 import DBfullDTable from '../components/DBfullDTable'
-import CustomerSelect from '../components/CustomerSelect'
+import LiveSelect from '../components/LiveSelectCUSX'
 
 type apiBody = {
   mode: string
@@ -217,7 +217,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
           <h3>Profit Statistics</h3>
-          <CustomerSelect
+          <LiveSelect
             items={customers}
             currentItem={currentCustomer}
             setCurrentItem={setCurrentCustomer}
@@ -225,6 +225,7 @@ const Home: NextPage = () => {
             searchWord={searchWord}
             setSearchWord={setSearchWord}
             mode="stat"
+            type="C"
           />
           <div className={styles.miniInput}>
             <input
