@@ -7,6 +7,7 @@
   padding: 1rem;
   margin: 1rem;
   font-size: large;
+  color: #3f6600;
 }
 .inputCust::placeholder {
   color: lawngreen;
@@ -21,11 +22,12 @@
 }
 .custList,
 .newCust {
-  background-color: #fbfff2;
+  background-color: #fff;
   margin: 1rem 2rem;
   padding: 1rem 2rem;
-  border: 1px solid lawngreen;
+  border: 2px solid lawngreen;
   border-radius: 10px;
+  box-shadow: 5px 5px 10px 0px #d9f7be;
 }
 .newCust {
   background-color: #d3ff58;
@@ -85,6 +87,7 @@
   padding: 2rem 2rem;
   border: 1px solid limegreen;
   border-radius: 10px;
+  box-shadow: 5px 5px 10px 0px #7cb305;
 }
 
 .selectList {
@@ -100,7 +103,8 @@
   width: 17rem;
   padding: 1rem;
   font-size: large;
-  background-color: #fafff5;
+  background-color: #fff;
+  color: #135200;
 }
 .selectList .csOpt:hover {
   background-color: #b8ff7e;
@@ -108,13 +112,38 @@
   transition: 0.25s ease;
 }
 .selectList .csOpt:nth-child(odd) {
-  background-color: #fff;
+  background-color: #f6ffed;
 }
 .selectList .csOpt:nth-child(odd):hover {
   background-color: #b8ff7e;
   transition: 0.25s ease;
 }
-
+.saveButton {
+  margin: 0.5rem;
+  padding: 1rem;
+  min-width: 6rem;
+  color: white;
+  font-size: larger;
+  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0);
+  border: 2px solid white;
+  border-radius: 0.3rem;
+}
+.cancelButton {
+  margin: 0.5rem;
+  padding: 1rem;
+  min-width: 6rem;
+  color: white;
+  font-size: larger;
+  // font-weight: 500;
+  background-color: rgba(255, 255, 255, 0);
+  border: 2px solid white;
+  border-radius: 0.3rem;
+}
+.saveButton:hover,
+.cancelButton:hover {
+  cursor: pointer;
+}
 @media (max-width: 469px) {
   .inputCust {
     width: 100%;

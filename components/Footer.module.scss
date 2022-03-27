@@ -43,54 +43,70 @@
   width: 4rem;
   border-radius: 10px;
   margin: 5px;
-  color: white;
+  // color: white;
+  box-shadow: 5px 5px 10px 0px #ccc;
+  font-weight: 500;
 }
 .rb_o {
-  // border: 1px solid darkorange;
-  background: linear-gradient(-15deg, #faad14 70%, #fff1b8);
+  border: 2px solid darkorange;
+  color: darkorange;
+  // background: linear-gradient(-15deg, #faad14 70%, #fff1b8);
 }
 .rb_o:hover {
   background-color: orange;
+  color: white;
 }
 .rb_y {
-  // border: 1px solid #bb0;
-  background: linear-gradient(-15deg, #fadb14 70%, #ffffb8);
+  border: 2px solid #bb0;
+  color: #bb0;
+  // background: linear-gradient(-15deg, #fadb14 70%, #ffffb8);
 }
 .rb_y:hover {
   background-color: yellow;
+  color: white;
 }
 .rb_g {
-  // border: 1px solid darkgreen;
-  background: linear-gradient(-15deg, #a0d911 70%, #f4ffb8);
+  border: 2px solid green;
+  color: green;
+  // background: linear-gradient(-15deg, #a0d911 70%, #f4ffb8);
 }
 .rb_g:hover {
   background-color: yellowgreen;
+  color: white;
 }
 .rb_b {
-  // border: 1px solid blue;
-  background: linear-gradient(-15deg, #1890ff 70%, #bae7ff);
+  border: 2px solid blue;
+  color: blue;
+  // background: linear-gradient(-15deg, #1890ff 70%, #bae7ff);
 }
 .rb_b:hover {
   background-color: steelblue;
+  color: white;
 }
 .rb_p {
-  // border: 1px solid darkviolet;
-  background: linear-gradient(-15deg, #722ed1 70%, #efdbff);
+  color: darkviolet;
+  border: 2px solid darkviolet;
+  // background: linear-gradient(-15deg, #722ed1 70%, #efdbff);
 }
 .rb_p:hover {
   background-color: violet;
+  color: white;
 }
 .rb_pink {
-  // border: 1px solid hotpink;
-  background: linear-gradient(-15deg, hotpink 70%, pink);
+  color: hotpink;
+  border: 2px solid hotpink;
+  // background: linear-gradient(-15deg, hotpink 70%, pink);
 }
 .rb_pink:hover {
   background-color: hotpink;
+  color: white;
 }
 .rb_gray {
-  // border: 1px solid lightgray;
-  background: linear-gradient(-15deg, lightgray 70%, gainsboro);
+  color: lightgray;
+  border: 2px solid lightgray;
+  // background: linear-gradient(-15deg, lightgray 70%, gainsboro);
 }
 .rb_gray:hover {
   background-color: gainsboro;
+  color: white;
 }

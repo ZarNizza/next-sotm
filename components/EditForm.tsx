@@ -268,10 +268,10 @@ export default function EditForm(a: editFormArgs) {
       </p>
 
       <div className={stylesH.flexRowContainer}>
-        <button onClick={saveEditHandler} className={stylesH.sysButton}>
+        <button onClick={saveEditHandler} className={styles.saveButton}>
           Save
         </button>
-        <button onClick={() => a.resetParams()} className={stylesH.sysButton}>
+        <button onClick={() => a.resetParams()} className={styles.cancelButton}>
           Cancel
         </button>
       </div>

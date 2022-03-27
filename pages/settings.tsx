@@ -11,7 +11,7 @@ const Home: NextPage = () => {
         <title>Settings</title>
       </Head>
       <main className={styles.main}>
-        <h3>SETTINGS</h3>
+        <h1>SETTINGS</h1>
         <div className={styles.row}>
           <Link href="/editCustomers" passHref>
             <div className={styles.square_orange}>
@@ -41,7 +41,7 @@ const Home: NextPage = () => {
         <div className={styles.row}>
           <Link href="/editEitems" passHref>
             <div className={styles.square_yellow}>
-              <p>Exp-items</p>
+              <p>X-items</p>
             </div>
           </Link>
           <Link href="/editXpenses" passHref>

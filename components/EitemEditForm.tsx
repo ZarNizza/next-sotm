@@ -90,9 +90,9 @@ export default function EitemEditForm(arg: editEitemArgs) {
         />
       </div>
       <div>
-        <span className={styles.sysButtons}>
-          <button onClick={upd_E_handler}> Update Item </button>
-        </span>
+        <button onClick={upd_E_handler} className={styles.okButton}>
+          Update Item
+        </button>
         <button onClick={dropButtonHandler} className={styles.dropButton}>
           X
         </button>

@@ -2,23 +2,28 @@
   height: 3rem;
   width: 40%;
   padding: 1rem;
-  margin: 1rem 1rem 1rem 0;
+  margin: 0.5rem 0.5rem 0.5rem 0 !important;
   font-size: large;
+  // border: 1px solid #8200fc;
+  // color: #8200fc;
+  color: orange;
 }
 .inputSum::placeholder {
-  color: lawngreen;
+  color: lightskyblue;
   font-weight: 100;
   font-size: medium;
 }
 
 .productList {
   // min-width: 25rem;
-  background-color: #fbfff2;
+  color: #8200fc;
+  background-color: white;
   margin: 2rem;
   padding: 1rem 2rem;
-  border: 1px solid #aaa;
+  border: 1px solid #8200fc;
   border-radius: 10px;
   min-width: 26rem;
+  box-shadow: 5px 5px 10px 0px lightskyblue;
 }
 
 .productList p {
@@ -27,7 +32,7 @@
 
 .productList h3 {
   margin: 0;
-  color: darkolivegreen;
+  color: #8200fc;
 }
 
 .productList ul {

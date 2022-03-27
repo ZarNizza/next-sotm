@@ -90,9 +90,9 @@ export default function ProductEditForm(arg: editPitemArgs) {
         />
       </div>
       <div>
-        <span className={styles.sysButtons}>
-          <button onClick={upd_P_handler}> Update Item </button>
-        </span>
+        <button onClick={upd_P_handler} className={styles.okButton}>
+          Update Item
+        </button>
         <button onClick={dropButtonHandler} className={styles.dropButton}>
           X
         </button>

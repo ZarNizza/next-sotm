@@ -49,8 +49,10 @@
   justify-content: center;
   align-items: center;
 }
+.main h1,
 .main h3 {
   margin: 0 auto;
+  color: darkviolet;
 }
 .title {
   margin: 0 0 0.3rem 0;
@@ -80,6 +82,9 @@
   border-radius: 10px;
   margin: 1rem;
   color: white;
+  font-weight: 600;
+  font-size: larger;
+  box-shadow: 5px 5px 10px 0px #ccc;
 }
 .square_plus,
 .square_stat,
@@ -89,7 +94,8 @@
 .square_orange,
 .square_plus {
   /* border: 1px solid #fff1b8; */
-  background: linear-gradient(-15deg, #faad14 70%, #fff1b8);
+  background: linear-gradient(-15deg, orangered 5%, #faad14 80%, #fff1b8);
+  /* box-shadow: inset 0px 0px 4px 0px #000; */
 }
 .square_orange:hover,
 .square_plus:hover {
@@ -99,7 +105,7 @@
 .square_green,
 .square_stat {
   /* border: 1px solid #f4ffb8; */
-  background: linear-gradient(-15deg, #a0d911 70%, #f4ffb8);
+  background: linear-gradient(-15deg, #7cb305 5%, #a0d911 80%, #f4ffb8);
 }
 .square_green:hover,
 .square_stat:hover {
@@ -109,7 +115,7 @@
 .square_purple,
 .square_sys {
   /* border: 1px solid #efdbff; */
-  background: linear-gradient(-15deg, #722ed1 70%, #efdbff);
+  background: linear-gradient(-15deg, #531dab 5%, #722ed1 70%, #efdbff);
 }
 .square_purple:hover,
 .square_sys:hover {
@@ -118,7 +124,7 @@
 }
 .square_yellow {
   /* border: 1px solid #ffffb8; */
-  background: linear-gradient(-15deg, #fadb14 70%, #ffffb8);
+  background: linear-gradient(-15deg, #d4b106 5%, #fadb14 70%, #ffffb8);
 }
 .square_yellow:hover {
   /* background-color: yellow; */
@@ -126,7 +132,7 @@
 }
 .square_blue {
   /* border: 1px solid #bae7ff; */
-  background: linear-gradient(-15deg, #1890ff 70%, #bae7ff);
+  background: linear-gradient(-15deg, #096dd9 5%, #1890ff 70%, #bae7ff);
 }
 .square_blue:hover {
   /* background-color: steelblue; */
@@ -134,7 +140,7 @@
 }
 .square_pink {
   /* border: 1px solid pink; */
-  background: linear-gradient(-15deg, hotpink 70%, pink);
+  background: linear-gradient(-15deg, #c41d7f 5%, hotpink 70%, pink);
 }
 .square_pink:hover {
   /* background-color: hotpink; */
@@ -142,7 +148,7 @@
 }
 .square_gray {
   /* border: 1px solid gainsboro; */
-  background: linear-gradient(-15deg, lightgray 70%, gainsboro);
+  background: linear-gradient(-15deg, darkgray 5%, lightgray 70%, gainsboro);
 }
 .square_gray:hover {
   /* background-color: gainsboro; */
@@ -156,7 +162,8 @@
   /* border: 1px solid #ffffb8; */
   border-radius: 10px;
   margin: 0 0 0.5rem 0;
-  background: linear-gradient(-15deg, #fadb14 70%, #ffffb8);
+  background: linear-gradient(-15deg, #d4b106 5%, #fadb14 70%, #ffffb8);
+  box-shadow: 5px 5px 10px 0px #ccc;
   color: white;
 }
 .halfsquare_top:hover {
@@ -170,7 +177,8 @@
   /* border: 1px solid #bae7ff; */
   border-radius: 10px;
   margin: 0.5rem 0 0 0;
-  background: linear-gradient(-15deg, #1890ff 70%, #bae7ff);
+  background: linear-gradient(-15deg, #096dd9 5%, #1890ff 70%, #bae7ff);
+  box-shadow: 5px 5px 10px 0px #ccc;
   color: white;
 }
 .halfsquare_bottom:hover {
@@ -208,7 +216,8 @@
   border: 1px solid orange;
   border-radius: 10px;
   margin: 0 0 0.5rem 0;
-  background: linear-gradient(-60deg, orangered 10%, orange);
+  background: linear-gradient(-15deg, orangered 10%, orange);
+  box-shadow: 5px 5px 10px 0px #ccc;
   color: white;
 }
 .halfsquare_top_orange:hover {
@@ -251,12 +260,39 @@
   cursor: pointer;
 }
 
+.okButton {
+  margin: 0.5rem;
+  padding: 1rem;
+  min-width: 6rem;
+  color: white;
+  font-size: larger;
+  /* font-weight: 600; */
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 2px solid white;
+  border-radius: 0.3rem;
+}
+.cancelButton {
+  margin: 0.5rem;
+  padding: 1rem;
+  min-width: 6rem;
+  color: white;
+  font-size: larger;
+  background-color: rgba(255, 255, 255, 0);
+  border: 2px solid white;
+  border-radius: 0.3rem;
+}
+.okButton:hover,
+.cancelButton:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.4);
+}
 .plusButton {
   height: 3rem;
   width: 3rem;
   background-color: #faffea;
   margin: 0.5rem -0.4rem 0 0;
   float: left;
+  color: #5b8c00;
 }
 .plusButton:hover {
   background-color: palegreen;
@@ -274,6 +310,7 @@
 .dropButton:hover {
   background-color: #ffaabb;
   transition: 0.25s ease;
+  cursor: pointer;
 }
 .sysButton,
 .sysButtons button {
@@ -281,28 +318,59 @@
   padding: 1rem;
   min-width: 6rem;
 }
+.sysButton {
+  color: darkviolet;
+  background-color: white;
+  border: 1px solid darkviolet;
+  border-radius: 0.3rem;
+  box-shadow: 5px 5px 10px 0px #efdbff;
+}
 .miniButtons button {
   margin: 0.5rem;
   padding: 1rem;
   min-width: 5rem;
+  background-color: white;
+  color: darkviolet;
+  border: 1px solid darkviolet;
+  border-radius: 0.3rem;
+  box-shadow: 5px 5px 10px 0px #ccc;
+}
+.plusButton:hover,
+.sysButton:hover,
+.miniButtons button:hover {
+  cursor: pointer;
 }
 .miniInput input {
   margin: 0.5rem;
   padding: 1rem;
   width: 8rem;
+  color: darkviolet;
+  border: 1px solid darkviolet;
+  border-radius: 0.3rem;
+}
+.orangeButtons {
+  margin: 1rem 0;
+  padding: 1rem 0;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 .orangeButton,
 .orangeButtons button {
   margin: 0.5rem;
   padding: 1rem;
   min-width: 6rem;
-  background-color: darkorange;
+  background-color: white;
+  color: darkorange;
+  border-color: darkorange;
   border-radius: 1rem;
+  box-shadow: 5px 5px 10px 0px #ccc;
 }
 .orangeButton:hover,
 .orangeButtons button:hover {
   background-color: gold;
   transition: 0.5s ease;
+  color: white;
+  cursor: pointer;
 }
 .blueButton,
 .blueButtons button {
@@ -316,6 +384,8 @@
 .blueButtons button:hover {
   background-color: darkcyan;
   transition: 0.5s ease;
+  color: white;
+  cursor: pointer;
 }
 .userInput {
   margin-right: 10px;
@@ -477,10 +547,8 @@ td.gross {
   position: relative;
   z-index: 99;
   max-width: 26rem;
-
   margin: 2rem auto;
   padding: 1rem 2rem;
-
   border-radius: 10px;
 }
 .newForm {
@@ -490,26 +558,36 @@ td.gross {
 .newCeditForm {
   background-color: #ffd900;
   border: 1px solid orange;
+  box-shadow: 5px 5px 10px 0px #ffd666;
 }
 .newSeditForm {
   background-color: #7fff7f;
   border: 1px solid lawngreen;
+  box-shadow: 5px 5px 10px 0px #7fff7f;
 }
 .newXeditForm {
   background-color: #ff98f1;
   border: 1px solid #ff00d4;
+  box-shadow: 5px 5px 10px 0px #ff98f1;
 }
 .newUeditForm {
   background-color: #cc00ff;
   border: 1px solid #8600a7;
+  box-shadow: 5px 5px 10px 0px #cc00ff;
 }
 .newEeditForm {
-  background-color: #fff89b;
+  background-color: #ffec3d;
   border: 1px solid #f1ff31;
+  box-shadow: 5px 5px 10px 0px #fff89b;
 }
 .newPeditForm {
   background-color: #959cff;
   border: 1px solid #8200fc;
+  box-shadow: 5px 5px 10px 0px #959cff;
+}
+.newPeditForm .title,
+.newEeditForm .title {
+  color: white;
 }
 
 @media (max-width: 469px) {
