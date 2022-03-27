@@ -35,16 +35,6 @@ const Home: NextPage = () => {
           <title>System page</title>
         </Head>
         <main className={styles.main}>
-          <p>
-            SELECT * FROM pg_catalog.pg_tables WHERE schemaname !=
-            &apos;pg_catalog&apos; AND schemaname !=
-            &apos;information_schema&apos;
-          </p>
-          <p>
-            INSERT INTO abc(a, b, c, d) VALUES (&apos;A&apos;, &apos;B&apos;,
-            111, true)
-          </p>
-          <p> </p>
           <div>
             <input
               id="sqlInput"
@@ -56,24 +46,6 @@ const Home: NextPage = () => {
             <button onClick={sqlReuestHandler} className={styles.orangeButton}>
               send SQL
             </button>
-          </div>
-          <div className={styles.blueButtons}>
-            <Link href="/users" passHref>
-              <button>Users</button>
-            </Link>{' '}
-            &nbsp;{' '}
-            <Link href="/customers" passHref>
-              <button>Customers</button>
-            </Link>{' '}
-            &nbsp;{' '}
-            <Link href="/products" passHref>
-              <button>Products</button>
-            </Link>{' '}
-            &nbsp;{' '}
-            <Link href="/sys" passHref>
-              <button>SYSTEM</button>
-            </Link>
-            <p> </p>
           </div>
         </main>
       </div>
