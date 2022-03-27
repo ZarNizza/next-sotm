@@ -6,7 +6,7 @@ import Layout from '../components/layout'
 import { Customer } from './plus'
 import fetchHandler, { FetchArgs } from '../components/fetchHandler'
 import LiveSelect from '../components/LiveSelectCUSX'
-import EditForm from '../components/EditForm'
+import EditForm from '../components/EditFormCUSX'
 import DBshortTable from '../components/DBshortTable'
 
 const Home: NextPage = () => {

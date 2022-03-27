@@ -5,7 +5,7 @@ import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
 import fetchHandler, { FetchArgs } from '../components/fetchHandler'
 import LiveSelect from '../components/LiveSelectCUSX'
-import EditForm from '../components/EditForm'
+import EditForm from '../components/EditFormCUSX'
 import DBshortTable from '../components/DBshortTable'
 
 export type User = {
