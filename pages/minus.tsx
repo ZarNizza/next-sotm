@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
 import Init from '../components/Init'
@@ -27,7 +27,9 @@ const Home: NextPage = () => {
   const [gross, setGross] = useState<number>(0)
   const [newFlag, setNewFlag] = useState(false)
 
-  Init(setEitems, 'eitems')
+  useEffect(() => {
+    Init(setEitems, 'eitems')
+  }, [])
 
   return (
     <Layout>
