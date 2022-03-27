@@ -37,19 +37,19 @@ export default function Footer() {
           </Link>
         </span>
         <span>
-          <Link href="/memo" passHref>
+          <Link href="/statistics" passHref>
             <a className={styles.footerLink}>
-              <span className={styles.rb_y}>
-                <div className={styles.footerLabel}>M</div>
+              <span className={styles.rb_g}>
+                <div className={styles.footerLabel}> = </div>
               </span>
             </a>
           </Link>
         </span>
         <span>
-          <Link href="/statistics" passHref>
+          <Link href="/memo" passHref>
             <a className={styles.footerLink}>
-              <span className={styles.rb_g}>
-                <div className={styles.footerLabel}> = </div>
+              <span className={styles.rb_y}>
+                <div className={styles.footerLabel}>M</div>
               </span>
             </a>
           </Link>
