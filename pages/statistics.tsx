@@ -5,12 +5,13 @@ import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
 import { Sale, Product, Customer } from './plus'
 import Init from '../components/Init'
+import myDate from '../components/MyDate'
 import DBshortTable from '../components/DBshortTable'
 import DBfullTable from '../components/DBfullTable'
 import DBfullDTable from '../components/DBfullDTable'
 import LiveSelect from '../components/LiveSelectCUSX'
 
-type apiBody = {
+export type apiBody = {
   mode: string
   startDate: string
   finishDate: string
@@ -126,54 +127,6 @@ const Home: NextPage = () => {
       setFinishDate(
         finishDate.replace(/[^\d\.\,\-\/]/g, '').replace(/[^\d\-]/g, '-')
       )
-  }
-
-  function myDate(mark: string) {
-    const today = new Date()
-    let myDate = today
-    switch (mark) {
-      case 'today':
-        break
-      case 'yesterday':
-        myDate.setDate(today.getDate() - 1)
-        break
-      case '0W':
-        myDate.setDate(today.getDate() - 6)
-        break
-      case '0M':
-        myDate.setDate(1)
-        break
-      case 'FM':
-        myDate.setMonth(today.getMonth() - 1)
-        break
-      case '0Y':
-        myDate.setDate(1)
-        myDate.setMonth(0)
-        break
-      case 'FY':
-        myDate.setFullYear(today.getFullYear() - 1)
-        break
-      case '0':
-        myDate.setFullYear(2000)
-        myDate.setMonth(0)
-        myDate.setDate(1)
-        break
-      case 'all':
-        myDate.setFullYear(2099)
-        myDate.setMonth(11)
-        myDate.setDate(31)
-        break
-      default:
-        break
-    }
-
-    let resultDate = String(myDate.getFullYear()) + '-'
-    if (myDate.getMonth() < 9) resultDate += '0'
-    resultDate += String(myDate.getMonth() + 1) + '-'
-
-    if (myDate.getDate() < 10) resultDate += '0'
-    resultDate += String(myDate.getDate())
-    return resultDate
   }
 
   function setTodayHandler() {
