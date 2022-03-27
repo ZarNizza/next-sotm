@@ -43,14 +43,12 @@
   width: 4rem;
   border-radius: 10px;
   margin: 5px;
-  // color: white;
-  box-shadow: 5px 5px 10px 0px #ccc;
   font-weight: 500;
 }
 .rb_o {
   border: 2px solid darkorange;
   color: darkorange;
-  // background: linear-gradient(-15deg, #faad14 70%, #fff1b8);
+  box-shadow: 3px 3px 3px 0px #ffd666;
 }
 .rb_o:hover {
   background-color: orange;
@@ -59,7 +57,7 @@
 .rb_y {
   border: 2px solid #bb0;
   color: #bb0;
-  // background: linear-gradient(-15deg, #fadb14 70%, #ffffb8);
+  box-shadow: 3px 3px 3px 0px #fff89b;
 }
 .rb_y:hover {
   background-color: yellow;
@@ -68,7 +66,7 @@
 .rb_g {
   border: 2px solid green;
   color: green;
-  // background: linear-gradient(-15deg, #a0d911 70%, #f4ffb8);
+  box-shadow: 3px 3px 3px 0px #7fff7f;
 }
 .rb_g:hover {
   background-color: yellowgreen;
@@ -77,7 +75,7 @@
 .rb_b {
   border: 2px solid blue;
   color: blue;
-  // background: linear-gradient(-15deg, #1890ff 70%, #bae7ff);
+  box-shadow: 3px 3px 3px 0px #959cff;
 }
 .rb_b:hover {
   background-color: steelblue;
@@ -86,7 +84,7 @@
 .rb_p {
   color: darkviolet;
   border: 2px solid darkviolet;
-  // background: linear-gradient(-15deg, #722ed1 70%, #efdbff);
+  box-shadow: 3px 3px 3px 0px #cc00ff;
 }
 .rb_p:hover {
   background-color: violet;
@@ -95,7 +93,7 @@
 .rb_pink {
   color: hotpink;
   border: 2px solid hotpink;
-  // background: linear-gradient(-15deg, hotpink 70%, pink);
+  box-shadow: 3px 3px 3px 0px pink;
 }
 .rb_pink:hover {
   background-color: hotpink;
@@ -104,7 +102,7 @@
 .rb_gray {
   color: lightgray;
   border: 2px solid lightgray;
-  // background: linear-gradient(-15deg, lightgray 70%, gainsboro);
+  box-shadow: 3px 3px 3px 0px #ccc;
 }
 .rb_gray:hover {
   background-color: gainsboro;

@@ -20,6 +20,7 @@
   margin: 5px;
   background-color: lightskyblue;
   color: white;
+  box-shadow: 5px 5px 10px 0px lightskyblue;
 
   &:hover {
     background-color: #3cb1ff;
@@ -32,7 +33,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* transition: 0.25s ease; */
   border-radius: 10px;
   color: #061178;
 }
@@ -41,7 +41,3 @@
   background-color: yellowgreen;
   transition: 0.25s ease;
 }
-// .chk:checked ~ div:hover {
-//   background-color: limegreen;
-//   transition: 0.25s ease;
-// }

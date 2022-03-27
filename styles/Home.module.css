@@ -93,65 +93,50 @@
 }
 .square_orange,
 .square_plus {
-  /* border: 1px solid #fff1b8; */
   background: linear-gradient(-15deg, orangered 5%, #faad14 80%, #fff1b8);
-  /* box-shadow: inset 0px 0px 4px 0px #000; */
 }
 .square_orange:hover,
 .square_plus:hover {
-  /* background-color: orange; */
   cursor: pointer;
 }
 .square_green,
 .square_stat {
-  /* border: 1px solid #f4ffb8; */
   background: linear-gradient(-15deg, #7cb305 5%, #a0d911 80%, #f4ffb8);
 }
 .square_green:hover,
 .square_stat:hover {
-  /* background-color: yellowgreen; */
   cursor: pointer;
 }
 .square_purple,
 .square_sys {
-  /* border: 1px solid #efdbff; */
   background: linear-gradient(-15deg, #531dab 5%, #722ed1 70%, #efdbff);
 }
 .square_purple:hover,
 .square_sys:hover {
-  /* background-color: violet; */
   cursor: pointer;
 }
 .square_yellow {
-  /* border: 1px solid #ffffb8; */
   background: linear-gradient(-15deg, #d4b106 5%, #fadb14 70%, #ffffb8);
 }
 .square_yellow:hover {
-  /* background-color: yellow; */
   cursor: pointer;
 }
 .square_blue {
-  /* border: 1px solid #bae7ff; */
   background: linear-gradient(-15deg, #096dd9 5%, #1890ff 70%, #bae7ff);
 }
 .square_blue:hover {
-  /* background-color: steelblue; */
   cursor: pointer;
 }
 .square_pink {
-  /* border: 1px solid pink; */
   background: linear-gradient(-15deg, #c41d7f 5%, hotpink 70%, pink);
 }
 .square_pink:hover {
-  /* background-color: hotpink; */
   cursor: pointer;
 }
 .square_gray {
-  /* border: 1px solid gainsboro; */
   background: linear-gradient(-15deg, darkgray 5%, lightgray 70%, gainsboro);
 }
 .square_gray:hover {
-  /* background-color: gainsboro; */
   cursor: pointer;
 }
 
@@ -159,7 +144,6 @@
   display: flex;
   height: 5rem;
   width: 8rem;
-  /* border: 1px solid #ffffb8; */
   border-radius: 10px;
   margin: 0 0 0.5rem 0;
   background: linear-gradient(-15deg, #d4b106 5%, #fadb14 70%, #ffffb8);
@@ -174,7 +158,6 @@
   display: flex;
   height: 5rem;
   width: 8rem;
-  /* border: 1px solid #bae7ff; */
   border-radius: 10px;
   margin: 0.5rem 0 0 0;
   background: linear-gradient(-15deg, #096dd9 5%, #1890ff 70%, #bae7ff);
@@ -240,7 +223,6 @@
 .halfsquare_top2 p,
 .halfsquare_bottom2 p {
   margin: auto;
-  /* font-size: 2rem; */
   padding-bottom: 0.5rem;
 }
 
@@ -266,7 +248,6 @@
   min-width: 6rem;
   color: white;
   font-size: larger;
-  /* font-weight: 600; */
   background-color: rgba(255, 255, 255, 0.2);
   border: 2px solid white;
   border-radius: 0.3rem;
@@ -333,7 +314,7 @@
   color: darkviolet;
   border: 1px solid darkviolet;
   border-radius: 0.3rem;
-  box-shadow: 5px 5px 10px 0px #ccc;
+  box-shadow: 5px 5px 10px 0px #d3adf7;
 }
 .plusButton:hover,
 .sysButton:hover,
@@ -363,7 +344,7 @@
   color: darkorange;
   border-color: darkorange;
   border-radius: 1rem;
-  box-shadow: 5px 5px 10px 0px #ccc;
+  box-shadow: 5px 5px 10px 0px #ffe58f;
 }
 .orangeButton:hover,
 .orangeButtons button:hover {
