@@ -120,6 +120,21 @@ export default async function sysHandler(
     if (req.method === 'POST') {
       switch (parsedReq.mode) {
         //
+        case 'get_stat':
+          sqlQuery =
+            'SELECT SUM(s.sum) AS sum FROM sales AS s ' +
+            ' WHERE (s.del = 0) AND (s.date BETWEEN ' +
+            startDate +
+            ' AND ' +
+            finishDate +
+            ') '
+
+          source = 'short'
+
+          poolGetConnection(sqlQuery, source)
+
+          break
+        //
         case 'show_S':
           sqlQuery =
             'SELECT p.symbol, SUM(CASE WHEN s.prod = p.id THEN s.sum ELSE 0 END) AS gross FROM prod AS p ' +

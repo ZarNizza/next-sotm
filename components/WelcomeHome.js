@@ -2,6 +2,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Layout from './layout'
 import Link from 'next/link'
+import WelcomeStat from './WelcomeStat'
 
 export default function WelcomeHome() {
   return (
@@ -42,6 +43,7 @@ export default function WelcomeHome() {
             </div>
           </Link>
         </div>
+        <WelcomeStat />
       </main>
     </Layout>
   )
