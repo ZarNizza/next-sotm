@@ -97,6 +97,15 @@ const Home: NextPage = () => {
     fetch_Handler(body)
   }
 
+  function show_X_Full_Handler() {
+    const body = {
+      mode: 'show_X_Full',
+      startDate: startDate,
+      finishDate: finishDate
+    }
+    fetch_Handler(body)
+  }
+
   function show_SX_Full_Handler() {
     const body = {
       mode: 'show_SX_Full',
@@ -218,9 +227,10 @@ const Home: NextPage = () => {
               <button onClick={show_S_Handler}>Total S</button>
               <button onClick={show_X_Handler}>Total X</button>
               <button onClick={show_SX_Handler}>Total S + X</button>
-              <button onClick={show_S_Full_Handler}>S by days</button>
-              <button onClick={show_SX_Full_Handler}>S + X by days</button>
-              <button onClick={show_CS_Full_Handler}>Sells by Customer</button>
+              <button onClick={show_S_Full_Handler}>S / days</button>
+              <button onClick={show_X_Full_Handler}>X / days</button>
+              <button onClick={show_SX_Full_Handler}>S + X / days</button>
+              <button onClick={show_CS_Full_Handler}>Sells / Customers</button>
             </div>
           </div>
           {resData === undefined || resData.length === 0 ? (

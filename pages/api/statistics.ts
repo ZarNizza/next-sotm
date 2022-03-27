@@ -230,6 +230,38 @@ export default async function sysHandler(
           poolGetConnection(sqlQuery, source)
           break
         //
+        case 'show_X_Full':
+          sqlDPSum = dates.reduce(
+            (sum, item, i) =>
+              sum +
+              "SUM(CASE WHEN DATE(x.date) = '" +
+              item +
+              "' AND x.xitem = e.id " +
+              ' THEN x.sum ELSE 0 END) AS "' +
+              item.slice(5) +
+              '", ',
+            ''
+          )
+
+          sqlQuery =
+            'SELECT e.symbol, ' +
+            sqlDPSum +
+            ' SUM(CASE WHEN x.xitem = e.id THEN x.sum ELSE 0 END) AS sum FROM eitems AS e' +
+            ' LEFT JOIN xpenses AS x ON x.xitem = e.id' +
+            currCustJoin +
+            ' WHERE (e.del = 0) AND (x.del = 0) AND (x.date BETWEEN ' +
+            startDate +
+            ' AND ' +
+            finishDate +
+            ') ' +
+            currentCustomer +
+            ' GROUP BY ROLLUP (e.symbol) ORDER BY e.symbol'
+
+          source = 'fullSD'
+
+          poolGetConnection(sqlQuery, source)
+          break
+        //
         //
         case 'show_SX_Full':
           sqlDPSum = dates.reduce(
