@@ -88,7 +88,7 @@
 }
 .main h1,
 .main h3 {
-  margin: 0 auto;
+  margin: 0 auto 1rem auto;
   color: darkviolet;
 }
 .title {

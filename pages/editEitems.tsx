@@ -32,11 +32,11 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <Head>
-        <title>E-item settings</title>
+        <title>X-item settings</title>
       </Head>
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
-          <h3>E-item settings</h3>
+          <h3>X-item settings</h3>
           <EitemEditStore
             eItems={eItems}
             setCurrEitem={setCurrEitem}
