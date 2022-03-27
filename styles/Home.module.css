@@ -133,12 +133,6 @@
 .square_pink:hover {
   cursor: pointer;
 }
-.square_gray {
-  background: linear-gradient(-15deg, darkgray 5%, lightgray 70%, gainsboro);
-}
-.square_gray:hover {
-  cursor: pointer;
-}
 
 .halfsquare_top {
   display: flex;
@@ -168,30 +162,7 @@
   background-color: steelblue;
   cursor: pointer;
 }
-.halfsquare_top2 {
-  display: flex;
-  height: 5rem;
-  width: 8rem;
-  border: 1px solid #0b0;
-  border-radius: 10px;
-  margin: 0 0 0.5rem 0;
-}
-.halfsquare_top2:hover {
-  background-color: yellowgreen;
-  cursor: pointer;
-}
-.halfsquare_bottom2 {
-  display: flex;
-  height: 5rem;
-  width: 8rem;
-  border: 1px solid hotpink;
-  border-radius: 10px;
-  margin: 0.5rem 0 0 0;
-}
-.halfsquare_bottom2:hover {
-  background-color: hotpink;
-  cursor: pointer;
-}
+
 .halfsquare_top_orange {
   display: flex;
   height: 5rem;
@@ -353,28 +324,11 @@
   color: white;
   cursor: pointer;
 }
-.blueButton,
-.blueButtons button {
-  margin: 0.5rem;
-  padding: 1rem;
-  min-width: 5rem;
-  background-color: lightskyblue;
-  border-radius: 1rem;
-}
-.blueButton:hover,
-.blueButtons button:hover {
-  background-color: darkcyan;
-  transition: 0.5s ease;
-  color: white;
-  cursor: pointer;
-}
+
 .userInput {
   margin-right: 10px;
 }
-.tzInput {
-  margin-right: 10px;
-  width: 4.3rem;
-}
+
 .footerLink {
   margin-right: 10px;
 }
@@ -404,22 +358,12 @@
   border-radius: 5px;
   margin: 10px;
   padding: 10px;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 .logoutButton:hover {
   cursor: pointer;
 }
-.guestButton {
-  background-color: #fafafa;
-  color: #888;
-  border: 1px solid #888;
-  border-radius: 5px;
-  margin: 0 10px;
-  padding: 10px;
-}
-.guestButton:hover {
-  background-color: #eee;
-  cursor: pointer;
-}
+
 .tips {
   color: olivedrab;
 }
@@ -492,30 +436,6 @@ td.gross {
 }
 .gray {
   color: gray;
-}
-.newE {
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: space-between;
-  align-items: center;
-  position: absolute;
-  top: 5rem;
-  z-index: 18;
-  min-width: 25rem;
-  min-height: 20rem;
-  border: 1px solid olivedrab;
-  border-radius: 5px;
-  background-color: #eeffc5;
-  padding: 2rem;
-}
-.blurBg {
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: space-between;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(255, 255, 255, 0.685);
 }
 
 .newForm,
