@@ -20,25 +20,6 @@ export default async function sysHandler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  // init products
-  const products = await new Promise<Product[]>((resolve, reject) => {
-    const sql = 'SELECT * FROM prod WHERE del = 0 ORDER BY symbol'
-    pool.connect().then((client: any) => {
-      return client
-        .query(sql, [])
-        .then((results: any) => {
-          client.release()
-          // console.log('init Products result: ', results.rows)
-          resolve(results.rows)
-        })
-        .catch((err: any) => {
-          client.release()
-          console.log('initProdERROR: ', err.stack)
-          resolve([])
-        })
-    }) //
-  })
-
   return new Promise((resolve, reject) => {
     // common function
     function poolGetConnection(sqlQuery: string, source: string) {
@@ -320,32 +301,52 @@ export default async function sysHandler(
         //
         //
         case 'show_CS_Full':
-          sqlProdSum = products.reduce(
-            (sum, item) =>
-              sum +
-              'SUM(CASE WHEN s.cust = c.id AND s.prod = ' +
-              item.id +
-              ' THEN s.sum ELSE 0 END) AS pSum' +
-              String(item.id) +
-              ', ',
-            ''
-          )
-          sqlQuery =
-            'SELECT c.name,' +
-            sqlProdSum +
-            ' SUM(s.sum) AS gross FROM customers AS c' +
-            ' LEFT JOIN sales AS s ON s.cust = c.id' +
-            ' WHERE (c.del = 0) AND (s.del = 0) AND (s.date BETWEEN ' +
-            startDate +
-            ' AND ' +
-            finishDate +
-            ') ' +
-            currentCustomer +
-            ' GROUP BY ROLLUP (c.name) ORDER BY c.name'
+          // products wanted
+          new Promise<Product[]>((resolve, reject) => {
+            const sql = 'SELECT * FROM prod WHERE del = 0 ORDER BY symbol'
+            pool.connect().then((client: any) => {
+              return client
+                .query(sql, [])
+                .then((results: any) => {
+                  client.release()
 
-          source = 'full'
+                  sqlProdSum = results.rows.reduce(
+                    (sum: number, item: Product) =>
+                      sum +
+                      'SUM(CASE WHEN s.cust = c.id AND s.prod = ' +
+                      item.id +
+                      ' THEN s.sum ELSE 0 END) AS pSum' +
+                      String(item.id) +
+                      ', ',
+                    ''
+                  )
 
-          poolGetConnection(sqlQuery, source)
+                  sqlQuery =
+                    'SELECT c.name,' +
+                    sqlProdSum +
+                    ' SUM(s.sum) AS gross FROM customers AS c' +
+                    ' LEFT JOIN sales AS s ON s.cust = c.id' +
+                    ' WHERE (c.del = 0) AND (s.del = 0) AND (s.date BETWEEN ' +
+                    startDate +
+                    ' AND ' +
+                    finishDate +
+                    ') ' +
+                    currentCustomer +
+                    ' GROUP BY ROLLUP (c.name) ORDER BY c.name'
+
+                  source = 'full'
+
+                  poolGetConnection(sqlQuery, source)
+
+                  resolve(results.rows)
+                })
+                .catch((err: any) => {
+                  client.release()
+                  console.log('initProdERROR: ', err.stack)
+                  resolve([])
+                })
+            }) //
+          })
 
           break
         //
