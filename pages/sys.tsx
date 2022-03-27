@@ -127,6 +127,7 @@ const Home: NextPage = () => {
           <title>System page</title>
         </Head>
         <main className={styles.main}>
+          <h3>SYSTEM</h3>
           <div className={styles.sysButtons}>
             <button onClick={drop_U_handler}>! drop U</button>
             <button onClick={drop_C_handler}>! drop C</button>

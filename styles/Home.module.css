@@ -27,7 +27,7 @@
   margin: 0 2rem;
 }
 .main {
-  padding: 1rem 0;
+  padding: 1rem 0 0 0;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -48,6 +48,19 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+.statRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+  margin-top: 2rem;
+  background-color: darkviolet;
+  color: white;
+  font-size: x-large;
+  font-weight: 900;
 }
 .main h1,
 .main h3 {
@@ -267,8 +280,8 @@
 .sysButton,
 .sysButtons button {
   margin: 0.5rem;
-  padding: 1rem;
-  min-width: 6rem;
+  padding: 1rem 0.5rem;
+  min-width: 5rem;
 }
 .sysButton {
   color: darkviolet;
@@ -310,7 +323,7 @@
 .orangeButtons button {
   margin: 0.5rem;
   padding: 1rem;
-  min-width: 6rem;
+  min-width: 5rem;
   background-color: white;
   color: darkorange;
   border-color: darkorange;
