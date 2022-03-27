@@ -26,6 +26,7 @@
 .rowElem {
   margin: 0 2rem;
 }
+
 .main {
   padding: 1rem 0 0 0;
   display: flex;
@@ -43,6 +44,29 @@
   align-items: center;
 }
 
+.logoBH {
+  border: 2px solid #e8e;
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+  background-color: #a2a;
+  background-image: url('../public/BeHappy100.png');
+  background-size: contain;
+  color: blanchedalmond;
+  margin: 0.5rem 0 0.5rem -1rem;
+  display: flex;
+}
+.logoBH:hover {
+  cursor: pointer;
+}
+.LoggedStatus {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: right;
+  margin: 0 0 0 2rem;
+}
 .row {
   display: flex;
   flex-direction: row;
@@ -208,22 +232,6 @@
 .halfsquare_bottom2 p {
   margin: auto;
   padding-bottom: 0.5rem;
-}
-
-.logoBH {
-  border: 2px solid #e8e;
-  border-radius: 50%;
-  width: 5rem;
-  height: 5rem;
-  background-color: #a2a;
-  background-image: url('../public/BeHappy100.png');
-  background-size: contain;
-  color: blanchedalmond;
-  margin: 0.5rem 0 0.5rem -1rem;
-  display: flex;
-}
-.logoBH:hover {
-  cursor: pointer;
 }
 
 .okButton {
