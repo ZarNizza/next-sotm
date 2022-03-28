@@ -5,7 +5,7 @@ export default function LoggedStatus() {
   const { data: session } = useSession()
   return session ? (
     <div className={styles.LoggedStatus}>
-      <b>{session.user.name}</b>
+      <b>{!!session && !!session.user ? session.user.name : ''}</b>
       <button onClick={() => signOut()} className={styles.logoutButton}>
         Sign out
       </button>
