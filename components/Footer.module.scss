@@ -3,8 +3,10 @@
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
   border-top: 1px solid #ddd;
+  // background: linear-gradient(-15deg, #21212f 5%, #2a48ac 70%, #002e31);
+  background: linear-gradient(-15deg, #2b2b2b 5%, #586f06 70%, #fff);
 }
 .footerLine {
   display: flex;
@@ -30,7 +32,13 @@
   align-items: center;
   border-radius: 10px;
   font-size: x-large;
+  font-weight: 700;
+  padding-bottom: 0.3rem;
 }
+.thinText {
+  font-weight: 500;
+}
+
 .rb_o,
 .rb_y,
 .rb_g,
@@ -48,7 +56,7 @@
 .rb_o {
   border: 2px solid darkorange;
   color: darkorange;
-  box-shadow: 3px 3px 3px 0px #ffd666;
+  // box-shadow: 2px 2px 3px 0px #ffd666;
 }
 .rb_o:hover {
   background-color: orange;
@@ -57,25 +65,25 @@
 .rb_y {
   border: 2px solid #bb0;
   color: #bb0;
-  box-shadow: 3px 3px 3px 0px #fff89b;
+  // box-shadow: 2px 2px 3px 0px #fff89b;
 }
 .rb_y:hover {
   background-color: yellow;
   color: white;
 }
 .rb_g {
-  border: 2px solid green;
-  color: green;
-  box-shadow: 3px 3px 3px 0px #7fff7f;
+  border: 2px solid #73d13d;
+  color: #52c41a;
+  // box-shadow: 2px 2px 3px 0px #7fff7f;
 }
 .rb_g:hover {
   background-color: yellowgreen;
   color: white;
 }
 .rb_b {
-  border: 2px solid blue;
-  color: blue;
-  box-shadow: 3px 3px 3px 0px #959cff;
+  border: 2px solid #2f54eb;
+  color: #597ef7;
+  // box-shadow: 2px 2px 3px 0px #959cff;
 }
 .rb_b:hover {
   background-color: steelblue;
@@ -84,7 +92,7 @@
 .rb_p {
   color: darkviolet;
   border: 2px solid darkviolet;
-  box-shadow: 3px 3px 3px 0px #cc00ff;
+  // box-shadow: 2px 2px 3px 0px #cc00ff;
 }
 .rb_p:hover {
   background-color: violet;
@@ -93,7 +101,7 @@
 .rb_pink {
   color: hotpink;
   border: 2px solid hotpink;
-  box-shadow: 3px 3px 3px 0px pink;
+  // box-shadow: 2px 2px 3px 0px pink;
 }
 .rb_pink:hover {
   background-color: hotpink;
@@ -102,7 +110,7 @@
 .rb_gray {
   color: lightgray;
   border: 2px solid lightgray;
-  box-shadow: 3px 3px 3px 0px #ccc;
+  // box-shadow: 2px 2px 3px 0px #ccc;
 }
 .rb_gray:hover {
   background-color: gainsboro;
