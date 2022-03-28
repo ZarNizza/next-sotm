@@ -47,7 +47,7 @@ $separator: #ddd;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background: linear-gradient(-15deg, #b5faff 5%, #9effa3 70%, #fffffe);
+  // background: linear-gradient(-15deg, #b5faff 5%, #9effa3 70%, #fffffe);
 }
 .main h1,
 .main h3 {
@@ -55,13 +55,6 @@ $separator: #ddd;
   color: $v6;
 }
 
-.header {
-  display: flex;
-  padding: 0;
-  border-bottom: 1px solid $separator;
-  justify-content: space-between;
-  align-items: center;
-}
 .columnSpaceBetween {
   display: flex;
   flex-direction: column;
@@ -106,9 +99,9 @@ $separator: #ddd;
   width: 8rem;
   border-radius: 10px;
   margin: 1rem;
-  color: white;
   font-weight: 600;
   font-size: larger;
+  background-color: white;
 }
 .halfsquare_top,
 .halfsquare_bottom {
@@ -116,7 +109,7 @@ $separator: #ddd;
   height: 5rem;
   width: 8rem;
   border-radius: 10px;
-  color: white;
+  background-color: white;
 }
 .halfsquare_top {
   margin: 0 0 0.5rem 0;
@@ -143,50 +136,68 @@ $separator: #ddd;
   padding-bottom: 1rem;
 }
 .orange {
-  background: linear-gradient(-15deg, $o6 5%, $o5 80%, $o2);
+  color: $o6;
   box-shadow: 5px 5px 10px 0px $o4;
   border: 1px solid $o6;
+  // background: linear-gradient(-15deg, $o6 5%, $o5 80%, $o2);
 }
 .orange:hover {
-  background: $o6;
+  background-color: $o6;
+  color: white;
+  cursor: pointer;
 }
 .green {
-  background: linear-gradient(-15deg, $g6 5%, $g5 80%, $g2);
+  color: $g6;
   box-shadow: 5px 5px 10px 0px $g4;
   border: 1px solid $g6;
+  // background: linear-gradient(-15deg, $g6 5%, $g5 80%, $g2);
 }
 .green:hover {
   background: $g6;
+  color: white;
+  cursor: pointer;
 }
 .yellow {
-  background: linear-gradient(-15deg, $y6 5%, $y5 70%, $y2);
+  color: $y6;
   box-shadow: 5px 5px 10px 0px $y4;
   border: 1px solid $y6;
+  // background: linear-gradient(-15deg, $y6 5%, $y5 70%, $y2);
 }
 .yellow:hover {
   background: $y6;
+  color: white;
+  cursor: pointer;
 }
 .blue {
-  background: linear-gradient(-15deg, $b6 5%, $b5 70%, $b2);
+  color: $b6;
   box-shadow: 5px 5px 10px 0px $b4;
   border: 1px solid $b6;
+  // background: linear-gradient(-15deg, $b6 5%, $b5 70%, $b2);
 }
 .blue:hover {
   background: $b6;
+  color: white;
+  cursor: pointer;
 }
 .violet {
-  background: linear-gradient(-15deg, $v6 5%, $v5 70%, $v2);
+  color: $v6;
   box-shadow: 5px 5px 10px 0px $v4;
   border: 1px solid $v6;
+  // background: linear-gradient(-15deg, $v6 5%, $v5 70%, $v2);
 }
 .violet:hover {
   background: $v6;
+  color: white;
+  cursor: pointer;
 }
 .pink {
-  background: linear-gradient(-15deg, $p6 5%, $p5 70%, $p2);
+  color: $p6;
   box-shadow: 5px 5px 10px 0px $p4;
   border: 1px solid $p6;
+  // background: linear-gradient(-15deg, $p6 5%, $p5 70%, $p2);
 }
 .pink:hover {
   background: $p6;
+  color: white;
+  cursor: pointer;
 }
