@@ -1,0 +1,23 @@
+.flexColumnContainer table,
+.flexColumnContainer td {
+  border: 1px solid olivedrab;
+  text-align: right;
+  padding: 0.5rem;
+}
+.flexColumnContainer thead td {
+  background-color: papayawhip;
+  text-align: center;
+  vertical-align: middle;
+}
+.flexColumnContainer thead td p.vertical {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+.flexColumnContainer td.gross {
+  text-align: right;
+  background-color: papayawhip;
+  vertical-align: middle;
+}

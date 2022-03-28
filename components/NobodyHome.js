@@ -1,7 +1,7 @@
-import LoggedStatus from "./LoggedStatus";
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
-import Layout from "./layout";
+import LoggedStatus from './LoggedStatus'
+import Head from 'next/head'
+import styles from './Home.module.scss'
+import Layout from './layout'
 
 export default function NobodyHome() {
   return (
@@ -11,7 +11,7 @@ export default function NobodyHome() {
       </Head>
       <main className={styles.main}>
         <h3>
-          Welcome to <span style={{ color: "#d0d" }}>beHappy!</span>
+          Welcome to <span style={{ color: '#d0d' }}>beHappy!</span>
           SalesOnTheMove
         </h3>
         <p>
@@ -28,5 +28,5 @@ export default function NobodyHome() {
         </div>
       </main>
     </Layout>
-  );
+  )
 }

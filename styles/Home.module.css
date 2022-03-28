@@ -23,9 +23,6 @@
 .container {
   padding: 0 2rem;
 }
-.rowElem {
-  margin: 0 2rem;
-}
 
 .main {
   padding: 1rem 0 0 0;
@@ -44,48 +41,6 @@
   align-items: center;
 }
 
-.logoBH {
-  border: 2px solid #e8e;
-  border-radius: 50%;
-  width: 5rem;
-  height: 5rem;
-  background-color: #a2a;
-  background-image: url('../public/BeHappy100.png');
-  background-size: contain;
-  color: blanchedalmond;
-  margin: 0.5rem 0 0.5rem -1rem;
-  display: flex;
-}
-.logoBH:hover {
-  cursor: pointer;
-}
-.LoggedStatus {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  text-align: right;
-  margin: 0 0 0 2rem;
-}
-.row {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-.statRow {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 1rem;
-  margin-top: 2rem;
-  background-color: darkviolet;
-  color: white;
-  font-size: x-large;
-  font-weight: 900;
-}
 .main h1,
 .main h3 {
   margin: 0 auto 1rem auto;
@@ -95,143 +50,8 @@
   margin: 0 0 0.3rem 0;
   color: darkolivegreen;
 }
-.square0 {
-  display: flex;
-  flex-direction: column;
-  height: 8rem;
-  width: 8rem;
-  border: none;
-  margin: 1rem;
-}
-.square_orange,
-.square_green,
-.square_purple,
-.square_yellow,
-.square_blue,
-.square_pink,
-.square_gray,
-.square_plus,
-.square_stat,
-.square_sys {
-  display: flex;
-  height: 8rem;
-  width: 8rem;
-  border-radius: 10px;
-  margin: 1rem;
-  color: white;
-  font-weight: 600;
-  font-size: larger;
-  box-shadow: 5px 5px 10px 0px #ccc;
-}
-.square_plus,
-.square_stat,
-.halfsquare_bottom {
-  font-size: 2rem;
-}
-.square_orange,
-.square_plus {
-  background: linear-gradient(-15deg, orangered 5%, #faad14 80%, #fff1b8);
-}
-.square_orange:hover,
-.square_plus:hover {
-  cursor: pointer;
-}
-.square_green,
-.square_stat {
-  background: linear-gradient(-15deg, #7cb305 5%, #a0d911 80%, #f4ffb8);
-}
-.square_green:hover,
-.square_stat:hover {
-  cursor: pointer;
-}
-.square_purple,
-.square_sys {
-  background: linear-gradient(-15deg, #531dab 5%, #722ed1 70%, #efdbff);
-}
-.square_purple:hover,
-.square_sys:hover {
-  cursor: pointer;
-}
-.square_yellow {
-  background: linear-gradient(-15deg, #d4b106 5%, #fadb14 70%, #ffffb8);
-}
-.square_yellow:hover {
-  cursor: pointer;
-}
-.square_blue {
-  background: linear-gradient(-15deg, #096dd9 5%, #1890ff 70%, #bae7ff);
-}
-.square_blue:hover {
-  cursor: pointer;
-}
-.square_pink {
-  background: linear-gradient(-15deg, #c41d7f 5%, hotpink 70%, pink);
-}
-.square_pink:hover {
-  cursor: pointer;
-}
-
-.halfsquare_top {
-  display: flex;
-  height: 5rem;
-  width: 8rem;
-  border-radius: 10px;
-  margin: 0 0 0.5rem 0;
-  background: linear-gradient(-15deg, #d4b106 5%, #fadb14 70%, #ffffb8);
-  box-shadow: 5px 5px 10px 0px #ccc;
-  color: white;
-}
-.halfsquare_top:hover {
-  background-color: yellow;
-  cursor: pointer;
-}
-.halfsquare_bottom {
-  display: flex;
-  height: 5rem;
-  width: 8rem;
-  border-radius: 10px;
-  margin: 0.5rem 0 0 0;
-  background: linear-gradient(-15deg, #096dd9 5%, #1890ff 70%, #bae7ff);
-  box-shadow: 5px 5px 10px 0px #ccc;
-  color: white;
-}
-.halfsquare_bottom:hover {
-  background-color: steelblue;
-  cursor: pointer;
-}
-
-.halfsquare_top_orange {
-  display: flex;
-  height: 5rem;
-  width: 8rem;
-  border: 1px solid orange;
-  border-radius: 10px;
-  margin: 0 0 0.5rem 0;
-  background: linear-gradient(-15deg, orangered 10%, orange);
-  box-shadow: 5px 5px 10px 0px #ccc;
-  color: white;
-}
-.halfsquare_top_orange:hover {
-  background-color: orange;
-  cursor: pointer;
-}
-.square_orange p,
-.square_green p,
-.square_purple p,
-.square_yellow p,
-.square_blue p,
-.square_pink p,
-.square_gray p,
-.square_plus p,
-.square_stat p,
-.square_sys p,
-.halfsquare_top_orange p,
-.halfsquare_top p,
-.halfsquare_bottom p,
-.halfsquare_top2 p,
-.halfsquare_bottom2 p {
-  margin: auto;
-  padding-bottom: 0.5rem;
+.tips {
+  color: olivedrab;
 }
 
 .okButton {
@@ -244,19 +64,7 @@
   border: 2px solid white;
   border-radius: 0.3rem;
 }
-.cancelButton {
-  margin: 0.5rem;
-  padding: 1rem;
-  min-width: 6rem;
-  color: white;
-  font-size: larger;
-  background-color: rgba(255, 255, 255, 0);
-  border: 2px solid white;
-  border-radius: 0.3rem;
-}
-.okButton:hover,
-.cancelButton:hover {
-  cursor: pointer;
+.okButton:hover {
   background-color: rgba(255, 255, 255, 0.4);
 }
 .plusButton {
@@ -283,7 +91,6 @@
 .dropButton:hover {
   background-color: #ffaabb;
   transition: 0.25s ease;
-  cursor: pointer;
 }
 .sysButton,
 .sysButtons button {
@@ -308,19 +115,6 @@
   border-radius: 0.3rem;
   box-shadow: 5px 5px 10px 0px #d3adf7;
 }
-.plusButton:hover,
-.sysButton:hover,
-.miniButtons button:hover {
-  cursor: pointer;
-}
-.miniInput input {
-  margin: 0.5rem;
-  padding: 1rem;
-  width: 8rem;
-  color: darkviolet;
-  border: 1px solid darkviolet;
-  border-radius: 0.3rem;
-}
 .orangeButtons {
   margin: 1rem 0;
   padding: 1rem 0;
@@ -343,109 +137,30 @@
   background-color: gold;
   transition: 0.5s ease;
   color: white;
+}
+
+.plusButton:hover,
+.sysButton:hover,
+.orangeButton:hover,
+.dropButton:hover,
+.okButton:hover,
+.miniButtons button:hover {
   cursor: pointer;
+}
+
+.miniInput input {
+  margin: 0.5rem;
+  padding: 1rem;
+  width: 8rem;
+  color: darkviolet;
+  border: 1px solid darkviolet;
+  border-radius: 0.3rem;
 }
 
 .userInput {
   margin-right: 10px;
 }
 
-.footerLink {
-  margin-right: 10px;
-}
-.login {
-  margin: 20px auto;
-}
-.loginForm {
-  border: 1px solid #2b2;
-  border-radius: 5px;
-  margin: 20px;
-  padding: 20px;
-}
-.loginButton {
-  background-color: #8f8;
-  color: #303;
-  border: 1px solid #2b2;
-  border-radius: 5px;
-  margin: 10px;
-  padding: 10px;
-}
-.loginButton:hover {
-  background-color: #2f2;
-  cursor: pointer;
-}
-.logoutButton {
-  color: #303;
-  border-radius: 5px;
-  margin: 10px;
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.2);
-}
-.logoutButton:hover {
-  cursor: pointer;
-}
-
-.tips {
-  color: olivedrab;
-}
-
-.main table,
-.main td {
-  border: 1px solid olivedrab;
-  text-align: right;
-  padding: 0.5rem;
-}
-.main thead td {
-  background-color: papayawhip;
-  text-align: center;
-  vertical-align: middle;
-}
-thead td p.vertical {
-  -webkit-transform: rotate(-90deg);
-  -moz-transform: rotate(-90deg);
-  -ms-transform: rotate(-90deg);
-  -o-transform: rotate(-90deg);
-  transform: rotate(-90deg);
-}
-td.gross {
-  text-align: right;
-  background-color: papayawhip;
-  vertical-align: middle;
-}
-.td_dropButton {
-  height: 2rem;
-  width: 2rem;
-  border-radius: 50%;
-  background-color: #faffea;
-  margin: auto 0 auto 3rem;
-}
-.td_dropButton:hover {
-  background-color: #ffaabb;
-  transition: 0.25s ease;
-}
-.td_dropButton:active {
-  background-color: #ff0033;
-  transition: 0.1s ease;
-}
-.td_edit {
-  padding: 0 !important;
-}
-.td_edit button {
-  display: inline-flex;
-  height: 100%;
-  width: 100%;
-  background-color: #faffea;
-  margin: auto;
-  padding: 1rem 2rem;
-}
-.td_edit button:hover {
-  background-color: yellowgreen;
-  transition: 0.25s ease;
-}
-.td_edit button:active {
-  background-color: olivedrab;
-  transition: 0.1s ease;
-}
 .main input {
   margin: 0.5rem;
   padding: 1rem;
@@ -455,61 +170,16 @@ td.gross {
   border-color: red;
   color: red;
 }
-.gray {
-  color: gray;
-}
 
-.newForm,
-.newCeditForm,
-.newUeditForm,
-.newSeditForm,
-.newXeditForm,
-.newEeditForm,
-.newPeditForm {
+.newFormPE {
   position: relative;
   z-index: 99;
   max-width: 26rem;
   margin: 2rem auto;
   padding: 1rem 2rem;
   border-radius: 10px;
-}
-.newForm {
   background-color: #fbfff2;
   border: 1px solid lawngreen;
-}
-.newCeditForm {
-  background-color: #ffd900;
-  border: 1px solid orange;
-  box-shadow: 5px 5px 10px 0px #ffd666;
-}
-.newSeditForm {
-  background-color: #7fff7f;
-  border: 1px solid lawngreen;
-  box-shadow: 5px 5px 10px 0px #7fff7f;
-}
-.newXeditForm {
-  background-color: #ff98f1;
-  border: 1px solid #ff00d4;
-  box-shadow: 5px 5px 10px 0px #ff98f1;
-}
-.newUeditForm {
-  background-color: #cc00ff;
-  border: 1px solid #8600a7;
-  box-shadow: 5px 5px 10px 0px #cc00ff;
-}
-.newEeditForm {
-  background-color: #ffec3d;
-  border: 1px solid #f1ff31;
-  box-shadow: 5px 5px 10px 0px #fff89b;
-}
-.newPeditForm {
-  background-color: #959cff;
-  border: 1px solid #8200fc;
-  box-shadow: 5px 5px 10px 0px #959cff;
-}
-.newPeditForm .title,
-.newEeditForm .title {
-  color: white;
 }
 
 @media (max-width: 469px) {

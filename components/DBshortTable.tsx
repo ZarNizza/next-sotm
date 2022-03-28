@@ -1,5 +1,5 @@
-import styles from '../styles/Home.module.css'
-import type { Sale, Product } from '../pages/plus'
+import stylesH from '../styles/Home.module.css'
+import styles from './Table.module.scss'
 
 type TableProps = {
   resData: Record<string, number | string | Date | null>[]
@@ -10,14 +10,14 @@ export default function DBshortTable(props: TableProps) {
 
   if (props.resData === undefined || props.resData.length === 0) {
     return (
-      <div className={styles.flexColumnContainer}>
+      <div className={stylesH.flexColumnContainer}>
         <p>--------- s ----------</p>
         <p>- Empty DB result -</p>
       </div>
     )
   } else {
     return (
-      <div className={styles.flexColumnContainer}>
+      <div className={stylesH.flexColumnContainer}>
         <table>
           <thead>
             <tr key={Math.random()}>

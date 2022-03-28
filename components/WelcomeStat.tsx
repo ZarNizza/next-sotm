@@ -1,6 +1,6 @@
 import type { apiBody } from '../pages/statistics'
 import myDate from './MyDate'
-import styles from '../styles/Home.module.css'
+import styles from './Home.module.scss'
 import { useEffect, useState } from 'react'
 
 export default function WelcomeStat() {
@@ -60,8 +60,10 @@ export default function WelcomeStat() {
   }, [])
 
   return (
-    <div className={styles.statRow}>
-      {statNow} / {statPrev}
-    </div>
+    <>
+      <div className={styles.welcomeStatRow}>
+        {statNow} / {statPrev}
+      </div>
+    </>
   )
 }

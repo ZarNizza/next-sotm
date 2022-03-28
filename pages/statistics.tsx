@@ -206,7 +206,7 @@ const Home: NextPage = () => {
               onChange={(event) => finishDateChangeHandler(event.target.value)}
             />
           </div>
-          <div className={styles.gray}>
+          <div className={styles.tips}>
             Long period may cause tooooo wide view
           </div>
           <div className={styles.miniButtons}>
@@ -234,7 +234,7 @@ const Home: NextPage = () => {
             </div>
           </div>
           {resData === undefined || resData.length === 0 ? (
-            <p className={styles.gray}>No data - empty result</p>
+            <p className={styles.tips}>No data - empty result</p>
           ) : resSource === 'short' ? (
             <div className={styles.tableScroll}>
               <DBshortTable resData={resData} />

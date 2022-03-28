@@ -1,0 +1,54 @@
+.LoggedStatus {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: right;
+  margin: 0 0 0 2rem;
+}
+.loginForm {
+  border: 1px solid #2b2;
+  border-radius: 5px;
+  margin: 20px;
+  padding: 20px;
+}
+.loginButton {
+  background-color: #8f8;
+  color: #303;
+  border: 1px solid #2b2;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+}
+.loginButton:hover {
+  background-color: #2f2;
+  cursor: pointer;
+}
+.logoutButton {
+  color: #303;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.logoutButton:hover {
+  cursor: pointer;
+}
+.logoRow {
+  margin: 0 2rem;
+}
+.logoBH {
+  border: 2px solid #e8e;
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+  background-color: #a2a;
+  background-image: url('../public/BeHappy100.png');
+  background-size: contain;
+  color: blanchedalmond;
+  margin: 0.5rem 0 0.5rem -1rem;
+  display: flex;
+}
+.logoBH:hover {
+  cursor: pointer;
+}

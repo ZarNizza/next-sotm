@@ -1,0 +1,184 @@
+$r2: #ffccc7;
+$r4: #ff7875;
+$r5: #ff4d4f;
+$r6: #f5222d;
+$o2: #ffe7ba;
+$o4: #ffc069;
+$o5: #ffa940;
+$o6: #fa8c16;
+$og2: #fff1b8;
+$og4: #ffd666;
+$og5: #ffc53d;
+$og6: #faad14;
+$y2: #ffffb8;
+$y4: #fff566;
+$y5: #ffec3d;
+$y6: #fadb14;
+$gl2: #f4ffb8;
+$gl4: #d3f261;
+$gl5: #bae637;
+$gl6: #a0d911;
+$g2: #d9f7be;
+$g4: #95de64;
+$g5: #73d13d;
+$g6: #52c41a;
+$bl2: #b5f5ec;
+$bl4: #5cdbd3;
+$bl5: #36cfc9;
+$bl6: #13c2c2;
+$b2: #d6e4ff;
+$b4: #85a5ff;
+$b5: #597ef7;
+$b6: #2f54eb;
+$v2: #efdbff;
+$v4: #b37feb;
+$v5: #9254de;
+$v6: #722ed1;
+$p2: #ffd6e7;
+$p4: #ff85c0;
+$p5: #f759ab;
+$p6: #eb2f96;
+$separator: #ddd;
+
+.main {
+  padding: 1rem 0 0 0;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.main h1,
+.main h3 {
+  margin: 0 auto 1rem auto;
+  color: $v6;
+}
+
+.header {
+  display: flex;
+  padding: 0;
+  border-bottom: 1px solid $separator;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.welcomeStatRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+  margin-top: 2rem;
+  background-color: $v6;
+  color: white;
+  font-size: x-large;
+  font-weight: 900;
+}
+
+.squareRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.squareWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 8rem;
+  width: 8rem;
+  border: none;
+  margin: 1rem;
+}
+
+.square {
+  display: flex;
+  height: 8rem;
+  width: 8rem;
+  border-radius: 10px;
+  margin: 1rem;
+  color: white;
+  font-weight: 600;
+  font-size: larger;
+}
+.halfsquare_top,
+.halfsquare_bottom {
+  display: flex;
+  height: 5rem;
+  width: 8rem;
+  border-radius: 10px;
+  color: white;
+}
+.halfsquare_top {
+  margin: 0 0 0.5rem 0;
+}
+.halfsquare_bottom {
+  margin: 0.5rem 0 0 0;
+}
+.square:hover,
+.halfsquare_top:hover,
+.halfsquare_bottom:hover {
+  cursor: pointer;
+}
+.square p,
+.halfsquare_top p,
+.halfsquare_bottom p {
+  display: flex;
+  margin: auto;
+  font-size: x-large;
+  padding-bottom: 0.3rem;
+}
+.bigFont {
+  font-size: 3rem !important;
+  font-weight: 800;
+  padding-bottom: 1rem;
+}
+.orange {
+  background: linear-gradient(-15deg, $o6 5%, $o5 80%, $o2);
+  box-shadow: 5px 5px 10px 0px $o4;
+  border: 1px solid $o6;
+}
+.orange:hover {
+  background: $o6;
+}
+.green {
+  background: linear-gradient(-15deg, $g6 5%, $g5 80%, $g2);
+  box-shadow: 5px 5px 10px 0px $g4;
+  border: 1px solid $g6;
+}
+.green:hover {
+  background: $g6;
+}
+.yellow {
+  background: linear-gradient(-15deg, $y6 5%, $y5 70%, $y2);
+  box-shadow: 5px 5px 10px 0px $y4;
+  border: 1px solid $y6;
+}
+.yellow:hover {
+  background: $y6;
+}
+.blue {
+  background: linear-gradient(-15deg, $b6 5%, $b5 70%, $b2);
+  box-shadow: 5px 5px 10px 0px $b4;
+  border: 1px solid $b6;
+}
+.blue:hover {
+  background: $b6;
+}
+.violet {
+  background: linear-gradient(-15deg, $v6 5%, $v5 70%, $v2);
+  box-shadow: 5px 5px 10px 0px $v4;
+  border: 1px solid $v6;
+}
+.violet:hover {
+  background: $v6;
+}
+.pink {
+  background: linear-gradient(-15deg, $p6 5%, $p5 70%, $p2);
+  box-shadow: 5px 5px 10px 0px $p4;
+  border: 1px solid $p6;
+}
+.pink:hover {
+  background: $p6;
+}

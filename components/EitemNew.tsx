@@ -63,7 +63,7 @@ export default function EitemNew(arg: newEitemArgs) {
   }
 
   return (
-    <div className={styles.newForm}>
+    <div className={styles.newFormPE}>
       <p className={styles.title}>New Expense Item</p>
       <div className={styles.sysButtons}>
         <input

@@ -1,5 +1,7 @@
 {
   "name": "next-sotm",
+  "license": "MIT",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",

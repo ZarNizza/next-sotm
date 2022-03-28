@@ -63,7 +63,7 @@ export default function PitemNew(arg: newProductArgs) {
   }
 
   return (
-    <div className={styles.newForm}>
+    <div className={styles.newFormPE}>
       <p className={styles.title}>New Product Item</p>
       <div className={styles.sysButtons}>
         <input

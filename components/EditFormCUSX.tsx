@@ -128,7 +128,7 @@ export default function EditForm(a: editFormArgs) {
   }
 
   return (
-    <div className={stylesH.newCeditForm}>
+    <div className={styles.newCeditForm}>
       <p hidden={a.type === 'S' || a.type === 'X'}>
         Name:
         <input

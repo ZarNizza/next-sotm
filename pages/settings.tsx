@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../components/layout'
-import styles from '../styles/Home.module.css'
+import styles from '../components/Home.module.scss'
 
 const Home: NextPage = () => {
   return (
@@ -12,49 +12,49 @@ const Home: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <h1>SETTINGS</h1>
-        <div className={styles.row}>
+        <div className={styles.squareRow}>
           <Link href="/editCustomers" passHref>
-            <div className={styles.square_orange}>
+            <div className={`${styles.square} ${styles.orange}`}>
               <p> Customers </p>
             </div>
           </Link>
           <Link href="/sys" passHref>
-            <div className={styles.square_purple}>
+            <div className={`${styles.square} ${styles.violet}`}>
               <p> System </p>
             </div>
           </Link>
         </div>
 
-        <div className={styles.row}>
+        <div className={styles.squareRow}>
           <Link href="/editProducts" passHref>
-            <div className={styles.square_blue}>
+            <div className={`${styles.square} ${styles.blue}`}>
               <p>Products</p>
             </div>
           </Link>
           <Link href="/editSales" passHref>
-            <div className={styles.square_green}>
+            <div className={`${styles.square} ${styles.green}`}>
               <p> Sales </p>
             </div>
           </Link>
         </div>
 
-        <div className={styles.row}>
+        <div className={styles.squareRow}>
           <Link href="/editEitems" passHref>
-            <div className={styles.square_yellow}>
+            <div className={`${styles.square} ${styles.yellow}`}>
               <p>X-items</p>
             </div>
           </Link>
           <Link href="/editXpenses" passHref>
-            <div className={styles.square_pink}>
+            <div className={`${styles.square} ${styles.pink}`}>
               <p> Xpenses </p>
             </div>
           </Link>
         </div>
 
-        <div className={styles.row}>
-          <div className={styles.square0}>
+        <div className={styles.squareRow}>
+          <div className={styles.squareWrapper}>
             <Link href="/editUsers" passHref>
-              <div className={styles.halfsquare_top_orange}>
+              <div className={`${styles.halfsquare_top} ${styles.orange}`}>
                 <p> Users </p>
               </div>
             </Link>

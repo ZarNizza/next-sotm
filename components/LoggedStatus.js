@@ -1,5 +1,5 @@
 import { useSession, signIn, signOut } from 'next-auth/react'
-import styles from '../styles/Home.module.css'
+import styles from './Login.module.scss'
 
 export default function LoggedStatus() {
   const { data: session } = useSession()

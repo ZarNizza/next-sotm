@@ -1,4 +1,5 @@
-import styles from '../styles/Home.module.css'
+import stylesH from '../styles/Home.module.css'
+import styles from './Table.module.scss'
 import type { Product } from '../pages/plus'
 
 type TableProps = {
@@ -12,14 +13,14 @@ export default function DBfullTable(props: TableProps) {
 
   if (props.resData === undefined || props.resData.length === 0) {
     return (
-      <div className={styles.flexColumnContainer}>
+      <div className={stylesH.flexColumnContainer}>
         <p>---------- f ----------</p>
         <p>- Empty DB result -</p>
       </div>
     )
   } else {
     return (
-      <div className={styles.flexColumnContainer}>
+      <div className={stylesH.flexColumnContainer}>
         <table>
           <thead>
             <tr key={Math.random()}>
