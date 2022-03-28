@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
-// import styles from '../styles/Home.module.css'
 import styles from './Footer.module.scss'
 
 export default function Footer() {
@@ -49,7 +48,9 @@ export default function Footer() {
           <Link href="/memo" passHref>
             <a className={styles.footerLink}>
               <span className={styles.rb_y}>
-                <div className={styles.footerLabel}>M</div>
+                <div className={`${styles.footerLabel} ${styles.thinText}`}>
+                  M
+                </div>
               </span>
             </a>
           </Link>
@@ -58,7 +59,9 @@ export default function Footer() {
           <Link href="/settings" passHref>
             <a className={styles.footerLink}>
               <span className={styles.rb_pink}>
-                <div className={styles.footerLabel}>Set</div>
+                <div className={`${styles.footerLabel} ${styles.thinText}`}>
+                  Set
+                </div>
               </span>
             </a>
           </Link>
@@ -67,7 +70,9 @@ export default function Footer() {
           <Link href="/sys" passHref>
             <a className={styles.footerLink}>
               <span className={styles.rb_p}>
-                <div className={styles.footerLabel}>[Sys]</div>
+                <div className={`${styles.footerLabel} ${styles.thinText}`}>
+                  [Sys]
+                </div>
               </span>
             </a>
           </Link>

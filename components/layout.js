@@ -1,7 +1,7 @@
-import styles from "./layout.module.css";
-import Head from "next/head";
-import Header from "./Header";
-import Footer from "./Footer";
+import styles from './layout.module.css'
+import Head from 'next/head'
+import Header from './Header.tsx'
+import Footer from './Footer.tsx'
 
 export default function Layout({ children }) {
   return (
@@ -15,5 +15,5 @@ export default function Layout({ children }) {
         <Footer />
       </div>
     </>
-  );
+  )
 }
