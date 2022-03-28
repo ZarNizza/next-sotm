@@ -52,7 +52,7 @@ export default function DBfullDTable(props: TableProps) {
                         ? 'Total:'
                         : elem === null
                         ? ' '
-                        : String(elem).slice(0, 10)}
+                        : String(elem).slice(0, 20)}
                     </td>
                   ))}
                 </tr>
