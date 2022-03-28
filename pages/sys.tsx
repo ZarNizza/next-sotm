@@ -122,12 +122,12 @@ const Home: NextPage = () => {
 
   return (
     <Layout>
-      <div className={styles.container}>
-        <Head>
-          <title>System page</title>
-        </Head>
-        <main className={styles.main}>
-          <h3>SYSTEM</h3>
+      <Head>
+        <title>System page</title>
+      </Head>
+      <main className={styles.main}>
+        <h3>SYSTEM</h3>
+        <div className={styles.flexColumnContainer}>
           <div className={styles.sysButtons}>
             <button onClick={drop_U_handler}>! drop U</button>
             <button onClick={drop_C_handler}>! drop C</button>
@@ -173,8 +173,8 @@ const Home: NextPage = () => {
               <DBshortTable resData={resData} />
             )}
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
     </Layout>
   )
 }

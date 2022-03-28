@@ -6,7 +6,7 @@
   max-width: 95vw;
   max-height: 80vh;
   overflow: scroll;
-  margin-top: 1rem;
+  margin: 1rem auto;
 }
 .flexColumnContainer {
   display: flex;
@@ -95,39 +95,35 @@
   transition: 0.25s ease;
 }
 .sysButton,
-.sysButtons button {
+.sysButtons button,
+.miniButtons button,
+.orangeButton,
+.orangeButtons button {
   margin: 0.5rem;
   padding: 1rem 0.5rem;
   min-width: 5rem;
 }
-.sysButton {
+.sysButton,
+.miniButtons button {
   color: darkviolet;
   background-color: white;
   border: 1px solid darkviolet;
   border-radius: 0.3rem;
   box-shadow: 3px 3px 3px 0px #efdbff;
 }
-.miniButtons button {
-  margin: 0.5rem;
-  padding: 1rem;
-  min-width: 5rem;
-  background-color: white;
-  color: darkviolet;
-  border: 1px solid darkviolet;
-  border-radius: 0.3rem;
-  box-shadow: 3px 3px 3px 0px #d3adf7;
-}
-.orangeButtons {
+
+.orangeButtons,
+.sysButtons {
   margin: 1rem 0;
   padding: 1rem 0;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .orangeButton,
 .orangeButtons button {
-  margin: 0.5rem;
-  padding: 1rem;
-  min-width: 5rem;
   background-color: white;
   color: darkorange;
   border-color: darkorange;

@@ -13,7 +13,9 @@ const Home: NextPage = () => {
         <h3>MEMO</h3>
         <p>Page in the development queue.</p>
         <p>
-          Integration with Google Calendar, plan future visits / calls / sales.
+          Integration with Google Calendar,
+          <br />
+          plan future visits / calls / sales.
         </p>
       </main>
     </Layout>
