@@ -21,7 +21,7 @@ export default function DBfullTable(props: TableProps) {
   } else {
     return (
       <div className={stylesH.flexColumnContainer}>
-        <table>
+        <table className={styles.TableContainer}>
           <thead>
             <tr key={Math.random()}>
               <td key={Math.random()}>Customer</td>

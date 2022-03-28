@@ -18,7 +18,7 @@ export default function DBshortTable(props: TableProps) {
   } else {
     return (
       <div className={stylesH.flexColumnContainer}>
-        <table>
+        <table className={styles.TableContainer}>
           <thead>
             <tr key={Math.random()}>
               {keys.map((key) => (
