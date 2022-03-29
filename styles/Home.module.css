@@ -24,6 +24,15 @@
   padding: 0 2rem;
 }
 
+.header {
+  display: flex;
+  padding: 0;
+  border-bottom: 1px solid #eaeaea;
+  justify-content: space-between;
+  align-items: center;
+  /* background: linear-gradient(5deg, #fffffe, #9effa4 70%, #fff33c); */
+}
+
 .main {
   padding: 1rem 0 0 0;
   display: flex;
@@ -32,15 +41,6 @@
   justify-content: flex-start;
   align-items: center;
   /* background: linear-gradient(-15deg, #b5faff 5%, #9effa3 70%, #fffffe); */
-}
-
-.header {
-  display: flex;
-  padding: 0;
-  border-bottom: 1px solid #eaeaea;
-  justify-content: space-between;
-  align-items: center;
-  /* background: linear-gradient(5deg, #fffffe, #9effa4 70%, #fff33c); */
 }
 
 .main h1,
@@ -80,16 +80,14 @@
   transition: 0.25s ease;
 }
 .sysButton,
-.sysButtons button,
-.miniButtons button,
-.orangeButton,
-.orangeButtons button {
+.sysButtonsGroup button,
+.orangeButtonsGroup button {
   margin: 0.5rem;
   padding: 1rem 0.5rem;
   min-width: 5rem;
 }
 .sysButton,
-.miniButtons button {
+.sysButtonsGroup button {
   color: darkviolet;
   background-color: white;
   border: 1px solid darkviolet;
@@ -97,41 +95,35 @@
   box-shadow: 3px 3px 3px 0px #efdbff;
 }
 
-.orangeButtons,
-.sysButtons {
-  margin: 1rem 0;
-  padding: 1rem 0;
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.orangeButton,
-.orangeButtons button {
-  background-color: white;
+.orangeButtonsGroup button {
   color: darkorange;
+  background-color: white;
   border-color: darkorange;
   border-radius: 1rem;
   box-shadow: 3px 3px 3px 0px #ffe58f;
 }
-.orangeButton:hover,
-.orangeButtons button:hover {
-  background-color: gold;
-  transition: 0.5s ease;
+.orangeButtonsGroup button:hover {
   color: white;
+  background-color: gold;
+  transition: 0.3s ease;
 }
-
+.orangeButtonsGroup {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1rem 0;
+  padding: 1rem 0;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
 .plusButton:hover,
-.sysButton:hover,
-.orangeButton:hover,
 .dropButton:hover,
-.okButton:hover,
-.miniButtons button:hover {
+.sysButton:hover,
+.sysButtonsGroup button:hover {
   cursor: pointer;
 }
 
-.miniInput input {
+.dateInputGroup input {
   margin: 0.5rem;
   padding: 1rem;
   width: 8rem;

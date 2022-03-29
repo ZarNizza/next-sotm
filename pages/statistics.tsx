@@ -191,7 +191,7 @@ const Home: NextPage = () => {
             mode="stat"
             type="C"
           />
-          <div className={styles.miniInput}>
+          <div className={styles.dateInputGroup}>
             <input
               type="text"
               placeholder="Start date"
@@ -211,7 +211,7 @@ const Home: NextPage = () => {
           <div className={styles.tips}>
             Long period may cause tooooo wide view
           </div>
-          <div className={styles.miniButtons}>
+          <div className={styles.sysButtonsGroup}>
             <div className={styles.flexRowContainer}>
               <button onClick={setTodayHandler}>Today</button>
               <button onClick={setYesterdayHandler}>Yesterday</button>
@@ -223,8 +223,7 @@ const Home: NextPage = () => {
               <button onClick={setAllHandler}>All</button>
             </div>
           </div>
-          <div className={styles.orangeButtons}>
-            {' '}
+          <div className={styles.orangeButtonsGroup}>
             <div className={styles.flexRowContainer}>
               <button onClick={show_S_Handler}>Total S</button>
               <button onClick={show_X_Handler}>Total X</button>

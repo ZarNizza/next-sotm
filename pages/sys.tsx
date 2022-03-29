@@ -138,7 +138,7 @@ const Home: NextPage = () => {
         <h3>SYSTEM</h3>
         <Toaster />
         <div className={styles.flexColumnContainer}>
-          <div className={styles.sysButtons}>
+          <div className={styles.sysButtonsGroup}>
             <button onClick={drop_U_handler}>! drop U</button>
             <button onClick={drop_C_handler}>! drop C</button>
             <button onClick={drop_P_handler}>! drop P</button>
@@ -146,7 +146,7 @@ const Home: NextPage = () => {
             <button onClick={drop_X_handler}>! drop X</button>
             <button onClick={drop_E_handler}>! drop E</button>
           </div>
-          <div className={styles.sysButtons}>
+          <div className={styles.sysButtonsGroup}>
             <button onClick={restore_U_handler}>restore U</button>
             <button onClick={restore_C_handler}>restore C</button>
             <button onClick={restore_P_handler}>restore P</button>
@@ -154,7 +154,7 @@ const Home: NextPage = () => {
             <button onClick={restore_X_handler}>restore X</button>
             <button onClick={restore_E_handler}>restore E</button>
           </div>
-          <div className={styles.sysButtons}>
+          <div className={styles.sysButtonsGroup}>
             <button onClick={index_U_handler}>index U</button>
             <button onClick={index_C_handler}>index C</button>
             <button> - </button>
@@ -162,7 +162,7 @@ const Home: NextPage = () => {
             <button onClick={index_X_handler}>index X</button>
             <button> - </button>
           </div>
-          <div className={styles.orangeButtons}>
+          <div className={styles.orangeButtonsGroup}>
             <button onClick={show_U_handler}>show U</button>
             <button onClick={show_C_handler}>show C</button>
             <button onClick={show_P_handler}>show P</button>
@@ -170,7 +170,7 @@ const Home: NextPage = () => {
             <button onClick={show_X_handler}>show X</button>
             <button onClick={show_E_handler}>show E</button>
           </div>
-          <div className={styles.sysButtons}>
+          <div className={styles.sysButtonsGroup}>
             <button onClick={show_Tables_handler}>TABLES LIST</button>
             <Link href="/sys-sql" passHref>
               <button>- SQL -</button>

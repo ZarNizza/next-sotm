@@ -43,7 +43,7 @@ const Home: NextPage = () => {
               placeholder="SQL request"
               style={{ padding: '1rem', width: '80rem' }}
             />
-            <button onClick={sqlReuestHandler} className={styles.orangeButton}>
+            <button onClick={sqlReuestHandler} className={styles.sysButton}>
               send SQL
             </button>
           </div>
