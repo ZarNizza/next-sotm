@@ -119,7 +119,8 @@
 .plusButton:hover,
 .dropButton:hover,
 .sysButton:hover,
-.sysButtonsGroup button:hover {
+.sysButtonsGroup button:hover,
+.orangeButtonsGroup button:hover {
   cursor: pointer;
 }
 
