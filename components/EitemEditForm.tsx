@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import { Eitem } from '../pages/minus'
-import styles from '../styles/Home.module.css'
+import stylesH from '../styles/Home.module.css'
+import styles from './Select.module.scss'
 
 type editEitemArgs = {
   itemToEdit: Eitem
@@ -55,11 +56,11 @@ export default function EitemEditForm(arg: editEitemArgs) {
   }
 
   function input_Ename_ChHandler(eName: string) {
-    setEitem(eName.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:]/gi, ''))
+    setEitem(eName.replace(/[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi, ''))
   }
 
   function input_Esymbol_ChHandler(eSymbol: string) {
-    setEsymbol(eSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:\_]/gi, ''))
+    setEsymbol(eSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi, ''))
   }
 
   function dropButtonHandler() {
@@ -67,35 +68,37 @@ export default function EitemEditForm(arg: editEitemArgs) {
   }
 
   return (
-    <div className={styles.newEeditForm}>
-      <p className={styles.title}>Edit Expense Item</p>
-      <div className={styles.sysButtons}>
-        <input
-          id="eInput"
-          value={eName}
-          onChange={(event) => input_Ename_ChHandler(event.target.value)}
-          placeholder="Item description"
-          pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
-          className={styles.userInput}
-        />
-      </div>
-      <div className={styles.sysButtons}>
-        <input
-          id="eSymbolInput"
-          value={eSymbol}
-          onChange={(event) => input_Esymbol_ChHandler(event.target.value)}
-          placeholder="ShrtNam"
-          pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
-          className={styles.userInput}
-        />
-      </div>
-      <div>
-        <button onClick={upd_E_handler} className={styles.okButton}>
-          Update Item
-        </button>
-        <button onClick={dropButtonHandler} className={styles.dropButton}>
-          X
-        </button>
+    <div className={styles.floatWrapper}>
+      <div className={styles.newEeditForm}>
+        <p className={styles.title}>Edit Expense Item</p>
+        <p>
+          <input
+            id="eInput"
+            value={eName}
+            onChange={(event) => input_Ename_ChHandler(event.target.value)}
+            placeholder="Item description"
+            pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
+            className={styles.inputE}
+          />
+        </p>
+        <p>
+          <input
+            id="eSymbolInput"
+            value={eSymbol}
+            onChange={(event) => input_Esymbol_ChHandler(event.target.value)}
+            placeholder="ShrtNam"
+            pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
+            className={styles.inputE}
+          />
+        </p>
+        <p className={styles.flexRow}>
+          <button onClick={upd_E_handler} className={stylesH.sysButton}>
+            <b>Update</b>
+          </button>
+          <button onClick={dropButtonHandler} className={stylesH.sysButton}>
+            Cancel
+          </button>
+        </p>
       </div>
     </div>
   )

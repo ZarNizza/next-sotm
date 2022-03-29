@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import { Product } from '../pages/plus'
-import styles from '../styles/Home.module.css'
+import stylesH from '../styles/Home.module.css'
+import styles from './Select.module.scss'
 
 type editPitemArgs = {
   itemToEdit: Product
@@ -55,11 +56,11 @@ export default function ProductEditForm(arg: editPitemArgs) {
   }
 
   function input_Pname_ChHandler(pName: string) {
-    setPitem(pName.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:]/gi, ''))
+    setPitem(pName.replace(/[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi, ''))
   }
 
   function input_Psymbol_ChHandler(pSymbol: string) {
-    setPsymbol(pSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:\_]/gi, ''))
+    setPsymbol(pSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi, ''))
   }
 
   function dropButtonHandler() {
@@ -67,35 +68,37 @@ export default function ProductEditForm(arg: editPitemArgs) {
   }
 
   return (
-    <div className={styles.newPeditForm}>
-      <p className={styles.title}>Edit Product Item</p>
-      <div className={styles.sysButtons}>
-        <input
-          id="pInput"
-          value={pName}
-          onChange={(event) => input_Pname_ChHandler(event.target.value)}
-          placeholder="Item description"
-          pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
-          className={styles.userInput}
-        />
-      </div>
-      <div className={styles.sysButtons}>
-        <input
-          id="pSymbolInput"
-          value={pSymbol}
-          onChange={(event) => input_Psymbol_ChHandler(event.target.value)}
-          placeholder="ShrtNam"
-          pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
-          className={styles.userInput}
-        />
-      </div>
-      <div>
-        <button onClick={upd_P_handler} className={styles.okButton}>
-          Update Item
-        </button>
-        <button onClick={dropButtonHandler} className={styles.dropButton}>
-          X
-        </button>
+    <div className={styles.floatWrapper}>
+      <div className={styles.newPeditForm}>
+        <p className={styles.title}>Edit Product Item</p>
+        <p>
+          <input
+            id="pInput"
+            value={pName}
+            onChange={(event) => input_Pname_ChHandler(event.target.value)}
+            placeholder="Item description"
+            pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
+            className={styles.inputP}
+          />
+        </p>
+        <p>
+          <input
+            id="pSymbolInput"
+            value={pSymbol}
+            onChange={(event) => input_Psymbol_ChHandler(event.target.value)}
+            placeholder="ShrtNam"
+            pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
+            className={styles.inputP}
+          />
+        </p>
+        <p className={styles.flexRow}>
+          <button onClick={upd_P_handler} className={stylesH.sysButton}>
+            <b>Update</b>
+          </button>
+          <button onClick={dropButtonHandler} className={stylesH.sysButton}>
+            Cancel
+          </button>
+        </p>
       </div>
     </div>
   )

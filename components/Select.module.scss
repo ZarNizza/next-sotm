@@ -2,15 +2,35 @@
   margin: 0 0 -0.3rem 0;
   color: darkolivegreen;
 }
-.inputCust {
+.inputCust,
+.inputP,
+.inputE {
   height: 3rem;
   padding: 1rem;
   margin: 1rem;
   font-size: large;
+}
+.inputCust {
   color: #3f6600;
 }
+.inputP {
+  color: #000f66;
+}
+.inputE {
+  color: #646600;
+}
 .inputCust::placeholder {
-  color: lawngreen;
+  color: #69cf03;
+  font-weight: 100;
+  font-size: medium;
+}
+.inputP::placeholder {
+  color: #00acfc;
+  font-weight: 100;
+  font-size: medium;
+}
+.inputE::placeholder {
+  color: #fcb900;
   font-weight: 100;
   font-size: medium;
 }

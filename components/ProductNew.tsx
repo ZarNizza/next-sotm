@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import { Product } from '../pages/plus'
-import styles from '../styles/Home.module.css'
+import stylesH from '../styles/Home.module.css'
+import styles from './Select.module.scss'
 
 type newProductArgs = {
   setPitems: Dispatch<SetStateAction<Product[]>>
@@ -51,11 +52,11 @@ export default function PitemNew(arg: newProductArgs) {
   }
 
   function input_P_ChHandler(pName: string) {
-    setPitem(pName.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:]/gi, ''))
+    setPitem(pName.replace(/[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi, ''))
   }
 
   function input_Psymbol_ChHandler(pSymbol: string) {
-    setPsymbol(pSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:\_]/gi, ''))
+    setPsymbol(pSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi, ''))
   }
 
   function dropButtonHandler() {
@@ -63,35 +64,37 @@ export default function PitemNew(arg: newProductArgs) {
   }
 
   return (
-    <div className={styles.newFormPE}>
-      <p className={styles.title}>New Product Item</p>
-      <div className={styles.sysButtons}>
-        <input
-          id="pInput"
-          value={pItem}
-          onChange={(event) => input_P_ChHandler(event.target.value)}
-          placeholder="Item description"
-          pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
-          className={styles.userInput}
-        />
-      </div>
-      <div className={styles.sysButtons}>
-        <input
-          id="pSymbolInput"
-          value={pSymbol}
-          onChange={(event) => input_Psymbol_ChHandler(event.target.value)}
-          placeholder="ShrtNam"
-          pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
-          className={styles.userInput}
-        />
-      </div>
-      <div>
-        <span className={styles.sysButtons}>
-          <button onClick={add_P_handler}> + add new Item </button>
-        </span>
-        <button onClick={dropButtonHandler} className={styles.dropButton}>
-          X
-        </button>
+    <div className={styles.floatWrapper}>
+      <div className={styles.newPeditForm}>
+        <p className={styles.title}>New Product Item</p>
+        <p>
+          <input
+            id="pInput"
+            value={pItem}
+            onChange={(event) => input_P_ChHandler(event.target.value)}
+            placeholder="Item description"
+            pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
+            className={styles.inputP}
+          />
+        </p>
+        <p>
+          <input
+            id="pSymbolInput"
+            value={pSymbol}
+            onChange={(event) => input_Psymbol_ChHandler(event.target.value)}
+            placeholder="ShrtNam"
+            pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
+            className={styles.inputP}
+          />
+        </p>
+        <p className={styles.flexRow}>
+          <button onClick={add_P_handler} className={stylesH.sysButton}>
+            <b>Save</b>
+          </button>
+          <button onClick={dropButtonHandler} className={stylesH.sysButton}>
+            Cancel
+          </button>
+        </p>
       </div>
     </div>
   )

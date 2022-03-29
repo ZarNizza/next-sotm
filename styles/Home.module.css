@@ -89,6 +89,7 @@
   float: right;
   margin-top: 1rem;
   margin-left: 1rem;
+  flex: 0 0 auto;
 }
 .dropButton:hover {
   background-color: #ffaabb;

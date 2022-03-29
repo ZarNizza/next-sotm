@@ -1,6 +1,7 @@
 .inputSum {
   height: 3rem;
   width: 40%;
+  min-width: 7rem;
   padding: 1rem;
   margin: 0.5rem 0.5rem 0.5rem 0 !important;
   font-size: large;
@@ -19,7 +20,7 @@
   padding: 1rem 2rem;
   border: 1px solid #8200fc;
   border-radius: 10px;
-  min-width: 26rem;
+  min-width: 20rem;
   box-shadow: 3px 3px 3px 0px lightskyblue;
 }
 
@@ -32,10 +33,12 @@
   color: #8200fc;
 }
 
-.productList ul {
-  padding-left: 0;
+.productList li {
+  display: flex;
+  justify-content: space-between;
 }
 .productList ul {
+  padding-left: 0;
   list-style-type: none;
   margin-left: 0;
 }
@@ -70,9 +73,21 @@
 .grossSum {
   height: 3rem;
   width: 40%;
+  min-width: 9rem;
   padding: 0.6rem 1rem;
   margin: 1rem 1rem 1rem 0;
   font-size: large;
   border: 2px solid darkorange;
   text-align: right;
 }
+
+@media (max-width: 479px) {
+  .buttonOk {
+    padding: 1rem 3rem;
+  }
+}
+@media (max-width: 449px) {
+  .buttonOk {
+    margin: auto;
+  }
+} ;

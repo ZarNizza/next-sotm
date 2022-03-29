@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import { Eitem } from '../pages/minus'
-import styles from '../styles/Home.module.css'
+import stylesH from '../styles/Home.module.css'
+import styles from './Select.module.scss'
 
 type newEitemArgs = {
   setEitems: Dispatch<SetStateAction<Eitem[]>>
@@ -51,11 +52,11 @@ export default function EitemNew(arg: newEitemArgs) {
   }
 
   function input_E_ChHandler(eName: string) {
-    setEitem(eName.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:]/gi, ''))
+    setEitem(eName.replace(/[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi, ''))
   }
 
   function input_Esymbol_ChHandler(eSymbol: string) {
-    setEsymbol(eSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\.\,\:\_]/gi, ''))
+    setEsymbol(eSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi, ''))
   }
 
   function dropButtonHandler() {
@@ -63,35 +64,37 @@ export default function EitemNew(arg: newEitemArgs) {
   }
 
   return (
-    <div className={styles.newFormPE}>
-      <p className={styles.title}>New Expense Item</p>
-      <div className={styles.sysButtons}>
-        <input
-          id="eInput"
-          value={eItem}
-          onChange={(event) => input_E_ChHandler(event.target.value)}
-          placeholder="Item description"
-          pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
-          className={styles.userInput}
-        />
-      </div>
-      <div className={styles.sysButtons}>
-        <input
-          id="eSymbolInput"
-          value={eSymbol}
-          onChange={(event) => input_Esymbol_ChHandler(event.target.value)}
-          placeholder="ShrtNam"
-          pattern="[a-zA-Zа-яА-Я\d\s\-\.,:]*"
-          className={styles.userInput}
-        />
-      </div>
-      <div>
-        <span className={styles.sysButtons}>
-          <button onClick={add_E_handler}> + add new Item </button>
-        </span>
-        <button onClick={dropButtonHandler} className={styles.dropButton}>
-          X
-        </button>
+    <div className={styles.floatWrapper}>
+      <div className={styles.newEeditForm}>
+        <p className={styles.title}>New Expense Item</p>
+        <p>
+          <input
+            id="eInput"
+            value={eItem}
+            onChange={(event) => input_E_ChHandler(event.target.value)}
+            placeholder="Item description"
+            pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
+            className={styles.inputP}
+          />
+        </p>
+        <p>
+          <input
+            id="eSymbolInput"
+            value={eSymbol}
+            onChange={(event) => input_Esymbol_ChHandler(event.target.value)}
+            placeholder="ShrtNam"
+            pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
+            className={styles.inputP}
+          />
+        </p>
+        <p className={styles.flexRow}>
+          <button onClick={add_E_handler} className={stylesH.sysButton}>
+            <b>Save</b>
+          </button>
+          <button onClick={dropButtonHandler} className={stylesH.sysButton}>
+            Cancel
+          </button>
+        </p>
       </div>
     </div>
   )
