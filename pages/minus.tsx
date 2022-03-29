@@ -7,6 +7,7 @@ import Init from '../components/Init'
 import EitemStore from '../components/EitemStore'
 import XpenseCart from '../components/XpenseCart'
 import EitemNew from '../components/EitemNew'
+import { Toaster } from 'react-hot-toast'
 
 export type Eitem = {
   id: number
@@ -39,6 +40,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
           <h3>СOST</h3>
+          <Toaster />
           {newFlag ? (
             <EitemNew setEitems={setEitems} setNewFlag={setNewFlag} />
           ) : (

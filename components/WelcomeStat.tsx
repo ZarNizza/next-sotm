@@ -2,6 +2,7 @@ import type { apiBody } from '../pages/statistics'
 import myDate from './MyDate'
 import styles from './Home.module.scss'
 import { useEffect, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 
 export default function WelcomeStat() {
   const [statNow, setStatNow] = useState<number>(0)
@@ -18,6 +19,7 @@ export default function WelcomeStat() {
   }
 
   useEffect(() => {
+    const toast01 = toast.loading('Loading...')
     fetch('/api/statistics', {
       method: 'POST',
       body: JSON.stringify(bodyNow)
@@ -36,6 +38,8 @@ export default function WelcomeStat() {
       .catch((error) => {
         console.log('!!! catch Error:', error.message)
         alert('!catch Error:' + error.message)
+        toast.remove()
+        toast.error('!Loading error: X3')
       })
 
     fetch('/api/statistics', {
@@ -51,16 +55,20 @@ export default function WelcomeStat() {
           setStatPrev(() => {
             return isFinite(res.data[0].sum) ? Number(res.data[0].sum) : 0
           })
+          toast.remove()
         }
       })
       .catch((error) => {
         console.log('!!! catch Error:', error.message)
         alert('!catch Error:' + error.message)
+        toast.remove()
+        toast.error('!Loading error: X3')
       })
   }, [])
 
   return (
     <>
+      <Toaster />
       <div className={styles.welcomeStatRow}>
         {statNow} / {statPrev}
       </div>

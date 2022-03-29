@@ -7,6 +7,7 @@ import ProductStore from '../components/ProductStore'
 import ProductCart from '../components/ProductCart'
 import LiveSelect from '../components/LiveSelectCUSX'
 import { useEffect, useRef, useState } from 'react'
+import { Toaster } from 'react-hot-toast'
 
 export type Customer = {
   id: number
@@ -82,6 +83,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
           <h3>SALES</h3>
+          <Toaster />
           <LiveSelect
             items={customers}
             currentItem={currentCustomer}

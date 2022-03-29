@@ -5,6 +5,7 @@ import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
 import { useState } from 'react'
 import DBshortTable from '../components/DBshortTable'
+import toast, { Toaster } from 'react-hot-toast'
 
 const Home: NextPage = () => {
   const [resData, setResData] = useState([
@@ -106,18 +107,26 @@ const Home: NextPage = () => {
 
   function sys_handler(title: string) {
     if (!confirm('... Sure?')) return
+    const toast01 = toast.loading('Loading...')
     fetch('/api/sys', { method: 'POST', body: title })
       .then((res) => res.json())
       .then((res) => {
         if (res.error) {
+          toast.remove()
+          toast.error('!Loading error: X3')
           alert('SYS: ' + res.error)
         } else {
           console.log('SYS OK: ', res.data)
+          toast.remove()
         }
         if (res.data !== undefined && res.data !== 'OK')
           setResData(() => res.data)
       })
-      .catch((error) => alert('! SYS ' + title + ' error - ' + error.message))
+      .catch((error) => {
+        toast.remove()
+        toast.error('!Loading error: X3')
+        alert('! SYS ' + title + ' error - ' + error.message)
+      })
   }
 
   return (
@@ -127,6 +136,7 @@ const Home: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <h3>SYSTEM</h3>
+        <Toaster />
         <div className={styles.flexColumnContainer}>
           <div className={styles.sysButtons}>
             <button onClick={drop_U_handler}>! drop U</button>

@@ -7,6 +7,7 @@ import Init from '../components/Init'
 import EitemEditStore from '../components/EitemEditStore'
 import EitemNew from '../components/EitemNew'
 import EitemEditForm from '../components/EitemEditForm'
+import { Toaster } from 'react-hot-toast'
 
 export type Eitem = {
   id: number
@@ -37,6 +38,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
           <h3>X-item settings</h3>
+          <Toaster />
           <EitemEditStore
             eItems={eItems}
             setCurrEitem={setCurrEitem}

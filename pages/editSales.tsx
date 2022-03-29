@@ -8,6 +8,7 @@ import fetchHandler, { FetchArgs } from '../components/fetchHandler'
 import LiveSelect from '../components/LiveSelectCUSX'
 import EditForm from '../components/EditFormCUSX'
 import DBshortTable from '../components/DBshortTable'
+import { Toaster } from 'react-hot-toast'
 
 const Home: NextPage = () => {
   const item0 = {
@@ -61,6 +62,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
           <h2>Sales: {items.length}</h2>
+          <Toaster />
           <LiveSelect
             items={items}
             currentItem={currentItem}

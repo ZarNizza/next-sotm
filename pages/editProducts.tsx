@@ -8,6 +8,7 @@ import Init from '../components/Init'
 import ProductEditStore from '../components/ProductEditStore'
 import ProductNew from '../components/ProductNew'
 import ProductEditForm from '../components/ProductEditForm'
+import { Toaster } from 'react-hot-toast'
 
 const Home: NextPage = () => {
   const [pItems, setPitems] = useState<Product[]>([])
@@ -26,6 +27,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
           <h3>Product settings</h3>
+          <Toaster />
           <ProductEditStore
             pItems={pItems}
             setCurrPitem={setCurrPitem}

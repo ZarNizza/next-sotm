@@ -10,6 +10,7 @@ import DBshortTable from '../components/DBshortTable'
 import DBfullTable from '../components/DBfullTable'
 import DBfullDTable from '../components/DBfullDTable'
 import LiveSelect from '../components/LiveSelectCUSX'
+import { Toaster } from 'react-hot-toast'
 
 export type apiBody = {
   mode: string
@@ -179,6 +180,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
           <h3>Profit Statistics</h3>
+          <Toaster />
           <LiveSelect
             items={customers}
             currentItem={currentCustomer}
