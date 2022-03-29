@@ -48,27 +48,11 @@
   margin: 0 auto 1rem auto;
   color: darkviolet;
 }
-.title {
-  margin: 0 0 0.3rem 0;
-  color: darkolivegreen;
-}
+
 .tips {
   color: olivedrab;
 }
 
-.okButton {
-  margin: 0.5rem;
-  padding: 1rem;
-  min-width: 6rem;
-  color: white;
-  font-size: larger;
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 2px solid white;
-  border-radius: 0.3rem;
-}
-.okButton:hover {
-  background-color: rgba(255, 255, 255, 0.4);
-}
 .plusButton {
   height: 3rem;
   width: 3rem;
@@ -156,10 +140,6 @@
   border-radius: 0.3rem;
 }
 
-.userInput {
-  margin-right: 10px;
-}
-
 .main input {
   margin: 0.5rem;
   padding: 1rem;
@@ -168,17 +148,6 @@
 .main input:invalid {
   border-color: red;
   color: red;
-}
-
-.newFormPE {
-  position: relative;
-  z-index: 99;
-  max-width: 26rem;
-  margin: 2rem auto;
-  padding: 1rem 2rem;
-  border-radius: 10px;
-  background-color: #fbfff2;
-  border: 1px solid lawngreen;
 }
 
 @media (max-width: 469px) {
