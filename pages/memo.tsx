@@ -10,7 +10,7 @@ const Home: NextPage = () => {
         <title>Memo for Future</title>
       </Head>
       <main className={styles.main}>
-        <h3>MEMO</h3>
+        <h1>MEMO</h1>
         <p>Page in the development queue.</p>
         <p>
           Integration with Google Calendar,

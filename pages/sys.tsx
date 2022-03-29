@@ -135,7 +135,7 @@ const Home: NextPage = () => {
         <title>System page</title>
       </Head>
       <main className={styles.main}>
-        <h3>SYSTEM</h3>
+        <h1>SYSTEM</h1>
         <Toaster />
         <div className={styles.flexColumnContainer}>
           <div className={styles.sysButtonsGroup}>

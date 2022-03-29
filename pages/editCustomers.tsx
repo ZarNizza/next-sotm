@@ -60,7 +60,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
-          <h2>Customers: {items.length}</h2>
+          <h2>edit CUSTOMERS: {items.length}</h2>
           <Toaster />
           <LiveSelect
             items={items}

@@ -37,7 +37,7 @@ const Home: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
-          <h3>X-item settings</h3>
+          <h3>edit COSTS</h3>
           <Toaster />
           <EitemEditStore
             eItems={eItems}

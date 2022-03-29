@@ -179,7 +179,7 @@ const Home: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
-          <h3>Profit Statistics</h3>
+          <h1>Profit Statistics</h1>
           <Toaster />
           <LiveSelect
             items={customers}

@@ -26,7 +26,7 @@ const Home: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
-          <h3>Product settings</h3>
+          <h3>edit PRODUCTS</h3>
           <Toaster />
           <ProductEditStore
             pItems={pItems}
