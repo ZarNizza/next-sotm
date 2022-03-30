@@ -396,7 +396,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
         <input
           type="search"
           ref={a.liveRef}
-          placeholder="... customer name"
+          placeholder="... select Customer"
           pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
           onChange={liveSearch}
           className={styles.inputCust}
@@ -444,7 +444,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
               }
             />
           </p>
-          <p hidden={a.type !== 'C' && a.type !== 'U'}>
+          {/* <p hidden={a.type !== 'C' && a.type !== 'U'}>
             <input
               type="text"
               className={styles.inputCust}
@@ -455,7 +455,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
                 setNewGooid(event.target.value.replace(/[^\d\-\+\s]/g, ''))
               }
             />
-          </p>
+          </p> */}
           <p hidden={a.type !== 'U'}>
             Tzone:
             <input
