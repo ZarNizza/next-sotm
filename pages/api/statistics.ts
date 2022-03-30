@@ -350,6 +350,27 @@ export default async function sysHandler(
 
           break
         //
+        //
+        //
+        case 'show_C_History':
+          sqlQuery =
+            'SELECT c.name, s.date, p.symbol AS symbol, p.name AS product, s.sum FROM sales AS s ' +
+            ' LEFT JOIN prod AS p ON p.id = s.prod' +
+            currCustJoin +
+            ' WHERE (p.del = 0) AND (s.del = 0) AND (s.date BETWEEN ' +
+            startDate +
+            ' AND ' +
+            finishDate +
+            ') ' +
+            currentCustomer +
+            ' ORDER BY s.date'
+
+          source = 'short'
+
+          poolGetConnection(sqlQuery, source)
+
+          break
+        //
 
         //
         default:

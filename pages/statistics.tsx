@@ -9,6 +9,7 @@ import myDate from '../components/MyDate'
 import DBshortTable from '../components/DBshortTable'
 import DBfullTable from '../components/DBfullTable'
 import DBfullDTable from '../components/DBfullDTable'
+import DBList from '../components/DBList'
 import LiveSelect from '../components/LiveSelectCUSX'
 import toast, { Toaster } from 'react-hot-toast'
 
@@ -132,6 +133,16 @@ const Home: NextPage = () => {
     fetch_Handler(body)
   }
 
+  function show_C_History_Handler() {
+    const body = {
+      mode: 'show_C_History',
+      startDate: startDate,
+      finishDate: finishDate,
+      currentCustomer: currentCustomer
+    }
+    fetch_Handler(body)
+  }
+
   function startDateChangeHandler(startDate: string) {
     if (startDate.length < 11)
       setStartDate(
@@ -177,7 +188,44 @@ const Home: NextPage = () => {
     setStartDate(() => myDate('0'))
     setFinishDate(() => myDate('today'))
   }
+  function Tabloid() {
+    if (resData === undefined || resData.length === 0)
+      return <p className={styles.tips}>No data - empty result</p>
 
+    switch (resSource) {
+      case 'short': {
+        return (
+          <div className={styles.tableScroll}>
+            <DBshortTable resData={resData} />
+          </div>
+        )
+        break
+      }
+      case 'full': {
+        return (
+          <div className={styles.tableScroll}>
+            <DBfullTable resData={resData} products={products} />
+          </div>
+        )
+        break
+      }
+      case 'list': {
+        return (
+          <div className={styles.tableScroll}>
+            <DBList resData={resData} products={products} />
+          </div>
+        )
+        break
+      }
+      default: {
+        return (
+          <div className={styles.tableScroll}>
+            <DBfullDTable resData={resData} products={products} />
+          </div>
+        )
+      }
+    }
+  }
   return (
     <Layout>
       <Head>
@@ -238,23 +286,10 @@ const Home: NextPage = () => {
               <button onClick={show_X_Full_Handler}>X / days</button>
               <button onClick={show_SX_Full_Handler}>S + X / days</button>
               <button onClick={show_CS_Full_Handler}>Sells / Customers</button>
+              <button onClick={show_C_History_Handler}>Customer History</button>
             </div>
           </div>
-          {resData === undefined || resData.length === 0 ? (
-            <p className={styles.tips}>No data - empty result</p>
-          ) : resSource === 'short' ? (
-            <div className={styles.tableScroll}>
-              <DBshortTable resData={resData} />
-            </div>
-          ) : resSource === 'full' ? (
-            <div className={styles.tableScroll}>
-              <DBfullTable resData={resData} products={products} />
-            </div>
-          ) : (
-            <div className={styles.tableScroll}>
-              <DBfullDTable resData={resData} products={products} />
-            </div>
-          )}
+          <Tabloid />
         </div>
       </main>
     </Layout>
