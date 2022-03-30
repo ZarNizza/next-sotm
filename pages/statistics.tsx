@@ -10,7 +10,7 @@ import DBshortTable from '../components/DBshortTable'
 import DBfullTable from '../components/DBfullTable'
 import DBfullDTable from '../components/DBfullDTable'
 import LiveSelect from '../components/LiveSelectCUSX'
-import { Toaster } from 'react-hot-toast'
+import toast, { Toaster } from 'react-hot-toast'
 
 export type apiBody = {
   mode: string
@@ -43,18 +43,24 @@ const Home: NextPage = () => {
   }, [])
 
   function fetch_Handler(body: apiBody) {
+    const toast01 = toast.loading('Loading...')
     fetch('/api/statistics', { method: 'POST', body: JSON.stringify(body) })
       .then((res) => res.json())
       .then((res) => {
         if (res.error) {
+          toast.remove()
+          toast.error('!Loading error: X3')
           console.log('!!! API error=', res.error)
           alert('!Error: ' + res.error)
         } else {
+          toast.remove()
           setResSource(() => res.source)
           setResData(() => res.data)
         }
       })
       .catch((error) => {
+        toast.remove()
+        toast.error('!Loading error: X3')
         console.log('!!! catch Error:', error.message)
         alert('!catch Error:' + error.message)
       })
