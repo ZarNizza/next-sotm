@@ -1,21 +1,3 @@
-FILL SALES
-API resolved without sending a response for /api/sys2, this may result in stalled requests.
-+++++++++++ MySQL result OK
-error - uncaughtException: Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
-error - uncaughtException: Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
-error - uncaughtException: Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
-
-
-NEW FILL SALES
-API resolved without sending a response for /api/sys2-fill, this may result in stalled requests.
-error - uncaughtException: Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
-error - uncaughtException: Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
-error - uncaughtException: Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
-
-
-wait  - compiling /api/auth/[...nextauth]...
-event - compiled client and server successfully in 99 ms (219 modules)
-[next-auth][warn][NO_SECRET] 
-https://next-auth.js.org/warnings#no_secret
-
-
+Prod sum default
+Prod sumD stylify
+S,X - date + time

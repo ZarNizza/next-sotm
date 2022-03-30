@@ -270,7 +270,7 @@ export default function EditForm(a: editFormArgs) {
         />
       </p>
       <p hidden={a.type !== 'S'}>
-        +/- Delta:
+        +/-d:
         <input
           type="text"
           className={styles.inputCust}
