@@ -17,6 +17,7 @@ type ProductCartProps = {
   gross: number
   setGross: Dispatch<SetStateAction<number>>
   prodCostRef: MutableRefObject<Record<number, number>>
+  prodCostDRef: MutableRefObject<Record<number, number>>
 }
 
 export default function ProductCart(props: ProductCartProps) {
@@ -30,6 +31,13 @@ export default function ProductCart(props: ProductCartProps) {
           className={styles.inputSum}
           placeholder="price"
           pattern="^[\d]{0,6}"
+        />{' '}
+        <input
+          type="text"
+          onChange={inputSumDChangeHandler(id)}
+          className={styles.inputSumD}
+          placeholder="+/-d"
+          pattern="^[\d\+\-]{0,6}"
         />{' '}
         {
           (
@@ -73,7 +81,30 @@ export default function ProductCart(props: ProductCartProps) {
         Object.values(props.prodCostRef.current).reduce(
           (prev, curr) => prev + curr,
           0
-        )
+        ) +
+          Object.values(props.prodCostDRef.current).reduce(
+            (prev, curr) => prev + curr,
+            0
+          )
+      )
+    }
+    return handler
+  }
+
+  function inputSumDChangeHandler(id: Product['id']) {
+    const handler: ChangeEventHandler<HTMLInputElement> = (event) => {
+      props.prodCostDRef.current[id] = Number(
+        event.target.value.replace(/[^\d\+\-]/g, '')
+      )
+      props.setGross(
+        Object.values(props.prodCostRef.current).reduce(
+          (prev, curr) => prev + curr,
+          0
+        ) +
+          Object.values(props.prodCostDRef.current).reduce(
+            (prev, curr) => prev + curr,
+            0
+          )
       )
     }
     return handler
@@ -92,7 +123,8 @@ export default function ProductCart(props: ProductCartProps) {
           mode: 'new',
           cust: props.currentCustomer.id,
           prod: id,
-          sum: props.prodCostRef.current[id]
+          sum: props.prodCostRef.current[id],
+          sumd: props.prodCostDRef.current[id]
         }
         fetch('/api/sales', {
           method: 'POST',

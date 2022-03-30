@@ -24,6 +24,7 @@ type editFormArgs = {
 // prod?: number
 // xitem?: number
 // sum?: number
+// sumD?: number
 // }
 
 export default function EditForm(a: editFormArgs) {
@@ -37,6 +38,7 @@ export default function EditForm(a: editFormArgs) {
   const [newProd, setNewProd] = useState(a.itemToEdit.prod || 0)
   const [newXitem, setNewXitem] = useState(a.itemToEdit.xitem || 0)
   const [newSum, setNewSum] = useState(a.itemToEdit.sum || 0)
+  const [newSumD, setNewSumD] = useState(a.itemToEdit.sumd || 0)
 
   function saveEditHandler() {
     let apiName: string = ''
@@ -94,6 +96,7 @@ export default function EditForm(a: editFormArgs) {
           cust: newCust,
           prod: newProd,
           sum: newSum,
+          sumD: newSumD,
           id: a.itemToEdit.id
         })
         break
@@ -263,6 +266,19 @@ export default function EditForm(a: editFormArgs) {
           value={newSum || ''}
           onChange={(event) =>
             setNewSum(Number(event.target.value.replace(/[^\d]/g, '')))
+          }
+        />
+      </p>
+      <p hidden={a.type !== 'S'}>
+        +/- Delta:
+        <input
+          type="text"
+          className={styles.inputCust}
+          placeholder="xxxx"
+          pattern="^[\d\+\-]{0,20}"
+          value={newSumD || ''}
+          onChange={(event) =>
+            setNewSumD(Number(event.target.value.replace(/[^\d\+\-]/g, '')))
           }
         />
       </p>

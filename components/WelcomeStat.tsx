@@ -31,7 +31,7 @@ export default function WelcomeStat() {
           alert('!Error: ' + res.error)
         } else {
           setStatNow(() => {
-            return isFinite(res.data[0].sum) ? res.data[0].sum : 0
+            return isFinite(res.data[0].summa) ? res.data[0].summa : 0
           })
         }
       })
@@ -53,7 +53,7 @@ export default function WelcomeStat() {
           alert('!Error: ' + res.error)
         } else {
           setStatPrev(() => {
-            return isFinite(res.data[0].sum) ? Number(res.data[0].sum) : 0
+            return isFinite(res.data[0].summa) ? Number(res.data[0].summa) : 0
           })
           toast.remove()
         }

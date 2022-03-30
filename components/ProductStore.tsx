@@ -8,6 +8,7 @@ interface ProductStoreProps {
   setSelectedProducts: Dispatch<SetStateAction<number[]>>
   selectedProducts: number[]
   prodCostRef: MutableRefObject<Record<number, number>>
+  prodCostDRef: MutableRefObject<Record<number, number>>
   setGross: Dispatch<SetStateAction<number>>
 }
 
@@ -17,12 +18,19 @@ export default function ProductStore(props: ProductStoreProps) {
     //
     function checkHandler() {
       props.setSelectedProducts((prevSelectedProducts) => {
-        if (item.id) delete props.prodCostRef.current[item.id]
+        if (item.id) {
+          delete props.prodCostRef.current[item.id]
+          delete props.prodCostDRef.current[item.id]
+        }
         props.setGross(
           Object.values(props.prodCostRef.current).reduce(
             (prev, curr) => prev + curr,
             0
-          )
+          ) +
+            Object.values(props.prodCostRef.current).reduce(
+              (prev, curr) => prev + curr,
+              0
+            )
         )
         return prevSelectedProducts.includes(item.id)
           ? prevSelectedProducts.filter(

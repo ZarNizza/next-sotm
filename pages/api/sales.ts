@@ -39,12 +39,13 @@ export default function handler(
         switch (parsedReq.mode) {
           case 'edit':
             sql =
-              'UPDATE sales SET date=$1, cust=$2, prod=$3, sum=$4 WHERE id=$5'
+              'UPDATE sales SET date=$1, cust=$2, prod=$3, sum=$4, sumd=$5 WHERE id=$5'
             params = [
               parsedReq.date,
               String(parsedReq.cust),
               String(parsedReq.prod),
               String(parsedReq.sum),
+              String(parsedReq.sumd),
               parsedReq.id
             ]
             break
@@ -66,12 +67,13 @@ export default function handler(
                 ':00:00'
 
             sql =
-              'INSERT INTO sales (date, cust, prod, sum) VALUES ($1, $2, $3, $4)'
+              'INSERT INTO sales (date, cust, prod, sum, sumd) VALUES ($1, $2, $3, $4, $5)'
             params = [
               sqlDate,
               String(parsedReq.cust),
               String(parsedReq.prod),
-              String(parsedReq.sum)
+              String(parsedReq.sum),
+              String(parsedReq.sumd)
             ]
             console.log('--- new: ', sql, params)
             break

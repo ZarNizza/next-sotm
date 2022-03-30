@@ -27,6 +27,7 @@ export type Sale = {
   cust: number
   prod: number
   sum: number
+  sumd: number
 }
 
 export type Item0 = {
@@ -54,6 +55,7 @@ const Home: NextPage = () => {
   const [products, setProducts] = useState<Product[]>([])
   const [selectedProducts, setSelectedProducts] = useState<Product['id'][]>([])
   const prodCostRef = useRef<Record<Product['id'], number>>({})
+  const prodCostDRef = useRef<Record<Product['id'], number>>({})
   const [gross, setGross] = useState<number>(0)
   const liveRef = useRef<HTMLInputElement>(null)
   const [searchWord, setSearchWord] = useState('')
@@ -105,6 +107,7 @@ const Home: NextPage = () => {
             setSelectedProducts={setSelectedProducts}
             selectedProducts={selectedProducts}
             prodCostRef={prodCostRef}
+            prodCostDRef={prodCostDRef}
             setGross={setGross}
           />
           <ProductCart
@@ -113,6 +116,7 @@ const Home: NextPage = () => {
             products={products}
             currentCustomer={currentCustomer}
             prodCostRef={prodCostRef}
+            prodCostDRef={prodCostDRef}
             gross={gross}
             setGross={setGross}
           />

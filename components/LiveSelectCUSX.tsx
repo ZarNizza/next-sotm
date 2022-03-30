@@ -37,6 +37,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
   const [newProd, setNewProd] = useState('')
   const [newXitem, setNewXitem] = useState('')
   const [newSum, setNewSum] = useState('')
+  const [newSumD, setNewSumD] = useState('')
   let item0: SelectArgs['currentItem']
   let newTitle: string
   let apiName: string
@@ -51,6 +52,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
     prod?: string
     xitem?: string
     sum?: string
+    sumd?: string
   }
 
   switch (a.type) {
@@ -75,14 +77,15 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
       break
     }
     case 'S': {
-      item0 = { id: 0, date: '', cust: 0, prod: 0, sum: 0 }
+      item0 = { id: 0, date: '', cust: 0, prod: 0, sum: 0, sumd: 0 }
       apiName = 'sales'
       body = {
         mode: 'new',
         date: newDate,
         cust: newCust,
         prod: newProd,
-        sum: newSum
+        sum: newSum,
+        sumd: newSumD
       }
       newTitle = 'Sale'
       break
@@ -125,6 +128,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
     setNewProd(() => '')
     setNewXitem(() => '')
     setNewSum(() => '')
+    setNewSumD(() => '')
   }
   function newButtonHandler() {
     dropHandler()
@@ -250,8 +254,9 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
                 onClick={() => setCurrS(item.id || 0)}
                 className={styles.csOpt}
               >
-                id={item.id}, c={item.cust}, p={item.prod}, sum={item.sum},{' '}
-                {item.date}
+                id={item.id}, c={item.cust}, p={item.prod}, sum={item.sum},
+                +/-d=
+                {item.sumd}, {item.date}
               </div>
             )
           })
@@ -346,6 +351,8 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
         curr.prod +
         ', sum=' +
         curr.sum +
+        ', +/-d=' +
+        curr.sumd +
         ', ' +
         curr.date
       a.setCurrentItem({
@@ -353,7 +360,8 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
         date: curr.date,
         cust: Number(curr.cust),
         prod: Number(curr.prod),
-        sum: Number(curr.sum)
+        sum: Number(curr.sum),
+        sumd: Number(curr.sumd)
       })
     }
   }
@@ -526,6 +534,19 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
               value={newSum || ''}
               onChange={(event) =>
                 setNewSum(event.target.value.replace(/[^\d]/g, ''))
+              }
+            />
+          </p>
+          <p hidden={a.type !== 'S'}>
+            +/-d:
+            <input
+              type="text"
+              className={styles.inputCust}
+              placeholder="xxxx"
+              pattern="^[\d\+\-]{0,20}"
+              value={newSumD || ''}
+              onChange={(event) =>
+                setNewSumD(event.target.value.replace(/[^\d\+\-]/g, ''))
               }
             />
           </p>

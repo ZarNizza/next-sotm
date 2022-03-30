@@ -103,7 +103,7 @@ export default async function sysHandler(
         //
         case 'get_stat':
           sqlQuery =
-            'SELECT SUM(s.sum) AS sum FROM sales AS s ' +
+            'SELECT (SUM(s.sum) + SUM(s.sumd)) AS summa FROM sales AS s ' +
             ' WHERE (s.del = 0) AND (s.date BETWEEN ' +
             startDate +
             ' AND ' +
@@ -118,7 +118,7 @@ export default async function sysHandler(
         //
         case 'show_S':
           sqlQuery =
-            'SELECT p.symbol, SUM(CASE WHEN s.prod = p.id THEN s.sum ELSE 0 END) AS gross FROM prod AS p ' +
+            'SELECT p.symbol, SUM(CASE WHEN s.prod = p.id THEN (s.sum + s.sumd) ELSE 0 END) AS gross FROM prod AS p ' +
             ' LEFT JOIN sales AS s ON s.prod = p.id' +
             currCustJoin +
             ' WHERE (p.del = 0) AND (s.del = 0) AND (s.date BETWEEN ' +
@@ -153,7 +153,7 @@ export default async function sysHandler(
         //
         case 'show_SX':
           sqlQuery =
-            '(SELECT p.symbol, SUM(CASE WHEN s.prod = p.id THEN s.sum ELSE 0 END) AS gross FROM prod AS p' +
+            '(SELECT p.symbol, SUM(CASE WHEN s.prod = p.id THEN (s.sum + s.sumd) ELSE 0 END) AS gross FROM prod AS p' +
             ' LEFT JOIN sales AS s ON s.prod = p.id' +
             currCustJoin +
             ' WHERE (p.del = 0) AND (s.del = 0) AND (s.date BETWEEN ' +
@@ -186,7 +186,7 @@ export default async function sysHandler(
               "SUM(CASE WHEN DATE(s.date) = '" +
               item +
               "' AND s.prod = p.id " +
-              ' THEN s.sum ELSE 0 END) AS "' +
+              ' THEN (s.sum + s.sumd) ELSE 0 END) AS "' +
               item.slice(5) +
               '", ',
             ''
@@ -195,7 +195,7 @@ export default async function sysHandler(
           sqlQuery =
             'SELECT p.symbol, ' +
             sqlDPSum +
-            ' SUM(CASE WHEN s.prod = p.id THEN s.sum ELSE 0 END) AS sum FROM prod AS p' +
+            ' SUM(CASE WHEN s.prod = p.id THEN (s.sum + s.sumd) ELSE 0 END) AS sum FROM prod AS p' +
             ' LEFT JOIN sales AS s ON s.prod = p.id' +
             currCustJoin +
             ' WHERE (p.del = 0) AND (s.del = 0) AND (s.date BETWEEN ' +
@@ -251,7 +251,7 @@ export default async function sysHandler(
               "SUM(CASE WHEN DATE(s.date) = '" +
               item +
               "' AND s.prod = p.id " +
-              ' THEN s.sum ELSE 0 END) AS "' +
+              ' THEN (s.sum + s.sumd) ELSE 0 END) AS "' +
               item.slice(5) +
               '", ',
             ''
@@ -271,7 +271,7 @@ export default async function sysHandler(
           sqlQuery =
             '(SELECT p.symbol, ' +
             sqlDPSum +
-            ' SUM(CASE WHEN s.prod = p.id THEN s.sum ELSE 0 END) AS sum FROM prod AS p' +
+            ' SUM(CASE WHEN s.prod = p.id THEN (s.sum + s.sumd) ELSE 0 END) AS sum FROM prod AS p' +
             ' LEFT JOIN sales AS s ON s.prod = p.id' +
             currCustJoin +
             ' WHERE (p.del = 0) AND (s.del = 0) AND (s.date BETWEEN ' +
@@ -315,7 +315,7 @@ export default async function sysHandler(
                       sum +
                       'SUM(CASE WHEN s.cust = c.id AND s.prod = ' +
                       item.id +
-                      ' THEN s.sum ELSE 0 END) AS pSum' +
+                      ' THEN (s.sum + s.sumd) ELSE 0 END) AS pSum' +
                       String(item.id) +
                       ', ',
                     ''
@@ -324,7 +324,7 @@ export default async function sysHandler(
                   sqlQuery =
                     'SELECT c.name,' +
                     sqlProdSum +
-                    ' SUM(s.sum) AS gross FROM customers AS c' +
+                    ' SUM(s.sum + s.sumd) AS gross FROM customers AS c' +
                     ' LEFT JOIN sales AS s ON s.cust = c.id' +
                     ' WHERE (c.del = 0) AND (s.del = 0) AND (s.date BETWEEN ' +
                     startDate +
@@ -354,7 +354,7 @@ export default async function sysHandler(
         //
         case 'show_C_History':
           sqlQuery =
-            'SELECT c.name, s.date, p.symbol AS symbol, p.name AS product, s.sum FROM sales AS s ' +
+            'SELECT c.name, s.date, p.symbol AS symbol, p.name AS product, s.sum, s.sumd FROM sales AS s ' +
             ' LEFT JOIN prod AS p ON p.id = s.prod' +
             currCustJoin +
             ' WHERE (p.del = 0) AND (s.del = 0) AND (s.date BETWEEN ' +
