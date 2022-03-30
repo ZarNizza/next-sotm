@@ -1,13 +1,21 @@
-.inputSum {
+.inputSum,
+.inputSumD {
   height: 3rem;
-  width: 40%;
-  min-width: 7rem;
   padding: 1rem;
   margin: 0.5rem 0.5rem 0.5rem 0 !important;
   font-size: large;
   color: orange;
 }
-.inputSum::placeholder {
+.inputSum {
+  width: 40%;
+  min-width: 7rem;
+}
+.inputSumD {
+  width: 10%;
+  min-width: 5rem;
+}
+.inputSum::placeholder,
+.inputSumD::placeholder {
   color: lightskyblue;
   font-weight: 100;
   font-size: medium;
