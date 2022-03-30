@@ -16,7 +16,8 @@ const Home: NextPage = () => {
     date: '',
     cust: 0,
     prod: 0,
-    sum: 0
+    sum: 0,
+    sumd: 0
   }
   const [items, setItems] = useState<Sale[] | []>([])
   const [currentItem, setCurrentItem] = useState<Sale>(item0)
