@@ -7,10 +7,10 @@
   color: orange;
 }
 .inputSum {
-  width: 8rem;
+  width: 7rem;
 }
 .inputSumD {
-  width: 6rem;
+  width: 5rem;
 }
 .inputSum::placeholder,
 .inputSumD::placeholder {
@@ -107,7 +107,7 @@
 
 @media (max-width: 479px) {
   .buttonOk {
-    padding: 1rem 3rem;
+    padding: 1rem 2rem;
   }
 }
 
@@ -115,4 +115,16 @@
   .buttonOk {
     margin: auto;
   }
-} ;
+}
+
+@media (max-width: 399px) {
+.inputSum {
+  width: 6rem;
+}
+.inputSumD {
+  width: 4rem;
+}
+  .buttonOk {
+    padding: 0.5rem 2rem;
+  }
+}
