@@ -23,37 +23,41 @@ type ProductCartProps = {
 export default function ProductCart(props: ProductCartProps) {
   const qqq = props.selectedProducts.map((id: Product['id']) => (
     <li key={id}>
-      {' '}
-      <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-        <input
-          type="text"
-          onChange={inputSumChangeHandler(id)}
-          className={styles.inputSum}
-          placeholder="price"
-          pattern="^[\d]{0,6}"
-        />{' '}
-        <input
-          type="text"
-          onChange={inputSumDChangeHandler(id)}
-          className={styles.inputSumD}
-          placeholder="+/-d"
-          pattern="^[\d\+\-]{0,6}"
-        />{' '}
+      <div className={styles.productNameRow}>
         {
           (
             props.products.find((item: Product) => item.id === id) ?? {
               name: 'xxx'
             }
           ).name
-        }{' '}
+        }
+      </div>{' '}
+      <div className={styles.inputSumRow}>
+        <div className={styles.summSpan}>
+          <input
+            type="text"
+            onChange={inputSumChangeHandler(id)}
+            className={styles.inputSum}
+            placeholder="... price"
+            pattern="^[\d]{0,8}"
+          />
+          {'± '}
+          <input
+            type="text"
+            onChange={inputSumDChangeHandler(id)}
+            className={styles.inputSumD}
+            placeholder="+/- d"
+            pattern="^[\d\+\-]{0,6}"
+          />
+        </div>{' '}
+        <button
+          value={id}
+          onClick={dropButtonHandler(id)}
+          className={stylesH.dropButton}
+        >
+          {' X '}
+        </button>
       </div>
-      <button
-        value={id}
-        onClick={dropButtonHandler(id)}
-        className={stylesH.dropButton}
-      >
-        {' X '}
-      </button>
     </li>
   ))
 

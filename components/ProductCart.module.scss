@@ -7,17 +7,15 @@
   color: orange;
 }
 .inputSum {
-  width: 40%;
-  min-width: 7rem;
+  width: 8rem;
 }
 .inputSumD {
-  width: 10%;
-  min-width: 5rem;
+  width: 6rem;
 }
 .inputSum::placeholder,
 .inputSumD::placeholder {
   color: #193bac;
-  font-weight: 300;
+  font-weight: 500;
   font-size: medium;
 }
 
@@ -29,6 +27,7 @@
   border: 1px solid #8200fc;
   border-radius: 10px;
   min-width: 20rem;
+  max-width: 26rem;
   box-shadow: 3px 3px 3px 0px lightskyblue;
 }
 
@@ -41,18 +40,10 @@
   color: #8200fc;
 }
 
-.productList li {
-  display: flex;
-  justify-content: space-between;
-}
-.productList ul {
-  padding-left: 0;
-  list-style-type: none;
-  margin-left: 0;
-}
 .productList span {
   color: olivedrab;
 }
+
 .productList a {
   border: 1px solid olivedrab;
   border-radius: 5px;
@@ -62,22 +53,36 @@
   background-color: yellowgreen;
   transition: 0.25s ease;
 }
+
+.productList ul {
+  padding-left: 0;
+  list-style-type: none;
+  margin-left: 0;
+}
+
+.productList li {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.productNameRow {
+  font-size: large;
+  font-weight: 600;
+}
+.inputSumRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
 .flexRow {
   display: flex;
-  flex-flow: row wrap;
+  flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  // align-items: center;
 }
-.buttonOk {
-  padding: 1rem 4rem;
-  margin: 1rem 0;
-  background-color: darkorange;
-  border-radius: 10px;
-}
-.buttonOk:hover {
-  background-color: gold;
-  transition: 0.25s ease;
-}
+
 .grossSum {
   height: 3rem;
   width: 40%;
@@ -89,11 +94,23 @@
   text-align: right;
 }
 
+.buttonOk {
+  padding: 1rem 4rem;
+  margin: 1rem 0;
+  background-color: darkorange;
+  border-radius: 10px;
+}
+.buttonOk:hover {
+  background-color: gold;
+  transition: 0.25s ease;
+}
+
 @media (max-width: 479px) {
   .buttonOk {
     padding: 1rem 3rem;
   }
 }
+
 @media (max-width: 449px) {
   .buttonOk {
     margin: auto;
