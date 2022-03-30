@@ -81,10 +81,10 @@ export default function WelcomeStat() {
     <>
       <Toaster />
       <div className={styles.welcomeStatRow}>
-        today :&nbsp;&nbsp;{' '}
-        <b>
+        today :&nbsp;&nbsp;
+        <span>
           {statNow} / {statPrev}
-        </b>{' '}
+        </span>
         &nbsp;&nbsp;: month
       </div>
     </>
