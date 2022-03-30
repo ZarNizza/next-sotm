@@ -5,17 +5,17 @@ import { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 
 export default function WelcomeStat() {
-  const [statNow, setStatNow] = useState<number>(0)
-  const [statPrev, setStatPrev] = useState<number>(0)
+  const [statNow, setStatNow] = useState<string>('0')
+  const [statPrev, setStatPrev] = useState<string>('0')
   const bodyNow = {
     mode: 'get_stat',
-    startDate: myDate('0M'),
+    startDate: myDate('today'),
     finishDate: myDate('today')
   }
   const bodyPrev = {
     mode: 'get_stat',
-    startDate: myDate('0-M'),
-    finishDate: myDate('F-M')
+    startDate: myDate('0M'),
+    finishDate: myDate('today')
   }
 
   useEffect(() => {
@@ -30,8 +30,13 @@ export default function WelcomeStat() {
           console.log('!!! API error=', res.error)
           alert('!Error: ' + res.error)
         } else {
+          console.log('!YES, 1st')
           setStatNow(() => {
-            return isFinite(res.data[0].summa) ? res.data[0].summa : 0
+            return isFinite(res.data[0].summa)
+              ? String(
+                  new Intl.NumberFormat('ru').format(Number(res.data[0].summa))
+                )
+              : '0'
           })
         }
       })
@@ -52,8 +57,14 @@ export default function WelcomeStat() {
           console.log('!!! API error=', res.error)
           alert('!Error: ' + res.error)
         } else {
+          console.log('!YES, 2nd')
+
           setStatPrev(() => {
-            return isFinite(res.data[0].summa) ? Number(res.data[0].summa) : 0
+            return isFinite(res.data[0].summa)
+              ? String(
+                  new Intl.NumberFormat('ru').format(Number(res.data[0].summa))
+                )
+              : '0'
           })
           toast.remove()
         }
@@ -70,7 +81,11 @@ export default function WelcomeStat() {
     <>
       <Toaster />
       <div className={styles.welcomeStatRow}>
-        {statNow} / {statPrev}
+        today :&nbsp;&nbsp;{' '}
+        <b>
+          {statNow} / {statPrev}
+        </b>{' '}
+        &nbsp;&nbsp;: month
       </div>
     </>
   )
