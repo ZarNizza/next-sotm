@@ -3,14 +3,17 @@ import Head from 'next/head'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { Sale } from './plus'
-
-const supported = 'contacts' in navigator && 'ContactsManager' in window
 
 const Home: NextPage = () => {
   const [resData, setResData] = useState<Sale[]>([])
   const [sqlString, setSQLstring] = useState<string>('')
+
+  let supported: boolean = false
+  useEffect(() => {
+    supported = 'contacts' in navigator && 'ContactsManager' in window
+  }, [])
 
   function inputSQLstringHandler(sql: string) {
     setSQLstring(() => sql)
