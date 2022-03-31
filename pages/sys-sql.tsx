@@ -6,6 +6,8 @@ import Layout from '../components/layout'
 import { useState } from 'react'
 import type { Sale } from './plus'
 
+const supported = 'contacts' in navigator && 'ContactsManager' in window
+
 const Home: NextPage = () => {
   const [resData, setResData] = useState<Sale[]>([])
   const [sqlString, setSQLstring] = useState<string>('')
@@ -35,6 +37,7 @@ const Home: NextPage = () => {
           <title>System page</title>
         </Head>
         <main className={styles.main}>
+          Contacts support: {supported ? 'Yes' : 'No'}
           <div>
             <input
               id="sqlInput"
