@@ -21,31 +21,33 @@ type XpenseCartProps = {
 export default function XpenseCart(props: XpenseCartProps) {
   const qqq = props.selectedEitems.map((id: Eitem['id']) => (
     <li key={id}>
-      <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-        <input
-          type="text"
-          onChange={inputSumChangeHandler(id)}
-          className={styles.inputSum}
+      <div className={styles.inputSumRow}>
+        <div className={styles.summSpan}>
+          <input
+            type="text"
+            onChange={inputSumChangeHandler(id)}
+            className={styles.inputSum}
+            style={{ flex: '0 0 auto' }}
+            placeholder="price"
+            pattern="^[\d]{0,6}"
+          />
+          {
+            (
+              props.eItems.find((item: Eitem) => item.id === id) ?? {
+                name: 'xxx'
+              }
+            ).name
+          }
+        </div>
+        <button
+          value={id}
+          onClick={dropButtonHandler(id)}
+          className={stylesH.dropButton}
           style={{ flex: '0 0 auto' }}
-          placeholder="price"
-          pattern="^[\d]{0,6}"
-        />{' '}
-        {
-          (
-            props.eItems.find((item: Eitem) => item.id === id) ?? {
-              name: 'xxx'
-            }
-          ).name
-        }
-      </div>{' '}
-      <button
-        value={id}
-        onClick={dropButtonHandler(id)}
-        className={stylesH.dropButton}
-        // style={{ flex: '0 0 auto' }}
-      >
-        {' X '}
-      </button>
+        >
+          {' X '}
+        </button>
+      </div>
     </li>
   ))
 
