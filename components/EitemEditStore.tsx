@@ -4,9 +4,9 @@ import { Dispatch, SetStateAction } from 'react'
 import { Eitem } from '../pages/minus'
 
 interface EitemsStoreArgs {
-  eItems: Eitem[]
-  setCurrEitem: Dispatch<SetStateAction<number>>
-  currEitem: number
+  items: Eitem[]
+  setCurrItem: Dispatch<SetStateAction<number>>
+  currItem: number
   setNewFlag: Dispatch<SetStateAction<boolean>>
 }
 
@@ -15,16 +15,16 @@ export default function EitemEditStore(arg: EitemsStoreArgs) {
   function newHandler() {
     arg.setNewFlag(true)
   }
-  const eItemsCheckBoxesSet = arg.eItems.map((item: Eitem) => {
+  const eItemsCheckBoxesSet = arg.items.map((item: Eitem) => {
     function checkHandler() {
-      if (arg.currEitem === 0) {
-        arg.setCurrEitem(() => item.id)
+      if (arg.currItem === 0) {
+        arg.setCurrItem(() => item.id)
       } else {
-        if (arg.currEitem === item.id) {
-          arg.setCurrEitem(() => 0)
+        if (arg.currItem === item.id) {
+          arg.setCurrItem(() => 0)
         } else {
-          arg.setCurrEitem(() => 0)
-          setTimeout(() => arg.setCurrEitem(() => item.id), 100)
+          arg.setCurrItem(() => 0)
+          setTimeout(() => arg.setCurrItem(() => item.id), 100)
         }
       }
     }
@@ -34,7 +34,7 @@ export default function EitemEditStore(arg: EitemsStoreArgs) {
         key={item.id}
         text={item.symbol}
         onClick={checkHandler}
-        checked={arg.currEitem === item.id}
+        checked={arg.currItem === item.id}
       />
     )
   })

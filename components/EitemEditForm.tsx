@@ -5,8 +5,8 @@ import styles from './Select.module.scss'
 
 type editEitemArgs = {
   itemToEdit: Eitem
-  setEitems: Dispatch<SetStateAction<Eitem[]>>
-  setCurrEitem: Dispatch<SetStateAction<number>>
+  setItems: Dispatch<SetStateAction<Eitem[]>>
+  setCurrItem: Dispatch<SetStateAction<number>>
 }
 
 export default function EitemEditForm(arg: editEitemArgs) {
@@ -16,7 +16,7 @@ export default function EitemEditForm(arg: editEitemArgs) {
   function upd_E_handler() {
     if (eName === '' || eSymbol === '') {
       alert('! empty field !')
-      arg.setCurrEitem(0)
+      arg.setCurrItem(0)
       return
     }
     const eitem = {
@@ -37,7 +37,7 @@ export default function EitemEditForm(arg: editEitemArgs) {
           console.log('newEitem = OK')
           setEitem('')
           setEsymbol('')
-          arg.setCurrEitem(0)
+          arg.setCurrItem(0)
         }
       })
       .then(() => {
@@ -48,7 +48,7 @@ export default function EitemEditForm(arg: editEitemArgs) {
               alert('newEitem reInit ERROR: ' + res.error)
             } else {
               console.log('newEitem reInit = OK')
-              arg.setEitems(() => res.data)
+              arg.setItems(() => res.data)
             }
           })
       })
@@ -64,7 +64,7 @@ export default function EitemEditForm(arg: editEitemArgs) {
   }
 
   function dropButtonHandler() {
-    arg.setCurrEitem(0)
+    arg.setCurrItem(0)
   }
 
   return (

@@ -4,15 +4,15 @@ import stylesH from '../styles/Home.module.css'
 import styles from './Select.module.scss'
 
 type newEitemArgs = {
-  setEitems: Dispatch<SetStateAction<Eitem[]>>
+  setItems: Dispatch<SetStateAction<Eitem[]>>
   setNewFlag: Dispatch<SetStateAction<boolean>>
-  setCurrEitem?: Dispatch<SetStateAction<number>>
+  setCurrItem?: Dispatch<SetStateAction<number>>
 }
 
 export default function EitemNew(arg: newEitemArgs) {
   const [eItem, setEitem] = useState('')
   const [eSymbol, setEsymbol] = useState('')
-  if (!!arg.setCurrEitem) arg.setCurrEitem(() => 0)
+  if (!!arg.setCurrItem) arg.setCurrItem(() => 0)
 
   function add_E_handler() {
     if (eItem === '' || eSymbol === '') {
@@ -44,7 +44,7 @@ export default function EitemNew(arg: newEitemArgs) {
               alert('newEitem reInit ERROR: ' + res.error)
             } else {
               console.log('newEitem reInit = OK', res)
-              arg.setEitems(() => res.data)
+              arg.setItems(() => res.data)
             }
           })
       })

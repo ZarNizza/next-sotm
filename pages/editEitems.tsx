@@ -22,12 +22,12 @@ export type Xpense = {
 }
 
 const Home: NextPage = () => {
-  const [eItems, setEitems] = useState<Eitem[]>([])
-  const [currEitem, setCurrEitem] = useState<Eitem['id']>(0)
+  const [items, setItems] = useState<Eitem[]>([])
+  const [currItem, setCurrItem] = useState<Eitem['id']>(0)
   const [newFlag, setNewFlag] = useState(false)
 
   useEffect(() => {
-    Init(setEitems, 'eitems')
+    Init(setItems, 'eitems')
   }, [])
 
   return (
@@ -40,31 +40,31 @@ const Home: NextPage = () => {
           <h3>edit COSTS</h3>
           <Toaster />
           <EitemEditStore
-            eItems={eItems}
-            setCurrEitem={setCurrEitem}
-            currEitem={currEitem}
+            items={items}
+            setCurrItem={setCurrItem}
+            currItem={currItem}
             setNewFlag={setNewFlag}
           />{' '}
           {newFlag ? (
             <EitemNew
-              setEitems={setEitems}
+              setItems={setItems}
               setNewFlag={setNewFlag}
-              setCurrEitem={setCurrEitem}
+              setCurrItem={setCurrItem}
             />
           ) : (
             ''
           )}
-          {currEitem === 0 ? (
+          {currItem === 0 ? (
             ''
           ) : (
             <EitemEditForm
               itemToEdit={
-                eItems.filter((item: Eitem) => {
-                  return item.id === Number(currEitem)
+                items.filter((item: Eitem) => {
+                  return item.id === Number(currItem)
                 })[0]
               }
-              setEitems={setEitems}
-              setCurrEitem={setCurrEitem}
+              setItems={setItems}
+              setCurrItem={setCurrItem}
             />
           )}
         </div>
