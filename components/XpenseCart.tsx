@@ -25,6 +25,7 @@ export default function XpenseCart(props: XpenseCartProps) {
         <div className={styles.summSpan}>
           <input
             type="text"
+            value={String(props.eCostRef.current[id])}
             onChange={inputSumChangeHandler(id)}
             className={styles.inputSum}
             style={{ flex: '0 0 auto' }}

@@ -12,6 +12,7 @@ type newEitemArgs = {
 export default function EitemNew(arg: newEitemArgs) {
   const [eItem, setEitem] = useState('')
   const [eSymbol, setEsymbol] = useState('')
+  const [ePrice, setEprice] = useState(0)
   if (!!arg.setCurrItem) arg.setCurrItem(() => 0)
 
   function add_E_handler() {
@@ -20,7 +21,7 @@ export default function EitemNew(arg: newEitemArgs) {
       arg.setNewFlag(false)
       return
     }
-    const eitem = { mode: 'new', name: eItem, symbol: eSymbol }
+    const eitem = { mode: 'new', name: eItem, symbol: eSymbol, price: ePrice }
     fetch('/api/eitems', {
       method: 'POST',
       body: JSON.stringify(eitem)
@@ -33,6 +34,7 @@ export default function EitemNew(arg: newEitemArgs) {
           console.log('newEitem = OK', res)
           setEitem('')
           setEsymbol('')
+          setEprice(0)
           arg.setNewFlag(false)
         }
       })
@@ -60,6 +62,10 @@ export default function EitemNew(arg: newEitemArgs) {
     setEsymbol(eSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi, ''))
   }
 
+  function input_Eprice_ChHandler(ePrice: string) {
+    setEprice(Number(ePrice.replace(/[^\d\.\,]/gi, '')))
+  }
+
   function dropButtonHandler() {
     arg.setNewFlag(false)
   }
@@ -85,6 +91,16 @@ export default function EitemNew(arg: newEitemArgs) {
             onChange={(event) => input_Esymbol_ChHandler(event.target.value)}
             placeholder="ShrtNam"
             pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
+            className={styles.inputP}
+          />
+        </p>
+        <p>
+          <input
+            id="ePriceInput"
+            value={ePrice}
+            onChange={(event) => input_Eprice_ChHandler(event.target.value)}
+            placeholder="123.."
+            pattern="[\d\.,]*"
             className={styles.inputP}
           />
         </p>

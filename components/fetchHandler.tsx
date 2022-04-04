@@ -27,8 +27,6 @@ export default function fetchHandler(arg: FetchArgs) {
   )
     .then((res) => res.json())
     .then((res) => {
-      console.log('--- FETCH - arg: ', arg)
-      console.log('--- FETCH - res (before JSON.stringify): ', typeof res)
       if (res.error) {
         toast.remove()
         toast.error('!Loading error: X3')
@@ -40,10 +38,6 @@ export default function fetchHandler(arg: FetchArgs) {
           console.log('--- fetch OK - SET res.data')
           arg.setResData(() => res.data)
           if (!arg.body) {
-            // console.log(
-            //   '--- fetch - OK - JSON.stringify data to localStorage: ',
-            //   JSON.stringify(res.data)
-            // )
             localStorage.setItem(arg.apiSuffix, JSON.stringify(res.data))
           }
         }
@@ -51,8 +45,6 @@ export default function fetchHandler(arg: FetchArgs) {
       }
     })
     .catch((error) => {
-      // console.log('--- fetch - arg: ', arg)
-
       toast.remove()
       toast.error('!Loading error: X3')
       alert(

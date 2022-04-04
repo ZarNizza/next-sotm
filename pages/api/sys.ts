@@ -65,7 +65,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
 
       case 'restore_Products':
         sql =
-          'CREATE TABLE IF NOT EXISTS prod (id SERIAL PRIMARY KEY, name VARCHAR(50), symbol VARCHAR(7), del SMALLINT DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS prod (id SERIAL PRIMARY KEY, name VARCHAR(50), symbol VARCHAR(7), price INT DEFAULT 0, del SMALLINT DEFAULT 0)'
         err_prefix = 'restore_Products'
         break
 
@@ -85,7 +85,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
 
       case 'restore_Eitems':
         sql =
-          'CREATE TABLE IF NOT EXISTS eitems (id SERIAL PRIMARY KEY, name VARCHAR(50), symbol VARCHAR(7), del SMALLINT DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS eitems (id SERIAL PRIMARY KEY, name VARCHAR(50), symbol VARCHAR(7), price INT DEFAULT 0, del SMALLINT DEFAULT 0)'
         err_prefix = 'restore_Eitems'
         break
 

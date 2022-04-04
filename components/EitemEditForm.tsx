@@ -12,6 +12,7 @@ type editEitemArgs = {
 export default function EitemEditForm(arg: editEitemArgs) {
   const [eName, setEitem] = useState(arg.itemToEdit.name)
   const [eSymbol, setEsymbol] = useState(arg.itemToEdit.symbol)
+  const [ePrice, setEprice] = useState(arg.itemToEdit.price)
 
   function upd_E_handler() {
     if (eName === '' || eSymbol === '') {
@@ -23,6 +24,7 @@ export default function EitemEditForm(arg: editEitemArgs) {
       mode: 'edit',
       name: eName,
       symbol: eSymbol,
+      price: ePrice,
       id: arg.itemToEdit.id
     }
     fetch('/api/eitems', {
@@ -37,6 +39,7 @@ export default function EitemEditForm(arg: editEitemArgs) {
           console.log('newEitem = OK')
           setEitem('')
           setEsymbol('')
+          setEprice(0)
           arg.setCurrItem(0)
         }
       })
@@ -64,6 +67,10 @@ export default function EitemEditForm(arg: editEitemArgs) {
     setEsymbol(eSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi, ''))
   }
 
+  function input_Eprice_ChHandler(ePrice: string) {
+    setEprice(Number(ePrice.replace(/[^\d\.\,]/gi, '')))
+  }
+
   function dropButtonHandler() {
     arg.setCurrItem(0)
   }
@@ -89,6 +96,16 @@ export default function EitemEditForm(arg: editEitemArgs) {
             onChange={(event) => input_Esymbol_ChHandler(event.target.value)}
             placeholder="ShrtNam"
             pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
+            className={styles.inputE}
+          />
+        </p>
+        <p>
+          <input
+            id="ePriceInput"
+            value={String(ePrice)}
+            onChange={(event) => input_Eprice_ChHandler(event.target.value)}
+            placeholder="123.."
+            pattern="[\d\.,]*"
             className={styles.inputE}
           />
         </p>

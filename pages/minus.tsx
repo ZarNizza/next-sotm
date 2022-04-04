@@ -13,6 +13,7 @@ export type Eitem = {
   id: number
   name: string
   symbol: string
+  price: number
 }
 export type Xpense = {
   id?: number
@@ -31,6 +32,10 @@ const Home: NextPage = () => {
   useEffect(() => {
     Init(setEitems, 'eitems')
   }, [])
+
+  // useEffect(() => {
+  //   console.log('eCostRef.current = ', eCostRef.current)
+  // }, [eCostRef.current])
 
   return (
     <Layout>

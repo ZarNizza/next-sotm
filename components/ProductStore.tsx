@@ -21,6 +21,8 @@ export default function ProductStore(props: ProductStoreProps) {
         if (item.id) {
           delete props.prodCostRef.current[item.id]
           delete props.prodCostDRef.current[item.id]
+        } else {
+          props.prodCostRef.current[item.id] = Number(item.price)
         }
         props.setGross(
           Object.values(props.prodCostRef.current).reduce(

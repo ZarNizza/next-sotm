@@ -12,6 +12,7 @@ type editPitemArgs = {
 export default function ProductEditForm(arg: editPitemArgs) {
   const [pName, setPitem] = useState(arg.itemToEdit.name)
   const [pSymbol, setPsymbol] = useState(arg.itemToEdit.symbol)
+  const [pPrice, setPprice] = useState(arg.itemToEdit.price)
 
   function upd_P_handler() {
     if (pName === '' || pSymbol === '') {
@@ -23,6 +24,7 @@ export default function ProductEditForm(arg: editPitemArgs) {
       mode: 'edit',
       name: pName,
       symbol: pSymbol,
+      price: pPrice,
       id: arg.itemToEdit.id
     }
     fetch('/api/products', {
@@ -37,6 +39,7 @@ export default function ProductEditForm(arg: editPitemArgs) {
           console.log('newPitem = OK')
           setPitem('')
           setPsymbol('')
+          setPprice(0)
           arg.setCurrItem(0)
         }
       })
@@ -64,6 +67,10 @@ export default function ProductEditForm(arg: editPitemArgs) {
     setPsymbol(pSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi, ''))
   }
 
+  function input_Pprice_ChHandler(pPrice: string) {
+    setPprice(Number(pPrice.replace(/[^\d\.\,]/gi, '')))
+  }
+
   function dropButtonHandler() {
     arg.setCurrItem(0)
   }
@@ -89,6 +96,16 @@ export default function ProductEditForm(arg: editPitemArgs) {
             onChange={(event) => input_Psymbol_ChHandler(event.target.value)}
             placeholder="ShrtNam"
             pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
+            className={styles.inputP}
+          />
+        </p>
+        <p>
+          <input
+            id="pPriceInput"
+            value={String(pPrice)}
+            onChange={(event) => input_Pprice_ChHandler(event.target.value)}
+            placeholder="123.."
+            pattern="[\d\.,]*"
             className={styles.inputP}
           />
         </p>
