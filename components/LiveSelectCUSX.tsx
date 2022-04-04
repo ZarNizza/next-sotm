@@ -396,7 +396,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
         <input
           type="search"
           ref={a.liveRef}
-          placeholder="... select Customer"
+          placeholder="... start typing"
           pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
           onChange={liveSearch}
           className={styles.inputCust}
