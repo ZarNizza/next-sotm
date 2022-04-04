@@ -32,7 +32,6 @@ export default function cont(mode: string) {
 
   switch (mode) {
     case 'getCode': {
-      // https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.google.com/m8/feeds&access_type=offline&include_granted_scopes=true&redirect_uri=urn:ietf:wg:oauth:2.0:oob&response_type=code&client_id=921647******-l5jcha3bt7r6q******bhtsgk*****um6.apps.googleusercontent.com
       console.log('getCode')
       const url =
         'https://accounts.google.com/o/oauth2/v2/auth' +

@@ -23,7 +23,7 @@ const Home: NextPage = () => {
           toast.remove()
         }
         if (res.data !== undefined && res.data !== 'OK')
-          setResData(() => res.data)
+          setResData(() => JSON.stringify(res.data))
       })
       .catch((error) => {
         toast.remove()
@@ -53,6 +53,11 @@ const Home: NextPage = () => {
     console.log('getContacts')
   }
 
+  function getAPIs() {
+    console.log('getAPIs')
+    sys_handler('/api/sys_gapi', 'GET', '')
+  }
+
   function updateToken() {
     console.log('updateToken')
   }
@@ -64,12 +69,14 @@ const Home: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <h1>G-Contacts</h1>
-        <div className={styles.sysButton}>
+        <div className={styles.sysButtonsGroup}>
+          <button onClick={getAPIs}>0. get API</button>
           <button onClick={getCode}>1. get Code</button>
           <button onClick={getTokens}>2. get Tokens</button>
           <button onClick={getContacts}>3. get Contacts</button>
           <button onClick={updateToken}>x. get Code</button>
         </div>
+        {resData}
       </main>
     </Layout>
   )
