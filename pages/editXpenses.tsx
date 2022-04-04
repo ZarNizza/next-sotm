@@ -34,16 +34,6 @@ const Home: NextPage = () => {
     return
   }
 
-  // function init() {
-  //   const args: FetchArgs = {
-  //     method: 'GET',
-  //     apiSuffix: 'xpenses',
-  //     title: 'getX',
-  //     setResData: setItems
-  //   }
-  //   fetchHandler(args)
-  // }
-
   function resetParams() {
     setSearchWord('')
     setCurrentItem(() => cust0)

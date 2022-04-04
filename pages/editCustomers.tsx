@@ -25,7 +25,6 @@ const Home: NextPage = () => {
   const [searchWord, setSearchWord] = useState('')
 
   useEffect(() => {
-    // init()
     Init(setItems, 'customers')
   }, [])
 
@@ -34,16 +33,6 @@ const Home: NextPage = () => {
     resetParams()
     return
   }
-
-  // function init() {
-  //   const args: FetchArgs = {
-  //     method: 'GET',
-  //     apiSuffix: 'customers',
-  //     title: 'getCust',
-  //     setResData: setItems
-  //   }
-  //   fetchHandler(args)
-  // }
 
   function resetParams() {
     setSearchWord('')
