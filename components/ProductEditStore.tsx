@@ -4,9 +4,9 @@ import { Dispatch, SetStateAction } from 'react'
 import { Product } from '../pages/plus'
 
 interface ProductsStoreArgs {
-  pItems: Product[]
-  setCurrPitem: Dispatch<SetStateAction<number>>
-  currPitem: number
+  items: Product[]
+  setCurrItem: Dispatch<SetStateAction<number>>
+  currItem: number
   setNewFlag: Dispatch<SetStateAction<boolean>>
 }
 
@@ -15,16 +15,16 @@ export default function ProductEditStore(arg: ProductsStoreArgs) {
   function newHandler() {
     arg.setNewFlag(true)
   }
-  const pItemsCheckBoxesSet = arg.pItems.map((item: Product) => {
+  const pItemsCheckBoxesSet = arg.items.map((item: Product) => {
     function checkHandler() {
-      if (arg.currPitem === 0) {
-        arg.setCurrPitem(() => item.id)
+      if (arg.currItem === 0) {
+        arg.setCurrItem(() => item.id)
       } else {
-        if (arg.currPitem === item.id) {
-          arg.setCurrPitem(() => 0)
+        if (arg.currItem === item.id) {
+          arg.setCurrItem(() => 0)
         } else {
-          arg.setCurrPitem(() => 0)
-          setTimeout(() => arg.setCurrPitem(() => item.id), 100)
+          arg.setCurrItem(() => 0)
+          setTimeout(() => arg.setCurrItem(() => item.id), 100)
         }
       }
     }
@@ -34,7 +34,7 @@ export default function ProductEditStore(arg: ProductsStoreArgs) {
         key={item.id}
         text={item.symbol}
         onClick={checkHandler}
-        checked={arg.currPitem === item.id}
+        checked={arg.currItem === item.id}
       />
     )
   })

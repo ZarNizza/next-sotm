@@ -4,15 +4,15 @@ import stylesH from '../styles/Home.module.css'
 import styles from './Select.module.scss'
 
 type newProductArgs = {
-  setPitems: Dispatch<SetStateAction<Product[]>>
+  setItems: Dispatch<SetStateAction<Product[]>>
   setNewFlag: Dispatch<SetStateAction<boolean>>
-  setCurrPitem?: Dispatch<SetStateAction<number>>
+  setCurrItem?: Dispatch<SetStateAction<number>>
 }
 
 export default function PitemNew(arg: newProductArgs) {
   const [pItem, setPitem] = useState('')
   const [pSymbol, setPsymbol] = useState('')
-  if (!!arg.setCurrPitem) arg.setCurrPitem(() => 0)
+  if (!!arg.setCurrItem) arg.setCurrItem(() => 0)
 
   function add_P_handler() {
     if (pItem === '' || pSymbol === '') {
@@ -44,7 +44,7 @@ export default function PitemNew(arg: newProductArgs) {
               alert('newPitem reInit ERROR: ' + res.error)
             } else {
               console.log('newPitem reInit = OK', res)
-              arg.setPitems(() => res.data)
+              arg.setItems(() => res.data)
             }
           })
       })

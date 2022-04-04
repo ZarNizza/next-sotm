@@ -5,8 +5,8 @@ import styles from './Select.module.scss'
 
 type editPitemArgs = {
   itemToEdit: Product
-  setPitems: Dispatch<SetStateAction<Product[]>>
-  setCurrPitem: Dispatch<SetStateAction<number>>
+  setItems: Dispatch<SetStateAction<Product[]>>
+  setCurrItem: Dispatch<SetStateAction<number>>
 }
 
 export default function ProductEditForm(arg: editPitemArgs) {
@@ -16,7 +16,7 @@ export default function ProductEditForm(arg: editPitemArgs) {
   function upd_P_handler() {
     if (pName === '' || pSymbol === '') {
       alert('! empty field !')
-      arg.setCurrPitem(0)
+      arg.setCurrItem(0)
       return
     }
     const pitem = {
@@ -37,7 +37,7 @@ export default function ProductEditForm(arg: editPitemArgs) {
           console.log('newPitem = OK')
           setPitem('')
           setPsymbol('')
-          arg.setCurrPitem(0)
+          arg.setCurrItem(0)
         }
       })
       .then(() => {
@@ -48,7 +48,7 @@ export default function ProductEditForm(arg: editPitemArgs) {
               alert('newPitem reInit ERROR: ' + res.error)
             } else {
               console.log('newPitem reInit = OK')
-              arg.setPitems(() => res.data)
+              arg.setItems(() => res.data)
             }
           })
       })
@@ -64,7 +64,7 @@ export default function ProductEditForm(arg: editPitemArgs) {
   }
 
   function dropButtonHandler() {
-    arg.setCurrPitem(0)
+    arg.setCurrItem(0)
   }
 
   return (

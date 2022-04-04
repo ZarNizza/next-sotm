@@ -11,12 +11,12 @@ import ProductEditForm from '../components/ProductEditForm'
 import { Toaster } from 'react-hot-toast'
 
 const Home: NextPage = () => {
-  const [pItems, setPitems] = useState<Product[]>([])
-  const [currPitem, setCurrPitem] = useState<Product['id']>(0)
+  const [items, setItems] = useState<Product[]>([])
+  const [currItem, setCurrItem] = useState<Product['id']>(0)
   const [newFlag, setNewFlag] = useState(false)
 
   useEffect(() => {
-    Init(setPitems, 'products')
+    Init(setItems, 'products')
   }, [])
 
   return (
@@ -29,31 +29,31 @@ const Home: NextPage = () => {
           <h3>edit PRODUCTS</h3>
           <Toaster />
           <ProductEditStore
-            pItems={pItems}
-            setCurrPitem={setCurrPitem}
-            currPitem={currPitem}
+            items={items}
+            setCurrItem={setCurrItem}
+            currItem={currItem}
             setNewFlag={setNewFlag}
           />{' '}
           {newFlag ? (
             <ProductNew
-              setPitems={setPitems}
+              setItems={setItems}
               setNewFlag={setNewFlag}
-              setCurrPitem={setCurrPitem}
+              setCurrItem={setCurrItem}
             />
           ) : (
             ''
           )}
-          {currPitem === 0 ? (
+          {currItem === 0 ? (
             ''
           ) : (
             <ProductEditForm
               itemToEdit={
-                pItems.filter((item: Product) => {
-                  return item.id === Number(currPitem)
+                items.filter((item: Product) => {
+                  return item.id === Number(currItem)
                 })[0]
               }
-              setPitems={setPitems}
-              setCurrPitem={setCurrPitem}
+              setItems={setItems}
+              setCurrItem={setCurrItem}
             />
           )}
         </div>
