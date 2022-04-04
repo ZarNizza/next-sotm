@@ -5,6 +5,7 @@ import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
 import { Customer } from './plus'
 import fetchHandler, { FetchArgs } from '../components/fetchHandler'
+import Init from '../components/Init'
 import LiveSelect from '../components/LiveSelectCUSX'
 import EditForm from '../components/EditFormCUSX'
 import DBshortTable from '../components/DBshortTable'
@@ -24,24 +25,25 @@ const Home: NextPage = () => {
   const [searchWord, setSearchWord] = useState('')
 
   useEffect(() => {
-    init()
+    // init()
+    Init(setItems, 'customers')
   }, [])
 
   function updateFunc() {
-    init()
+    Init(setItems, 'customers')
     resetParams()
     return
   }
 
-  function init() {
-    const args: FetchArgs = {
-      method: 'GET',
-      apiSuffix: 'customers',
-      title: 'getCust',
-      setResData: setItems
-    }
-    fetchHandler(args)
-  }
+  // function init() {
+  //   const args: FetchArgs = {
+  //     method: 'GET',
+  //     apiSuffix: 'customers',
+  //     title: 'getCust',
+  //     setResData: setItems
+  //   }
+  //   fetchHandler(args)
+  // }
 
   function resetParams() {
     setSearchWord('')
