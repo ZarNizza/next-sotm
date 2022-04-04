@@ -42,7 +42,7 @@ const Home: NextPage = () => {
           <h1>СOST</h1>
           <Toaster />
           {newFlag ? (
-            <EitemNew setEitems={setEitems} setNewFlag={setNewFlag} />
+            <EitemNew setItems={setEitems} setNewFlag={setNewFlag} />
           ) : (
             ''
           )}
