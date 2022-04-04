@@ -30,7 +30,7 @@ export default function handler(
 
     switch (req.method) {
       case 'GET':
-        sql = 'SELECT * FROM sales ORDER BY date DESC'
+        sql = 'SELECT * FROM sales ORDER BY date DESC LIMIT 50'
         break
 
       case 'POST':

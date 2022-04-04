@@ -30,12 +30,11 @@ export default function handler(
 
     switch (req.method) {
       case 'GET':
-        sql = 'SELECT * FROM xpenses ORDER BY date DESC'
+        sql = 'SELECT * FROM xpenses ORDER BY date DESC LIMIT 50'
         break
 
       case 'POST':
         const parsedReq = JSON.parse(req.body)
-        // console.log('!!!!!!!!!!! POST, parsedReq=', parsedReq)
         switch (parsedReq.mode) {
           case 'edit':
             sql = 'UPDATE xpenses SET date=$1, xitem=$2, sum=$3 WHERE id=$4'
@@ -100,7 +99,8 @@ export default function handler(
             console.log(err.stack)
             resolve(null)
           })
-      }) //
+      })
+      //
     } else {
       console.log('////////////// sql err, sql=', sql)
       res.status(500).json({ error: '!xpenses - sql-error: empty query' })
