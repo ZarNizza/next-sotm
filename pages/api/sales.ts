@@ -39,14 +39,14 @@ export default function handler(
         switch (parsedReq.mode) {
           case 'edit':
             sql =
-              'UPDATE sales SET date=$1, cust=$2, prod=$3, sum=$4, sumd=$5 WHERE id=$5'
+              'UPDATE sales SET date=$1, cust=$2, prod=$3, sum=$4, sumd=$5 WHERE id=$6'
             params = [
               parsedReq.date,
               String(parsedReq.cust),
               String(parsedReq.prod),
               String(parsedReq.sum),
               String(parsedReq.sumd),
-              parsedReq.id
+              Number(parsedReq.id)
             ]
             break
           case 'new':
