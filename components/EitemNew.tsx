@@ -45,6 +45,7 @@ export default function EitemNew(arg: newEitemArgs) {
             } else {
               console.log('newEitem reInit = OK', res)
               arg.setItems(() => res.data)
+              localStorage.setItem('eitems', JSON.stringify(res.data))
             }
           })
       })

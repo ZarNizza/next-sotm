@@ -49,6 +49,7 @@ export default function EitemEditForm(arg: editEitemArgs) {
             } else {
               console.log('newEitem reInit = OK')
               arg.setItems(() => res.data)
+              localStorage.setItem('eitems', JSON.stringify(res.data))
             }
           })
       })

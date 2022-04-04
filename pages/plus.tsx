@@ -61,7 +61,9 @@ const Home: NextPage = () => {
   const [searchWord, setSearchWord] = useState('')
 
   useEffect(() => {
+    console.log('plus - useEffect - init cust')
     Init(setCustomers, 'customers')
+    console.log('plus - useEffect - init prod')
     Init(setProducts, 'products')
   }, [])
 

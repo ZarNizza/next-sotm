@@ -45,6 +45,7 @@ export default function PitemNew(arg: newProductArgs) {
             } else {
               console.log('newPitem reInit = OK', res)
               arg.setItems(() => res.data)
+              localStorage.setItem('products', JSON.stringify(res.data))
             }
           })
       })

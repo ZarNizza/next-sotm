@@ -30,7 +30,7 @@ const Home: NextPage = () => {
   }, [])
 
   function updateFunc() {
-    Init(setItems, 'customers')
+    Init(setItems, 'customers', true)
     resetParams()
     return
   }

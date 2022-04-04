@@ -96,7 +96,7 @@ export default function EditForm(a: editFormArgs) {
           cust: newCust,
           prod: newProd,
           sum: newSum,
-          sumD: newSumD,
+          sumd: newSumD,
           id: a.itemToEdit.id
         })
         break

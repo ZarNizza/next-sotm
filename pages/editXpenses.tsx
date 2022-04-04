@@ -29,7 +29,7 @@ const Home: NextPage = () => {
   }, [])
 
   function updateFunc() {
-    Init(setItems, 'xpenses')
+    Init(setItems, 'xpenses', true)
     resetParams()
     return
   }

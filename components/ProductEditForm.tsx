@@ -49,6 +49,7 @@ export default function ProductEditForm(arg: editPitemArgs) {
             } else {
               console.log('newPitem reInit = OK')
               arg.setItems(() => res.data)
+              localStorage.setItem('products', JSON.stringify(res.data))
             }
           })
       })
