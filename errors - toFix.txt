@@ -5,7 +5,9 @@ ColorTheme select
 Delete Items handling
 Generate DB tables for new User
 CurrentCustomer last 3 visits list
+X-cart style
 
 Done:
+ProdCart DropButton will clear Sum.current
 use LocalStorage
 Prod sumD stylify

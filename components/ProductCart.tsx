@@ -65,11 +65,16 @@ export default function ProductCart(props: ProductCartProps) {
     return () => {
       props.setSelectedProducts((prevSelectedProducts) => {
         delete props.prodCostRef.current[id]
+        delete props.prodCostDRef.current[id]
         props.setGross(
           Object.values(props.prodCostRef.current).reduce(
             (prev, curr) => prev + curr,
             0
-          )
+          ) +
+            Object.values(props.prodCostDRef.current).reduce(
+              (prev, curr) => prev + curr,
+              0
+            )
         )
         return prevSelectedProducts.filter((product) => product !== Number(id))
       })

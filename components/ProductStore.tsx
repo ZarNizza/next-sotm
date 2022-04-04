@@ -27,7 +27,7 @@ export default function ProductStore(props: ProductStoreProps) {
             (prev, curr) => prev + curr,
             0
           ) +
-            Object.values(props.prodCostRef.current).reduce(
+            Object.values(props.prodCostDRef.current).reduce(
               (prev, curr) => prev + curr,
               0
             )
