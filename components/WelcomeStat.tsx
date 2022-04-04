@@ -30,7 +30,7 @@ export default function WelcomeStat() {
           console.log('!!! API error=', res.error)
           alert('!Error: ' + res.error)
         } else {
-          console.log('!YES, 1st')
+          console.log('fetch 1st stat sum')
           setStatNow(() => {
             return isFinite(res.data[0].summa)
               ? String(
@@ -57,7 +57,7 @@ export default function WelcomeStat() {
           console.log('!!! API error=', res.error)
           alert('!Error: ' + res.error)
         } else {
-          console.log('!YES, 2nd')
+          console.log('fetch 2nd stat sum')
 
           setStatPrev(() => {
             return isFinite(res.data[0].summa)
