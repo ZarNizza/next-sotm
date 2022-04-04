@@ -10,11 +10,6 @@ const Home: NextPage = () => {
   const [resData, setResData] = useState<Sale[]>([])
   const [sqlString, setSQLstring] = useState<string>('')
 
-  let supported: boolean = false
-  useEffect(() => {
-    supported = 'contacts' in navigator && 'ContactsManager' in window
-  }, [])
-
   function inputSQLstringHandler(sql: string) {
     setSQLstring(() => sql)
   }
@@ -40,7 +35,6 @@ const Home: NextPage = () => {
           <title>System page</title>
         </Head>
         <main className={styles.main}>
-          Contacts support: {supported ? 'Yes' : 'No'}
           <div>
             <input
               id="sqlInput"
