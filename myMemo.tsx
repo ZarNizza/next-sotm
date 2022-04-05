@@ -1,4 +1,31 @@
 ;<>
+{
+  show timezone;
+  SET TIME ZONE 4; SET TIME ZONE LOCAL;
+  SELECT CURRENT_DATE;  (!date only!)
+  SELECT CURRENT_TIMESTAMP; SELECT LOCALTIMESTAMP(0);
+//
+  create table dt (d date default current_timestamp, ts timestamp default
+  CURRENT_TIMESTAMP, tsz timestamp with time zone default CURRENT_TIMESTAMP);
+
+  insert into dt default VALUES;
+  insert into dt values ('2022-04-01 12:29', '2022-04-01 12:29', '2022-04-01 12:29');
+ select * fron dt;
+
+ALTER TABLE sales ALTER COLUMN date DROP DEFAULT, ALTER COLUMN date SET DATA TYPE TIMESTAMP WITH TIME ZONE,  ALTER COLUMN date SET DEFAULT CURRENT_TIMESTAMP;
+
+ show datestyle;
+ set datestyle to ISO DMY;
+
+ ALTER TABLE sales ALTER COLUMN date TYPE TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP;
+//
+SELECT table_name, column_name, data_type FROM information_schema.columns WHERE table_name = 'sales';
+
+//
+
+//
+
+  }
   <table>
     <thead>
       <tr key={Math.random()}>

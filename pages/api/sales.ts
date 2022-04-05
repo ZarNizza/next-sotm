@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { Sale } from '../plus'
+import serialiseDate from '../../components/serialiseDate'
 
 type ApiData = {
   data?: Sale[]
@@ -50,21 +51,22 @@ export default function handler(
             ]
             break
           case 'new':
-            const today = new Date()
-            const m0 = Number(today.getMonth()) < 9 ? '0' : ''
-            const d0 = Number(today.getDate()) < 9 ? '0' : ''
-            const sqlDate = !!parsedReq.date
-              ? parsedReq.date
-              : String(today.getFullYear()) +
-                '-' +
-                m0 +
-                String(today.getMonth() + 1) +
-                '-' +
-                d0 +
-                String(today.getDate()) +
-                'T' +
-                timeZone +
-                ':00:00'
+            const sqlDate = serialiseDate(new Date(), '')
+            // const today = serialiseDate(new Date())
+            // const m0 = Number(today.getMonth()) < 9 ? '0' : ''
+            // const d0 = Number(today.getDate()) < 9 ? '0' : ''
+            // const sqlDate = !!parsedReq.date
+            //   ? parsedReq.date
+            //   : String(today.getFullYear()) +
+            //     '-' +
+            //     m0 +
+            //     String(today.getMonth() + 1) +
+            //     '-' +
+            //     d0 +
+            //     String(today.getDate()) +
+            //     'T' +
+            //     timeZone +
+            //     ':00:00'
 
             sql =
               'INSERT INTO sales (date, cust, prod, sum, sumd) VALUES ($1, $2, $3, $4, $5)'

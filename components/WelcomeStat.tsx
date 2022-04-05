@@ -9,7 +9,7 @@ export default function WelcomeStat() {
   const [statPrev, setStatPrev] = useState<string>('0')
   const bodyNow = {
     mode: 'get_stat',
-    startDate: myDate('today'),
+    startDate: myDate('today0'),
     finishDate: myDate('today')
   }
   const bodyPrev = {

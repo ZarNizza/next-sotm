@@ -65,20 +65,22 @@ export default async function sysHandler(
     }
 
     let startDate = parsedReq.startDate
-      ? "'" + parsedReq.startDate + " 00:00:00'"
+      ? "'" + parsedReq.startDate + "'"
       : "'2020-01-01 00:00:00'"
-    let finishDate = "'2099-12-31 00:00:00'"
+    let finishDate = parsedReq.finishDate
+      ? "'" + parsedReq.finishDate + "'"
+      : "'2099-12-31 23:59:59'"
 
-    if (parsedReq.finishDate) {
-      const fDate = new Date(parsedReq.finishDate)
-      fDate.setDate(fDate.getDate() + 1)
-      let finDate = String(fDate.getFullYear()) + '-'
-      if (fDate.getMonth() < 9) finDate += '0'
-      finDate += String(fDate.getMonth() + 1) + '-'
-      if (fDate.getDate() < 10) finDate += '0'
-      finDate += String(fDate.getDate())
-      finishDate = "'" + finDate + " 00:00:00'"
-    }
+    // if (parsedReq.finishDate) {
+    //   const fDate = new Date(parsedReq.finishDate)
+    //   fDate.setDate(fDate.getDate() + 1)
+    //   let finDate = String(fDate.getFullYear()) + '-'
+    //   if (fDate.getMonth() < 9) finDate += '0'
+    //   finDate += String(fDate.getMonth() + 1) + '-'
+    //   if (fDate.getDate() < 10) finDate += '0'
+    //   finDate += String(fDate.getDate())
+    //   finishDate = "'" + finDate + " 00:00:00'"
+    // }
 
     if (startDate > finishDate) {
       //silent Dates swap
@@ -354,7 +356,7 @@ export default async function sysHandler(
         //
         case 'show_C_History':
           sqlQuery =
-            'SELECT c.name, s.date, p.symbol AS symbol, p.name AS product, s.sum, s.sumd FROM sales AS s ' +
+            'SELECT s.id, c.name, s.date, p.symbol AS symbol, p.name AS product, s.sum, s.sumd FROM sales AS s ' +
             ' LEFT JOIN prod AS p ON p.id = s.prod' +
             currCustJoin +
             ' WHERE (p.del = 0) AND (s.del = 0) AND (s.date BETWEEN ' +

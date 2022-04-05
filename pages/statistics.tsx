@@ -35,7 +35,7 @@ const Home: NextPage = () => {
 
   const [resData, setResData] = useState<Sale[]>([])
   const [resSource, setResSource] = useState('')
-  const [startDate, setStartDate] = useState(myDate('today'))
+  const [startDate, setStartDate] = useState(myDate('today0'))
   const [finishDate, setFinishDate] = useState(myDate('today'))
 
   useEffect(() => {
@@ -157,12 +157,12 @@ const Home: NextPage = () => {
   }
 
   function setTodayHandler() {
-    setStartDate(() => myDate('today'))
+    setStartDate(() => myDate('today0'))
     setFinishDate(() => myDate('today'))
   }
   function setYesterdayHandler() {
     setStartDate(() => myDate('yesterday'))
-    setFinishDate(() => myDate('yesterday'))
+    setFinishDate(() => myDate('today0'))
   }
   function setWeekHandler() {
     setStartDate(() => myDate('0W'))

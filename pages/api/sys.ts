@@ -71,14 +71,14 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
 
       case 'restore_Sales':
         sql =
-          'CREATE TABLE IF NOT EXISTS sales (id SERIAL PRIMARY KEY, date DATE, cust SMALLINT, prod SMALLINT, sum INT, sumd INT, del SMALLINT DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS sales (id SERIAL PRIMARY KEY, date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, cust SMALLINT, prod SMALLINT, sum INT, sumd INT, del SMALLINT DEFAULT 0)'
         //CREATE INDEX s ON sales (cust, prod, date)
         err_prefix = 'restore_Sales'
         break
 
       case 'restore_Xpenses':
         sql =
-          'CREATE TABLE IF NOT EXISTS xpenses (id SERIAL PRIMARY KEY, date DATE, xitem SMALLINT, sum INT, del SMALLINT DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS xpenses (id SERIAL PRIMARY KEY, date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, xitem SMALLINT, sum INT, del SMALLINT DEFAULT 0)'
         //CREATE INDEX x ON xpenses (xitem, date)
         err_prefix = 'restore_Xpenses'
         break

@@ -7,8 +7,8 @@ export default function serialiseDate(date: Date, timeZone: string) {
     ) +
     '-' +
     String(date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
-    'T' +
-    timeZone +
-    ':00:00'
+    ' ' +
+    String(date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
+    String(date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes())
   )
 }
