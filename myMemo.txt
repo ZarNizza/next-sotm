@@ -1,6 +1,6 @@
 ;<>
 {
-  show timezone;
+//  show timezone;
   SET TIME ZONE 4; SET TIME ZONE LOCAL;
   SELECT CURRENT_DATE;  (!date only!)
   SELECT CURRENT_TIMESTAMP; SELECT LOCALTIMESTAMP(0);
