@@ -19,6 +19,7 @@ export type Product = {
   id: number
   name: string
   symbol: string
+  price: number
 }
 
 export type Sale = {

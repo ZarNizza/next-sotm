@@ -41,14 +41,17 @@ export default function handler(
               parsedReq.name.substring(0, 50) +
               "', symbol='" +
               parsedReq.symbol.substring(0, 7) +
+              "', price='" +
+              parsedReq.price +
               "' WHERE id=" +
               parsedReq.id
             break
           case 'new':
-            sql = 'INSERT INTO eitems (name, symbol) VALUES ($1, $2)'
+            sql = 'INSERT INTO eitems (name, symbol, price) VALUES ($1, $2, $3)'
             params = [
               parsedReq.name.substring(0, 50),
-              parsedReq.symbol.substring(0, 7)
+              parsedReq.symbol.substring(0, 7),
+              parsedReq.price
             ]
             console.log('--- new: ', sql, params)
             break

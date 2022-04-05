@@ -19,8 +19,13 @@ export default function EitemStore(arg: EitemsStoreArgs) {
   }
   const eItemsCheckBoxesSet = arg.eItems.map((item: Eitem) => {
     function checkHandler() {
+      //
+      arg.eCostRef.current[item.id] = item.price
+      //
       arg.setSelectedEitems((prevSelectedEitems) => {
-        if (item.id) delete arg.eCostRef.current[item.id]
+        if (item.id) {
+          delete arg.eCostRef.current[item.id]
+        }
         arg.setGross(
           Object.values(arg.eCostRef.current).reduce(
             (prev, curr) => prev + curr,

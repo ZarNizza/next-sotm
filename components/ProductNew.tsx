@@ -12,6 +12,7 @@ type newProductArgs = {
 export default function PitemNew(arg: newProductArgs) {
   const [pItem, setPitem] = useState('')
   const [pSymbol, setPsymbol] = useState('')
+  const [pPrice, setPprice] = useState(0)
   if (!!arg.setCurrItem) arg.setCurrItem(() => 0)
 
   function add_P_handler() {
@@ -20,7 +21,7 @@ export default function PitemNew(arg: newProductArgs) {
       arg.setNewFlag(false)
       return
     }
-    const pitem = { mode: 'new', name: pItem, symbol: pSymbol }
+    const pitem = { mode: 'new', name: pItem, symbol: pSymbol, price: pPrice }
     fetch('/api/products', {
       method: 'POST',
       body: JSON.stringify(pitem)
@@ -33,6 +34,7 @@ export default function PitemNew(arg: newProductArgs) {
           console.log('newPitem = OK', res)
           setPitem('')
           setPsymbol('')
+          setPprice(0)
           arg.setNewFlag(false)
         }
       })
@@ -60,6 +62,10 @@ export default function PitemNew(arg: newProductArgs) {
     setPsymbol(pSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi, ''))
   }
 
+  function input_Pprice_ChHandler(pPrice: string) {
+    setPprice(Number(pPrice.replace(/[^\d\.\,]/gi, '')))
+  }
+
   function dropButtonHandler() {
     arg.setNewFlag(false)
   }
@@ -85,6 +91,16 @@ export default function PitemNew(arg: newProductArgs) {
             onChange={(event) => input_Psymbol_ChHandler(event.target.value)}
             placeholder="ShrtNam"
             pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
+            className={styles.inputP}
+          />
+        </p>
+        <p>
+          <input
+            id="pPriceInput"
+            value={pPrice}
+            onChange={(event) => input_Pprice_ChHandler(event.target.value)}
+            placeholder="123.."
+            pattern="[\d\.,]*"
             className={styles.inputP}
           />
         </p>
