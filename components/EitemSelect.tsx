@@ -21,7 +21,7 @@ export default function EitemSelect(props: EitemSelectProps) {
   function liveSearch(e: ChangeEvent<HTMLInputElement>) {
     const st = e.target.value.toLowerCase()
     setSearchTerm(() => st)
-    props.setCurrentEitem({ id: 0, name: '', symbol: '' })
+    props.setCurrentEitem({ id: 0, name: '', symbol: '', price: 0 })
   }
 
   function liveST(e: ChangeEvent<HTMLSelectElement>) {
@@ -35,7 +35,8 @@ export default function EitemSelect(props: EitemSelectProps) {
       props.setCurrentEitem({
         id: Number(curr.id),
         name: curr.name,
-        symbol: curr.symbol
+        symbol: curr.symbol,
+        price: curr.price
       })
     }
   }
@@ -43,7 +44,7 @@ export default function EitemSelect(props: EitemSelectProps) {
   function dropButtonHandler() {
     setSearchTerm(() => '')
     if (eItemInputRef.current !== null) eItemInputRef.current.value = ''
-    props.setCurrentEitem({ id: 0, name: '', symbol: '' })
+    props.setCurrentEitem({ id: 0, name: '', symbol: '', price: 0 })
   }
 
   function newButtonHandler() {

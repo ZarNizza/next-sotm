@@ -21,7 +21,7 @@ export default function ProductSelect(props: ProductSelectProps) {
   function liveSearch(e: ChangeEvent<HTMLInputElement>) {
     const st = e.target.value.toLowerCase()
     setSearchTerm(() => st)
-    props.setCurrentProduct({ id: 0, name: '', symbol: '' })
+    props.setCurrentProduct({ id: 0, name: '', symbol: '', price: 0 })
   }
 
   function liveST(e: ChangeEvent<HTMLSelectElement>) {
@@ -35,7 +35,8 @@ export default function ProductSelect(props: ProductSelectProps) {
       props.setCurrentProduct({
         id: Number(curr.id),
         name: curr.name,
-        symbol: curr.symbol
+        symbol: curr.symbol,
+        price: curr.price
       })
     }
   }
@@ -43,7 +44,7 @@ export default function ProductSelect(props: ProductSelectProps) {
   function dropButtonHandler() {
     setSearchTerm(() => '')
     if (ProductInputRef.current !== null) ProductInputRef.current.value = ''
-    props.setCurrentProduct({ id: 0, name: '', symbol: '' })
+    props.setCurrentProduct({ id: 0, name: '', symbol: '', price: 0 })
   }
 
   function newButtonHandler() {
