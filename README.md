@@ -1,3 +1,1 @@
-An awesome app ))
-! Authentification with Google account works local only - because restrictions Google ID for this app (((
-I try to fix it asap. 
+private project, opened due GH politic reasons
