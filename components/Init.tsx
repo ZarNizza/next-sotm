@@ -20,29 +20,27 @@ export default function Init(
   try {
     if (updateLocalStorage) throw null
     items = localStorage.getItem(apiSuffix)
-    console.log(
-      'Init - TRY getItem from LocalStorage, items length: ',
-      items?.length
-    )
     if (items === null) throw null
     if (items !== '') {
-      console.log('Init ', apiSuffix, ' - TRY GOOD')
+      console.log('Init ', apiSuffix, ' - LocStor GOOD')
       setItems(JSON.parse(items))
     } else {
-      console.log('! Init TRY error - empty')
+      console.log('Init ', apiSuffix, ' - LocStor error - empty response')
     }
   } catch {
     console.log(
       'Init ',
       apiSuffix,
-      ' catch-api - NO LocalStorage DATA, >>> go fetch DB'
+      ' catch-api - NO LocalStorage Data >>> go fetch DB'
     )
+
     const args: FetchArgs = {
       method: 'GET',
       apiSuffix: apiSuffix,
       title: 'get' + apiSuffix,
       setResData: setItems
     }
+
     fetchHandler(args).catch((error) =>
       console.log(
         '! Init ',
