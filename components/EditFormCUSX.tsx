@@ -33,6 +33,7 @@ export default function EditForm(a: editFormArgs) {
   const [newGooid, setNewGooid] = useState(a.itemToEdit.gooid || '')
   const [newTimeZone, setNewTimeZone] = useState(a.itemToEdit.timezone || '')
   const [newSymbol, setNewSymbol] = useState(a.itemToEdit.symbol || '')
+  const [newPrice, setNewPrice] = useState(a.itemToEdit.price || 0)
   const [newDate, setNewDate] = useState(a.itemToEdit.date || '')
   const [newCust, setNewCust] = useState(a.itemToEdit.cust || 0)
   const [newProd, setNewProd] = useState(a.itemToEdit.prod || 0)
@@ -74,6 +75,7 @@ export default function EditForm(a: editFormArgs) {
           mode: 'edit',
           name: newName,
           symbol: newSymbol,
+          price: newPrice,
           id: a.itemToEdit.id
         })
         break
@@ -84,6 +86,7 @@ export default function EditForm(a: editFormArgs) {
           mode: 'edit',
           name: newName,
           symbol: newSymbol,
+          price: newPrice,
           id: a.itemToEdit.id
         })
         break
@@ -159,6 +162,19 @@ export default function EditForm(a: editFormArgs) {
             setNewSymbol(
               event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s\d]/gi, '')
             )
+          }
+        />
+      </p>
+      <p hidden={a.type !== 'P' && a.type !== 'E'}>
+        Price:
+        <input
+          type="text"
+          className={styles.inputCust}
+          placeholder="123.."
+          pattern="[\d]{1,7}"
+          value={newPrice || ''}
+          onChange={(event) =>
+            setNewPrice(event.target.value.replace(/[^\d]/gi, ''))
           }
         />
       </p>

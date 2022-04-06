@@ -13,6 +13,7 @@ export type Eitem = {
   id: number
   name: string
   symbol: string
+  price: number
 }
 export type Xpense = {
   id?: number

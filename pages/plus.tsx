@@ -19,6 +19,7 @@ export type Product = {
   id: number
   name: string
   symbol: string
+  price: number
 }
 
 export type Sale = {
@@ -79,6 +80,57 @@ const Home: NextPage = () => {
     return
   }
 
+  type SumProps = { id: number; value: number }
+
+  const inputSumCh_Handler: React.FC<SumProps> = ({ id, value }) => {
+    prodCostRef.current[id] = value
+    setGross(
+      Object.values(prodCostRef.current).reduce(
+        (prev, curr) => prev + curr,
+        0
+      ) +
+        Object.values(prodCostDRef.current).reduce(
+          (prev, curr) => prev + curr,
+          0
+        )
+    )
+    return null
+  }
+
+  const inputSumDCh_Handler: React.FC<SumProps> = ({ id, value }) => {
+    prodCostDRef.current[id] = value
+    setGross(
+      Object.values(prodCostRef.current).reduce(
+        (prev, curr) => prev + curr,
+        0
+      ) +
+        Object.values(prodCostDRef.current).reduce(
+          (prev, curr) => prev + curr,
+          0
+        )
+    )
+    return null
+  }
+
+  const dropButton_Handler: React.FC<number> = (id) => {
+    delete prodCostRef.current[id]
+    delete prodCostDRef.current[id]
+    setGross(
+      Object.values(prodCostRef.current).reduce(
+        (prev, curr) => prev + curr,
+        0
+      ) +
+        Object.values(prodCostDRef.current).reduce(
+          (prev, curr) => prev + curr,
+          0
+        )
+    )
+    setSelectedProducts((prevSelectedProducts) => {
+      return prevSelectedProducts.filter((product) => product !== Number(id))
+    })
+    return null
+  }
+
   return (
     <Layout>
       <Head>
@@ -121,6 +173,9 @@ const Home: NextPage = () => {
             prodCostDRef={prodCostDRef}
             gross={gross}
             setGross={setGross}
+            inputSumChangeHandler={inputSumCh_Handler}
+            inputSumDChangeHandler={inputSumDCh_Handler}
+            dropButton_Handler={dropButton_Handler}
           />
         </div>
       </main>

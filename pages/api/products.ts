@@ -36,18 +36,20 @@ export default function handler(
         // console.log('!!!!!!!!!!! POST, parsedReq=', parsedReq)
         switch (parsedReq.mode) {
           case 'edit':
-            sql = 'UPDATE prod SET name=$1, symbol=$2 WHERE id=$3'
+            sql = 'UPDATE prod SET name=$1, symbol=$2, price=$3 WHERE id=$4'
             params = [
               parsedReq.name.substring(0, 50),
               parsedReq.symbol.substring(0, 7),
+              parsedReq.price,
               parsedReq.id
             ]
             break
           case 'new':
-            sql = 'INSERT INTO prod (name, symbol) VALUES ($1, $2)'
+            sql = 'INSERT INTO prod (name, symbol, price) VALUES ($1, $2, $3)'
             params = [
               parsedReq.name.substring(0, 50),
-              parsedReq.symbol.substring(0, 7)
+              parsedReq.symbol.substring(0, 7),
+              parsedReq.price
             ]
             console.log('--- new: ', sql, params)
             break

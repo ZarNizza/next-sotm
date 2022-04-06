@@ -5,10 +5,11 @@ import Link from 'next/link'
 import {
   ChangeEventHandler,
   Dispatch,
+  FC,
   MutableRefObject,
   SetStateAction
 } from 'react'
-
+type SumProps = { id: number; value: number }
 type ProductCartProps = {
   setSelectedProducts: Dispatch<SetStateAction<number[]>>
   selectedProducts: number[]
@@ -18,6 +19,9 @@ type ProductCartProps = {
   setGross: Dispatch<SetStateAction<number>>
   prodCostRef: MutableRefObject<Record<number, number>>
   prodCostDRef: MutableRefObject<Record<number, number>>
+  inputSumChangeHandler: FC<SumProps>
+  inputSumDChangeHandler: FC<SumProps>
+  dropButton_Handler: FC<number>
 }
 
 export default function ProductCart(props: ProductCartProps) {
@@ -36,15 +40,25 @@ export default function ProductCart(props: ProductCartProps) {
         <div className={styles.summSpan}>
           <input
             type="text"
-            onChange={inputSumChangeHandler(id)}
+            onChange={(event) =>
+              props.inputSumChangeHandler({
+                id: id,
+                value: Number(event.target.value.replace(/[^\d]/g, ''))
+              })
+            }
             className={styles.inputSum}
-            placeholder="... price"
+            placeholder={String(props.prodCostRef.current[id])}
             pattern="^[\d]{0,8}"
           />
           {'± '}
           <input
             type="text"
-            onChange={inputSumDChangeHandler(id)}
+            onChange={(event) =>
+              props.inputSumDChangeHandler({
+                id: id,
+                value: Number(event.target.value.replace(/[^\d]/g, ''))
+              })
+            }
             className={styles.inputSumD}
             placeholder="+/- d"
             pattern="^[\d\+\-]{0,6}"
@@ -52,7 +66,7 @@ export default function ProductCart(props: ProductCartProps) {
         </div>{' '}
         <button
           value={id}
-          onClick={dropButtonHandler(id)}
+          onClick={() => props.dropButton_Handler(id)}
           className={stylesH.dropButton}
         >
           {' X '}
@@ -60,64 +74,6 @@ export default function ProductCart(props: ProductCartProps) {
       </div>
     </li>
   ))
-
-  function dropButtonHandler(id: Product['id']) {
-    return () => {
-      props.setSelectedProducts((prevSelectedProducts) => {
-        delete props.prodCostRef.current[id]
-        delete props.prodCostDRef.current[id]
-        props.setGross(
-          Object.values(props.prodCostRef.current).reduce(
-            (prev, curr) => prev + curr,
-            0
-          ) +
-            Object.values(props.prodCostDRef.current).reduce(
-              (prev, curr) => prev + curr,
-              0
-            )
-        )
-        return prevSelectedProducts.filter((product) => product !== Number(id))
-      })
-    }
-  }
-
-  function inputSumChangeHandler(id: Product['id']) {
-    const handler: ChangeEventHandler<HTMLInputElement> = (event) => {
-      props.prodCostRef.current[id] = Number(
-        event.target.value.replace(/[^\d]/g, '')
-      )
-      props.setGross(
-        Object.values(props.prodCostRef.current).reduce(
-          (prev, curr) => prev + curr,
-          0
-        ) +
-          Object.values(props.prodCostDRef.current).reduce(
-            (prev, curr) => prev + curr,
-            0
-          )
-      )
-    }
-    return handler
-  }
-
-  function inputSumDChangeHandler(id: Product['id']) {
-    const handler: ChangeEventHandler<HTMLInputElement> = (event) => {
-      props.prodCostDRef.current[id] = Number(
-        event.target.value.replace(/[^\d\+\-]/g, '')
-      )
-      props.setGross(
-        Object.values(props.prodCostRef.current).reduce(
-          (prev, curr) => prev + curr,
-          0
-        ) +
-          Object.values(props.prodCostDRef.current).reduce(
-            (prev, curr) => prev + curr,
-            0
-          )
-      )
-    }
-    return handler
-  }
 
   function saveSaleHandler() {
     if (props.currentCustomer.id === 0) {

@@ -20,7 +20,10 @@ export default function Init(
   try {
     if (updateLocalStorage) throw null
     items = localStorage.getItem(apiSuffix)
-    console.log('Init - TRY getItem from LocalStorage, items: ', items?.length)
+    console.log(
+      'Init - TRY getItem from LocalStorage, items length: ',
+      items?.length
+    )
     if (items === null) throw null
     if (items !== '') {
       console.log('Init ', apiSuffix, ' - TRY GOOD')
