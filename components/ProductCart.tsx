@@ -21,6 +21,7 @@ type ProductCartProps = {
   prodCostDRef: MutableRefObject<Record<number, number>>
   inputSumChangeHandler: FC<SumProps>
   inputSumDChangeHandler: FC<SumProps>
+  dropButton_Handler: FC<number>
 }
 
 export default function ProductCart(props: ProductCartProps) {
@@ -65,7 +66,7 @@ export default function ProductCart(props: ProductCartProps) {
         </div>{' '}
         <button
           value={id}
-          onClick={dropButtonHandler(id)}
+          onClick={() => props.dropButton_Handler(id)}
           className={stylesH.dropButton}
         >
           {' X '}
@@ -73,26 +74,6 @@ export default function ProductCart(props: ProductCartProps) {
       </div>
     </li>
   ))
-
-  function dropButtonHandler(id: Product['id']) {
-    return () => {
-      props.setSelectedProducts((prevSelectedProducts) => {
-        delete props.prodCostRef.current[id]
-        delete props.prodCostDRef.current[id]
-        props.setGross(
-          Object.values(props.prodCostRef.current).reduce(
-            (prev, curr) => prev + curr,
-            0
-          ) +
-            Object.values(props.prodCostDRef.current).reduce(
-              (prev, curr) => prev + curr,
-              0
-            )
-        )
-        return prevSelectedProducts.filter((product) => product !== Number(id))
-      })
-    }
-  }
 
   function saveSaleHandler() {
     if (props.currentCustomer.id === 0) {

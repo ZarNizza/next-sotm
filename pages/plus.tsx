@@ -112,6 +112,25 @@ const Home: NextPage = () => {
     return null
   }
 
+  const dropButton_Handler: React.FC<number> = (id) => {
+    delete prodCostRef.current[id]
+    delete prodCostDRef.current[id]
+    setGross(
+      Object.values(prodCostRef.current).reduce(
+        (prev, curr) => prev + curr,
+        0
+      ) +
+        Object.values(prodCostDRef.current).reduce(
+          (prev, curr) => prev + curr,
+          0
+        )
+    )
+    setSelectedProducts((prevSelectedProducts) => {
+      return prevSelectedProducts.filter((product) => product !== Number(id))
+    })
+    return null
+  }
+
   return (
     <Layout>
       <Head>
@@ -156,6 +175,7 @@ const Home: NextPage = () => {
             setGross={setGross}
             inputSumChangeHandler={inputSumCh_Handler}
             inputSumDChangeHandler={inputSumDCh_Handler}
+            dropButton_Handler={dropButton_Handler}
           />
         </div>
       </main>
