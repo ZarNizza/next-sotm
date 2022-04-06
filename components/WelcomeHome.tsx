@@ -4,16 +4,16 @@ import Layout from './layout'
 import Link from 'next/link'
 import WelcomeStat from './WelcomeStat'
 
-export default function WelcomeHome() {
+export default function WelcomeHome(t: any) {
   return (
     <Layout>
       <Head>
-        <title>Welcome Home!</title>
+        <title>{t.welcomeTitle}</title>
       </Head>
       <main className={styles.main}>
         <div className={styles.columnSpaceBetween}>
           <div className={styles.main}>
-            <h1>Sales and Profit</h1>
+            <h1>{t.appName}</h1>
             <div className={styles.squareRow}>
               <Link href="/plus" passHref>
                 <div className={`${styles.square} ${styles.orange}`}>

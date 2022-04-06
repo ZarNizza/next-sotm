@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../components/layout'
 import styles from '../components/Home.module.scss'
+import Locales from '../components/Locales'
 
 const Home: NextPage = () => {
   return (
@@ -11,6 +12,7 @@ const Home: NextPage = () => {
         <title>Settings</title>
       </Head>
       <main className={styles.main}>
+        <Locales />
         <h1>SETTINGS</h1>
         <div className={styles.squareRow}>
           <Link href="/editCustomers" passHref>
