@@ -1,13 +1,13 @@
-Prod sum default
-S,X - date + time !LOCAL TIME!
 Language select
 ColorTheme select
 Delete Items handling
 Generate DB tables for new User
 CurrentCustomer last 3 visits list
-X-cart style
 
 Done:
+X-cart style
+S,X - date + time !LOCAL TIME!
+Prod sum default
 ProdCart DropButton will clear Sum.current
 use LocalStorage
 Prod sumD stylify
