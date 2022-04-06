@@ -26,18 +26,19 @@ export default function ProductStore(props: ProductStoreProps) {
       } else {
         props.prodCostRef.current[item.id] = Number(item.price)
       }
-
-      props.setSelectedProducts((prevSelectedProducts) => {
-        props.setGross(
-          Object.values(props.prodCostRef.current).reduce(
+      //
+      props.setGross(
+        Object.values(props.prodCostRef.current).reduce(
+          (prev, curr) => prev + curr,
+          0
+        ) +
+          Object.values(props.prodCostDRef.current).reduce(
             (prev, curr) => prev + curr,
             0
-          ) +
-            Object.values(props.prodCostDRef.current).reduce(
-              (prev, curr) => prev + curr,
-              0
-            )
-        )
+          )
+      )
+      //
+      props.setSelectedProducts((prevSelectedProducts) => {
         return prevSelectedProducts.includes(item.id)
           ? prevSelectedProducts.filter(
               (product: Product['id']) => product !== item.id
