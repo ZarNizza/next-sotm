@@ -4,10 +4,13 @@ import Link from 'next/link'
 import {
   ChangeEventHandler,
   Dispatch,
+  FC,
   MutableRefObject,
   SetStateAction
 } from 'react'
 import { Eitem } from '../pages/minus'
+
+type SumProps = { id: number; value: number }
 
 type XpenseCartProps = {
   setSelectedEitems: Dispatch<SetStateAction<number[]>>
@@ -16,6 +19,8 @@ type XpenseCartProps = {
   gross: number
   setGross: Dispatch<SetStateAction<number>>
   eCostRef: MutableRefObject<Record<number, number>>
+  inputSumChangeHandler: FC<SumProps>
+  dropButton_Handler: FC<number>
 }
 
 export default function XpenseCart(props: XpenseCartProps) {
@@ -25,11 +30,15 @@ export default function XpenseCart(props: XpenseCartProps) {
         <div className={styles.summSpan}>
           <input
             type="text"
-            value={String(props.eCostRef.current[id])}
-            onChange={inputSumChangeHandler(id)}
+            onChange={(event) =>
+              props.inputSumChangeHandler({
+                id: id,
+                value: Number(event.target.value.replace(/[^\d]/g, ''))
+              })
+            }
             className={styles.inputSum}
             style={{ flex: '0 0 auto' }}
-            placeholder="price"
+            placeholder={String(props.eCostRef.current[id])}
             pattern="^[\d]{0,6}"
           />
           {
@@ -42,7 +51,7 @@ export default function XpenseCart(props: XpenseCartProps) {
         </div>
         <button
           value={id}
-          onClick={dropButtonHandler(id)}
+          onClick={() => props.dropButton_Handler(id)}
           className={stylesH.dropButton}
           style={{ flex: '0 0 auto' }}
         >
@@ -51,36 +60,6 @@ export default function XpenseCart(props: XpenseCartProps) {
       </div>
     </li>
   ))
-
-  function dropButtonHandler(id: Eitem['id']) {
-    return () => {
-      props.setSelectedEitems((prevSelectedEitems) => {
-        delete props.eCostRef.current[id]
-        props.setGross(
-          Object.values(props.eCostRef.current).reduce(
-            (prev, curr) => prev + curr,
-            0
-          )
-        )
-        return prevSelectedEitems.filter((eItem) => eItem !== Number(id))
-      })
-    }
-  }
-
-  function inputSumChangeHandler(id: Eitem['id']) {
-    const handler: ChangeEventHandler<HTMLInputElement> = (event) => {
-      props.eCostRef.current[id] = Number(
-        event.target.value.replace(/[^\d]/g, '')
-      )
-      props.setGross(
-        Object.values(props.eCostRef.current).reduce(
-          (prev, curr) => prev + curr,
-          0
-        )
-      )
-    }
-    return handler
-  }
 
   function saveX_Handler() {
     props.selectedEitems.map((id: number) => {

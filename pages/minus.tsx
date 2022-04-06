@@ -33,9 +33,27 @@ const Home: NextPage = () => {
     Init(setEitems, 'eitems')
   }, [])
 
-  // useEffect(() => {
-  //   console.log('eCostRef.current = ', eCostRef.current)
-  // }, [eCostRef.current])
+  type SumProps = { id: number; value: number }
+
+  const inputSumCh_Handler: React.FC<SumProps> = ({ id, value }) => {
+    console.log('minus - id:', typeof id, id, typeof value, value)
+    eCostRef.current[id] = value
+    setGross(
+      Object.values(eCostRef.current).reduce((prev, curr) => prev + curr, 0)
+    )
+    return null
+  }
+
+  const dropButton_Handler: React.FC<number> = (id) => {
+    delete eCostRef.current[id]
+    setGross(
+      Object.values(eCostRef.current).reduce((prev, curr) => prev + curr, 0)
+    )
+    setSelectedEitems((prevSelectedEitems) => {
+      return prevSelectedEitems.filter((eItem) => eItem !== Number(id))
+    })
+    return null
+  }
 
   return (
     <Layout>
@@ -67,6 +85,8 @@ const Home: NextPage = () => {
             eCostRef={eCostRef}
             gross={gross}
             setGross={setGross}
+            inputSumChangeHandler={inputSumCh_Handler}
+            dropButton_Handler={dropButton_Handler}
           />
         </div>
       </main>

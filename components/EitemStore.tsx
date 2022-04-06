@@ -18,20 +18,25 @@ export default function EitemStore(arg: EitemsStoreArgs) {
     arg.setNewFlag(true)
   }
   const eItemsCheckBoxesSet = arg.eItems.map((item: Eitem) => {
+    //
     function checkHandler() {
+      if (
+        arg.eCostRef.current[item.id] ||
+        arg.eCostRef.current[item.id] === 0
+      ) {
+        delete arg.eCostRef.current[item.id]
+      } else {
+        arg.eCostRef.current[item.id] = item.price
+      }
       //
-      arg.eCostRef.current[item.id] = item.price
+      arg.setGross(
+        Object.values(arg.eCostRef.current).reduce(
+          (prev, curr) => prev + curr,
+          0
+        )
+      )
       //
       arg.setSelectedEitems((prevSelectedEitems) => {
-        if (item.id) {
-          delete arg.eCostRef.current[item.id]
-        }
-        arg.setGross(
-          Object.values(arg.eCostRef.current).reduce(
-            (prev, curr) => prev + curr,
-            0
-          )
-        )
         return prevSelectedEitems.includes(item.id)
           ? prevSelectedEitems.filter(
               (product: Eitem['id']) => product !== item.id
