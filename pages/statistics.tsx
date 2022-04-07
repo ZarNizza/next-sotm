@@ -12,6 +12,9 @@ import DBfullDTable from '../components/DBfullDTable'
 import DBList from '../components/DBList'
 import LiveSelect from '../components/LiveSelectCUSX'
 import toast, { Toaster } from 'react-hot-toast'
+import { useRouter } from 'next/router'
+import { en } from '../locales/en'
+import { ru } from '../locales/ru'
 
 export type apiBody = {
   mode: string
@@ -21,6 +24,8 @@ export type apiBody = {
 }
 
 const Home: NextPage = () => {
+  const router = useRouter()
+  const t = router.locale === 'en' ? en : ru
   const cust0 = {
     id: 0,
     name: '',
@@ -229,11 +234,11 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <Head>
-        <title>Profit Statistics</title>
+        <title>{t.statTitle}</title>
       </Head>
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
-          <h1>Profit Statistics</h1>
+          <h1>{t.statTitle}</h1>
           <Toaster />
           <LiveSelect
             items={customers}

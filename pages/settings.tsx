@@ -4,16 +4,21 @@ import Link from 'next/link'
 import Layout from '../components/layout'
 import styles from '../components/Home.module.scss'
 import Locales from '../components/Locales'
+import { useRouter } from 'next/router'
+import { en } from '../locales/en'
+import { ru } from '../locales/ru'
 
 const Home: NextPage = () => {
+  const router = useRouter()
+  const t = router.locale === 'en' ? en : ru
   return (
     <Layout>
       <Head>
-        <title>Settings</title>
+        <title>{t.settings}</title>
       </Head>
       <main className={styles.main}>
+        <h1>{t.settings}</h1>
         <Locales />
-        <h1>SETTINGS</h1>
         <div className={styles.squareRow}>
           <Link href="/editCustomers" passHref>
             <div className={`${styles.square} ${styles.orange}`}>

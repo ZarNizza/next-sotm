@@ -1,5 +1,25 @@
 export const en = {
   appName: 'Sales and Profit',
   welcomeTitle: 'Welcome Home!',
-  plusTitle: 'Sales accounting'
+  plusTitle: 'Sales accounting',
+  minusTitle: 'Сost accounting',
+  statTitle: 'Profit Statistics',
+  settings: 'Settings',
+  memo: 'memo',
+  today: 'today',
+  month: 'month',
+  signOut: 'Sign out',
+  signIn: 'LogIn with your Google account',
+  cost: 'СOST',
+  settings: 'Settings',
+  settings: 'Settings',
+  settings: 'Settings',
+  settings: 'Settings',
+  settings: 'Settings',
+  settings: 'Settings',
+  settings: 'Settings',
+  settings: 'Settings',
+  settings: 'Settings',
+  settings: 'Settings',
+  settings: 'Settings'
 }

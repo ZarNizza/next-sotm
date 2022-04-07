@@ -4,7 +4,7 @@ import styles from './Home.module.scss'
 import { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 
-export default function WelcomeStat() {
+export default function WelcomeStat(t: any) {
   const [statNow, setStatNow] = useState<string>('0')
   const [statPrev, setStatPrev] = useState<string>('0')
   const bodyNow = {
@@ -76,16 +76,15 @@ export default function WelcomeStat() {
         toast.error('!Loading error: X3')
       })
   }, [])
-
   return (
     <>
       <Toaster />
       <div className={styles.welcomeStatRow}>
-        today :&nbsp;&nbsp;
+        {t.t.today} :&nbsp;&nbsp;
         <span>
           {statNow} / {statPrev}
         </span>
-        &nbsp;&nbsp;: month
+        &nbsp;&nbsp;: {t.t.month}
       </div>
     </>
   )

@@ -8,12 +8,12 @@ export default function WelcomeHome(t: any) {
   return (
     <Layout>
       <Head>
-        <title>{t.welcomeTitle}</title>
+        <title>{t.t.welcomeTitle}</title>
       </Head>
       <main className={styles.main}>
         <div className={styles.columnSpaceBetween}>
           <div className={styles.main}>
-            <h1>{t.appName}</h1>
+            <h1>{t.t.appName}</h1>
             <div className={styles.squareRow}>
               <Link href="/plus" passHref>
                 <div className={`${styles.square} ${styles.orange}`}>
@@ -23,7 +23,7 @@ export default function WelcomeHome(t: any) {
               <div className={styles.squareWrapper}>
                 <Link href="/memo" passHref>
                   <div className={`${styles.halfsquare_top} ${styles.yellow}`}>
-                    <p>memo</p>
+                    <p>{t.t.memo}</p>
                   </div>
                 </Link>
                 <Link href="/minus" passHref>
@@ -41,12 +41,12 @@ export default function WelcomeHome(t: any) {
               </Link>
               <Link href="/settings" passHref>
                 <div className={`${styles.square} ${styles.violet}`}>
-                  <p> Settings </p>
+                  <p>{t.t.settings}</p>
                 </div>
               </Link>
             </div>
           </div>
-          <WelcomeStat />
+          <WelcomeStat t={t.t} />
         </div>
       </main>
     </Layout>
