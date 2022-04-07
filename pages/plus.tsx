@@ -8,6 +8,9 @@ import ProductCart from '../components/ProductCart'
 import LiveSelect from '../components/LiveSelectCUSX'
 import { useEffect, useRef, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
+import { useRouter } from 'next/router'
+import { en } from '../locales/en'
+import { ru } from '../locales/ru'
 
 export type Customer = {
   id: number
@@ -45,6 +48,8 @@ export type Item0 = {
 }
 
 const Home: NextPage = () => {
+  const t = useRouter().locale === 'en' ? en : ru
+
   let cust0: Customer = {
     id: 0,
     name: '',
@@ -134,11 +139,11 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <Head>
-        <title>Sales accounting</title>
+        <title>{t.plusTitle}</title>
       </Head>
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
-          <h1>SALES</h1>
+          <h1>{t.plusTitle}</h1>
           <Toaster />
           <LiveSelect
             items={customers}
@@ -152,9 +157,7 @@ const Home: NextPage = () => {
             mode="new"
           />
           <p>
-            <span className={styles.tips}>
-              collect Products, set Costs, and submit Sale
-            </span>
+            <span className={styles.tips}>{t.plusTips}</span>
           </p>
           <ProductStore
             products={products}

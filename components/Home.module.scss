@@ -54,7 +54,12 @@ $separator: #ddd;
   margin: 0 auto 1rem auto;
   color: $v6;
 }
-
+.locale {
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid violet;
+  border-radius: 0.5rem;
+}
 .columnSpaceBetween {
   display: flex;
   flex-direction: column;

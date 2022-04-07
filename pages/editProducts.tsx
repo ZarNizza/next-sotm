@@ -9,8 +9,12 @@ import ProductEditStore from '../components/ProductEditStore'
 import ProductNew from '../components/ProductNew'
 import ProductEditForm from '../components/ProductEditForm'
 import { Toaster } from 'react-hot-toast'
+import { useRouter } from 'next/router'
+import { en } from '../locales/en'
+import { ru } from '../locales/ru'
 
 const Home: NextPage = () => {
+  const t = useRouter().locale === 'en' ? en : ru
   const [items, setItems] = useState<Product[]>([])
   const [currItem, setCurrItem] = useState<Product['id']>(0)
   const [newFlag, setNewFlag] = useState(false)
@@ -22,11 +26,15 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <Head>
-        <title>Product settings</title>
+        <title>
+          {t.settings}: {t.product}
+        </title>
       </Head>
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
-          <h3>edit PRODUCTS</h3>
+          <h3>
+            {t.settings}: {t.product}
+          </h3>
           <Toaster />
           <ProductEditStore
             items={items}

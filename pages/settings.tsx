@@ -3,24 +3,31 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../components/layout'
 import styles from '../components/Home.module.scss'
+import Locales from '../components/Locales'
+import { useRouter } from 'next/router'
+import { en } from '../locales/en'
+import { ru } from '../locales/ru'
 
 const Home: NextPage = () => {
+  const router = useRouter()
+  const t = router.locale === 'en' ? en : ru
   return (
     <Layout>
       <Head>
-        <title>Settings</title>
+        <title>{t.settings}</title>
       </Head>
       <main className={styles.main}>
-        <h1>SETTINGS</h1>
+        <h1>{t.settings}</h1>
+        <Locales />
         <div className={styles.squareRow}>
           <Link href="/editCustomers" passHref>
             <div className={`${styles.square} ${styles.orange}`}>
-              <p> Customers </p>
+              <p> {t.customers} </p>
             </div>
           </Link>
           <Link href="/sys" passHref>
             <div className={`${styles.square} ${styles.violet}`}>
-              <p> System </p>
+              <p> {t.system} </p>
             </div>
           </Link>
         </div>
@@ -28,12 +35,12 @@ const Home: NextPage = () => {
         <div className={styles.squareRow}>
           <Link href="/editProducts" passHref>
             <div className={`${styles.square} ${styles.blue}`}>
-              <p>Products</p>
+              <p>{t.products}</p>
             </div>
           </Link>
           <Link href="/editSales" passHref>
             <div className={`${styles.square} ${styles.green}`}>
-              <p> Sales </p>
+              <p> {t.sales} </p>
             </div>
           </Link>
         </div>
@@ -41,12 +48,12 @@ const Home: NextPage = () => {
         <div className={styles.squareRow}>
           <Link href="/editEitems" passHref>
             <div className={`${styles.square} ${styles.yellow}`}>
-              <p>X-items</p>
+              <p>{t.eitem}</p>
             </div>
           </Link>
           <Link href="/editXpenses" passHref>
             <div className={`${styles.square} ${styles.pink}`}>
-              <p> Xpenses </p>
+              <p> {t.xpenses} </p>
             </div>
           </Link>
         </div>
@@ -55,7 +62,7 @@ const Home: NextPage = () => {
           <div className={styles.squareWrapper}>
             <Link href="/editUsers" passHref>
               <div className={`${styles.halfsquare_top} ${styles.orange}`}>
-                <p> Users </p>
+                <p> {t.users} </p>
               </div>
             </Link>
           </div>

@@ -36,7 +36,6 @@ export default function handler(
 
       case 'POST':
         const parsedReq = JSON.parse(req.body)
-        // console.log('!!!!!!!!!!! POST, parsedReq=', parsedReq)
         switch (parsedReq.mode) {
           case 'edit':
             sql =
@@ -52,21 +51,6 @@ export default function handler(
             break
           case 'new':
             const sqlDate = serialiseDate(new Date(), '')
-            // const today = serialiseDate(new Date())
-            // const m0 = Number(today.getMonth()) < 9 ? '0' : ''
-            // const d0 = Number(today.getDate()) < 9 ? '0' : ''
-            // const sqlDate = !!parsedReq.date
-            //   ? parsedReq.date
-            //   : String(today.getFullYear()) +
-            //     '-' +
-            //     m0 +
-            //     String(today.getMonth() + 1) +
-            //     '-' +
-            //     d0 +
-            //     String(today.getDate()) +
-            //     'T' +
-            //     timeZone +
-            //     ':00:00'
 
             sql =
               'INSERT INTO sales (date, cust, prod, sum, sumd) VALUES ($1, $2, $3, $4, $5)'
@@ -94,14 +78,12 @@ export default function handler(
         break
     }
     if (sql > '') {
-      // console.log('=== sql OK === ', sql)
       pool.connect().then((client: any) => {
         return client
           .query(sql, params)
           .then((results: any) => {
             res.status(200).json({ data: results.rows })
             client.release()
-            // console.log(results.rows)
             resolve(null)
           })
           .catch((err: any) => {
