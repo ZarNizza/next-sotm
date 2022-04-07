@@ -1,9 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Link from 'next/link'
 import styles from '../styles/Home.module.css'
-import Layout from '../components/layout'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import type { Sale } from './plus'
 
 const Home: NextPage = () => {
@@ -29,7 +27,7 @@ const Home: NextPage = () => {
   }
 
   return (
-    <Layout>
+    <>
       <div className={styles.container}>
         <Head>
           <title>System page</title>
@@ -49,7 +47,7 @@ const Home: NextPage = () => {
           </div>
         </main>
       </div>
-    </Layout>
+    </>
   )
 }
 

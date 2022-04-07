@@ -2,7 +2,6 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
-import Layout from '../components/layout'
 import { useState } from 'react'
 import DBshortTable from '../components/DBshortTable'
 import toast, { Toaster } from 'react-hot-toast'
@@ -103,7 +102,7 @@ const Home: NextPage = () => {
     sys_handler('show_Eitems')
   }
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////
 
   function sys_handler(title: string) {
     if (!confirm('... Sure?')) return
@@ -130,7 +129,7 @@ const Home: NextPage = () => {
   }
 
   return (
-    <Layout>
+    <>
       <Head>
         <title>System page</title>
       </Head>
@@ -185,7 +184,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </main>
-    </Layout>
+    </>
   )
 }
 

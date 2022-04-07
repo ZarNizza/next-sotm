@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useEffect, useRef, useState } from 'react'
-import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
 import Init from '../components/Init'
 import EitemStore from '../components/EitemStore'
@@ -60,7 +59,7 @@ const Home: NextPage = () => {
   }
 
   return (
-    <Layout>
+    <>
       <Head>
         <title>{t.minusTitle}</title>
       </Head>
@@ -94,7 +93,7 @@ const Home: NextPage = () => {
           />
         </div>
       </main>
-    </Layout>
+    </>
   )
 }
 

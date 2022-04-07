@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
-import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
 import Init from '../components/Init'
 import EitemEditStore from '../components/EitemEditStore'
@@ -36,7 +35,7 @@ const Home: NextPage = () => {
   }, [])
 
   return (
-    <Layout>
+    <>
       <Head>
         <title>
           {t.settings}: {t.eitems}
@@ -78,7 +77,7 @@ const Home: NextPage = () => {
           )}
         </div>
       </main>
-    </Layout>
+    </>
   )
 }
 

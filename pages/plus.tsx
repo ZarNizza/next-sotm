@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
 import Init from '../components/Init'
 import ProductStore from '../components/ProductStore'
@@ -137,7 +136,7 @@ const Home: NextPage = () => {
   }
 
   return (
-    <Layout>
+    <>
       <Head>
         <title>{t.plusTitle}</title>
       </Head>
@@ -182,7 +181,7 @@ const Home: NextPage = () => {
           />
         </div>
       </main>
-    </Layout>
+    </>
   )
 }
 

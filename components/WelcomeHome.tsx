@@ -1,12 +1,11 @@
 import Head from 'next/head'
 import styles from './Home.module.scss'
-import Layout from './layout'
 import Link from 'next/link'
 import WelcomeStat from './WelcomeStat'
 
 export default function WelcomeHome(t: any) {
   return (
-    <Layout>
+    <>
       <Head>
         <title>{t.t.welcomeTitle}</title>
       </Head>
@@ -49,6 +48,6 @@ export default function WelcomeHome(t: any) {
           <WelcomeStat t={t.t} />
         </div>
       </main>
-    </Layout>
+    </>
   )
 }

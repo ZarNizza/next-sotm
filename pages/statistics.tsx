@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useEffect, useRef, useState } from 'react'
-import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
 import { Sale, Product, Customer } from './plus'
 import Init from '../components/Init'
@@ -232,7 +231,7 @@ const Home: NextPage = () => {
     }
   }
   return (
-    <Layout>
+    <>
       <Head>
         <title>{t.statTitle}</title>
       </Head>
@@ -297,7 +296,7 @@ const Home: NextPage = () => {
           <Tabloid />
         </div>
       </main>
-    </Layout>
+    </>
   )
 }
 

@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
 import { useRouter } from 'next/router'
 import { en } from '../locales/en'
@@ -9,7 +8,7 @@ import { ru } from '../locales/ru'
 const Home: NextPage = () => {
   const t = useRouter().locale === 'en' ? en : ru
   return (
-    <Layout>
+    <>
       <Head>
         <title>{t.memo}</title>
       </Head>
@@ -22,7 +21,7 @@ const Home: NextPage = () => {
           plan future visits / calls / sales.
         </p>
       </main>
-    </Layout>
+    </>
   )
 }
 

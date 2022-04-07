@@ -2,7 +2,6 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useEffect, useRef, useState } from 'react'
 import styles from '../styles/Home.module.css'
-import Layout from '../components/layout'
 import { Customer } from './plus'
 import fetchHandler, { FetchArgs } from '../components/fetchHandler'
 import Init from '../components/Init'
@@ -48,7 +47,7 @@ const Home: NextPage = () => {
   //
 
   return (
-    <Layout>
+    <>
       <Head>
         <title>
           {t.settings}: {t.customers}
@@ -109,7 +108,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </main>
-    </Layout>
+    </>
   )
 }
 

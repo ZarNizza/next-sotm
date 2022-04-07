@@ -2,8 +2,6 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useEffect, useRef, useState } from 'react'
 import styles from '../styles/Home.module.css'
-import Layout from '../components/layout'
-import fetchHandler, { FetchArgs } from '../components/fetchHandler'
 import Init from '../components/Init'
 import LiveSelect from '../components/LiveSelectCUSX'
 import EditForm from '../components/EditFormCUSX'
@@ -57,7 +55,7 @@ const Home: NextPage = () => {
   //
 
   return (
-    <Layout>
+    <>
       <Head>
         <title>
           {t.settings}: {t.users}
@@ -118,7 +116,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </main>
-    </Layout>
+    </>
   )
 }
 
