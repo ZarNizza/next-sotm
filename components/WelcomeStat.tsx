@@ -1,10 +1,13 @@
 import type { apiBody } from '../pages/statistics'
 import myDate from './MyDate'
 import styles from './Home.module.scss'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
+import useAppContext from './AppContext'
 
 export default function WelcomeStat(t: any) {
+  const value = useAppContext()
+  console.log('value=', value)
   const [statNow, setStatNow] = useState<string>('0')
   const [statPrev, setStatPrev] = useState<string>('0')
   const bodyNow = {
