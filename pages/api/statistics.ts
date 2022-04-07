@@ -23,15 +23,12 @@ export default async function sysHandler(
   return new Promise((resolve, reject) => {
     // common function
     function poolGetConnection(sqlQuery: string, source: string) {
-      // console.log('\n\n pool sqlQuery: ', sqlQuery)
       pool.connect().then((client: any) => {
         return client
           .query(sqlQuery, [])
           .then((results: any) => {
             client.release()
             res.status(201).json({ data: results.rows, source: source })
-            // console.log('Promise result:', results)
-            // console.log('Promise result rows', results.rows, '\n\n')
             resolve(results)
             return results
           })
@@ -70,17 +67,6 @@ export default async function sysHandler(
     let finishDate = parsedReq.finishDate
       ? "'" + parsedReq.finishDate + "'"
       : "'2099-12-31 23:59:59'"
-
-    // if (parsedReq.finishDate) {
-    //   const fDate = new Date(parsedReq.finishDate)
-    //   fDate.setDate(fDate.getDate() + 1)
-    //   let finDate = String(fDate.getFullYear()) + '-'
-    //   if (fDate.getMonth() < 9) finDate += '0'
-    //   finDate += String(fDate.getMonth() + 1) + '-'
-    //   if (fDate.getDate() < 10) finDate += '0'
-    //   finDate += String(fDate.getDate())
-    //   finishDate = "'" + finDate + " 00:00:00'"
-    // }
 
     if (startDate > finishDate) {
       //silent Dates swap

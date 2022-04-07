@@ -60,10 +60,5 @@ export default function myDate(mark: string) {
     resultDate += ' 00:00'
   }
 
-  // if (myDate.getHours() < 10) resultDate += '0'
-  // resultDate += String(myDate.getHours()) + ':'
-  // if (myDate.getMinutes() < 10) resultDate += '0'
-  // resultDate += String(myDate.getMinutes())
-
   return resultDate
 }

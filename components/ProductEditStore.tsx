@@ -2,6 +2,9 @@ import { CheckBoxButton, CheckBoxNewButton } from './CheckBoxButton'
 import styles from '../styles/Home.module.css'
 import { Dispatch, SetStateAction } from 'react'
 import { Product } from '../pages/plus'
+import { useRouter } from 'next/router'
+import { en } from '../locales/en'
+import { ru } from '../locales/ru'
 
 interface ProductsStoreArgs {
   items: Product[]
@@ -11,6 +14,7 @@ interface ProductsStoreArgs {
 }
 
 export default function ProductEditStore(arg: ProductsStoreArgs) {
+  const t = useRouter().locale === 'en' ? en : ru
   //
   function newHandler() {
     arg.setNewFlag(true)
@@ -41,7 +45,7 @@ export default function ProductEditStore(arg: ProductsStoreArgs) {
   pItemsCheckBoxesSet.push(
     <CheckBoxNewButton
       key="new!"
-      text="+New"
+      text={'+' + t.new}
       onClick={newHandler}
       checked={false}
     />

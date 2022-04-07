@@ -33,7 +33,6 @@ export default function handler(
 
       case 'POST':
         const parsedReq = JSON.parse(req.body)
-        // console.log('!!!!!!!!!!! POST, parsedReq=', parsedReq)
         switch (parsedReq.mode) {
           case 'edit':
             sql =
@@ -77,7 +76,6 @@ export default function handler(
           .then((results: any) => {
             res.status(200).json({ data: results.rows })
             client.release()
-            // console.log(results.rows)
             resolve(null)
           })
           .catch((err: any) => {

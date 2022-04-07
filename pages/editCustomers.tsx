@@ -10,8 +10,12 @@ import LiveSelect from '../components/LiveSelectCUSX'
 import EditForm from '../components/EditFormCUSX'
 import DBshortTable from '../components/DBshortTable'
 import { Toaster } from 'react-hot-toast'
+import { useRouter } from 'next/router'
+import { en } from '../locales/en'
+import { ru } from '../locales/ru'
 
 const Home: NextPage = () => {
+  const t = useRouter().locale === 'en' ? en : ru
   const cust0 = {
     id: 0,
     name: '',
@@ -46,12 +50,16 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <Head>
-        <title>Customers</title>
+        <title>
+          {t.settings}: {t.customers}
+        </title>
       </Head>
 
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
-          <h2>edit CUSTOMERS: {items.length}</h2>
+          <h2>
+            {t.settings}: {t.customers}: {items.length}
+          </h2>
           <Toaster />
           <LiveSelect
             items={items}
@@ -85,11 +93,11 @@ const Home: NextPage = () => {
               onClick={() => setShowTableFlag(!showTableFlag)}
               className={styles.sysButton}
             >
-              Show/Hide all
+              {t.showHideAll}
             </button>
             {showTableFlag ? (
               items === undefined || items.length === 0 ? (
-                <p>No data - empty result</p>
+                <p>{t.db_empty}</p>
               ) : (
                 <div className={styles.tableScroll}>
                   <DBshortTable resData={items} />

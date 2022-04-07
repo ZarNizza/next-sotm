@@ -2,6 +2,9 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import { Product } from '../pages/plus'
 import stylesH from '../styles/Home.module.css'
 import styles from './Select.module.scss'
+import { useRouter } from 'next/router'
+import { en } from '../locales/en'
+import { ru } from '../locales/ru'
 
 type newProductArgs = {
   setItems: Dispatch<SetStateAction<Product[]>>
@@ -10,6 +13,7 @@ type newProductArgs = {
 }
 
 export default function PitemNew(arg: newProductArgs) {
+  const t = useRouter().locale === 'en' ? en : ru
   const [pItem, setPitem] = useState('')
   const [pSymbol, setPsymbol] = useState('')
   const [pPrice, setPprice] = useState(0)
@@ -29,7 +33,7 @@ export default function PitemNew(arg: newProductArgs) {
       .then((res) => res.json())
       .then((res) => {
         if (res.error) {
-          alert('newPitem ERROR: ' + res.error)
+          alert(t.error + res.error)
         } else {
           console.log('newPitem = OK', res)
           setPitem('')
@@ -43,7 +47,7 @@ export default function PitemNew(arg: newProductArgs) {
           .then((res) => res.json())
           .then((res) => {
             if (res.error) {
-              alert('newPitem reInit ERROR: ' + res.error)
+              alert(t.error + res.error)
             } else {
               console.log('newPitem reInit = OK', res)
               arg.setItems(() => res.data)
@@ -51,7 +55,7 @@ export default function PitemNew(arg: newProductArgs) {
             }
           })
       })
-      .catch((error) => alert('! newPitem error - ' + error.message))
+      .catch((error) => alert(t.error + error.message))
   }
 
   function input_P_ChHandler(pName: string) {
@@ -73,13 +77,15 @@ export default function PitemNew(arg: newProductArgs) {
   return (
     <div className={styles.floatWrapper}>
       <div className={styles.newPeditForm}>
-        <p className={styles.title}>New Product Item</p>
+        <p className={styles.title}>
+          {t.new} {t.product}
+        </p>
         <p>
           <input
             id="pInput"
             value={pItem}
             onChange={(event) => input_P_ChHandler(event.target.value)}
-            placeholder="Item description"
+            placeholder={t.descr}
             pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
             className={styles.inputP}
           />
@@ -89,7 +95,7 @@ export default function PitemNew(arg: newProductArgs) {
             id="pSymbolInput"
             value={pSymbol}
             onChange={(event) => input_Psymbol_ChHandler(event.target.value)}
-            placeholder="ShrtNam"
+            placeholder={t.shrtNam}
             pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
             className={styles.inputP}
           />
@@ -106,10 +112,10 @@ export default function PitemNew(arg: newProductArgs) {
         </p>
         <p className={styles.flexRow}>
           <button onClick={add_P_handler} className={stylesH.sysButton}>
-            <b>Save</b>
+            <b>{t.save}</b>
           </button>
           <button onClick={dropButtonHandler} className={stylesH.sysButton}>
-            Cancel
+            {t.cancel}
           </button>
         </p>
       </div>

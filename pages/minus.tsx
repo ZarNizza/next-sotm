@@ -26,8 +26,7 @@ export type Xpense = {
 }
 
 const Home: NextPage = () => {
-  const router = useRouter()
-  const t = router.locale === 'en' ? en : ru
+  const t = useRouter().locale === 'en' ? en : ru
   const [eItems, setEitems] = useState<Eitem[]>([])
   const [selectedEitems, setSelectedEitems] = useState<Eitem['id'][]>([])
   const eCostRef = useRef<Record<Eitem['id'], number>>({})

@@ -171,7 +171,6 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
               ? res.status(200).json({ data: results.rows })
               : res.status(203).json({ data: 'OK' })
             client.release()
-            // console.log(results.rows)
             resolve(null)
           })
           .catch((err: any) => {

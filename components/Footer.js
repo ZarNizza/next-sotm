@@ -1,8 +1,12 @@
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import styles from './Footer.module.scss'
+import { useRouter } from 'next/router'
+import { en } from '../locales/en'
+import { ru } from '../locales/ru'
 
 export default function Footer() {
+  const t = useRouter().locale === 'en' ? en : ru
   const { data: session } = useSession()
   // return session ? (
   return (
@@ -60,7 +64,7 @@ export default function Footer() {
             <a className={styles.footerLink}>
               <span className={styles.rb_pink}>
                 <div className={`${styles.footerLabel} ${styles.thinText}`}>
-                  Set
+                  {t.set}
                 </div>
               </span>
             </a>

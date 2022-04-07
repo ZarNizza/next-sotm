@@ -2,6 +2,9 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import { Product } from '../pages/plus'
 import stylesH from '../styles/Home.module.css'
 import styles from './Select.module.scss'
+import { useRouter } from 'next/router'
+import { en } from '../locales/en'
+import { ru } from '../locales/ru'
 
 type editPitemArgs = {
   itemToEdit: Product
@@ -10,6 +13,7 @@ type editPitemArgs = {
 }
 
 export default function ProductEditForm(arg: editPitemArgs) {
+  const t = useRouter().locale === 'en' ? en : ru
   const [pName, setPitem] = useState(arg.itemToEdit.name)
   const [pSymbol, setPsymbol] = useState(arg.itemToEdit.symbol)
   const [pPrice, setPprice] = useState(arg.itemToEdit.price)
@@ -34,7 +38,7 @@ export default function ProductEditForm(arg: editPitemArgs) {
       .then((res) => res.json())
       .then((res) => {
         if (res.error) {
-          alert('newPitem ERROR: ' + res.error)
+          alert(t.error + res.error)
         } else {
           console.log('newPitem = OK')
           setPitem('')
@@ -48,7 +52,7 @@ export default function ProductEditForm(arg: editPitemArgs) {
           .then((res) => res.json())
           .then((res) => {
             if (res.error) {
-              alert('newPitem reInit ERROR: ' + res.error)
+              alert(t.error + res.error)
             } else {
               console.log('newPitem reInit = OK')
               arg.setItems(() => res.data)
@@ -56,7 +60,7 @@ export default function ProductEditForm(arg: editPitemArgs) {
             }
           })
       })
-      .catch((error) => alert('! newPitem error - ' + error.message))
+      .catch((error) => alert(t.error + error.message))
   }
 
   function input_Pname_ChHandler(pName: string) {
@@ -78,13 +82,13 @@ export default function ProductEditForm(arg: editPitemArgs) {
   return (
     <div className={styles.floatWrapper}>
       <div className={styles.newPeditForm}>
-        <p className={styles.title}>Edit Product Item</p>
+        <p className={styles.title}>{t.edit}</p>
         <p>
           <input
             id="pInput"
             value={pName}
             onChange={(event) => input_Pname_ChHandler(event.target.value)}
-            placeholder="Item description"
+            placeholder={t.descr}
             pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
             className={styles.inputP}
           />
@@ -94,7 +98,7 @@ export default function ProductEditForm(arg: editPitemArgs) {
             id="pSymbolInput"
             value={pSymbol}
             onChange={(event) => input_Psymbol_ChHandler(event.target.value)}
-            placeholder="ShrtNam"
+            placeholder={t.shrtNam}
             pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
             className={styles.inputP}
           />
@@ -111,10 +115,10 @@ export default function ProductEditForm(arg: editPitemArgs) {
         </p>
         <p className={styles.flexRow}>
           <button onClick={upd_P_handler} className={stylesH.sysButton}>
-            <b>Update</b>
+            <b>{t.update}</b>
           </button>
           <button onClick={dropButtonHandler} className={stylesH.sysButton}>
-            Cancel
+            {t.cancel}
           </button>
         </p>
       </div>

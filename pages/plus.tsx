@@ -157,9 +157,7 @@ const Home: NextPage = () => {
             mode="new"
           />
           <p>
-            <span className={styles.tips}>
-              collect Products, set Costs, and submit Sale
-            </span>
+            <span className={styles.tips}>{t.plusTips}</span>
           </p>
           <ProductStore
             products={products}
