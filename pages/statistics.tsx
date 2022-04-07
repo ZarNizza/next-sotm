@@ -194,7 +194,7 @@ const Home: NextPage = () => {
   }
   function Tabloid() {
     if (resData === undefined || resData.length === 0)
-      return <p className={styles.tips}>No data - empty result</p>
+      return <p className={styles.tips}>{t.db_empty}</p>
 
     switch (resSource) {
       case 'short': {
@@ -266,9 +266,7 @@ const Home: NextPage = () => {
               onChange={(event) => finishDateChangeHandler(event.target.value)}
             />
           </div>
-          <div className={styles.tips}>
-            Long period may cause tooooo wide view
-          </div>
+          <div className={styles.tips}>{t.toooWide}</div>
           <div className={styles.sysButtonsGroup}>
             <div className={styles.flexRowContainer}>
               <button onClick={setTodayHandler}>Today</button>

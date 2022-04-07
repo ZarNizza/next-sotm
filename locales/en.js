@@ -59,5 +59,6 @@ export const en = {
   selItem: 'select item',
   xCart: 'Xpense Cart',
   byIt: 'Xpense it!',
-  authError: 'You Are Not Authorised'
+  authError: 'You Are Not Authorised',
+  toooWide: 'Long period may cause tooooo wide view'
 }
