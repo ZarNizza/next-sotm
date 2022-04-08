@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/react'
 import styles from './Footer.module.scss'
 import { AppContext } from './AppContext'
 import { useContext } from 'react'
+import { SVG_edit } from './SVG_edit'
 
 export default function Footer() {
   const c = useContext(AppContext)
@@ -62,8 +63,8 @@ export default function Footer() {
           <Link href="/settings" passHref>
             <a className={styles.footerLink}>
               <span className={styles.rb_pink}>
-                <div className={`${styles.footerLabel} ${styles.thinText}`}>
-                  ⚙
+                <div className={styles.footerLabel}>
+                  <SVG_edit />
                 </div>
               </span>
             </a>

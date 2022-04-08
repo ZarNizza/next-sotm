@@ -4,6 +4,7 @@ import Link from 'next/link'
 import WelcomeStat from './WelcomeStat'
 import { AppContext } from './AppContext'
 import { useContext } from 'react'
+import { SVG_edit } from './SVG_edit'
 
 export default function WelcomeHome() {
   const c = useContext(AppContext)
@@ -43,7 +44,9 @@ export default function WelcomeHome() {
               </Link>
               <Link href="/settings" passHref>
                 <div className={`${styles.square} ${styles.violet}`}>
-                  <p> ⚙ </p>
+                  <p>
+                    <SVG_edit />
+                  </p>
                 </div>
               </Link>
             </div>
