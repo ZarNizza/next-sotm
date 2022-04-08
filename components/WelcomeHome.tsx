@@ -43,7 +43,7 @@ export default function WelcomeHome() {
               </Link>
               <Link href="/settings" passHref>
                 <div className={`${styles.square} ${styles.violet}`}>
-                  <p>{c.t.settings}</p>
+                  <p> ⚙ </p>
                 </div>
               </Link>
             </div>

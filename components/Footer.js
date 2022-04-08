@@ -63,7 +63,7 @@ export default function Footer() {
             <a className={styles.footerLink}>
               <span className={styles.rb_pink}>
                 <div className={`${styles.footerLabel} ${styles.thinText}`}>
-                  {c.t.set}
+                  ⚙
                 </div>
               </span>
             </a>
