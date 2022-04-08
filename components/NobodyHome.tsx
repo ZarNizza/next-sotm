@@ -1,16 +1,15 @@
 import LoggedStatus from './LoggedStatus'
 import Head from 'next/head'
 import styles from './Home.module.scss'
-import { useRouter } from 'next/router'
-import { en } from '../locales/en'
-import { ru } from '../locales/ru'
+import { AppContext } from './AppContext'
+import { useContext } from 'react'
 
 export default function NobodyHome() {
-  const t = useRouter().locale === 'en' ? en : ru
+  const c = useContext(AppContext)
   return (
     <>
       <Head>
-        <title>{t.welcomeTitle}</title>
+        <title>{c.t.welcomeTitle}</title>
       </Head>
       <main className={styles.main}>
         <h3>

@@ -2,9 +2,8 @@ import { CheckBoxButton, CheckBoxNewButton } from './CheckBoxButton'
 import styles from '../styles/Home.module.css'
 import { Dispatch, MutableRefObject, SetStateAction } from 'react'
 import { Eitem } from '../pages/minus'
-import { useRouter } from 'next/router'
-import { en } from '../locales/en'
-import { ru } from '../locales/ru'
+import { AppContext } from './AppContext'
+import { useContext } from 'react'
 
 interface EitemsStoreArgs {
   eItems: Eitem[]
@@ -16,7 +15,7 @@ interface EitemsStoreArgs {
 }
 
 export default function EitemStore(arg: EitemsStoreArgs) {
-  const t = useRouter().locale === 'en' ? en : ru
+  const c = useContext(AppContext)
   //
   function newHandler() {
     arg.setNewFlag(true)
@@ -61,7 +60,7 @@ export default function EitemStore(arg: EitemsStoreArgs) {
   eItemsCheckBoxesSet.push(
     <CheckBoxNewButton
       key="new!"
-      text={'+' + t.new}
+      text={'+' + c.t.new}
       onClick={newHandler}
       checked={false}
     />

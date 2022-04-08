@@ -1,10 +1,11 @@
-import type { apiBody } from '../pages/statistics'
 import myDate from './MyDate'
 import styles from './Home.module.scss'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
+import { AppContext } from './AppContext'
 
-export default function WelcomeStat(t: any) {
+export default function WelcomeStat() {
+  const c = useContext(AppContext)
   const [statNow, setStatNow] = useState<string>('0')
   const [statPrev, setStatPrev] = useState<string>('0')
   const bodyNow = {
@@ -80,11 +81,11 @@ export default function WelcomeStat(t: any) {
     <>
       <Toaster />
       <div className={styles.welcomeStatRow}>
-        {t.t.today} :&nbsp;&nbsp;
+        {c.t.today} :&nbsp;&nbsp;
         <span>
           {statNow} / {statPrev}
         </span>
-        &nbsp;&nbsp;: {t.t.month}
+        &nbsp;&nbsp;: {c.t.month}
       </div>
     </>
   )

@@ -7,9 +7,8 @@ import EitemEditStore from '../components/EitemEditStore'
 import EitemNew from '../components/EitemNew'
 import EitemEditForm from '../components/EitemEditForm'
 import { Toaster } from 'react-hot-toast'
-import { useRouter } from 'next/router'
-import { en } from '../locales/en'
-import { ru } from '../locales/ru'
+import { AppContext } from '../components/AppContext'
+import { useContext } from 'react'
 
 export type Eitem = {
   id: number
@@ -25,7 +24,7 @@ export type Xpense = {
 }
 
 const Home: NextPage = () => {
-  const t = useRouter().locale === 'en' ? en : ru
+  const c = useContext(AppContext)
   const [items, setItems] = useState<Eitem[]>([])
   const [currItem, setCurrItem] = useState<Eitem['id']>(0)
   const [newFlag, setNewFlag] = useState(false)
@@ -38,14 +37,13 @@ const Home: NextPage = () => {
     <>
       <Head>
         <title>
-          {t.settings}: {t.eitems}
+          {c.t.settings}: {c.t.eitems}
         </title>
       </Head>
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
-          <h3>
-            {t.settings}: {t.eitems}
-          </h3>
+          <h3>{c.t.settings}</h3>
+          <h2>{c.t.eitems}</h2>
           <Toaster />
           <EitemEditStore
             items={items}

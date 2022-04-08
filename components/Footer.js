@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import styles from './Footer.module.scss'
-import { useRouter } from 'next/router'
-import { en } from '../locales/en'
-import { ru } from '../locales/ru'
+import { AppContext } from './AppContext'
+import { useContext } from 'react'
+import { SVG_edit } from './SVG_edit'
 
 export default function Footer() {
-  const t = useRouter().locale === 'en' ? en : ru
+  const c = useContext(AppContext)
   const { data: session } = useSession()
   // return session ? (
   return (
@@ -63,8 +63,8 @@ export default function Footer() {
           <Link href="/settings" passHref>
             <a className={styles.footerLink}>
               <span className={styles.rb_pink}>
-                <div className={`${styles.footerLabel} ${styles.thinText}`}>
-                  {t.set}
+                <div className={styles.footerLabel}>
+                  <SVG_edit />
                 </div>
               </span>
             </a>

@@ -10,9 +10,8 @@ import type { Xpense } from '../pages/minus'
 import type { User } from '../pages/editUsers'
 import styles from './Select.module.scss'
 import stylesH from '../styles/Home.module.css'
-import { useRouter } from 'next/router'
-import { en } from '../locales/en'
-import { ru } from '../locales/ru'
+import { AppContext } from './AppContext'
+import { useContext } from 'react'
 
 /** Arguments/Props for this Select component */
 type SelectArgs = {
@@ -29,7 +28,7 @@ type SelectArgs = {
 type T = SelectArgs['setCurrentItem']
 
 const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
-  const t = useRouter().locale === 'en' ? en : ru
+  const c = useContext(AppContext)
   const [flagNew, setFlagNew] = useState('')
   const [newName, setNewName] = useState('')
   const [newPhone, setNewPhone] = useState('')
@@ -63,7 +62,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
       item0 = { id: 0, name: '', phone: '', gooid: '' }
       apiName = 'customers'
       body = { mode: 'new', name: newName, phone: newPhone, gooid: newGooid }
-      newTitle = t.customer
+      newTitle = c.t.customer
       break
     }
     case 'U': {
@@ -76,7 +75,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
         gooid: newGooid,
         timezone: newTimeZone
       }
-      newTitle = t.user
+      newTitle = c.t.user
       break
     }
     case 'S': {
@@ -90,7 +89,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
         sum: newSum,
         sumd: newSumD
       }
-      newTitle = t.sale
+      newTitle = c.t.sale
       break
     }
     case 'X': {
@@ -102,7 +101,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
         xitem: newXitem,
         sum: newSum
       }
-      newTitle = t.xpense
+      newTitle = c.t.xpense
       break
     }
     default: {
@@ -141,7 +140,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
     switch (a.type) {
       case 'C': {
         if (newName === '' || newPhone === '') {
-          alert('! ' + t.emptyField + ' !')
+          alert('! ' + c.t.emptyField + ' !')
           setFlagNew(() => '')
           return
         }
@@ -149,7 +148,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
       }
       case 'U': {
         if (newName === '' || newPhone === '' || newTimeZone === '') {
-          alert('! ' + t.emptyField + ' !')
+          alert('! ' + c.t.emptyField + ' !')
           setFlagNew(() => '')
           return
         }
@@ -162,7 +161,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
           newProd === '' ||
           newSum === ''
         ) {
-          alert('! ' + t.emptyField + ' !')
+          alert('! ' + c.t.emptyField + ' !')
           setFlagNew(() => '')
           return
         }
@@ -170,14 +169,14 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
       }
       case 'X': {
         if (newDate === '' || newXitem === '' || newSum === '') {
-          alert('! ' + t.emptyField + ' !')
+          alert('! ' + c.t.emptyField + ' !')
           setFlagNew(() => '')
           return
         }
         break
       }
       default: {
-        alert(t.emptyAPItype)
+        alert(c.t.emptyAPItype)
         return
       }
     }
@@ -190,7 +189,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
       .then((res) => {
         if (res.error) {
           console.log('--- saveNew DB/api error: ' + res.error)
-          alert(t.db_errX3)
+          alert(c.t.db_errX3)
         } else {
           if (!!a.updateFunc) a.updateFunc()
         }
@@ -399,7 +398,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
         <input
           type="search"
           ref={a.liveRef}
-          placeholder={t.startTyping}
+          placeholder={c.t.startTyping}
           pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
           onChange={liveSearch}
           className={styles.inputCust}
@@ -409,7 +408,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
           className={stylesH.plusButton}
           hidden={a.mode === 'stat'}
         >
-          +{t.new}
+          +{c.t.new}
         </button>
         <button onClick={dropHandler} className={stylesH.dropButton}>
           X
@@ -421,13 +420,13 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
       <div className={styles.floatWrapper} hidden={flagNew === ''}>
         <div className={styles.newCust}>
           <p className={styles.title}>
-            {t.new} {newTitle}
+            {c.t.new} {newTitle}
           </p>
           <p hidden={a.type !== 'C' && a.type !== 'U'}>
             <input
               type="text"
               className={styles.inputCust}
-              placeholder={t.name}
+              placeholder={c.t.name}
               pattern="[a-zA-Zа-яА-Я\s\-]{1,50}"
               value={newName || ''}
               onChange={(event) =>
@@ -462,7 +461,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
             />
           </p> */}
           <p hidden={a.type !== 'U'}>
-            {t.tZone}:
+            {c.t.tZone}:
             <input
               type="text"
               className={styles.inputCust}
@@ -475,7 +474,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
             />
           </p>
           <p hidden={a.type !== 'S' && a.type !== 'X'}>
-            {t.date}:
+            {c.t.date}:
             <input
               type="text"
               className={styles.inputCust}
@@ -489,7 +488,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
           </p>
           <p hidden={a.type !== 'S'}>
             {' '}
-            {t.custId}:
+            {c.t.custId}:
             <input
               type="text"
               className={styles.inputCust}
@@ -502,7 +501,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
             />
           </p>
           <p hidden={a.type !== 'S'}>
-            {t.prodId}:
+            {c.t.prodId}:
             <input
               type="text"
               className={styles.inputCust}
@@ -515,7 +514,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
             />
           </p>
           <p hidden={a.type !== 'X'}>
-            {t.eId}:
+            {c.t.eId}:
             <input
               type="text"
               className={styles.inputCust}
@@ -528,7 +527,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
             />
           </p>
           <p hidden={a.type !== 'S' && a.type !== 'X'}>
-            {t.sum}:
+            {c.t.sum}:
             <input
               type="text"
               className={styles.inputCust}
@@ -556,10 +555,10 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
 
           <p className={styles.flexRow}>
             <button onClick={saveNewHandler} className={stylesH.sysButton}>
-              {t.save}
+              {c.t.save}
             </button>
             <button onClick={dropHandler} className={stylesH.sysButton}>
-              {t.cancel}
+              {c.t.cancel}
             </button>
           </p>
         </div>

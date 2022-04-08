@@ -5,9 +5,8 @@ import { User } from '../pages/editUsers'
 import styles from './Select.module.scss'
 import stylesH from '../styles/Home.module.css'
 import fetchHandler, { FetchArgs } from './fetchHandler'
-import { useRouter } from 'next/router'
-import { en } from '../locales/en'
-import { ru } from '../locales/ru'
+import { AppContext } from './AppContext'
+import { useContext } from 'react'
 
 type editFormArgs = {
   itemToEdit: any
@@ -31,7 +30,7 @@ type editFormArgs = {
 // }
 
 export default function EditForm(a: editFormArgs) {
-  const t = useRouter().locale === 'en' ? en : ru
+  const c = useContext(AppContext)
   const [newName, setNewName] = useState(a.itemToEdit.name || '')
   const [newPhone, setNewPhone] = useState(a.itemToEdit.phone || '')
   const [newGooid, setNewGooid] = useState(a.itemToEdit.gooid || '')
@@ -144,7 +143,7 @@ export default function EditForm(a: editFormArgs) {
         <input
           type="text"
           className={styles.inputCust}
-          placeholder={t.name}
+          placeholder={c.t.name}
           pattern="[a-zA-Zа-яА-Я\s\-\d]{1,50}"
           value={newName || ''}
           onChange={(event) =>
@@ -159,7 +158,7 @@ export default function EditForm(a: editFormArgs) {
         <input
           type="text"
           className={styles.inputCust}
-          placeholder={t.symbol}
+          placeholder={c.t.symbol}
           pattern="[a-zA-Zа-яА-Я\s\-\d]{1,7}"
           value={newSymbol || ''}
           onChange={(event) =>

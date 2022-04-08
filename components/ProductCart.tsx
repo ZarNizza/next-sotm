@@ -9,9 +9,8 @@ import {
   MutableRefObject,
   SetStateAction
 } from 'react'
-import { useRouter } from 'next/router'
-import { en } from '../locales/en'
-import { ru } from '../locales/ru'
+import { AppContext } from './AppContext'
+import { useContext } from 'react'
 
 type SumProps = { id: number; value: number }
 
@@ -30,7 +29,7 @@ type ProductCartProps = {
 }
 
 export default function ProductCart(props: ProductCartProps) {
-  const t = useRouter().locale === 'en' ? en : ru
+  const c = useContext(AppContext)
   const qqq = props.selectedProducts.map((id: Product['id']) => (
     <li key={id}>
       <div className={styles.productNameRow}>
@@ -83,12 +82,12 @@ export default function ProductCart(props: ProductCartProps) {
 
   function saveSaleHandler() {
     if (props.currentCustomer.id === 0) {
-      alert(t.attentionSelCust)
+      alert(c.t.attentionSelCust)
       return
     }
     props.selectedProducts.map((id: number) => {
       if (isNaN(props.prodCostRef.current[id])) {
-        alert(t.attentionPrice)
+        alert(c.t.attentionPrice)
       } else {
         const sale = {
           mode: 'new',
@@ -105,7 +104,7 @@ export default function ProductCart(props: ProductCartProps) {
           .then((res) => {
             if (res.error) {
               console.log('--- prodCart DB/api error: ' + res.error)
-              alert(t.db_errX3)
+              alert(c.t.db_errX3)
             } else {
               props.setSelectedProducts((prevSelectedProducts) =>
                 prevSelectedProducts.filter((product) => product !== Number(id))
@@ -115,7 +114,7 @@ export default function ProductCart(props: ProductCartProps) {
           })
           .catch((error) => {
             console.log('--- catch prodCart fetch error - ', error)
-            alert('fetch ' + t.db_errX3)
+            alert('fetch ' + c.t.db_errX3)
           })
       }
     })
@@ -127,30 +126,30 @@ export default function ProductCart(props: ProductCartProps) {
         <>
           <p>
             <span>&uarr; &uarr; &uarr;&nbsp;&nbsp;</span>
-            {t.selProd}
+            {c.t.selProd}
             <span>&nbsp;&nbsp;&uarr; &uarr; &uarr;</span>
           </p>
           <p>
-            <span>{t.or}</span>
+            <span>{c.t.or}</span>
           </p>
           <p>
             <Link href="/">
               <a>
-                <span>&lt; {t.return2start} &gt;</span>
+                <span>&lt; {c.t.return2start} &gt;</span>
               </a>
             </Link>
           </p>
         </>
       ) : (
         <>
-          <h3>&#9825; {t.prodCart}</h3>
+          <h3>&#9825; {c.t.prodCart}</h3>
           <ul>{qqq}</ul>
           <div className={styles.flexRow}>
             <span className={styles.grossSum}>
               {props.gross.toLocaleString('ru-RU')}
             </span>
             <button onClick={saveSaleHandler} className={styles.buttonOk}>
-              {t.saleIt}
+              {c.t.saleIt}
             </button>
           </div>
         </>

@@ -7,9 +7,8 @@ import EitemStore from '../components/EitemStore'
 import XpenseCart from '../components/XpenseCart'
 import EitemNew from '../components/EitemNew'
 import { Toaster } from 'react-hot-toast'
-import { useRouter } from 'next/router'
-import { en } from '../locales/en'
-import { ru } from '../locales/ru'
+import { AppContext } from '../components/AppContext'
+import { useContext } from 'react'
 
 export type Eitem = {
   id: number
@@ -25,7 +24,7 @@ export type Xpense = {
 }
 
 const Home: NextPage = () => {
-  const t = useRouter().locale === 'en' ? en : ru
+  const c = useContext(AppContext)
   const [eItems, setEitems] = useState<Eitem[]>([])
   const [selectedEitems, setSelectedEitems] = useState<Eitem['id'][]>([])
   const eCostRef = useRef<Record<Eitem['id'], number>>({})
@@ -61,11 +60,11 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{t.minusTitle}</title>
+        <title>{c.t.minusTitle}</title>
       </Head>
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
-          <h1>{t.cost}</h1>
+          <h1>{c.t.cost}</h1>
           <Toaster />
           {newFlag ? (
             <EitemNew setItems={setEitems} setNewFlag={setNewFlag} />

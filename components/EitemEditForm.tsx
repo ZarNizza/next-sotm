@@ -2,9 +2,8 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import { Eitem } from '../pages/minus'
 import stylesH from '../styles/Home.module.css'
 import styles from './Select.module.scss'
-import { useRouter } from 'next/router'
-import { en } from '../locales/en'
-import { ru } from '../locales/ru'
+import { AppContext } from './AppContext'
+import { useContext } from 'react'
 
 type editEitemArgs = {
   itemToEdit: Eitem
@@ -13,14 +12,14 @@ type editEitemArgs = {
 }
 
 export default function EitemEditForm(arg: editEitemArgs) {
-  const t = useRouter().locale === 'en' ? en : ru
+  const c = useContext(AppContext)
   const [eName, setEitem] = useState(arg.itemToEdit.name)
   const [eSymbol, setEsymbol] = useState(arg.itemToEdit.symbol)
   const [ePrice, setEprice] = useState(arg.itemToEdit.price)
 
   function upd_E_handler() {
     if (eName === '' || eSymbol === '') {
-      alert('! ' + t.emptyField + ' !')
+      alert('! ' + c.t.emptyField + ' !')
       arg.setCurrItem(0)
       return
     }
@@ -38,7 +37,7 @@ export default function EitemEditForm(arg: editEitemArgs) {
       .then((res) => res.json())
       .then((res) => {
         if (res.error) {
-          alert(t.error + res.error)
+          alert(c.t.error + res.error)
         } else {
           console.log('newEitem = OK')
           setEitem('')
@@ -48,11 +47,11 @@ export default function EitemEditForm(arg: editEitemArgs) {
         }
       })
       .then(() => {
-        fetch('api/eitems')
+        fetch('/api/eitems')
           .then((res) => res.json())
           .then((res) => {
             if (res.error) {
-              alert(t.error + res.error)
+              alert('! get E after Update\n' + c.t.error + res.error)
             } else {
               console.log('newEitem reInit = OK')
               arg.setItems(() => res.data)
@@ -60,7 +59,9 @@ export default function EitemEditForm(arg: editEitemArgs) {
             }
           })
       })
-      .catch((error) => alert(t.error + error.message))
+      .catch((error) =>
+        alert('! final catch E after Update\n' + c.t.error + error.message)
+      )
   }
 
   function input_Ename_ChHandler(eName: string) {
@@ -82,13 +83,13 @@ export default function EitemEditForm(arg: editEitemArgs) {
   return (
     <div className={styles.floatWrapper}>
       <div className={styles.newEeditForm}>
-        <p className={styles.title}>{t.edit}</p>
+        <p className={styles.title}>{c.t.edit}</p>
         <p>
           <input
             id="eInput"
             value={eName}
             onChange={(event) => input_Ename_ChHandler(event.target.value)}
-            placeholder={t.descr}
+            placeholder={c.t.descr}
             pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
             className={styles.inputE}
           />
@@ -98,7 +99,7 @@ export default function EitemEditForm(arg: editEitemArgs) {
             id="eSymbolInput"
             value={eSymbol}
             onChange={(event) => input_Esymbol_ChHandler(event.target.value)}
-            placeholder={t.shrtNam}
+            placeholder={c.t.shrtNam}
             pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
             className={styles.inputE}
           />
@@ -115,10 +116,10 @@ export default function EitemEditForm(arg: editEitemArgs) {
         </p>
         <p className={styles.flexRow}>
           <button onClick={upd_E_handler} className={stylesH.sysButton}>
-            <b>{t.update}</b>
+            <b>{c.t.update}</b>
           </button>
           <button onClick={dropButtonHandler} className={stylesH.sysButton}>
-            {t.cancel}
+            {c.t.cancel}
           </button>
         </p>
       </div>

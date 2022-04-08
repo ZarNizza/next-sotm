@@ -11,9 +11,8 @@ import DBfullDTable from '../components/DBfullDTable'
 import DBList from '../components/DBList'
 import LiveSelect from '../components/LiveSelectCUSX'
 import toast, { Toaster } from 'react-hot-toast'
-import { useRouter } from 'next/router'
-import { en } from '../locales/en'
-import { ru } from '../locales/ru'
+import { AppContext } from '../components/AppContext'
+import { useContext } from 'react'
 
 export type apiBody = {
   mode: string
@@ -23,8 +22,7 @@ export type apiBody = {
 }
 
 const Home: NextPage = () => {
-  const router = useRouter()
-  const t = router.locale === 'en' ? en : ru
+  const c = useContext(AppContext)
   const cust0 = {
     id: 0,
     name: '',
@@ -194,7 +192,7 @@ const Home: NextPage = () => {
   }
   function Tabloid() {
     if (resData === undefined || resData.length === 0)
-      return <p className={styles.tips}>{t.db_empty}</p>
+      return <p className={styles.tips}>{c.t.db_empty}</p>
 
     switch (resSource) {
       case 'short': {
@@ -233,11 +231,11 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{t.statTitle}</title>
+        <title>{c.t.statTitle}</title>
       </Head>
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
-          <h1>{t.statTitle}</h1>
+          <h1>{c.t.statTitle}</h1>
           <Toaster />
           <LiveSelect
             items={customers}
@@ -266,7 +264,7 @@ const Home: NextPage = () => {
               onChange={(event) => finishDateChangeHandler(event.target.value)}
             />
           </div>
-          <div className={styles.tips}>{t.toooWide}</div>
+          <div className={styles.tips}>{c.t.toooWide}</div>
           <div className={styles.sysButtonsGroup}>
             <div className={styles.flexRowContainer}>
               <button onClick={setTodayHandler}>Today</button>
