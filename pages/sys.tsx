@@ -5,8 +5,18 @@ import styles from '../styles/Home.module.css'
 import { useState } from 'react'
 import DBshortTable from '../components/DBshortTable'
 import toast, { Toaster } from 'react-hot-toast'
+import { Customer, Product, Sale } from './plus'
+import { Eitem, Xpense } from './minus'
+import { User } from './editUsers'
+import Init from '../components/Init'
 
 const Home: NextPage = () => {
+  const [itemsC, setItemsC] = useState<Customer[]>([])
+  const [itemsU, setItemsU] = useState<User[]>([])
+  const [itemsS, setItemsS] = useState<Sale[]>([])
+  const [itemsP, setItemsP] = useState<Product[]>([])
+  const [itemsE, setItemsE] = useState<Eitem[]>([])
+  const [itemsX, setItemsX] = useState<Xpense[]>([])
   const [resData, setResData] = useState([
     { id: 0, date: '2022-02-02', cust: 0, prod: 0, sum: 0 }
   ])
@@ -102,6 +112,17 @@ const Home: NextPage = () => {
     sys_handler('show_Eitems')
   }
 
+  function updateLS_handler() {
+    console.log('LS UPDATE started')
+    const toast01 = toast.loading('Updating...')
+    Init(setItemsC, 'customers', true)
+    Init(setItemsU, 'users', true)
+    Init(setItemsS, 'sales', true)
+    Init(setItemsP, 'products', true)
+    Init(setItemsE, 'eitems', true)
+    Init(setItemsX, 'xpenses', true)
+    toast.remove()
+  }
   /////////////////////////////////////////////////////
 
   function sys_handler(title: string) {
@@ -170,6 +191,9 @@ const Home: NextPage = () => {
             <button onClick={show_E_handler}>show E</button>
           </div>
           <div className={styles.sysButtonsGroup}>
+            <button className={styles.sysButton} onClick={updateLS_handler}>
+              Update LocalStorage
+            </button>
             <button onClick={show_Tables_handler}>TABLES LIST</button>
             <Link href="/sys-sql" passHref>
               <button>- SQL -</button>
