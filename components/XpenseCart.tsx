@@ -9,9 +9,8 @@ import {
   SetStateAction
 } from 'react'
 import { Eitem } from '../pages/minus'
-import { useRouter } from 'next/router'
-import { en } from '../locales/en'
-import { ru } from '../locales/ru'
+import { AppContext } from './AppContext'
+import { useContext } from 'react'
 
 type SumProps = { id: number; value: number }
 
@@ -27,7 +26,7 @@ type XpenseCartProps = {
 }
 
 export default function XpenseCart(props: XpenseCartProps) {
-  const t = useRouter().locale === 'en' ? en : ru
+  const c = useContext(AppContext)
   const qqq = props.selectedEitems.map((id: Eitem['id']) => (
     <li key={id}>
       <div className={styles.inputSumRow}>
@@ -68,7 +67,7 @@ export default function XpenseCart(props: XpenseCartProps) {
   function saveX_Handler() {
     props.selectedEitems.map((id: number) => {
       if (isNaN(props.eCostRef.current[id])) {
-        alert(t.attentionPrice)
+        alert(c.t.attentionPrice)
       } else {
         const xsale = {
           mode: 'new',
@@ -83,7 +82,7 @@ export default function XpenseCart(props: XpenseCartProps) {
           .then((res) => {
             if (res.error) {
               console.log('--- eCart DB/api error: ' + res.error)
-              alert(t.db_errX3)
+              alert(c.t.db_errX3)
             } else {
               props.setSelectedEitems((prevSelectedEitems) =>
                 prevSelectedEitems.filter((eItem) => eItem !== Number(id))
@@ -93,7 +92,7 @@ export default function XpenseCart(props: XpenseCartProps) {
           })
           .catch((error) => {
             console.log('--- catch eCart fetch error - ', error)
-            alert('fetch ' + t.db_errX3)
+            alert('fetch ' + c.t.db_errX3)
           })
       }
     })
@@ -105,7 +104,7 @@ export default function XpenseCart(props: XpenseCartProps) {
         <>
           <p>
             <span>&uarr; &uarr; &uarr;&nbsp;&nbsp;</span>
-            {t.selItem} <span>&nbsp;&nbsp;&uarr; &uarr; &uarr;</span>
+            {c.t.selItem} <span>&nbsp;&nbsp;&uarr; &uarr; &uarr;</span>
           </p>
           <p>
             <span>or</span>
@@ -113,14 +112,14 @@ export default function XpenseCart(props: XpenseCartProps) {
           <p>
             <Link href="/">
               <a>
-                <span>&lt; {t.return2start} &gt;</span>
+                <span>&lt; {c.t.return2start} &gt;</span>
               </a>
             </Link>
           </p>
         </>
       ) : (
         <>
-          <h3>&#9825; {t.xCart}</h3>
+          <h3>&#9825; {c.t.xCart}</h3>
           <ul>{qqq}</ul>
           <div className={styles.flexRow}>
             <span className={styles.grossSum}>
@@ -128,7 +127,7 @@ export default function XpenseCart(props: XpenseCartProps) {
             </span>
             <button onClick={saveX_Handler} className={styles.buttonOk}>
               {' '}
-              {t.byIt}
+              {c.t.byIt}
             </button>
           </div>
         </>

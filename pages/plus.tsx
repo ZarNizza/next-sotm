@@ -7,9 +7,8 @@ import ProductCart from '../components/ProductCart'
 import LiveSelect from '../components/LiveSelectCUSX'
 import { useEffect, useRef, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
-import { useRouter } from 'next/router'
-import { en } from '../locales/en'
-import { ru } from '../locales/ru'
+import { AppContext } from '../components/AppContext'
+import { useContext } from 'react'
 
 export type Customer = {
   id: number
@@ -47,7 +46,7 @@ export type Item0 = {
 }
 
 const Home: NextPage = () => {
-  const t = useRouter().locale === 'en' ? en : ru
+  const c = useContext(AppContext)
 
   let cust0: Customer = {
     id: 0,
@@ -138,11 +137,11 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{t.plusTitle}</title>
+        <title>{c.t.plusTitle}</title>
       </Head>
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
-          <h1>{t.plusTitle}</h1>
+          <h1>{c.t.plusTitle}</h1>
           <Toaster />
           <LiveSelect
             items={customers}
@@ -156,7 +155,7 @@ const Home: NextPage = () => {
             mode="new"
           />
           <p>
-            <span className={styles.tips}>{t.plusTips}</span>
+            <span className={styles.tips}>{c.t.plusTips}</span>
           </p>
           <ProductStore
             products={products}

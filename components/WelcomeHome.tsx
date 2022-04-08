@@ -2,17 +2,20 @@ import Head from 'next/head'
 import styles from './Home.module.scss'
 import Link from 'next/link'
 import WelcomeStat from './WelcomeStat'
+import { AppContext } from './AppContext'
+import { useContext } from 'react'
 
-export default function WelcomeHome(t: any) {
+export default function WelcomeHome() {
+  const c = useContext(AppContext)
   return (
     <>
       <Head>
-        <title>{t.t.welcomeTitle}</title>
+        <title>{c.t.welcomeTitle}</title>
       </Head>
       <main className={styles.main}>
         <div className={styles.columnSpaceBetween}>
           <div className={styles.main}>
-            <h1>{t.t.appName}</h1>
+            <h1>{c.t.appName}</h1>
             <div className={styles.squareRow}>
               <Link href="/plus" passHref>
                 <div className={`${styles.square} ${styles.orange}`}>
@@ -22,7 +25,7 @@ export default function WelcomeHome(t: any) {
               <div className={styles.squareWrapper}>
                 <Link href="/memo" passHref>
                   <div className={`${styles.halfsquare_top} ${styles.yellow}`}>
-                    <p>{t.t.memo}</p>
+                    <p>{c.t.memo}</p>
                   </div>
                 </Link>
                 <Link href="/minus" passHref>
@@ -40,12 +43,12 @@ export default function WelcomeHome(t: any) {
               </Link>
               <Link href="/settings" passHref>
                 <div className={`${styles.square} ${styles.violet}`}>
-                  <p>{t.t.settings}</p>
+                  <p>{c.t.settings}</p>
                 </div>
               </Link>
             </div>
           </div>
-          <WelcomeStat t={t.t} />
+          <WelcomeStat />
         </div>
       </main>
     </>

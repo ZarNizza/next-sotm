@@ -9,12 +9,11 @@ import LiveSelect from '../components/LiveSelectCUSX'
 import EditForm from '../components/EditFormCUSX'
 import DBshortTable from '../components/DBshortTable'
 import { Toaster } from 'react-hot-toast'
-import { useRouter } from 'next/router'
-import { en } from '../locales/en'
-import { ru } from '../locales/ru'
+import { AppContext } from '../components/AppContext'
+import { useContext } from 'react'
 
 const Home: NextPage = () => {
-  const t = useRouter().locale === 'en' ? en : ru
+  const c = useContext(AppContext)
   const item0 = {
     id: 0,
     date: '',
@@ -52,14 +51,14 @@ const Home: NextPage = () => {
     <>
       <Head>
         <title>
-          {t.settings}: {t.sales}
+          {c.t.settings}: {c.t.sales}
         </title>
       </Head>
 
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
           <h2>
-            {t.settings}: {t.sales}: {items.length}
+            {c.t.settings}: {c.t.sales}: {items.length}
           </h2>
           <Toaster />
           <LiveSelect

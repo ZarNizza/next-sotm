@@ -1,12 +1,11 @@
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import styles from './Footer.module.scss'
-import { useRouter } from 'next/router'
-import { en } from '../locales/en'
-import { ru } from '../locales/ru'
+import { AppContext } from './AppContext'
+import { useContext } from 'react'
 
 export default function Footer() {
-  const t = useRouter().locale === 'en' ? en : ru
+  const c = useContext(AppContext)
   const { data: session } = useSession()
   // return session ? (
   return (

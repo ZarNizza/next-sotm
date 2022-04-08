@@ -2,9 +2,8 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import { Eitem } from '../pages/minus'
 import stylesH from '../styles/Home.module.css'
 import styles from './Select.module.scss'
-import { useRouter } from 'next/router'
-import { en } from '../locales/en'
-import { ru } from '../locales/ru'
+import { AppContext } from './AppContext'
+import { useContext } from 'react'
 
 type newEitemArgs = {
   setItems: Dispatch<SetStateAction<Eitem[]>>
@@ -13,7 +12,7 @@ type newEitemArgs = {
 }
 
 export default function EitemNew(arg: newEitemArgs) {
-  const t = useRouter().locale === 'en' ? en : ru
+  const c = useContext(AppContext)
   const [eItem, setEitem] = useState('')
   const [eSymbol, setEsymbol] = useState('')
   const [ePrice, setEprice] = useState(0)
@@ -21,7 +20,7 @@ export default function EitemNew(arg: newEitemArgs) {
 
   function add_E_handler() {
     if (eItem === '' || eSymbol === '') {
-      alert('! ' + t.emptyField + ' !')
+      alert('! ' + c.t.emptyField + ' !')
       arg.setNewFlag(false)
       return
     }
@@ -33,7 +32,7 @@ export default function EitemNew(arg: newEitemArgs) {
       .then((res) => res.json())
       .then((res) => {
         if (res.error) {
-          alert(t.error + res.error)
+          alert(c.t.error + res.error)
         } else {
           console.log('newEitem = OK', res)
           setEitem('')
@@ -47,7 +46,7 @@ export default function EitemNew(arg: newEitemArgs) {
           .then((res) => res.json())
           .then((res) => {
             if (res.error) {
-              alert(t.error + res.error)
+              alert(c.t.error + res.error)
             } else {
               console.log('newEitem reInit = OK', res)
               arg.setItems(() => res.data)
@@ -55,7 +54,7 @@ export default function EitemNew(arg: newEitemArgs) {
             }
           })
       })
-      .catch((error) => alert(t.error + error.message))
+      .catch((error) => alert(c.t.error + error.message))
   }
 
   function input_E_ChHandler(eName: string) {
@@ -78,14 +77,14 @@ export default function EitemNew(arg: newEitemArgs) {
     <div className={styles.floatWrapper}>
       <div className={styles.newEeditForm}>
         <p className={styles.title}>
-          {t.new} {t.xpense}
+          {c.t.new} {c.t.xpense}
         </p>
         <p>
           <input
             id="eInput"
             value={eItem}
             onChange={(event) => input_E_ChHandler(event.target.value)}
-            placeholder={t.descr}
+            placeholder={c.t.descr}
             pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
             className={styles.inputP}
           />
@@ -95,7 +94,7 @@ export default function EitemNew(arg: newEitemArgs) {
             id="eSymbolInput"
             value={eSymbol}
             onChange={(event) => input_Esymbol_ChHandler(event.target.value)}
-            placeholder={t.shrtNam}
+            placeholder={c.t.shrtNam}
             pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
             className={styles.inputP}
           />
@@ -112,10 +111,10 @@ export default function EitemNew(arg: newEitemArgs) {
         </p>
         <p className={styles.flexRow}>
           <button onClick={add_E_handler} className={stylesH.sysButton}>
-            <b>{t.save}</b>
+            <b>{c.t.save}</b>
           </button>
           <button onClick={dropButtonHandler} className={stylesH.sysButton}>
-            {t.cancel}
+            {c.t.cancel}
           </button>
         </p>
       </div>
