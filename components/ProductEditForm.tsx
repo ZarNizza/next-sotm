@@ -47,11 +47,11 @@ export default function ProductEditForm(arg: editPitemArgs) {
         }
       })
       .then(() => {
-        fetch('api/products')
+        fetch('/api/products')
           .then((res) => res.json())
           .then((res) => {
             if (res.error) {
-              alert(c.t.error + res.error)
+              alert('! get P after Update\n' + c.t.error + res.error)
             } else {
               console.log('newPitem reInit = OK')
               arg.setItems(() => res.data)
@@ -59,7 +59,9 @@ export default function ProductEditForm(arg: editPitemArgs) {
             }
           })
       })
-      .catch((error) => alert(c.t.error + error.message))
+      .catch((error) =>
+        alert('! final catch P after Update\n' + c.t.error + error.message)
+      )
   }
 
   function input_Pname_ChHandler(pName: string) {

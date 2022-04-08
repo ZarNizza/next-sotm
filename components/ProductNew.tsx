@@ -42,11 +42,11 @@ export default function PitemNew(arg: newProductArgs) {
         }
       })
       .then(() => {
-        fetch('api/products')
+        fetch('/api/products')
           .then((res) => res.json())
           .then((res) => {
             if (res.error) {
-              alert(c.t.error + res.error)
+              alert('! get P after New\n' + c.t.error + res.error)
             } else {
               console.log('newPitem reInit = OK', res)
               arg.setItems(() => res.data)
@@ -54,7 +54,9 @@ export default function PitemNew(arg: newProductArgs) {
             }
           })
       })
-      .catch((error) => alert(c.t.error + error.message))
+      .catch((error) =>
+        alert('! final catch P after New\n' + c.t.error + error.message)
+      )
   }
 
   function input_P_ChHandler(pName: string) {

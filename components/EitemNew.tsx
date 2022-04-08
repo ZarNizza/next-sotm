@@ -42,11 +42,11 @@ export default function EitemNew(arg: newEitemArgs) {
         }
       })
       .then(() => {
-        fetch('api/eitems')
+        fetch('/api/eitems')
           .then((res) => res.json())
           .then((res) => {
             if (res.error) {
-              alert(c.t.error + res.error)
+              alert('! get E after New\n' + c.t.error + res.error)
             } else {
               console.log('newEitem reInit = OK', res)
               arg.setItems(() => res.data)
@@ -54,7 +54,10 @@ export default function EitemNew(arg: newEitemArgs) {
             }
           })
       })
-      .catch((error) => alert(c.t.error + error.message))
+      .catch((error) => {
+        console.log('! final catch E\n', c.t.error, error.message)
+        alert('! final catch E after New\n' + c.t.error + error.message)
+      })
   }
 
   function input_E_ChHandler(eName: string) {

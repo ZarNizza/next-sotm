@@ -47,11 +47,11 @@ export default function EitemEditForm(arg: editEitemArgs) {
         }
       })
       .then(() => {
-        fetch('api/eitems')
+        fetch('/api/eitems')
           .then((res) => res.json())
           .then((res) => {
             if (res.error) {
-              alert(c.t.error + res.error)
+              alert('! get E after Update\n' + c.t.error + res.error)
             } else {
               console.log('newEitem reInit = OK')
               arg.setItems(() => res.data)
@@ -59,7 +59,9 @@ export default function EitemEditForm(arg: editEitemArgs) {
             }
           })
       })
-      .catch((error) => alert(c.t.error + error.message))
+      .catch((error) =>
+        alert('! final catch E after Update\n' + c.t.error + error.message)
+      )
   }
 
   function input_Ename_ChHandler(eName: string) {
