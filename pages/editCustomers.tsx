@@ -55,8 +55,9 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
+          <h3>{c.t.settings}</h3>
           <h2>
-            {c.t.settings}: {c.t.customers}: {items.length}
+            {c.t.customers}: {items.length}
           </h2>
           <Toaster />
           <LiveSelect

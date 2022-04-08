@@ -42,9 +42,8 @@ const Home: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
-          <h3>
-            {c.t.settings}: {c.t.eitems}
-          </h3>
+          <h3>{c.t.settings}</h3>
+          <h2>{c.t.eitems}</h2>
           <Toaster />
           <EitemEditStore
             items={items}

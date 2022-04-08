@@ -25,14 +25,13 @@ const Home: NextPage = () => {
     <>
       <Head>
         <title>
-          {c.t.settings}: {c.t.product}
+          {c.t.settings}: {c.t.products}
         </title>
       </Head>
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
-          <h3>
-            {c.t.settings}: {c.t.product}
-          </h3>
+          <h3>{c.t.settings}</h3>
+          <h2>{c.t.products}</h2>
           <Toaster />
           <ProductEditStore
             items={items}
