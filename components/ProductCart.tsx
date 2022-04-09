@@ -129,16 +129,6 @@ export default function ProductCart(props: ProductCartProps) {
             {c.t.selProd}
             <span>&nbsp;&nbsp;&uarr; &uarr; &uarr;</span>
           </p>
-          <p>
-            <span>{c.t.or}</span>
-          </p>
-          <p>
-            <Link href="/">
-              <a>
-                <span>&lt; {c.t.return2start} &gt;</span>
-              </a>
-            </Link>
-          </p>
         </>
       ) : (
         <>

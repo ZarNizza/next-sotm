@@ -106,16 +106,6 @@ export default function XpenseCart(props: XpenseCartProps) {
             <span>&uarr; &uarr; &uarr;&nbsp;&nbsp;</span>
             {c.t.selItem} <span>&nbsp;&nbsp;&uarr; &uarr; &uarr;</span>
           </p>
-          <p>
-            <span>or</span>
-          </p>
-          <p>
-            <Link href="/">
-              <a>
-                <span>&lt; {c.t.return2start} &gt;</span>
-              </a>
-            </Link>
-          </p>
         </>
       ) : (
         <>
