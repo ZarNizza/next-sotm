@@ -85,10 +85,10 @@ export default function WelcomeStat() {
           {c.t.today} :&nbsp;&nbsp;
           <span>{statNow}</span>
         </div>
-        &nbsp;&nbsp;&nbsp;
+        <span>&nbsp;&nbsp;/&nbsp;&nbsp;</span>
         <div>
-          {c.t.month} :&nbsp;&nbsp;
           <span>{statPrev}</span>
+          &nbsp;&nbsp;: {c.t.month}
         </div>
       </div>
     </>
