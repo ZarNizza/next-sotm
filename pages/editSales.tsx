@@ -94,11 +94,11 @@ const Home: NextPage = () => {
               onClick={() => setShowTableFlag(!showTableFlag)}
               className={styles.sysButton}
             >
-              Show/Hide all
+              {c.t.showHideAll}
             </button>
             {showTableFlag ? (
               items === undefined || items.length === 0 ? (
-                <p>No data - empty result</p>
+                <p>{c.t.db_empty}</p>
               ) : (
                 <div className={styles.tableScroll}>
                   <DBshortTable resData={items} />
