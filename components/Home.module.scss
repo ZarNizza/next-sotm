@@ -70,7 +70,7 @@ $separator: #ddd;
 }
 .welcomeStatRow {
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -79,6 +79,10 @@ $separator: #ddd;
   background-color: $v6;
   color: #1fbccc;
   font-size: x-large;
+  div{
+    display: flex;
+    flex-flow: row nowrap;
+  }
   span {
     color: white;
     font-weight: 900;
