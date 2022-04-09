@@ -117,37 +117,37 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         break
 
       case 'show_Users':
-        sql = 'SELECT * FROM users'
+        sql = 'SELECT * FROM users ORDER BY id DESC'
         err_prefix = 'show_Users'
         retRes = true
         break
 
       case 'show_Customers':
-        sql = 'SELECT * FROM customers'
+        sql = 'SELECT * FROM customers ORDER BY id DESC'
         err_prefix = 'show_Customers'
         retRes = true
         break
 
       case 'show_Products':
-        sql = 'SELECT * FROM prod'
+        sql = 'SELECT * FROM prod ORDER BY id DESC'
         err_prefix = 'show_Products'
         retRes = true
         break
 
       case 'show_Sales':
-        sql = 'SELECT * FROM sales'
+        sql = 'SELECT * FROM sales ORDER BY id DESC'
         err_prefix = 'show_Sales'
         retRes = true
         break
 
       case 'show_Xpenses':
-        sql = 'SELECT * FROM xpenses'
+        sql = 'SELECT * FROM xpenses ORDER BY id DESC'
         err_prefix = 'show_Xpenses'
         retRes = true
         break
 
       case 'show_Eitems':
-        sql = 'SELECT * FROM eitems'
+        sql = 'SELECT * FROM eitems ORDER BY id DESC'
         err_prefix = 'show_Eitems'
         retRes = true
         break
