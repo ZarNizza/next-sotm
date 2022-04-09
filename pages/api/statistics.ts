@@ -355,12 +355,12 @@ export default async function sysHandler(
 
           source = 'short'
 
-          if (parsedReq.currentCustomer.id !== 0) {
-            poolGetConnection(sqlQuery, source)
-          } else {
-            res.status(404).json({ error: '! select Customer !' })
+          if (parsedReq.currentCustomer.id === 0) {
+            res.status(404).json({ error: ' select Customer !' })
             reject(null)
+            break
           }
+          poolGetConnection(sqlQuery, source)
 
           break
         //
