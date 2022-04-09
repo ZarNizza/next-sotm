@@ -104,7 +104,7 @@ export default function ProductCart(props: ProductCartProps) {
           .then((res) => {
             if (res.error) {
               console.log('--- prodCart DB/api error: ' + res.error)
-              alert(c.t.db_errX3)
+              alert(c.t.db_errX3 + '\n' + res.error)
             } else {
               props.setSelectedProducts((prevSelectedProducts) =>
                 prevSelectedProducts.filter((product) => product !== Number(id))
@@ -114,7 +114,7 @@ export default function ProductCart(props: ProductCartProps) {
           })
           .catch((error) => {
             console.log('--- catch prodCart fetch error - ', error)
-            alert('fetch ' + c.t.db_errX3)
+            alert('fetch ' + c.t.db_errX3 + '\n' + error)
           })
       }
     })

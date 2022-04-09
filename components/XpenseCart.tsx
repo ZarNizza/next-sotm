@@ -82,7 +82,7 @@ export default function XpenseCart(props: XpenseCartProps) {
           .then((res) => {
             if (res.error) {
               console.log('--- eCart DB/api error: ' + res.error)
-              alert(c.t.db_errX3)
+              alert(c.t.db_errX3 + '\n' + res.error)
             } else {
               props.setSelectedEitems((prevSelectedEitems) =>
                 prevSelectedEitems.filter((eItem) => eItem !== Number(id))
@@ -92,7 +92,7 @@ export default function XpenseCart(props: XpenseCartProps) {
           })
           .catch((error) => {
             console.log('--- catch eCart fetch error - ', error)
-            alert('fetch ' + c.t.db_errX3)
+            alert('fetch ' + c.t.db_errX3 + '\n' + error)
           })
       }
     })
