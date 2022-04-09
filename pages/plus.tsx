@@ -155,7 +155,11 @@ const Home: NextPage = () => {
             mode="new"
           />
           <p>
-            <span className={styles.tips}>{c.t.plusTips}</span>
+            <div className={styles.flexColumnContainer}>
+              <div className={styles.tips}>{c.t.plusTips1}</div>
+              <br />
+              <div className={styles.tips}>{c.t.plusTips2}</div>
+            </div>
           </p>
           <ProductStore
             products={products}
