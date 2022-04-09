@@ -45,6 +45,11 @@ export default function DBshortTable(props: TableProps) {
                         ? c.t.total
                         : elem === null
                         ? ' '
+                        : String(elem).slice(0, 1) === '2' &&
+                          String(elem).slice(10, 11) === 'T'
+                        ? String(elem).slice(0, 10) +
+                          ', ' +
+                          String(elem).slice(11, 16)
                         : String(elem)}
                     </td>
                   ))}
