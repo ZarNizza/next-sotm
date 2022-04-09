@@ -1,6 +1,6 @@
 export const en = {
   appName: 'Sales and Profit',
-  welcomeTitle: 'Welcome Home!',
+  welcomeTitle: 'S&P Welcome Home!',
   plusTitle: 'Sales accounting',
   minusTitle: 'Сost accounting',
   statTitle: 'Profit Statistics',
