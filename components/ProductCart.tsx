@@ -94,7 +94,7 @@ export default function ProductCart(props: ProductCartProps) {
           cust: props.currentCustomer.id,
           prod: id,
           sum: props.prodCostRef.current[id],
-          sumd: props.prodCostDRef.current[id]
+          sumd: props.prodCostDRef.current[id] || 0
         }
         fetch('/api/sales', {
           method: 'POST',
