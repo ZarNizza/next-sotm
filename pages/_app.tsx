@@ -9,7 +9,11 @@ import { ru } from '../locales/ru'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const t: Record<string, string> = useRouter().locale === 'en' ? en : ru
-  const contextData = { t }
+  var md5 = require('md5')
+  // const u: string = session ? md5(session.user.email) : ''
+  const u: string = session ? md5(session.user.email) : md5('Yohoho!')
+  //
+  const contextData = { u, t }
   return (
     <SessionProvider session={pageProps.session}>
       <AppContext.Provider value={contextData}>
