@@ -20,7 +20,6 @@ type editFormArgs = {
 // phone?: string
 // gooid?: string
 // md5?: string
-// timezone?: string
 // symbol?: string
 // date?: string
 // cust?: number
@@ -36,7 +35,6 @@ export default function EditForm(a: editFormArgs) {
   const [newPhone, setNewPhone] = useState(a.itemToEdit.phone || '')
   const [newGooid, setNewGooid] = useState(a.itemToEdit.gooid || '')
   const [newMD5, setNewMD5] = useState(a.itemToEdit.md5 || '')
-  const [newTimeZone, setNewTimeZone] = useState(a.itemToEdit.timezone || '')
   const [newSymbol, setNewSymbol] = useState(a.itemToEdit.symbol || '')
   const [newPrice, setNewPrice] = useState(a.itemToEdit.price || 0)
   const [newDate, setNewDate] = useState(a.itemToEdit.date || '')
@@ -70,7 +68,6 @@ export default function EditForm(a: editFormArgs) {
           name: newName,
           phone: newPhone,
           gooid: newGooid,
-          timezone: newTimeZone,
           id: a.itemToEdit.id
         })
         break
@@ -198,7 +195,7 @@ export default function EditForm(a: editFormArgs) {
         />
       </p>
       <p hidden={a.type !== 'U'}>
-        MD5 hash
+        &nbsp;&nbsp;MD5:
         <input
           type="text"
           className={styles.inputCust}
@@ -223,19 +220,7 @@ export default function EditForm(a: editFormArgs) {
           }
         />
       </p> */}
-      <p hidden={a.type !== 'U'}>
-        Tzone:
-        <input
-          type="text"
-          className={styles.inputCust}
-          placeholder="+xx"
-          pattern="^\+?[\d\+\-]{0,3}"
-          value={newTimeZone || ''}
-          onChange={(event) =>
-            setNewTimeZone(event.target.value.replace(/[^\d\-\+]/g, ''))
-          }
-        />
-      </p>
+
       <p hidden={a.type !== 'S' && a.type !== 'X'}>
         Date:
         <input

@@ -34,7 +34,6 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
   const [newPhone, setNewPhone] = useState('')
   const [newGooid, setNewGooid] = useState('')
   const [newMD5, setNewMD5] = useState('')
-  const [newTimeZone, setNewTimeZone] = useState('')
   const [newDate, setNewDate] = useState('')
   const [newCust, setNewCust] = useState('')
   const [newProd, setNewProd] = useState('')
@@ -50,7 +49,6 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
     phone?: string
     gooid?: string
     md5?: string
-    timezone?: string
     date?: string
     cust?: string
     prod?: string
@@ -68,15 +66,14 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
       break
     }
     case 'U': {
-      item0 = { id: 0, md5: '0', name: '', phone: '', gooid: '', timezone: '' }
+      item0 = { id: 0, md5: '0', name: '', phone: '', gooid: '' }
       apiName = 'users'
       body = {
         mode: 'new',
         md5: newMD5,
         name: newName,
         phone: newPhone,
-        gooid: newGooid,
-        timezone: newTimeZone
+        gooid: newGooid
       }
       newTitle = c.t.user
       break
@@ -128,7 +125,6 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
     setNewPhone(() => '')
     setNewGooid(() => '')
     setNewMD5(() => '')
-    setNewTimeZone(() => '')
     setNewDate(() => '')
     setNewCust(() => '')
     setNewProd(() => '')
@@ -337,8 +333,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
         md5: curr.md5,
         name: curr.name,
         phone: curr.phone,
-        gooid: curr.gooid,
-        timezone: curr.timezone
+        gooid: curr.gooid
       })
     }
   }
@@ -474,19 +469,6 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
               value={newMD5 || ''}
               onChange={(event) =>
                 setNewMD5(event.target.value.replace(/[^a-fA-F\d]/g, ''))
-              }
-            />
-          </p>
-          <p hidden={a.type !== 'U'}>
-            {c.t.tZone}:
-            <input
-              type="text"
-              className={styles.inputCust}
-              placeholder="+xx"
-              pattern="^\+?[\d\+\-]{0,3}"
-              value={newTimeZone || ''}
-              onChange={(event) =>
-                setNewTimeZone(event.target.value.replace(/[^\d\-\+]/g, ''))
               }
             />
           </p>

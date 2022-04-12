@@ -36,24 +36,21 @@ export default function handler(
         switch (parsedReq.mode) {
           case 'edit':
             sql =
-              'UPDATE users SET md5=$1, name=$2, phone=$3, gooid=$4, timezone=$5 WHERE id=$6'
+              'UPDATE users SET md5=$1, name=$2, phone=$3, gooid=$4 WHERE id=$5'
             params = [
               parsedReq.md5.substring(0, 32),
               parsedReq.name.substring(0, 50),
               parsedReq.phone.substring(0, 20),
               String(parsedReq.gooid).substring(0, 20),
-              String(parsedReq.timezone).substring(0, 3),
               parsedReq.id
             ]
             break
           case 'new':
-            sql =
-              'INSERT INTO users (md5, name, phone, timezone) VALUES ($1, $2, $3, $4)'
+            sql = 'INSERT INTO users (md5, name, phone) VALUES ($1, $2, $3)'
             params = [
               parsedReq.md5.substring(0, 32),
               parsedReq.name.substring(0, 50),
-              parsedReq.phone.substring(0, 20),
-              parsedReq.timezone.substring(0, 3)
+              parsedReq.phone.substring(0, 20)
             ]
             console.log('--- new: ', sql, params)
             break

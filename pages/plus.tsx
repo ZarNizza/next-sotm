@@ -37,7 +37,6 @@ export type Item0 = {
   name?: string
   phone?: string
   gooid?: string
-  timezone?: string
   date?: string
   cust?: number
   prod?: number
