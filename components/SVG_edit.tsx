@@ -4,7 +4,6 @@ const SVG_edit = () => {
   return (
     <span>
       <svg
-        viewBox="0 0 3em 3em"
         width="0.68em"
         height="0.68em"
         xmlns="http://www.w3.org/2000/svg"
