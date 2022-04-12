@@ -41,7 +41,6 @@ export const ru = {
   shrtNam: 'СокрНазв',
   update: 'Обновить',
   new: 'Нов.',
-  tZone: 'Час.пояс',
   date: 'Дата',
   custId: 'Кл.id',
   prodId: 'Прод.id',

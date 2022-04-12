@@ -50,7 +50,7 @@ export default function handler(
             ]
             break
           case 'new':
-            const sqlDate = serialiseDate(new Date(), '')
+            const sqlDate = serialiseDate(new Date())
 
             sql =
               'INSERT INTO sales (date, cust, prod, sum, sumd) VALUES ($1, $2, $3, $4, $5)'

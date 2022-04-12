@@ -47,8 +47,7 @@ export default function handler(
             ]
             break
           case 'new':
-
-            const sqlDate = serialiseDate(new Date(), '')
+            const sqlDate = serialiseDate(new Date())
 
             sql = 'INSERT INTO xpenses (date, xitem, sum) VALUES ($1, $2, $3)'
             params = [sqlDate, String(parsedReq.xitem), String(parsedReq.sum)]
