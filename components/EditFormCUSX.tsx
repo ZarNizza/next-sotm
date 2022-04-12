@@ -19,7 +19,7 @@ type editFormArgs = {
 // name?: string
 // phone?: string
 // gooid?: string
-// timezone?: string
+// md5?: string
 // symbol?: string
 // date?: string
 // cust?: number
@@ -34,7 +34,7 @@ export default function EditForm(a: editFormArgs) {
   const [newName, setNewName] = useState(a.itemToEdit.name || '')
   const [newPhone, setNewPhone] = useState(a.itemToEdit.phone || '')
   const [newGooid, setNewGooid] = useState(a.itemToEdit.gooid || '')
-  const [newTimeZone, setNewTimeZone] = useState(a.itemToEdit.timezone || '')
+  const [newMD5, setNewMD5] = useState(a.itemToEdit.md5 || '')
   const [newSymbol, setNewSymbol] = useState(a.itemToEdit.symbol || '')
   const [newPrice, setNewPrice] = useState(a.itemToEdit.price || 0)
   const [newDate, setNewDate] = useState(a.itemToEdit.date || '')
@@ -64,10 +64,10 @@ export default function EditForm(a: editFormArgs) {
         apiName = 'users'
         apiBody = JSON.stringify({
           mode: 'edit',
+          md5: newMD5,
           name: newName,
           phone: newPhone,
           gooid: newGooid,
-          timezone: newTimeZone,
           id: a.itemToEdit.id
         })
         break
@@ -194,6 +194,19 @@ export default function EditForm(a: editFormArgs) {
           }
         />
       </p>
+      <p hidden={a.type !== 'U'}>
+        &nbsp;&nbsp;MD5:
+        <input
+          type="text"
+          className={styles.inputCust}
+          placeholder="md5 hash"
+          pattern="^[a-fA-F\d]{0,32}"
+          value={newMD5 || ''}
+          onChange={(event) =>
+            setNewMD5(event.target.value.replace(/[^a-fA-F\d]/g, ''))
+          }
+        />
+      </p>
       {/* <p hidden={a.type !== 'C' && a.type !== 'U'}>
         GooId
         <input
@@ -207,19 +220,7 @@ export default function EditForm(a: editFormArgs) {
           }
         />
       </p> */}
-      <p hidden={a.type !== 'U'}>
-        Tzone:
-        <input
-          type="text"
-          className={styles.inputCust}
-          placeholder="+xx"
-          pattern="^\+?[\d\+\-]{0,3}"
-          value={newTimeZone || ''}
-          onChange={(event) =>
-            setNewTimeZone(event.target.value.replace(/[^\d\-\+]/g, ''))
-          }
-        />
-      </p>
+
       <p hidden={a.type !== 'S' && a.type !== 'X'}>
         Date:
         <input

@@ -33,7 +33,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
   const [newName, setNewName] = useState('')
   const [newPhone, setNewPhone] = useState('')
   const [newGooid, setNewGooid] = useState('')
-  const [newTimeZone, setNewTimeZone] = useState('')
+  const [newMD5, setNewMD5] = useState('')
   const [newDate, setNewDate] = useState('')
   const [newCust, setNewCust] = useState('')
   const [newProd, setNewProd] = useState('')
@@ -48,7 +48,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
     name?: string
     phone?: string
     gooid?: string
-    timezone?: string
+    md5?: string
     date?: string
     cust?: string
     prod?: string
@@ -66,14 +66,14 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
       break
     }
     case 'U': {
-      item0 = { id: 0, name: '', phone: '', gooid: '', timezone: '' }
+      item0 = { id: 0, md5: '0', name: '', phone: '', gooid: '' }
       apiName = 'users'
       body = {
         mode: 'new',
+        md5: newMD5,
         name: newName,
         phone: newPhone,
-        gooid: newGooid,
-        timezone: newTimeZone
+        gooid: newGooid
       }
       newTitle = c.t.user
       break
@@ -124,7 +124,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
     setNewName(() => '')
     setNewPhone(() => '')
     setNewGooid(() => '')
-    setNewTimeZone(() => '')
+    setNewMD5(() => '')
     setNewDate(() => '')
     setNewCust(() => '')
     setNewProd(() => '')
@@ -147,7 +147,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
         break
       }
       case 'U': {
-        if (newName === '' || newPhone === '' || newTimeZone === '') {
+        if (newName === '') {
           alert('! ' + c.t.emptyField + ' !')
           setFlagNew(() => '')
           return
@@ -330,10 +330,10 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
       a.liveRef.current.value = curr.name
       a.setCurrentItem({
         id: curr.id,
+        md5: curr.md5,
         name: curr.name,
         phone: curr.phone,
-        gooid: curr.gooid,
-        timezone: curr.timezone
+        gooid: curr.gooid
       })
     }
   }
@@ -461,15 +461,14 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
             />
           </p> */}
           <p hidden={a.type !== 'U'}>
-            {c.t.tZone}:
             <input
               type="text"
               className={styles.inputCust}
-              placeholder="+xx"
-              pattern="^\+?[\d\+\-]{0,3}"
-              value={newTimeZone || ''}
+              placeholder="md5 hash"
+              pattern="^[a-fA-F\d]{0,32}"
+              value={newMD5 || ''}
               onChange={(event) =>
-                setNewTimeZone(event.target.value.replace(/[^\d\-\+]/g, ''))
+                setNewMD5(event.target.value.replace(/[^a-fA-F\d]/g, ''))
               }
             />
           </p>

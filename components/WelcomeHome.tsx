@@ -44,9 +44,9 @@ export default function WelcomeHome() {
               </Link>
               <Link href="/settings" passHref>
                 <div className={`${styles.square} ${styles.violet}`}>
-                  <p>
+                  <div className={styles.pdiv}>
                     <SVG_edit />
-                  </p>
+                  </div>
                 </div>
               </Link>
             </div>

@@ -51,7 +51,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
 
       case 'restore_Users':
         sql =
-          'CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, name VARCHAR(50), phone VARCHAR(20), gooid VARCHAR(30), timezone SMALLINT, del SMALLINT DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, md5 VARCHAR(32) DEFAULT "0", name VARCHAR(50), phone VARCHAR(20), gooid VARCHAR(30), del SMALLINT DEFAULT 0)'
         //CREATE INDEX u ON users (lower(name), phone)
         err_prefix = 'restore_Users'
         break

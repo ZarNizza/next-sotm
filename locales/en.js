@@ -39,7 +39,6 @@ export const en = {
   shrtNam: 'ShrtNam',
   update: 'Update',
   new: 'New',
-  tZone: 'Tzone',
   date: 'Date',
   custId: 'Cust',
   prodId: 'Prod',

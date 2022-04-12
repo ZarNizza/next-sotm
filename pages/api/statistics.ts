@@ -80,7 +80,7 @@ export default async function sysHandler(
     let dates: string[] = []
 
     for (; iDate < findate; iDate.setDate(iDate.getDate() + 1)) {
-      dates.push(serialiseDate(iDate, timeZone).slice(0, 10))
+      dates.push(serialiseDate(iDate).slice(0, 10))
     }
 
     //
