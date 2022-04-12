@@ -6,19 +6,21 @@ export default function InitNewDB() {
   const c = useContext(AppContext)
 
   let items: string | null = ''
-  const apiSuffix = c.u + 'customers'
+  const apiSuffix = c.u + '_eitems'
 
   try {
+    console.log('InitNewDB TRY LS')
     items = localStorage.getItem(apiSuffix)
+    console.log('LS: ', typeof items, items)
     if (items === null) throw null
     if (items !== '') {
-      console.log('Init ', apiSuffix, ' - LocStor GOOD')
+      console.log('InitNewDB ', apiSuffix, ' - LocStor GOOD')
     } else {
-      console.log('Init ', apiSuffix, ' - LocStor error - empty response')
+      console.log('InitNewDB ', apiSuffix, ' - LocStor error - empty response')
     }
   } catch {
     console.log(
-      'Init ',
+      'InitNewDB ',
       apiSuffix,
       ' catch-api - NO LocalStorage Data >>> go fetch DB'
     )

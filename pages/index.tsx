@@ -9,8 +9,11 @@ import { useContext } from 'react'
 const Home: NextPage = () => {
   const { data: session } = useSession()
   const c = useContext(AppContext)
-
-  if (!!c.u && !localStorage.getItem('users')) InitNewDB()
+  try {
+    if (!!c.u && !!!localStorage.getItem('users')) throw null
+  } catch {
+    InitNewDB()
+  }
   // return session ? <WelcomeHome /> : <NobodyHome />;
   return <WelcomeHome />
 }
