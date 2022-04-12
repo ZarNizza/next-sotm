@@ -15,6 +15,7 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/layout.js", "components/Footer.js", "components/Header.js", "components/AppContext.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/layout.js",
+    "components/context.js", "components/Footer.js", "components/Header.js", "components/AppContext.tsx"],
   "exclude": ["node_modules"]
 }

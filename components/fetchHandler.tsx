@@ -9,7 +9,7 @@ export type FetchArgs = {
   apiSuffix: string
   title: string
   body?: string
-  setResData:
+  setResData?:
     | Dispatch<SetStateAction<[] | Customer[]>>
     | Dispatch<SetStateAction<[] | Product[]>>
     | Dispatch<SetStateAction<[] | Sale[]>>
@@ -30,13 +30,13 @@ export default function fetchHandler(arg: FetchArgs) {
       if (res.error) {
         toast.remove()
         toast.error('!Loading error: X3')
-        alert(
-          'FETCH ' + arg.apiSuffix + ': ' + arg.title + ' ERROR:' + res.error
-        )
+        alert('FETCH ' + arg.apiSuffix + ': ' + arg.title + res.error)
       } else {
         if (res.data !== undefined && res.data !== 'OK') {
           console.log('--- fetch OK - SET res.data')
-          arg.setResData(() => res.data)
+          if (arg.setResData) {
+            arg.setResData(() => res.data)
+          }
           if (!arg.body) {
             localStorage.setItem(arg.apiSuffix, JSON.stringify(res.data))
           }
