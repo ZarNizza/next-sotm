@@ -12,6 +12,7 @@ import { useContext } from 'react'
 
 export type User = {
   id: number
+  md5: string
   name: string
   phone: string | null
   gooid: string | null
@@ -22,6 +23,7 @@ const Home: NextPage = () => {
   const c = useContext(AppContext)
   const cust0 = {
     id: 0,
+    md5: '0',
     name: '',
     phone: '',
     gooid: '',

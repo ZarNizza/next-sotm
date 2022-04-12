@@ -19,6 +19,7 @@ type editFormArgs = {
 // name?: string
 // phone?: string
 // gooid?: string
+// md5?: string
 // timezone?: string
 // symbol?: string
 // date?: string
@@ -34,6 +35,7 @@ export default function EditForm(a: editFormArgs) {
   const [newName, setNewName] = useState(a.itemToEdit.name || '')
   const [newPhone, setNewPhone] = useState(a.itemToEdit.phone || '')
   const [newGooid, setNewGooid] = useState(a.itemToEdit.gooid || '')
+  const [newMD5, setNewMD5] = useState(a.itemToEdit.md5 || '')
   const [newTimeZone, setNewTimeZone] = useState(a.itemToEdit.timezone || '')
   const [newSymbol, setNewSymbol] = useState(a.itemToEdit.symbol || '')
   const [newPrice, setNewPrice] = useState(a.itemToEdit.price || 0)
@@ -64,6 +66,7 @@ export default function EditForm(a: editFormArgs) {
         apiName = 'users'
         apiBody = JSON.stringify({
           mode: 'edit',
+          md5: newMD5,
           name: newName,
           phone: newPhone,
           gooid: newGooid,
@@ -191,6 +194,19 @@ export default function EditForm(a: editFormArgs) {
           value={newPhone || ''}
           onChange={(event) =>
             setNewPhone(event.target.value.replace(/[^\d\-\+\s]/g, ''))
+          }
+        />
+      </p>
+      <p hidden={a.type !== 'U'}>
+        MD5 hash
+        <input
+          type="text"
+          className={styles.inputCust}
+          placeholder="md5 hash"
+          pattern="^[a-fA-F\d]{0,32}"
+          value={newMD5 || ''}
+          onChange={(event) =>
+            setNewMD5(event.target.value.replace(/[^a-fA-F\d]/g, ''))
           }
         />
       </p>
