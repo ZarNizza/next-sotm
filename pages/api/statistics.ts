@@ -77,7 +77,8 @@ export default async function sysHandler(
     }
 
     let iDate = new Date(startDate.slice(1, 11))
-    const findate = new Date(finishDate.slice(1, 11))
+    let findate = new Date(finishDate.slice(1, 11))
+    findate = new Date(findate.setDate(findate.getDate() + 1))
     let dates: string[] = []
 
     for (; iDate < findate; iDate.setDate(iDate.getDate() + 1)) {
