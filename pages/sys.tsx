@@ -166,6 +166,7 @@ const Home: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <h1>SYSTEM</h1>
+        <p>{c.u}</p>
         <Toaster />
         <div className={styles.flexColumnContainer}>
           <div className={styles.sysButtonsGroup}>

@@ -20,7 +20,10 @@ export default function Init(
   let items: string | null = ''
 
   try {
-    if (updateLocalStorage) throw null
+    if (updateLocalStorage) {
+      console.log('Init - updateLocStor flag = TRUE')
+      throw null
+    }
     items = localStorage.getItem(dbPrefix + apiSuffix)
     if (items === null) throw null
     if (items !== '') {
@@ -30,11 +33,7 @@ export default function Init(
       console.log('Init ', apiSuffix, ' - LocStor error - empty response')
     }
   } catch {
-    console.log(
-      'Init ',
-      apiSuffix,
-      ' catch-api - NO LocalStorage Data >>> go fetch DB'
-    )
+    console.log('Init ', apiSuffix, ' catch-api >>> go fetch DB')
 
     const args: FetchArgs = {
       method: 'POST',

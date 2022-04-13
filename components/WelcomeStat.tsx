@@ -23,6 +23,7 @@ export default function WelcomeStat() {
 
   useEffect(() => {
     const toast01 = toast.loading('Loading...')
+    console.log('WelcomeStat dbPrefix:', c.u)
     fetch('/api/statistics', {
       method: 'POST',
       body: JSON.stringify(bodyNow)
@@ -95,7 +96,7 @@ export default function WelcomeStat() {
         toast.remove()
         toast.error('!Loading error: X3')
       })
-  }, [])
+  }, [c.u])
   return (
     <>
       <Toaster />

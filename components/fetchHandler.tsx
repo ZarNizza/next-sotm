@@ -38,7 +38,7 @@ export default function fetchHandler(arg: FetchArgs) {
           if (arg.setResData) {
             arg.setResData(() => res.data)
           }
-          if (!arg.body) {
+          if (!arg.body || JSON.parse(arg.body).mode === 'get') {
             localStorage.setItem(
               dbPrefix + arg.apiSuffix,
               JSON.stringify(res.data)
