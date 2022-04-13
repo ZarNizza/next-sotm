@@ -10,11 +10,13 @@ export default function WelcomeStat() {
   const [statPrev, setStatPrev] = useState<string>('0')
   const bodyNow = {
     mode: 'get_stat',
+    dbPrefix: c.u,
     startDate: myDate('today0'),
     finishDate: myDate('today')
   }
   const bodyPrev = {
     mode: 'get_stat',
+    dbPrefix: c.u,
     startDate: myDate('0M'),
     finishDate: myDate('today')
   }
@@ -28,8 +30,13 @@ export default function WelcomeStat() {
       .then((res) => res.json())
       .then((res) => {
         if (res.error) {
-          console.log('!!! API error=', res.error)
-          alert('!Error: ' + res.error)
+          console.log(
+            'WelcomeStat !!! fetch-1 error=',
+            res.error,
+            ' body=',
+            bodyNow
+          )
+          alert('WelcomeStat ! fetch-1 Error: ' + res.error)
         } else {
           setStatNow(() => {
             return isFinite(res.data[0].summa)
@@ -41,8 +48,13 @@ export default function WelcomeStat() {
         }
       })
       .catch((error) => {
-        console.log('!!! catch Error:', error.message)
-        alert('!catch Error:' + error.message)
+        console.log(
+          'WelcomeStat !!! catch-1 Error:',
+          error.message,
+          ' body=',
+          bodyNow
+        )
+        alert('WelcomeStat ! catch-1 Error:' + error.message)
         toast.remove()
         toast.error('!Loading error: X3')
       })
@@ -54,8 +66,13 @@ export default function WelcomeStat() {
       .then((res) => res.json())
       .then((res) => {
         if (res.error) {
-          console.log('!!! API error=', res.error)
-          alert('!Error: ' + res.error)
+          console.log(
+            'WelcomeStat !!! API error=',
+            res.error,
+            ' body=',
+            bodyPrev
+          )
+          alert('WelcomeStat ! fetch-2 Error: ' + res.error)
         } else {
           setStatPrev(() => {
             return isFinite(res.data[0].summa)
@@ -68,8 +85,13 @@ export default function WelcomeStat() {
         }
       })
       .catch((error) => {
-        console.log('!!! catch Error:', error.message)
-        alert('!catch Error:' + error.message)
+        console.log(
+          'WelcomeStat !!! catch-2 Error:',
+          error.message,
+          ' body=',
+          bodyPrev
+        )
+        alert('WelcomeStat ! catch-2 Error:' + error.message)
         toast.remove()
         toast.error('!Loading error: X3')
       })

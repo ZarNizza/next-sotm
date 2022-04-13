@@ -22,21 +22,24 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<ApiData>
 ) {
+  //
   return new Promise((resolve, reject) => {
     let sql: string = ''
     let params: string[] = []
 
     switch (req.method) {
-      case 'GET':
-        sql = 'SELECT * FROM eitems ORDER BY symbol'
-        break
-
       case 'POST':
         const parsedReq = JSON.parse(req.body)
+        const dbPrefix = parsedReq.dbPrefix
         switch (parsedReq.mode) {
+          case 'get':
+            sql = 'SELECT * FROM ' + dbPrefix + 'eitems ORDER BY symbol'
+            break
           case 'edit':
             sql =
-              "UPDATE eitems SET name='" +
+              'UPDATE ' +
+              dbPrefix +
+              "eitems SET name='" +
               parsedReq.name.substring(0, 50) +
               "', symbol='" +
               parsedReq.symbol.substring(0, 7) +
@@ -46,7 +49,10 @@ export default function handler(
               parsedReq.id
             break
           case 'new':
-            sql = 'INSERT INTO eitems (name, symbol, price) VALUES ($1, $2, $3)'
+            sql =
+              'INSERT INTO ' +
+              dbPrefix +
+              'eitems (name, symbol, price) VALUES ($1, $2, $3)'
             params = [
               parsedReq.name.substring(0, 50),
               parsedReq.symbol.substring(0, 7),
@@ -55,10 +61,18 @@ export default function handler(
             console.log('--- new: ', sql, params)
             break
           case 'del':
-            sql = 'UPDATE eitems SET del = 1 WHERE id=' + parsedReq.id
+            sql =
+              'UPDATE ' +
+              dbPrefix +
+              'eitems SET del = 1 WHERE id=' +
+              parsedReq.id
             break
           case 'restore':
-            sql = 'UPDATE eitems SET del = 0 WHERE id=' + parsedReq.id
+            sql =
+              'UPDATE ' +
+              dbPrefix +
+              'eitems SET del = 0 WHERE id=' +
+              parsedReq.id
             break
           default:
             console.log('! Eitems - bad POST body.mode api request')

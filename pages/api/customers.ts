@@ -22,21 +22,25 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<ApiData>
 ) {
+  //
   return new Promise((resolve, reject) => {
     let sql: string = ''
     let params: string[] = []
 
     switch (req.method) {
-      case 'GET':
-        sql = 'SELECT * FROM customers ORDER BY name'
-        break
-
       case 'POST':
         const parsedReq = JSON.parse(req.body)
+        const dbPrefix = parsedReq.dbPrefix
+
         switch (parsedReq.mode) {
+          case 'get':
+            sql = 'SELECT * FROM ' + dbPrefix + 'customers ORDER BY name'
+            break
           case 'edit':
             sql =
-              "UPDATE customers SET name='" +
+              'UPDATE ' +
+              dbPrefix +
+              "customers SET name='" +
               parsedReq.name.substring(0, 50) +
               "', phone='" +
               parsedReq.phone.substring(0, 20) +
@@ -46,7 +50,10 @@ export default function handler(
               parsedReq.id
             break
           case 'new':
-            sql = 'INSERT INTO customers (name, phone) VALUES ($1, $2)'
+            sql =
+              'INSERT INTO ' +
+              dbPrefix +
+              'customers (name, phone) VALUES ($1, $2)'
             params = [
               parsedReq.name.substring(0, 50),
               parsedReq.phone.substring(0, 20)
@@ -54,10 +61,18 @@ export default function handler(
             console.log('--- new: ', sql, params)
             break
           case 'del':
-            sql = 'UPDATE customers SET del = 1 WHERE id=' + parsedReq.id
+            sql =
+              'UPDATE ' +
+              dbPrefix +
+              'customers SET del = 1 WHERE id=' +
+              parsedReq.id
             break
           case 'restore':
-            sql = 'UPDATE customers SET del = 0 WHERE id=' + parsedReq.id
+            sql =
+              'UPDATE ' +
+              dbPrefix +
+              'customers SET del = 0 WHERE id=' +
+              parsedReq.id
             break
           default:
             console.log('! cust - bad POST body.mode api request')

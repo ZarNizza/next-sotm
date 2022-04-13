@@ -71,6 +71,7 @@ export default function XpenseCart(props: XpenseCartProps) {
       } else {
         const xsale = {
           mode: 'new',
+          dbPrefix: c.u,
           xitem: id,
           sum: props.eCostRef.current[id]
         }

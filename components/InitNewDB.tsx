@@ -17,54 +17,61 @@ export default function InitNewDB() {
 
   let args: FetchArgs = {
     method: 'POST',
-    apiSuffix: 'initNewDB',
+    apiSuffix: 'sys',
     title: 'initNewDB',
     body: JSON.stringify({
-      mode: 'newU_C',
-      userMD5: c.u
+      mode: 'restore_Customers',
+      dbPrefix: c.u
     })
   }
 
   fetchHandler(args)
     .then(() => {
       localStorage.setItem(c.u + 'customers', JSON.stringify(''))
+      args.apiSuffix = 'sys'
       args.body = JSON.stringify({
-        mode: 'newU_P',
-        userMD5: c.u
+        mode: 'restore_Products',
+        dbPrefix: c.u
       })
       fetchHandler(args).then(() => {
         localStorage.setItem(c.u + 'prod', JSON.stringify(''))
+        args.apiSuffix = 'sys'
         args.body = JSON.stringify({
-          mode: 'newU_E',
-          userMD5: c.u
+          mode: 'restore_Eitems',
+          dbPrefix: c.u
         })
         fetchHandler(args).then(() => {
           localStorage.setItem(c.u + 'eitems', JSON.stringify(''))
+          args.apiSuffix = 'sys'
           args.body = JSON.stringify({
-            mode: 'newU_S',
-            userMD5: c.u
+            mode: 'restore_Sales',
+            dbPrefix: c.u
           })
           fetchHandler(args).then(() => {
             localStorage.setItem(c.u + 'sales', JSON.stringify(''))
+            args.apiSuffix = 'sys'
             args.body = JSON.stringify({
-              mode: 'newU_X',
-              userMD5: c.u
+              mode: 'restore_Xpenses',
+              dbPrefix: c.u
             })
             fetchHandler(args).then(() => {
               localStorage.setItem(c.u + 'xpenses', JSON.stringify(''))
+              args.apiSuffix = 'sys'
               args.body = JSON.stringify({
-                mode: 'indexU_C',
-                userMD5: c.u
+                mode: 'index_Customers',
+                dbPrefix: c.u
               })
               fetchHandler(args).then(() => {
+                args.apiSuffix = 'sys'
                 args.body = JSON.stringify({
-                  mode: 'indexU_S',
-                  userMD5: c.u
+                  mode: 'index_Sales',
+                  dbPrefix: c.u
                 })
                 fetchHandler(args).then(() => {
+                  args.apiSuffix = 'sys'
                   args.body = JSON.stringify({
-                    mode: 'indexU_X',
-                    userMD5: c.u
+                    mode: 'index_Xpenses',
+                    dbPrefix: c.u
                   })
                   fetchHandler(args)
                 })

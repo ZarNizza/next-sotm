@@ -45,6 +45,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
   let apiName: string
   let body: {
     mode: string
+    dbPrefix: string
     name?: string
     phone?: string
     gooid?: string
@@ -61,7 +62,13 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
     case 'C': {
       item0 = { id: 0, name: '', phone: '', gooid: '' }
       apiName = 'customers'
-      body = { mode: 'new', name: newName, phone: newPhone, gooid: newGooid }
+      body = {
+        mode: 'new',
+        dbPrefix: c.u,
+        name: newName,
+        phone: newPhone,
+        gooid: newGooid
+      }
       newTitle = c.t.customer
       break
     }
@@ -70,6 +77,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
       apiName = 'users'
       body = {
         mode: 'new',
+        dbPrefix: c.u,
         md5: newMD5,
         name: newName,
         phone: newPhone,
@@ -83,6 +91,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
       apiName = 'sales'
       body = {
         mode: 'new',
+        dbPrefix: c.u,
         date: newDate,
         cust: newCust,
         prod: newProd,
@@ -97,6 +106,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
       apiName = 'xpenses'
       body = {
         mode: 'new',
+        dbPrefix: c.u,
         date: newDate,
         xitem: newXitem,
         sum: newSum

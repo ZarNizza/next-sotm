@@ -25,6 +25,7 @@ export default function EitemEditForm(arg: editEitemArgs) {
     }
     const eitem = {
       mode: 'edit',
+      dbPrefix: c.u,
       name: eName,
       symbol: eSymbol,
       price: ePrice,
@@ -47,7 +48,10 @@ export default function EitemEditForm(arg: editEitemArgs) {
         }
       })
       .then(() => {
-        fetch('/api/eitems')
+        fetch('/api/eitems', {
+          method: 'POST',
+          body: JSON.stringify({ mode: 'get', dbPrefix: c.u })
+        })
           .then((res) => res.json())
           .then((res) => {
             if (res.error) {
@@ -55,7 +59,7 @@ export default function EitemEditForm(arg: editEitemArgs) {
             } else {
               console.log('newEitem reInit = OK')
               arg.setItems(() => res.data)
-              localStorage.setItem('eitems', JSON.stringify(res.data))
+              localStorage.setItem(c.u + 'eitems', JSON.stringify(res.data))
             }
           })
       })

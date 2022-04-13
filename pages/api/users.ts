@@ -27,13 +27,12 @@ export default function handler(
     let params: string[] = []
 
     switch (req.method) {
-      case 'GET':
-        sql = 'SELECT * FROM users'
-        break
-
       case 'POST':
         const parsedReq = JSON.parse(req.body)
         switch (parsedReq.mode) {
+          case 'get':
+            sql = 'SELECT * FROM users'
+            break
           case 'edit':
             sql =
               'UPDATE users SET md5=$1, name=$2, phone=$3, gooid=$4 WHERE id=$5'

@@ -18,7 +18,7 @@ const Home: NextPage = () => {
   const [newFlag, setNewFlag] = useState(false)
 
   useEffect(() => {
-    Init(setItems, 'products')
+    Init(setItems, 'products', c.u)
   }, [])
 
   return (

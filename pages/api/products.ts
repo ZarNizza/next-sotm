@@ -22,20 +22,24 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<ApiData>
 ) {
+  //
   return new Promise((resolve, reject) => {
     let sql: string = ''
     let params: string[] = []
 
     switch (req.method) {
-      case 'GET':
-        sql = 'SELECT * FROM prod ORDER BY symbol'
-        break
-
       case 'POST':
         const parsedReq = JSON.parse(req.body)
+        const dbPrefix = parsedReq.dbPrefix
         switch (parsedReq.mode) {
+          case 'get':
+            sql = 'SELECT * FROM ' + dbPrefix + 'prod ORDER BY symbol'
+            break
           case 'edit':
-            sql = 'UPDATE prod SET name=$1, symbol=$2, price=$3 WHERE id=$4'
+            sql =
+              'UPDATE ' +
+              dbPrefix +
+              'prod SET name=$1, symbol=$2, price=$3 WHERE id=$4'
             params = [
               parsedReq.name.substring(0, 50),
               parsedReq.symbol.substring(0, 7),
@@ -44,7 +48,10 @@ export default function handler(
             ]
             break
           case 'new':
-            sql = 'INSERT INTO prod (name, symbol, price) VALUES ($1, $2, $3)'
+            sql =
+              'INSERT INTO ' +
+              dbPrefix +
+              'prod (name, symbol, price) VALUES ($1, $2, $3)'
             params = [
               parsedReq.name.substring(0, 50),
               parsedReq.symbol.substring(0, 7),
@@ -53,10 +60,12 @@ export default function handler(
             console.log('--- new: ', sql, params)
             break
           case 'del':
-            sql = 'UPDATE prod SET del = 1 WHERE id=' + parsedReq.id
+            sql =
+              'UPDATE ' + dbPrefix + 'prod SET del = 1 WHERE id=' + parsedReq.id
             break
           case 'restore':
-            sql = 'UPDATE prod SET del = 0 WHERE id=' + parsedReq.id
+            sql =
+              'UPDATE ' + dbPrefix + 'prod SET del = 0 WHERE id=' + parsedReq.id
             break
           default:
             console.log('! Prod - bad POST body.mode api request')

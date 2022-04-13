@@ -14,12 +14,11 @@ pool.on('error', (err: any, client: any) => {
   process.exit(-1)
 })
 
-const timeZone = '04'
-
 export default async function sysHandler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  //
   return new Promise((resolve, reject) => {
     // common function
     function poolGetConnection(sqlQuery: string, source: string) {
@@ -35,10 +34,10 @@ export default async function sysHandler(
           .catch((err: any) => {
             client.release()
             res.status(500).json({
-              error: String('sql error (X3)')
+              error: String('sql error (X3) \n' + sqlQuery)
             })
             console.log('Promise ERROR: ', err.stack)
-            reject(err)
+            reject(err + '\n' + sqlQuery)
           })
       }) //
     }
@@ -53,11 +52,13 @@ export default async function sysHandler(
     //
     //
     const parsedReq = JSON.parse(req.body)
+    const dbPrefix = parsedReq.dbPrefix
 
     if (typeof parsedReq.currentCustomer !== 'undefined') {
       if (parsedReq.currentCustomer.id !== 0) {
         currentCustomer = ` AND (c.id = ${parsedReq.currentCustomer.id}) AND (c.del = 0) `
-        currCustJoin = ' LEFT JOIN customers AS c ON c.id = s.cust'
+        currCustJoin =
+          ' LEFT JOIN ' + dbPrefix + 'customers AS c ON c.id = s.cust'
       }
     }
 
@@ -91,13 +92,17 @@ export default async function sysHandler(
         //
         case 'get_stat':
           sqlQuery =
-            'SELECT (SUM(s.sum) + SUM(s.sumd)) AS summa FROM sales AS s ' +
+            'SELECT (SUM(s.sum) + SUM(s.sumd)) AS summa FROM ' +
+            dbPrefix +
+            'sales AS s ' +
             ' WHERE (s.del = 0) AND (s.date BETWEEN ' +
             startDate +
             ' AND ' +
             finishDate +
             ') '
-
+          //
+          console.log('get-stat SQL:', sqlQuery)
+          //
           source = 'short'
 
           poolGetConnection(sqlQuery, source)
@@ -106,8 +111,12 @@ export default async function sysHandler(
         //
         case 'show_S':
           sqlQuery =
-            "SELECT (p.symbol || ' = ' || p.name) AS name, SUM(CASE WHEN s.prod = p.id THEN (s.sum + s.sumd) ELSE 0 END) AS gross FROM prod AS p " +
-            ' LEFT JOIN sales AS s ON s.prod = p.id' +
+            "SELECT (p.symbol || ' = ' || p.name) AS name, SUM(CASE WHEN s.prod = p.id THEN (s.sum + s.sumd) ELSE 0 END) AS gross FROM " +
+            dbPrefix +
+            'prod AS p ' +
+            ' LEFT JOIN ' +
+            dbPrefix +
+            'sales AS s ON s.prod = p.id' +
             currCustJoin +
             ' WHERE (p.del = 0) AND (s.del = 0) AND (s.date BETWEEN ' +
             startDate +
@@ -125,8 +134,12 @@ export default async function sysHandler(
         //
         case 'show_X':
           sqlQuery =
-            "SELECT (e.symbol || ' = ' || e.name) AS name, SUM(CASE WHEN x.xitem = e.id THEN x.sum ELSE 0 END) AS Xgross FROM eitems AS e" +
-            ' LEFT JOIN xpenses AS x ON x.xitem = e.id' +
+            "SELECT (e.symbol || ' = ' || e.name) AS name, SUM(CASE WHEN x.xitem = e.id THEN x.sum ELSE 0 END) AS Xgross FROM " +
+            dbPrefix +
+            'eitems AS e' +
+            ' LEFT JOIN ' +
+            dbPrefix +
+            'xpenses AS x ON x.xitem = e.id' +
             ' WHERE (e.del = 0) AND (x.del = 0) AND (x.date BETWEEN ' +
             startDate +
             ' AND ' +
@@ -141,8 +154,12 @@ export default async function sysHandler(
         //
         case 'show_SX':
           sqlQuery =
-            "(SELECT (p.symbol || ' = ' || p.name) AS name, SUM(CASE WHEN s.prod = p.id THEN (s.sum + s.sumd) ELSE 0 END) AS gross FROM prod AS p" +
-            ' LEFT JOIN sales AS s ON s.prod = p.id' +
+            "(SELECT (p.symbol || ' = ' || p.name) AS name, SUM(CASE WHEN s.prod = p.id THEN (s.sum + s.sumd) ELSE 0 END) AS gross FROM " +
+            dbPrefix +
+            'prod AS p' +
+            ' LEFT JOIN ' +
+            dbPrefix +
+            'sales AS s ON s.prod = p.id' +
             currCustJoin +
             ' WHERE (p.del = 0) AND (s.del = 0) AND (s.date BETWEEN ' +
             startDate +
@@ -152,8 +169,12 @@ export default async function sysHandler(
             currentCustomer +
             " GROUP BY ROLLUP (p.symbol || ' = ' || p.name) ORDER BY (p.symbol || ' = ' || p.name)) " +
             'UNION ALL ' +
-            "(SELECT (e.symbol || ' = ' || e.name), SUM(CASE WHEN x.xitem = e.id THEN x.sum ELSE 0 END) AS Xgross FROM eitems AS e" +
-            ' LEFT JOIN xpenses AS x ON x.xitem = e.id' +
+            "(SELECT (e.symbol || ' = ' || e.name), SUM(CASE WHEN x.xitem = e.id THEN x.sum ELSE 0 END) AS Xgross FROM " +
+            dbPrefix +
+            'eitems AS e' +
+            ' LEFT JOIN ' +
+            dbPrefix +
+            'xpenses AS x ON x.xitem = e.id' +
             ' WHERE (e.del = 0) AND (x.del = 0) AND (x.date BETWEEN ' +
             startDate +
             ' AND ' +
@@ -183,8 +204,12 @@ export default async function sysHandler(
           sqlQuery =
             "SELECT (p.symbol || ' = ' || p.name) AS name, " +
             sqlDPSum +
-            ' SUM(CASE WHEN s.prod = p.id THEN (s.sum + s.sumd) ELSE 0 END) AS sum FROM prod AS p' +
-            ' LEFT JOIN sales AS s ON s.prod = p.id' +
+            ' SUM(CASE WHEN s.prod = p.id THEN (s.sum + s.sumd) ELSE 0 END) AS sum FROM ' +
+            dbPrefix +
+            'prod AS p' +
+            ' LEFT JOIN ' +
+            dbPrefix +
+            'sales AS s ON s.prod = p.id' +
             currCustJoin +
             ' WHERE (p.del = 0) AND (s.del = 0) AND (s.date BETWEEN ' +
             startDate +
@@ -215,8 +240,12 @@ export default async function sysHandler(
           sqlQuery =
             "SELECT (e.symbol || ' = ' || e.name) AS name, " +
             sqlDPSum +
-            ' SUM(CASE WHEN x.xitem = e.id THEN x.sum ELSE 0 END) AS sum FROM eitems AS e' +
-            ' LEFT JOIN xpenses AS x ON x.xitem = e.id' +
+            ' SUM(CASE WHEN x.xitem = e.id THEN x.sum ELSE 0 END) AS sum FROM ' +
+            dbPrefix +
+            'eitems AS e' +
+            ' LEFT JOIN ' +
+            dbPrefix +
+            'xpenses AS x ON x.xitem = e.id' +
             currCustJoin +
             ' WHERE (e.del = 0) AND (x.del = 0) AND (x.date BETWEEN ' +
             startDate +
@@ -259,8 +288,12 @@ export default async function sysHandler(
           sqlQuery =
             "(SELECT (p.symbol || ' = ' || p.name) AS name, " +
             sqlDPSum +
-            ' SUM(CASE WHEN s.prod = p.id THEN (s.sum + s.sumd) ELSE 0 END) AS sum FROM prod AS p' +
-            ' LEFT JOIN sales AS s ON s.prod = p.id' +
+            ' SUM(CASE WHEN s.prod = p.id THEN (s.sum + s.sumd) ELSE 0 END) AS sum FROM ' +
+            dbPrefix +
+            'prod AS p' +
+            ' LEFT JOIN ' +
+            dbPrefix +
+            'sales AS s ON s.prod = p.id' +
             currCustJoin +
             ' WHERE (p.del = 0) AND (s.del = 0) AND (s.date BETWEEN ' +
             startDate +
@@ -272,8 +305,12 @@ export default async function sysHandler(
             ' UNION ALL ' +
             "(SELECT (e.symbol || ' = ' || e.name) AS name," +
             sqlDXSum +
-            ' SUM(CASE WHEN x.xitem = e.id THEN x.sum ELSE 0 END) AS Xgross FROM eitems AS e' +
-            ' LEFT JOIN xpenses AS x ON x.xitem = e.id' +
+            ' SUM(CASE WHEN x.xitem = e.id THEN x.sum ELSE 0 END) AS Xgross FROM ' +
+            dbPrefix +
+            'eitems AS e' +
+            ' LEFT JOIN ' +
+            dbPrefix +
+            'xpenses AS x ON x.xitem = e.id' +
             ' WHERE (e.del = 0) AND (x.del = 0) AND (x.date BETWEEN ' +
             startDate +
             ' AND ' +
@@ -291,7 +328,8 @@ export default async function sysHandler(
         case 'show_CS_Full':
           // products wanted
           new Promise<Product[]>((resolve, reject) => {
-            const sql = 'SELECT * FROM prod WHERE del = 0 ORDER BY symbol'
+            const sql =
+              'SELECT * FROM ' + dbPrefix + 'prod WHERE del = 0 ORDER BY symbol'
             pool.connect().then((client: any) => {
               return client
                 .query(sql, [])
@@ -312,8 +350,12 @@ export default async function sysHandler(
                   sqlQuery =
                     'SELECT c.name,' +
                     sqlProdSum +
-                    ' SUM(s.sum + s.sumd) AS gross FROM customers AS c' +
-                    ' LEFT JOIN sales AS s ON s.cust = c.id' +
+                    ' SUM(s.sum + s.sumd) AS gross FROM ' +
+                    dbPrefix +
+                    'customers AS c' +
+                    ' LEFT JOIN ' +
+                    dbPrefix +
+                    'sales AS s ON s.cust = c.id' +
                     ' WHERE (c.del = 0) AND (s.del = 0) AND (s.date BETWEEN ' +
                     startDate +
                     ' AND ' +
@@ -342,8 +384,12 @@ export default async function sysHandler(
         //
         case 'show_C_History':
           sqlQuery =
-            'SELECT s.id, c.name, s.date, p.name AS product, p.symbol AS symbol, s.sum, s.sumd FROM sales AS s ' +
-            ' LEFT JOIN prod AS p ON p.id = s.prod' +
+            'SELECT s.id, c.name, s.date, p.name AS product, p.symbol AS symbol, s.sum, s.sumd FROM ' +
+            dbPrefix +
+            'sales AS s ' +
+            ' LEFT JOIN ' +
+            dbPrefix +
+            'prod AS p ON p.id = s.prod' +
             currCustJoin +
             ' WHERE (p.del = 0) AND (s.del = 0) AND (s.date BETWEEN ' +
             startDate +

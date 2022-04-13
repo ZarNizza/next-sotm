@@ -65,13 +65,13 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     console.log('plus - useEffect - init cust')
-    Init(setCustomers, 'customers')
+    Init(setCustomers, 'customers', c.u)
     console.log('plus - useEffect - init prod')
-    Init(setProducts, 'products')
+    Init(setProducts, 'products', c.u)
   }, [])
 
   function updateFunc() {
-    Init(setCustomers, 'customers', true)
+    Init(setCustomers, 'customers', c.u, true)
     resetParams()
   }
 

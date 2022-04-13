@@ -23,22 +23,27 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<ApiData>
 ) {
-  const timeZone = '04'
-
+  //
   return new Promise((resolve, reject) => {
     let sql: string = ''
     let params: string[] = []
 
     switch (req.method) {
-      case 'GET':
-        sql = 'SELECT * FROM xpenses ORDER BY date DESC LIMIT 50'
-        break
-
       case 'POST':
         const parsedReq = JSON.parse(req.body)
+        const dbPrefix = parsedReq.dbPrefix
         switch (parsedReq.mode) {
+          case 'get':
+            sql =
+              'SELECT * FROM ' +
+              dbPrefix +
+              'xpenses ORDER BY date DESC LIMIT 50'
+            break
           case 'edit':
-            sql = 'UPDATE xpenses SET date=$1, xitem=$2, sum=$3 WHERE id=$4'
+            sql =
+              'UPDATE ' +
+              dbPrefix +
+              'xpenses SET date=$1, xitem=$2, sum=$3 WHERE id=$4'
             params = [
               parsedReq.date,
               String(parsedReq.xitem),
@@ -49,15 +54,26 @@ export default function handler(
           case 'new':
             const sqlDate = serialiseDate(new Date())
 
-            sql = 'INSERT INTO xpenses (date, xitem, sum) VALUES ($1, $2, $3)'
+            sql =
+              'INSERT INTO ' +
+              dbPrefix +
+              'xpenses (date, xitem, sum) VALUES ($1, $2, $3)'
             params = [sqlDate, String(parsedReq.xitem), String(parsedReq.sum)]
             console.log('--- new: ', sql, ', ', params)
             break
           case 'del':
-            sql = 'UPDATE xpenses SET del = 1 WHERE id=' + parsedReq.id
+            sql =
+              'UPDATE ' +
+              dbPrefix +
+              'xpenses SET del = 1 WHERE id=' +
+              parsedReq.id
             break
           case 'restore':
-            sql = 'UPDATE xpenses SET del = 0 WHERE id=' + parsedReq.id
+            sql =
+              'UPDATE ' +
+              dbPrefix +
+              'xpenses SET del = 0 WHERE id=' +
+              parsedReq.id
             break
           default:
             console.log('! X - bad POST body.mode api request')

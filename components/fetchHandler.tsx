@@ -20,6 +20,7 @@ export type FetchArgs = {
 }
 
 export default function fetchHandler(arg: FetchArgs) {
+  const dbPrefix = arg.body ? JSON.parse(arg.body).dbPrefix : ''
   const toast01 = toast.loading('Loading...')
   return fetch(
     '/api/' + arg.apiSuffix,
@@ -38,7 +39,10 @@ export default function fetchHandler(arg: FetchArgs) {
             arg.setResData(() => res.data)
           }
           if (!arg.body) {
-            localStorage.setItem(arg.apiSuffix, JSON.stringify(res.data))
+            localStorage.setItem(
+              dbPrefix + arg.apiSuffix,
+              JSON.stringify(res.data)
+            )
           }
         }
         toast.remove()

@@ -53,6 +53,7 @@ export default function EditForm(a: editFormArgs) {
         apiName = 'customers'
         apiBody = JSON.stringify({
           mode: 'edit',
+          dbPrefix: c.u,
           name: newName,
           phone: newPhone,
           gooid: a.itemToEdit.gooid,
@@ -64,6 +65,7 @@ export default function EditForm(a: editFormArgs) {
         apiName = 'users'
         apiBody = JSON.stringify({
           mode: 'edit',
+          dbPrefix: c.u,
           md5: newMD5,
           name: newName,
           phone: newPhone,
@@ -76,6 +78,7 @@ export default function EditForm(a: editFormArgs) {
         apiName = 'products'
         apiBody = JSON.stringify({
           mode: 'edit',
+          dbPrefix: c.u,
           name: newName,
           symbol: newSymbol,
           price: newPrice,
@@ -87,6 +90,7 @@ export default function EditForm(a: editFormArgs) {
         apiName = 'eitems'
         apiBody = JSON.stringify({
           mode: 'edit',
+          dbPrefix: c.u,
           name: newName,
           symbol: newSymbol,
           price: newPrice,
@@ -98,6 +102,7 @@ export default function EditForm(a: editFormArgs) {
         apiName = 'sales'
         apiBody = JSON.stringify({
           mode: 'edit',
+          dbPrefix: c.u,
           date: newDate,
           cust: newCust,
           prod: newProd,
@@ -111,6 +116,7 @@ export default function EditForm(a: editFormArgs) {
         apiName = 'xpenses'
         apiBody = JSON.stringify({
           mode: 'edit',
+          dbPrefix: c.u,
           date: newDate,
           xitem: newXitem,
           sum: newSum,
