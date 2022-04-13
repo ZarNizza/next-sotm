@@ -24,7 +24,13 @@ export default function EitemNew(arg: newEitemArgs) {
       arg.setNewFlag(false)
       return
     }
-    const eitem = { mode: 'new', name: eItem, symbol: eSymbol, price: ePrice }
+    const eitem = {
+      mode: 'new',
+      dbPrefix: c.u,
+      name: eItem,
+      symbol: eSymbol,
+      price: ePrice
+    }
     fetch('/api/eitems', {
       method: 'POST',
       body: JSON.stringify(eitem)
@@ -42,7 +48,10 @@ export default function EitemNew(arg: newEitemArgs) {
         }
       })
       .then(() => {
-        fetch('/api/eitems')
+        fetch('/api/eitems', {
+          method: 'POST',
+          body: JSON.stringify({ mode: 'get', dbPrefix: c.u })
+        })
           .then((res) => res.json())
           .then((res) => {
             if (res.error) {
@@ -50,7 +59,7 @@ export default function EitemNew(arg: newEitemArgs) {
             } else {
               console.log('newEitem reInit = OK', res)
               arg.setItems(() => res.data)
-              localStorage.setItem('eitems', JSON.stringify(res.data))
+              localStorage.setItem(c.u + 'eitems', JSON.stringify(res.data))
             }
           })
       })

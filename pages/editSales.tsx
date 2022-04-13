@@ -3,7 +3,6 @@ import Head from 'next/head'
 import { useEffect, useRef, useState } from 'react'
 import styles from '../styles/Home.module.css'
 import { Sale } from './plus'
-import fetchHandler, { FetchArgs } from '../components/fetchHandler'
 import Init from '../components/Init'
 import LiveSelect from '../components/LiveSelectCUSX'
 import EditForm from '../components/EditFormCUSX'
@@ -29,11 +28,11 @@ const Home: NextPage = () => {
   const [searchWord, setSearchWord] = useState('')
 
   useEffect(() => {
-    Init(setItems, 'sales')
+    Init(setItems, 'sales', c.u)
   }, [])
 
   function updateFunc() {
-    Init(setItems, 'sales', true)
+    Init(setItems, 'sales', c.u, true)
     resetParams()
     return
   }

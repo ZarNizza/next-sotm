@@ -26,11 +26,11 @@ const Home: NextPage = () => {
   const [searchWord, setSearchWord] = useState('')
 
   useEffect(() => {
-    Init(setItems, 'customers')
+    Init(setItems, 'customers', c.u)
   }, [])
 
   function updateFunc() {
-    Init(setItems, 'customers', true)
+    Init(setItems, 'customers', c.u, true)
     resetParams()
     return
   }

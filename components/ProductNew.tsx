@@ -24,7 +24,13 @@ export default function PitemNew(arg: newProductArgs) {
       arg.setNewFlag(false)
       return
     }
-    const pitem = { mode: 'new', name: pItem, symbol: pSymbol, price: pPrice }
+    const pitem = {
+      mode: 'new',
+      dbPrefix: c.u,
+      name: pItem,
+      symbol: pSymbol,
+      price: pPrice
+    }
     fetch('/api/products', {
       method: 'POST',
       body: JSON.stringify(pitem)
@@ -42,7 +48,10 @@ export default function PitemNew(arg: newProductArgs) {
         }
       })
       .then(() => {
-        fetch('/api/products')
+        fetch('/api/products', {
+          method: 'POST',
+          body: JSON.stringify({ mode: 'get', dbPrefix: c.u })
+        })
           .then((res) => res.json())
           .then((res) => {
             if (res.error) {
@@ -50,7 +59,7 @@ export default function PitemNew(arg: newProductArgs) {
             } else {
               console.log('newPitem reInit = OK', res)
               arg.setItems(() => res.data)
-              localStorage.setItem('products', JSON.stringify(res.data))
+              localStorage.setItem(c.u + 'products', JSON.stringify(res.data))
             }
           })
       })

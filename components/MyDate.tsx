@@ -9,6 +9,9 @@ export default function myDate(mark: string) {
     case 'yesterday':
       myDate.setDate(today.getDate() - 1)
       break
+    case 'yesterday0':
+      myDate.setDate(today.getDate() - 1)
+      break
     case '0W':
       myDate.setDate(today.getDate() - 6)
       break
@@ -54,7 +57,7 @@ export default function myDate(mark: string) {
   resultDate += String(myDate.getDate())
   resultDate += ' '
 
-  if (mark === 'today') {
+  if (mark === 'today' || mark === 'yesterday') {
     resultDate += ' 23:59'
   } else {
     resultDate += ' 00:00'

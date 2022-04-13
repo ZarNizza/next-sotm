@@ -13,13 +13,18 @@ export default function Init(
     | Dispatch<SetStateAction<User[]>>
     | Dispatch<SetStateAction<Eitem[]>>,
   apiSuffix: string,
+  dbPrefix: string,
   updateLocalStorage?: boolean
 ) {
+  //
   let items: string | null = ''
 
   try {
-    if (updateLocalStorage) throw null
-    items = localStorage.getItem(apiSuffix)
+    if (updateLocalStorage) {
+      console.log('Init - updateLocStor flag = TRUE')
+      throw null
+    }
+    items = localStorage.getItem(dbPrefix + apiSuffix)
     if (items === null) throw null
     if (items !== '') {
       console.log('Init ', apiSuffix, ' - LocStor GOOD')
@@ -28,16 +33,16 @@ export default function Init(
       console.log('Init ', apiSuffix, ' - LocStor error - empty response')
     }
   } catch {
-    console.log(
-      'Init ',
-      apiSuffix,
-      ' catch-api - NO LocalStorage Data >>> go fetch DB'
-    )
+    console.log('Init ', apiSuffix, ' catch-api >>> go fetch DB')
 
     const args: FetchArgs = {
-      method: 'GET',
+      method: 'POST',
       apiSuffix: apiSuffix,
       title: 'get' + apiSuffix,
+      body: JSON.stringify({
+        mode: 'get',
+        dbPrefix: dbPrefix
+      }),
       setResData: setItems
     }
 

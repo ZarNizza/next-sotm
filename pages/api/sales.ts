@@ -23,23 +23,25 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<ApiData>
 ) {
-  const timeZone = '04'
-
+  //
   return new Promise((resolve, reject) => {
     let sql: string = ''
     let params: string[] = []
 
     switch (req.method) {
-      case 'GET':
-        sql = 'SELECT * FROM sales ORDER BY date DESC LIMIT 50'
-        break
-
       case 'POST':
         const parsedReq = JSON.parse(req.body)
+        const dbPrefix = parsedReq.dbPrefix
         switch (parsedReq.mode) {
+          case 'get':
+            sql =
+              'SELECT * FROM ' + dbPrefix + 'sales ORDER BY date DESC LIMIT 50'
+            break
           case 'edit':
             sql =
-              'UPDATE sales SET date=$1, cust=$2, prod=$3, sum=$4, sumd=$5 WHERE id=$6'
+              'UPDATE ' +
+              dbPrefix +
+              'sales SET date=$1, cust=$2, prod=$3, sum=$4, sumd=$5 WHERE id=$6'
             params = [
               parsedReq.date,
               String(parsedReq.cust),
@@ -50,10 +52,12 @@ export default function handler(
             ]
             break
           case 'new':
-            const sqlDate = serialiseDate(new Date(), '')
+            const sqlDate = serialiseDate(new Date())
 
             sql =
-              'INSERT INTO sales (date, cust, prod, sum, sumd) VALUES ($1, $2, $3, $4, $5)'
+              'INSERT INTO ' +
+              dbPrefix +
+              'sales (date, cust, prod, sum, sumd) VALUES ($1, $2, $3, $4, $5)'
             params = [
               sqlDate,
               String(parsedReq.cust),
@@ -64,10 +68,18 @@ export default function handler(
             console.log('--- new: ', sql, params)
             break
           case 'del':
-            sql = 'UPDATE sales SET del = 1 WHERE id=' + parsedReq.id
+            sql =
+              'UPDATE ' +
+              dbPrefix +
+              'sales SET del = 1 WHERE id=' +
+              parsedReq.id
             break
           case 'restore':
-            sql = 'UPDATE sales SET del = 0 WHERE id=' + parsedReq.id
+            sql =
+              'UPDATE ' +
+              dbPrefix +
+              'sales SET del = 0 WHERE id=' +
+              parsedReq.id
             break
           default:
             console.log('! S - bad POST body.mode api request')

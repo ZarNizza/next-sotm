@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+
 const { Pool } = require('pg')
 const pool = new Pool({
   connectionString: process.env.PG_URI,
@@ -12,80 +13,89 @@ pool.on('error', (err: any, client: any) => {
 })
 
 export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
+  //
   let sql = ''
   let err_prefix = ''
   let retRes = false
+  const parsedReq = JSON.parse(req.body)
+  const dbPrefix = parsedReq.dbPrefix
 
   if (req.method === 'POST') {
-    switch (req.body) {
+    switch (parsedReq.mode) {
       //
-      case 'drop_Users':
-        sql = 'DROP TABLE users'
-        err_prefix = 'drop_Users'
-        break
 
       case 'drop_Customers':
-        sql = 'DROP TABLE customers'
+        sql = 'DROP TABLE ' + dbPrefix + 'customers'
         err_prefix = 'drop_Customers'
         break
 
       case 'drop_Products':
-        sql = 'DROP TABLE prod'
+        sql = 'DROP TABLE ' + dbPrefix + 'prod'
         err_prefix = 'drop_Products'
         break
 
       case 'drop_Sales':
-        sql = 'DROP TABLE sales'
+        sql = 'DROP TABLE ' + dbPrefix + 'sales'
         err_prefix = 'drop_Sales'
         break
 
       case 'drop_Xpenses':
-        sql = 'DROP TABLE xpenses'
+        sql = 'DROP TABLE ' + dbPrefix + 'xpenses'
         err_prefix = 'drop_Xpenses'
         break
 
       case 'drop_Eitems':
-        sql = 'DROP TABLE eitems'
+        sql = 'DROP TABLE ' + dbPrefix + 'eitems'
         err_prefix = 'drop_Eitems'
         break
 
       case 'restore_Users':
         sql =
-          'CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, name VARCHAR(50), phone VARCHAR(20), gooid VARCHAR(30), timezone SMALLINT, del SMALLINT DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, md5 VARCHAR(32) DEFAULT "0", name VARCHAR(50), phone VARCHAR(20), gooid VARCHAR(30), del SMALLINT DEFAULT 0)'
         //CREATE INDEX u ON users (lower(name), phone)
         err_prefix = 'restore_Users'
         break
 
       case 'restore_Customers':
         sql =
-          'CREATE TABLE IF NOT EXISTS customers (id SERIAL PRIMARY KEY, name VARCHAR(50), phone VARCHAR(20), gooid VARCHAR(30), del SMALLINT DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS ' +
+          dbPrefix +
+          'customers (id SERIAL PRIMARY KEY, name VARCHAR(50), phone VARCHAR(20), gooid VARCHAR(30), del SMALLINT DEFAULT 0)'
         //CREATE INDEX c ON customers (lower(name), phone)
         err_prefix = 'restore_Customers'
         break
 
       case 'restore_Products':
         sql =
-          'CREATE TABLE IF NOT EXISTS prod (id SERIAL PRIMARY KEY, name VARCHAR(50), symbol VARCHAR(7), price INT DEFAULT 0, del SMALLINT DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS ' +
+          dbPrefix +
+          'prod (id SERIAL PRIMARY KEY, name VARCHAR(50), symbol VARCHAR(7), price INT DEFAULT 0, del SMALLINT DEFAULT 0)'
         err_prefix = 'restore_Products'
         break
 
       case 'restore_Sales':
         sql =
-          'CREATE TABLE IF NOT EXISTS sales (id SERIAL PRIMARY KEY, date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, cust SMALLINT, prod SMALLINT, sum INT, sumd INT, del SMALLINT DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS ' +
+          dbPrefix +
+          'sales (id SERIAL PRIMARY KEY, date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, cust SMALLINT, prod SMALLINT, sum INT, sumd INT, del SMALLINT DEFAULT 0)'
         //CREATE INDEX s ON sales (cust, prod, date)
         err_prefix = 'restore_Sales'
         break
 
       case 'restore_Xpenses':
         sql =
-          'CREATE TABLE IF NOT EXISTS xpenses (id SERIAL PRIMARY KEY, date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, xitem SMALLINT, sum INT, del SMALLINT DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS ' +
+          dbPrefix +
+          'xpenses (id SERIAL PRIMARY KEY, date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, xitem SMALLINT, sum INT, del SMALLINT DEFAULT 0)'
         //CREATE INDEX x ON xpenses (xitem, date)
         err_prefix = 'restore_Xpenses'
         break
 
       case 'restore_Eitems':
         sql =
-          'CREATE TABLE IF NOT EXISTS eitems (id SERIAL PRIMARY KEY, name VARCHAR(50), symbol VARCHAR(7), price INT DEFAULT 0, del SMALLINT DEFAULT 0)'
+          'CREATE TABLE IF NOT EXISTS ' +
+          dbPrefix +
+          'eitems (id SERIAL PRIMARY KEY, name VARCHAR(50), symbol VARCHAR(7), price INT DEFAULT 0, del SMALLINT DEFAULT 0)'
         err_prefix = 'restore_Eitems'
         break
 
@@ -95,17 +105,17 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         break
 
       case 'index_Customers':
-        sql = 'CREATE INDEX c ON customers (lower(name), phone)'
+        sql = 'CREATE INDEX c ON ' + dbPrefix + 'customers (lower(name), phone)'
         err_prefix = 'index_Customers'
         break
 
       case 'index_Sales':
-        sql = 'CREATE INDEX s ON sales (cust, prod, date)'
+        sql = 'CREATE INDEX s ON ' + dbPrefix + 'sales (cust, prod, date)'
         err_prefix = 'index_Sales'
         break
 
       case 'index_Xpenses':
-        sql = 'CREATE INDEX x ON xpenses (xitem, date)'
+        sql = 'CREATE INDEX x ON ' + dbPrefix + 'xpenses (xitem, date)'
         err_prefix = 'index_Xpenses'
         break
 
@@ -123,31 +133,31 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         break
 
       case 'show_Customers':
-        sql = 'SELECT * FROM customers ORDER BY id DESC'
+        sql = 'SELECT * FROM ' + dbPrefix + 'customers ORDER BY id DESC'
         err_prefix = 'show_Customers'
         retRes = true
         break
 
       case 'show_Products':
-        sql = 'SELECT * FROM prod ORDER BY id DESC'
+        sql = 'SELECT * FROM ' + dbPrefix + 'prod ORDER BY id DESC'
         err_prefix = 'show_Products'
         retRes = true
         break
 
       case 'show_Sales':
-        sql = 'SELECT * FROM sales ORDER BY id DESC'
+        sql = 'SELECT * FROM ' + dbPrefix + 'sales ORDER BY id DESC'
         err_prefix = 'show_Sales'
         retRes = true
         break
 
       case 'show_Xpenses':
-        sql = 'SELECT * FROM xpenses ORDER BY id DESC'
+        sql = 'SELECT * FROM ' + dbPrefix + 'xpenses ORDER BY id DESC'
         err_prefix = 'show_Xpenses'
         retRes = true
         break
 
       case 'show_Eitems':
-        sql = 'SELECT * FROM eitems ORDER BY id DESC'
+        sql = 'SELECT * FROM ' + dbPrefix + 'eitems ORDER BY id DESC'
         err_prefix = 'show_Eitems'
         retRes = true
         break

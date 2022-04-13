@@ -32,7 +32,7 @@ const Home: NextPage = () => {
   const [newFlag, setNewFlag] = useState(false)
 
   useEffect(() => {
-    Init(setEitems, 'eitems')
+    Init(setEitems, 'eitems', c.u)
   }, [])
 
   type SumProps = { id: number; value: number }

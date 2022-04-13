@@ -41,8 +41,8 @@ const Home: NextPage = () => {
   const [finishDate, setFinishDate] = useState(myDate('today'))
 
   useEffect(() => {
-    Init(setCustomers, 'customers')
-    Init(setProducts, 'products')
+    Init(setCustomers, 'customers', c.u)
+    Init(setProducts, 'products', c.u)
   }, [])
 
   function fetch_Handler(body: apiBody) {
@@ -72,6 +72,7 @@ const Home: NextPage = () => {
   function show_S_Handler() {
     const body = {
       mode: 'show_S',
+      dbPrefix: c.u,
       startDate: startDate,
       finishDate: finishDate,
       currentCustomer: currentCustomer
@@ -82,6 +83,7 @@ const Home: NextPage = () => {
   function show_X_Handler() {
     const body = {
       mode: 'show_X',
+      dbPrefix: c.u,
       startDate: startDate,
       finishDate: finishDate
     }
@@ -91,6 +93,7 @@ const Home: NextPage = () => {
   function show_SX_Handler() {
     const body = {
       mode: 'show_SX',
+      dbPrefix: c.u,
       startDate: startDate,
       finishDate: finishDate,
       currentCustomer: currentCustomer
@@ -101,6 +104,7 @@ const Home: NextPage = () => {
   function show_S_Full_Handler() {
     const body = {
       mode: 'show_S_Full',
+      dbPrefix: c.u,
       startDate: startDate,
       finishDate: finishDate
     }
@@ -110,6 +114,7 @@ const Home: NextPage = () => {
   function show_X_Full_Handler() {
     const body = {
       mode: 'show_X_Full',
+      dbPrefix: c.u,
       startDate: startDate,
       finishDate: finishDate
     }
@@ -119,6 +124,7 @@ const Home: NextPage = () => {
   function show_SX_Full_Handler() {
     const body = {
       mode: 'show_SX_Full',
+      dbPrefix: c.u,
       startDate: startDate,
       finishDate: finishDate
     }
@@ -128,6 +134,7 @@ const Home: NextPage = () => {
   function show_CS_Full_Handler() {
     const body = {
       mode: 'show_CS_Full',
+      dbPrefix: c.u,
       startDate: startDate,
       finishDate: finishDate,
       currentCustomer: currentCustomer
@@ -138,6 +145,7 @@ const Home: NextPage = () => {
   function show_C_History_Handler() {
     const body = {
       mode: 'show_C_History',
+      dbPrefix: c.u,
       startDate: startDate,
       finishDate: finishDate,
       currentCustomer: currentCustomer
@@ -163,8 +171,8 @@ const Home: NextPage = () => {
     setFinishDate(() => myDate('today'))
   }
   function setYesterdayHandler() {
-    setStartDate(() => myDate('yesterday'))
-    setFinishDate(() => myDate('today0'))
+    setStartDate(() => myDate('yesterday0'))
+    setFinishDate(() => myDate('yesterday'))
   }
   function setWeekHandler() {
     setStartDate(() => myDate('0W'))

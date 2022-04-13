@@ -9,8 +9,11 @@ import { Customer, Product, Sale } from './plus'
 import { Eitem, Xpense } from './minus'
 import { User } from './editUsers'
 import Init from '../components/Init'
+import { AppContext } from '../components/AppContext'
+import { useContext } from 'react'
 
 const Home: NextPage = () => {
+  const c = useContext(AppContext)
   const [itemsC, setItemsC] = useState<Customer[]>([])
   const [itemsU, setItemsU] = useState<User[]>([])
   const [itemsS, setItemsS] = useState<Sale[]>([])
@@ -115,20 +118,27 @@ const Home: NextPage = () => {
   function updateLS_handler() {
     console.log('LS UPDATE started')
     const toast01 = toast.loading('Updating...')
-    Init(setItemsC, 'customers', true)
-    Init(setItemsU, 'users', true)
-    Init(setItemsS, 'sales', true)
-    Init(setItemsP, 'products', true)
-    Init(setItemsE, 'eitems', true)
-    Init(setItemsX, 'xpenses', true)
+    Init(setItemsC, 'customers', c.u, true)
+    Init(setItemsU, 'users', c.u, true)
+    Init(setItemsS, 'sales', c.u, true)
+    Init(setItemsP, 'products', c.u, true)
+    Init(setItemsE, 'eitems', c.u, true)
+    Init(setItemsX, 'xpenses', c.u, true)
     toast.remove()
   }
   /////////////////////////////////////////////////////
 
-  function sys_handler(title: string) {
+  function sys_handler(mode: string) {
     if (!confirm('... Sure?')) return
+
     const toast01 = toast.loading('Loading...')
-    fetch('/api/sys', { method: 'POST', body: title })
+    fetch('/api/sys', {
+      method: 'POST',
+      body: JSON.stringify({
+        mode: mode,
+        dbPrefix: c.u
+      })
+    })
       .then((res) => res.json())
       .then((res) => {
         if (res.error) {
@@ -145,7 +155,7 @@ const Home: NextPage = () => {
       .catch((error) => {
         toast.remove()
         toast.error('!Loading error: X3')
-        alert('! SYS ' + title + ' error - ' + error.message)
+        alert('! SYS ' + mode + ' error - ' + error.message)
       })
   }
 
@@ -156,6 +166,7 @@ const Home: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <h1>SYSTEM</h1>
+        <p>{c.u}</p>
         <Toaster />
         <div className={styles.flexColumnContainer}>
           <div className={styles.sysButtonsGroup}>

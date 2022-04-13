@@ -25,6 +25,7 @@ export default function ProductEditForm(arg: editPitemArgs) {
     }
     const pitem = {
       mode: 'edit',
+      dbPrefix: c.u,
       name: pName,
       symbol: pSymbol,
       price: pPrice,
@@ -47,7 +48,10 @@ export default function ProductEditForm(arg: editPitemArgs) {
         }
       })
       .then(() => {
-        fetch('/api/products')
+        fetch('/api/products', {
+          method: 'POST',
+          body: JSON.stringify({ mode: 'get', dbPrefix: c.u })
+        })
           .then((res) => res.json())
           .then((res) => {
             if (res.error) {
@@ -55,7 +59,7 @@ export default function ProductEditForm(arg: editPitemArgs) {
             } else {
               console.log('newPitem reInit = OK')
               arg.setItems(() => res.data)
-              localStorage.setItem('products', JSON.stringify(res.data))
+              localStorage.setItem(c.u + 'products', JSON.stringify(res.data))
             }
           })
       })

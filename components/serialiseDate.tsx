@@ -1,4 +1,4 @@
-export default function serialiseDate(date: Date, timeZone: string) {
+export default function serialiseDate(date: Date) {
   return (
     String(date.getFullYear()) +
     '-' +

@@ -30,7 +30,7 @@ const Home: NextPage = () => {
   const [newFlag, setNewFlag] = useState(false)
 
   useEffect(() => {
-    Init(setItems, 'eitems')
+    Init(setItems, 'eitems', c.u)
   }, [])
 
   return (

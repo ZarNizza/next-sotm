@@ -1,14 +1,7 @@
 import type { Customer, Product } from '../pages/plus'
 import styles from './ProductCart.module.scss'
 import stylesH from '../styles/Home.module.css'
-import Link from 'next/link'
-import {
-  ChangeEventHandler,
-  Dispatch,
-  FC,
-  MutableRefObject,
-  SetStateAction
-} from 'react'
+import { Dispatch, FC, MutableRefObject, SetStateAction } from 'react'
 import { AppContext } from './AppContext'
 import { useContext } from 'react'
 
@@ -91,6 +84,7 @@ export default function ProductCart(props: ProductCartProps) {
       } else {
         const sale = {
           mode: 'new',
+          dbPrefix: c.u,
           cust: props.currentCustomer.id,
           prod: id,
           sum: props.prodCostRef.current[id],

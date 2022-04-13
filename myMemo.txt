@@ -1,4 +1,7 @@
 ;<>
+git pull origin use_MD5
+
+
 {
 //  show timezone;
   SET TIME ZONE 4; SET TIME ZONE LOCAL;

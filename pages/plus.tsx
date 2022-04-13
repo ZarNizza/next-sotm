@@ -37,7 +37,6 @@ export type Item0 = {
   name?: string
   phone?: string
   gooid?: string
-  timezone?: string
   date?: string
   cust?: number
   prod?: number
@@ -66,13 +65,13 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     console.log('plus - useEffect - init cust')
-    Init(setCustomers, 'customers')
+    Init(setCustomers, 'customers', c.u)
     console.log('plus - useEffect - init prod')
-    Init(setProducts, 'products')
+    Init(setProducts, 'products', c.u)
   }, [])
 
   function updateFunc() {
-    Init(setCustomers, 'customers', true)
+    Init(setCustomers, 'customers', c.u, true)
     resetParams()
   }
 
