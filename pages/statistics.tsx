@@ -171,8 +171,8 @@ const Home: NextPage = () => {
     setFinishDate(() => myDate('today'))
   }
   function setYesterdayHandler() {
-    setStartDate(() => myDate('yesterday'))
-    setFinishDate(() => myDate('today0'))
+    setStartDate(() => myDate('yesterday0'))
+    setFinishDate(() => myDate('yesterday'))
   }
   function setWeekHandler() {
     setStartDate(() => myDate('0W'))
