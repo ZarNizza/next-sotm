@@ -100,22 +100,31 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         break
 
       case 'index_Users':
-        sql = 'CREATE INDEX u ON users (lower(name), phone)'
+        sql = 'CREATE INDEX IF NOT EXISTS u ON users (lower(name), phone)'
         err_prefix = 'index_Users'
         break
 
       case 'index_Customers':
-        sql = 'CREATE INDEX c ON ' + dbPrefix + 'customers (lower(name), phone)'
+        sql =
+          'CREATE INDEX IF NOT EXISTS c ON ' +
+          dbPrefix +
+          'customers (lower(name), phone)'
         err_prefix = 'index_Customers'
         break
 
       case 'index_Sales':
-        sql = 'CREATE INDEX s ON ' + dbPrefix + 'sales (cust, prod, date)'
+        sql =
+          'CREATE INDEX IF NOT EXISTS s ON ' +
+          dbPrefix +
+          'sales (cust, prod, date)'
         err_prefix = 'index_Sales'
         break
 
       case 'index_Xpenses':
-        sql = 'CREATE INDEX x ON ' + dbPrefix + 'xpenses (xitem, date)'
+        sql =
+          'CREATE INDEX IF NOT EXISTS x ON ' +
+          dbPrefix +
+          'xpenses (xitem, date)'
         err_prefix = 'index_Xpenses'
         break
 
