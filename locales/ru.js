@@ -1,5 +1,5 @@
 export const ru = {
-  appName: 'Про100 Успех',
+  appName: 'Про100 Успехов',
   welcomeTitle: 'Про100, привет!',
   plusTitle: 'Продажи',
   minusTitle: 'Закупки',

@@ -1,10 +1,12 @@
-Language select
 ColorTheme select
 Delete Items handling
-Generate DB tables for new User
 CurrentCustomer last 3 visits list
+Minus - SAVE - update LS/state
+editX - format dateTime (drop T)
 
 Done:
+Language select
+Generate DB tables for new User
 X-cart style
 S,X - date + time !LOCAL TIME!
 Prod sum default
