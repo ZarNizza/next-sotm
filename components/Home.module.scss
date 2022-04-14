@@ -150,66 +150,81 @@ $separator: #ddd;
 .orange {
   color: $o6;
   box-shadow: 3px 3px 3px 0px $o4;
-  border: 1px solid $o6;
-  // background: linear-gradient(-15deg, $o6 5%, $o5 80%, $o2);
+  border: 1px solid #fff0e0;
+  background-color: #fffaf3;
+  // border: 1px solid $o6;
 }
 .orange:hover {
-  background-color: $o6;
+  // background-color: $o6;
+  background: linear-gradient(-15deg, $o6 5%, $o5 80%, $o2);
   color: white;
   cursor: pointer;
+  transition: 0.35s ease;
 }
 .green {
   color: $g6;
   box-shadow: 3px 3px 3px 0px $g4;
-  border: 1px solid $g6;
-  // background: linear-gradient(-15deg, $g6 5%, $g5 80%, $g2);
+  border: 1px solid #dcffcb;//$g6;
+  background-color: #f4fff0;
 }
 .green:hover {
-  background: $g6;
+  // background: $g6;
+  background: linear-gradient(-15deg, $g6 5%, $g5 80%, $g2);
   color: white;
   cursor: pointer;
+  transition: 0.35s ease;
 }
 .yellow {
   color: $y6;
   box-shadow: 3px 3px 3px 0px $y4;
-  border: 1px solid $y6;
-  // background: linear-gradient(-15deg, $y6 5%, $y5 70%, $y2);
+  border: 1px solid #fffadb;
+  background-color: #fdfff3;
+  // border: 1px solid $y6;
 }
 .yellow:hover {
-  background: $y6;
+  // background: $y6;
+  background: linear-gradient(-15deg, $y6 5%, $y5 70%, $y2);
   color: white;
   cursor: pointer;
+  transition: 0.35s ease;
 }
 .blue {
   color: $b6;
   box-shadow: 3px 3px 3px 0px $b4;
-  border: 1px solid $b6;
-  // background: linear-gradient(-15deg, $b6 5%, $b5 70%, $b2);
+  border: 1px solid #e1e7ff;
+  background-color: aliceblue;
+  // border: 1px solid $b6;
 }
 .blue:hover {
-  background: $b6;
+  // background: $b6;
+  background: linear-gradient(-15deg, $b6 5%, $b5 70%, $b2);
   color: white;
   cursor: pointer;
+  transition: 0.35s ease;
 }
 .violet {
   color: $v6;
   box-shadow: 3px 3px 3px 0px $v4;
-  border: 1px solid $v6;
-  // background: linear-gradient(-15deg, $v6 5%, $v5 70%, $v2);
+  border: 1px solid #ede0ff;
+  background-color: #fbf4ff;
+  // border: 1px solid $v6;
 }
 .violet:hover {
-  background: $v6;
+  // background: $v6;
+  background: linear-gradient(-15deg, $v6 5%, $v5 70%, $v2);
   color: white;
   cursor: pointer;
+  transition: 0.35s ease;
 }
 .pink {
   color: $p6;
   box-shadow: 3px 3px 3px 0px $p4;
   border: 1px solid $p6;
-  // background: linear-gradient(-15deg, $p6 5%, $p5 70%, $p2);
 }
 .pink:hover {
-  background: $p6;
+  // background: $p6;
+  background: linear-gradient(-15deg, $p6 5%, $p5 70%, $p2);
   color: white;
   cursor: pointer;
+  transition: 0.35s ease;
 }

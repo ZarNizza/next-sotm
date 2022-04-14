@@ -42,15 +42,16 @@
 }
 .custList,
 .newCust {
-  background-color: #fff;
+  background-color: #fcfff5;
   margin: 1rem 2rem;
-  padding: 1rem 2rem;
-  border: 2px solid lawngreen;
+  padding: 0.75rem 2rem;
+  border: 1px solid #e5ffcd;
   border-radius: 10px;
   box-shadow: 3px 3px 3px 0px #d9f7be;
 }
 .newCust {
-  background-color: #d3ff58;
+  // background-color: #d3ff58;
+    background: linear-gradient(-15deg, #b5faff 5%, #9effa3 70%, #fffffe);
   margin-top: -5rem;
 }
 .custSelect {
@@ -105,7 +106,7 @@
   background-color: #d3ff58;
   margin: 2rem;
   padding: 2rem 2rem;
-  border: 1px solid limegreen;
+  border: 1px solid 1px solid #e9ffc3;;//limegreen;
   border-radius: 10px;
   box-shadow: 3px 3px 3px 0px #7cb305;
 }
@@ -115,6 +116,8 @@
   flex-direction: column;
   overflow-y: scroll;
   height: 15rem;
+  background-color: floralwhite;
+  border: 1px solid #f0ffe0;
 }
 .selectList .csOpt {
   display: flex;
@@ -178,33 +181,39 @@
   border-radius: 10px;
 }
 .newCeditForm {
-  background-color: #ffd900;
-  border: 1px solid orange;
+  // background-color: #ffd900;
+  background: linear-gradient(-15deg, orange 5%, #ffd900 70%, #fffffe);
+  border: 1px solid #ffdd9f;//orange;
   box-shadow: 3px 3px 3px 0px #ffd666;
 }
 .newSeditForm {
-  background-color: #7fff7f;
+  // background-color: #7fff7f;
+  background: linear-gradient(-15deg, #b5faff 5%, #9effa3 70%, #fffffe);
   border: 1px solid lawngreen;
   box-shadow: 3px 3px 3px 0px #7fff7f;
 }
 .newXeditForm {
-  background-color: #ff98f1;
+  // background-color: #ff98f1;
+  background: linear-gradient(-15deg, #ff98f1 5%, #ff00d4 70%, #ff98f1);
   border: 1px solid #ff00d4;
   box-shadow: 3px 3px 3px 0px #ff98f1;
 }
 .newUeditForm {
-  background-color: #cc00ff;
+  // background-color: #cc00ff;
+  background: linear-gradient(-15deg, #b5faff 5%, #9effa3 70%, #fffffe);
   border: 1px solid #8600a7;
   box-shadow: 3px 3px 3px 0px #cc00ff;
 }
 .newEeditForm {
-  background-color: #ffec3d;
-  border: 1px solid #f1ff31;
+  // background-color: #ffec3d;
+background: linear-gradient(-15deg, #ffcc53 5%, #ffcffc 70%, #ffec00);
+border: 1px solid #fcffca;
   box-shadow: 3px 3px 3px 0px #fff89b;
 }
 .newPeditForm {
-  background-color: #959cff;
-  border: 1px solid #8200fc;
+  // background-color: #959cff;
+  background: linear-gradient(-15deg, #8eaaff 5%, #83bfff 70%, #def3ff);
+  border: 1px solid #8ac8ff;
   box-shadow: 3px 3px 3px 0px #959cff;
 }
 .newPeditForm .title,

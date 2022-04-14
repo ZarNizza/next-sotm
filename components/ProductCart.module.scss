@@ -21,14 +21,14 @@
 
 .productList {
   color: #8200fc;
-  background-color: white;
+  background-color: #fffef5;
   margin: 2rem;
   padding: 1rem 2rem;
-  border: 1px solid #8200fc;
+  border: 1px solid #edf;//#8200fc;
   border-radius: 10px;
   min-width: 20rem;
   max-width: 26rem;
-  box-shadow: 3px 3px 3px 0px lightskyblue;
+  box-shadow: 3px 3px 3px 0px #faf887;//lightskyblue;
 }
 
 .productList p {
@@ -37,7 +37,7 @@
 
 .productList h3 {
   margin: 0;
-  color: #8200fc;
+  color: #ff8c00;//#8200fc;
 }
 
 .productList span {
