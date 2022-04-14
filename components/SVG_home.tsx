@@ -4,7 +4,7 @@ const SVG_home = () => {
   return (
     <span>
       <svg
-        enable-background="new 0 0 32 32"
+        enableBackground="new 0 0 32 32"
         viewBox="0 0 32 32"
         xmlSpace="preserve"
         xmlns="http://www.w3.org/2000/svg"
@@ -16,20 +16,20 @@ const SVG_home = () => {
           id="XMLID_1_"
           fill="none"
           stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-miterlimit="10"
-          stroke-width="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeMiterlimit="10"
+          strokeWidth="2"
         />
         <path
           fill="none"
           d="  M20,29h-8v-6c0-2.209,1.791-4,4-4h0c2.209,0,4,1.791,4,4V29z"
           id="XMLID_2_"
           stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-miterlimit="10"
-          stroke-width="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeMiterlimit="10"
+          strokeWidth="2"
         />
       </svg>
     </span>
