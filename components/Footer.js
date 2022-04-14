@@ -4,10 +4,12 @@ import styles from './Footer.module.scss'
 import { AppContext } from './AppContext'
 import { useContext } from 'react'
 import { SVG_edit } from './SVG_edit'
+import { SVG_home } from './SVG_home'
 
 export default function Footer() {
   const c = useContext(AppContext)
   const { data: session } = useSession()
+  //icon home = &#8962;
   // return session ? (
   return (
     <div className={styles.footer}>
@@ -16,7 +18,9 @@ export default function Footer() {
           <Link href="/" passHref>
             <a className={styles.footerLink}>
               <span className={styles.rb_p}>
-                <div className={styles.footerLabel}>&#8962;</div>
+                <div className={styles.footerLabel}>
+                  <SVG_home />
+                </div>
               </span>
             </a>
           </Link>
