@@ -3,8 +3,11 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import { useState } from 'react'
 import type { Sale } from './plus'
+import { AppContext } from '../components/AppContext'
+import { useContext } from 'react'
 
 const Home: NextPage = () => {
+  const c = useContext(AppContext)
   const [resData, setResData] = useState<Sale[]>([])
   const [sqlString, setSQLstring] = useState<string>('')
 
@@ -34,6 +37,7 @@ const Home: NextPage = () => {
         </Head>
         <main className={styles.main}>
           <div>
+            <p>{!!c.u ? c.u : '- not logged -'}</p>
             <input
               id="sqlInput"
               value={sqlString}

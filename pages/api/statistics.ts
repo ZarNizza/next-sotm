@@ -37,7 +37,7 @@ export default async function sysHandler(
               error: String('sql error (X3) \n' + sqlQuery)
             })
             console.log('Promise ERROR: ', err.stack)
-            reject(err + '\n' + sqlQuery)
+            resolve(err + '\n' + sqlQuery)
           })
       }) //
     }

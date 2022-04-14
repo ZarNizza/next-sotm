@@ -9,6 +9,7 @@ import { Customer, Product, Sale } from './plus'
 import { Eitem, Xpense } from './minus'
 import { User } from './editUsers'
 import Init from '../components/Init'
+import InitNewDB from '../components/InitNewDB'
 import { AppContext } from '../components/AppContext'
 import { useContext } from 'react'
 
@@ -115,6 +116,19 @@ const Home: NextPage = () => {
     sys_handler('show_Eitems')
   }
 
+  function dropLS_handler() {
+    console.log('LS DROP')
+    try {
+      localStorage.removeItem(c.u + 'customers')
+      localStorage.removeItem(c.u + 'products')
+      localStorage.removeItem(c.u + 'eitems')
+      localStorage.removeItem(c.u + 'sales')
+      localStorage.removeItem(c.u + 'xpenses')
+    } catch {
+      console.log('LS DROP FAULT')
+    }
+  }
+
   function updateLS_handler() {
     console.log('LS UPDATE started')
     const toast01 = toast.loading('Updating...')
@@ -125,6 +139,10 @@ const Home: NextPage = () => {
     Init(setItemsE, 'eitems', c.u, true)
     Init(setItemsX, 'xpenses', c.u, true)
     toast.remove()
+  }
+
+  function reInitNewDB_handler() {
+    InitNewDB()
   }
   /////////////////////////////////////////////////////
 
@@ -166,7 +184,7 @@ const Home: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <h1>SYSTEM</h1>
-        <p>{c.u}</p>
+        <p>{!!c.u ? c.u : '- not logged -'}</p>
         <Toaster />
         <div className={styles.flexColumnContainer}>
           <div className={styles.sysButtonsGroup}>
@@ -202,6 +220,12 @@ const Home: NextPage = () => {
             <button onClick={show_E_handler}>show E</button>
           </div>
           <div className={styles.sysButtonsGroup}>
+            <button className={styles.sysButton} onClick={reInitNewDB_handler}>
+              reInit NewDB
+            </button>
+            <button className={styles.sysButton} onClick={dropLS_handler}>
+              Drop LocalStorage
+            </button>
             <button className={styles.sysButton} onClick={updateLS_handler}>
               Update LocalStorage
             </button>

@@ -10,21 +10,20 @@ export default function InitNewDB() {
   try {
     localStorage.setItem(c.u, JSON.stringify(''))
   } catch {
-    console.log('localStorage set FAIL')
-    return console.log('localStorage set FAIL-2')
+    console.log('localStorage test FAIL')
+    return
   }
-  console.log('localStorage set GOOD')
+  console.log('localStorage test GOOD')
 
   let args: FetchArgs = {
     method: 'POST',
     apiSuffix: 'sys',
-    title: 'initNewDB',
+    title: 'initNewDB \n',
     body: JSON.stringify({
       mode: 'restore_Customers',
       dbPrefix: c.u
     })
   }
-
   fetchHandler(args)
     .then(() => {
       localStorage.setItem(c.u + 'customers', JSON.stringify(''))

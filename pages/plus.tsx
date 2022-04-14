@@ -68,7 +68,7 @@ const Home: NextPage = () => {
     Init(setCustomers, 'customers', c.u)
     console.log('plus - useEffect - init prod')
     Init(setProducts, 'products', c.u)
-  }, [])
+  }, [c.u])
 
   function updateFunc() {
     Init(setCustomers, 'customers', c.u, true)

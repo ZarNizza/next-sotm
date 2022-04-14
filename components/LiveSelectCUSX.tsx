@@ -212,93 +212,98 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
       return <></>
     let cList: any
 
-    switch (a.type) {
-      case 'C': {
-        cList = (a.items as Customer[])
-          .filter((item) => {
-            return item.name.toLowerCase().includes(a.searchWord)
-          })
-          .map((item) => {
-            return (
-              <div
-                key={item.id}
-                onClick={() => setCurrC(item.id)}
-                className={styles.csOpt}
-              >
-                {item.name}
-              </div>
-            )
-          })
-        break
-      }
-      case 'U': {
-        cList = (a.items as User[])
-          .filter((item) => {
-            return item.name.toLowerCase().includes(a.searchWord)
-          })
-          .map((item) => {
-            return (
-              <div
-                key={item.id}
-                onClick={() => setCurrU(item.id)}
-                className={styles.csOpt}
-              >
-                {item.name}
-              </div>
-            )
-          })
-        break
-      }
-      case 'S': {
-        cList = (a.items as Sale[])
-          .filter((item) => {
-            return (
-              String(item.id).includes(a.searchWord) ||
-              String(item.cust).includes(a.searchWord) ||
-              String(item.prod).includes(a.searchWord) ||
-              item.date.toLowerCase().includes(a.searchWord)
-            )
-          })
-          .map((item) => {
-            return (
-              <div
-                key={item.id}
-                onClick={() => setCurrS(item.id || 0)}
-                className={styles.csOpt}
-              >
-                id={item.id}, c={item.cust}, p={item.prod}, sum={item.sum},
-                +/-d=
-                {item.sumd}, {item.date}
-              </div>
-            )
-          })
-        break
-      }
-      case 'X': {
-        cList = (a.items as Xpense[])
-          .filter((item) => {
-            return (
-              String(item.id).includes(a.searchWord) ||
-              item.date.toLowerCase().includes(a.searchWord) ||
-              String(item.xitem).includes(a.searchWord)
-            )
-          })
-          .map((item) => {
-            return (
-              <div
-                key={item.id}
-                onClick={() => setCurrX(item.id || 0)}
-                className={styles.csOpt}
-              >
-                id:{item.id}, xi={item.xitem}, sum={item.sum}, {item.date}
-              </div>
-            )
-          })
-        break
-      }
-      default: {
-        console.log('LiveSearchList ! empty api.type !')
-        return <></>
+    if (a.items.length === 0) {
+      cList = []
+    } else {
+      switch (a.type) {
+        case 'C': {
+          cList = (a.items as Customer[])
+            .filter((item) => {
+              return item.name.toLowerCase().includes(a.searchWord)
+            })
+            .map((item) => {
+              return (
+                <div
+                  key={item.id}
+                  onClick={() => setCurrC(item.id)}
+                  className={styles.csOpt}
+                >
+                  {item.name}
+                </div>
+              )
+            })
+
+          break
+        }
+        case 'U': {
+          cList = (a.items as User[])
+            .filter((item) => {
+              return item.name.toLowerCase().includes(a.searchWord)
+            })
+            .map((item) => {
+              return (
+                <div
+                  key={item.id}
+                  onClick={() => setCurrU(item.id)}
+                  className={styles.csOpt}
+                >
+                  {item.name}
+                </div>
+              )
+            })
+          break
+        }
+        case 'S': {
+          cList = (a.items as Sale[])
+            .filter((item) => {
+              return (
+                String(item.id).includes(a.searchWord) ||
+                String(item.cust).includes(a.searchWord) ||
+                String(item.prod).includes(a.searchWord) ||
+                item.date.toLowerCase().includes(a.searchWord)
+              )
+            })
+            .map((item) => {
+              return (
+                <div
+                  key={item.id}
+                  onClick={() => setCurrS(item.id || 0)}
+                  className={styles.csOpt}
+                >
+                  id={item.id}, c={item.cust}, p={item.prod}, sum={item.sum},
+                  +/-d=
+                  {item.sumd}, {item.date}
+                </div>
+              )
+            })
+          break
+        }
+        case 'X': {
+          cList = (a.items as Xpense[])
+            .filter((item) => {
+              return (
+                String(item.id).includes(a.searchWord) ||
+                item.date.toLowerCase().includes(a.searchWord) ||
+                String(item.xitem).includes(a.searchWord)
+              )
+            })
+            .map((item) => {
+              return (
+                <div
+                  key={item.id}
+                  onClick={() => setCurrX(item.id || 0)}
+                  className={styles.csOpt}
+                >
+                  id:{item.id}, xi={item.xitem}, sum={item.sum}, {item.date}
+                </div>
+              )
+            })
+          break
+        }
+        default: {
+          console.log('LiveSearchList ! empty api.type !')
+          return <></>
+        }
       }
     }
 

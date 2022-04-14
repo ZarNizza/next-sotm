@@ -106,7 +106,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
 
       case 'index_Customers':
         sql =
-          'CREATE INDEX IF NOT EXISTS c ON ' +
+          'CREATE INDEX IF NOT EXISTS ' +
+          dbPrefix +
+          'c ON ' +
           dbPrefix +
           'customers (lower(name), phone)'
         err_prefix = 'index_Customers'
@@ -114,7 +116,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
 
       case 'index_Sales':
         sql =
-          'CREATE INDEX IF NOT EXISTS s ON ' +
+          'CREATE INDEX IF NOT EXISTS ' +
+          dbPrefix +
+          's ON ' +
           dbPrefix +
           'sales (cust, prod, date)'
         err_prefix = 'index_Sales'
@@ -122,7 +126,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
 
       case 'index_Xpenses':
         sql =
-          'CREATE INDEX IF NOT EXISTS x ON ' +
+          'CREATE INDEX IF NOT EXISTS ' +
+          dbPrefix +
+          'x ON ' +
           dbPrefix +
           'xpenses (xitem, date)'
         err_prefix = 'index_Xpenses'
