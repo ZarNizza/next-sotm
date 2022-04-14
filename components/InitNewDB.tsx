@@ -1,14 +1,11 @@
 import styles from '../styles/Home.module.css'
-import { AppContext } from '../components/AppContext'
-import { useContext } from 'react'
 import fetchHandler, { FetchArgs } from '../components/fetchHandler'
 
-export default function InitNewDB() {
-  const c = useContext(AppContext)
+export default function InitNewDB(dbPrefix: string) {
   console.log('* * * * * * * InitNewDB start')
 
   try {
-    localStorage.setItem(c.u, JSON.stringify(''))
+    localStorage.setItem(dbPrefix, JSON.stringify(''))
   } catch {
     console.log('localStorage test FAIL')
     return
@@ -21,56 +18,56 @@ export default function InitNewDB() {
     title: 'initNewDB \n',
     body: JSON.stringify({
       mode: 'restore_Customers',
-      dbPrefix: c.u
+      dbPrefix: dbPrefix
     })
   }
   fetchHandler(args)
     .then(() => {
-      localStorage.setItem(c.u + 'customers', JSON.stringify(''))
+      localStorage.setItem(dbPrefix + 'customers', JSON.stringify(''))
       args.apiSuffix = 'sys'
       args.body = JSON.stringify({
         mode: 'restore_Products',
-        dbPrefix: c.u
+        dbPrefix: dbPrefix
       })
       fetchHandler(args).then(() => {
-        localStorage.setItem(c.u + 'prod', JSON.stringify(''))
+        localStorage.setItem(dbPrefix + 'prod', JSON.stringify(''))
         args.apiSuffix = 'sys'
         args.body = JSON.stringify({
           mode: 'restore_Eitems',
-          dbPrefix: c.u
+          dbPrefix: dbPrefix
         })
         fetchHandler(args).then(() => {
-          localStorage.setItem(c.u + 'eitems', JSON.stringify(''))
+          localStorage.setItem(dbPrefix + 'eitems', JSON.stringify(''))
           args.apiSuffix = 'sys'
           args.body = JSON.stringify({
             mode: 'restore_Sales',
-            dbPrefix: c.u
+            dbPrefix: dbPrefix
           })
           fetchHandler(args).then(() => {
-            localStorage.setItem(c.u + 'sales', JSON.stringify(''))
+            localStorage.setItem(dbPrefix + 'sales', JSON.stringify(''))
             args.apiSuffix = 'sys'
             args.body = JSON.stringify({
               mode: 'restore_Xpenses',
-              dbPrefix: c.u
+              dbPrefix: dbPrefix
             })
             fetchHandler(args).then(() => {
-              localStorage.setItem(c.u + 'xpenses', JSON.stringify(''))
+              localStorage.setItem(dbPrefix + 'xpenses', JSON.stringify(''))
               args.apiSuffix = 'sys'
               args.body = JSON.stringify({
                 mode: 'index_Customers',
-                dbPrefix: c.u
+                dbPrefix: dbPrefix
               })
               fetchHandler(args).then(() => {
                 args.apiSuffix = 'sys'
                 args.body = JSON.stringify({
                   mode: 'index_Sales',
-                  dbPrefix: c.u
+                  dbPrefix: dbPrefix
                 })
                 fetchHandler(args).then(() => {
                   args.apiSuffix = 'sys'
                   args.body = JSON.stringify({
                     mode: 'index_Xpenses',
-                    dbPrefix: c.u
+                    dbPrefix: dbPrefix
                   })
                   fetchHandler(args)
                 })

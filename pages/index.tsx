@@ -43,7 +43,7 @@ const Home: NextPage = () => {
         throw null
     } catch {
       console.log('index - catch - go to InitNewDB')
-      InitNewDB()
+      InitNewDB(c.u)
     }
   }
 

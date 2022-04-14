@@ -142,7 +142,7 @@ const Home: NextPage = () => {
   }
 
   function reInitNewDB_handler() {
-    InitNewDB()
+    InitNewDB(c.u)
   }
   /////////////////////////////////////////////////////
 
@@ -164,7 +164,7 @@ const Home: NextPage = () => {
           toast.error('!Loading error: X3')
           alert('SYS: ' + res.error)
         } else {
-          console.log('SYS OK: ', res.data)
+          console.log('SYS -', mode, ': ', res.data)
           toast.remove()
         }
         if (res.data !== undefined && res.data !== 'OK')
