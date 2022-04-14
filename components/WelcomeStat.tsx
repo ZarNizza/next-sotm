@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import myDate from './MyDate'
 import styles from './Home.module.scss'
 import { useContext, useEffect, useState } from 'react'
@@ -100,17 +101,19 @@ export default function WelcomeStat() {
   return (
     <>
       <Toaster />
-      <div className={styles.welcomeStatRow}>
-        <div>
-          {c.t.today} :&nbsp;&nbsp;
-          <span>{statNow}</span>
+      <Link href="/statistics" passHref>
+        <div className={styles.welcomeStatRow}>
+          <div>
+            {c.t.today} :&nbsp;&nbsp;
+            <span>{statNow}</span>
+          </div>
+          <span>&nbsp;&nbsp;/&nbsp;&nbsp;</span>
+          <div>
+            <span>{statPrev}</span>
+            &nbsp;&nbsp;: {c.t.month}
+          </div>
         </div>
-        <span>&nbsp;&nbsp;/&nbsp;&nbsp;</span>
-        <div>
-          <span>{statPrev}</span>
-          &nbsp;&nbsp;: {c.t.month}
-        </div>
-      </div>
+      </Link>
     </>
   )
 }
