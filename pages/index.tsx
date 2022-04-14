@@ -13,15 +13,14 @@ const Home: NextPage = () => {
 
   if (!!c.u) {
     try {
-      const cuC = c.u + 'customers'
       console.log(
         'index - locStor():',
         '\nC:',
         !!localStorage.getItem(c.u + 'customers'),
         localStorage.getItem(c.u + 'customers'),
         '\nP:',
-        !!localStorage.getItem(c.u + 'prod'),
-        localStorage.getItem(c.u + 'prod'),
+        !!localStorage.getItem(c.u + 'products'),
+        localStorage.getItem(c.u + 'products'),
         '\nS:',
         !!localStorage.getItem(c.u + 'sales'),
         localStorage.getItem(c.u + 'sales'),
@@ -35,7 +34,7 @@ const Home: NextPage = () => {
 
       if (
         !!!localStorage.getItem(c.u + 'customers') ||
-        !!!localStorage.getItem(c.u + 'prod') ||
+        !!!localStorage.getItem(c.u + 'products') ||
         !!!localStorage.getItem(c.u + 'sales') ||
         !!!localStorage.getItem(c.u + 'eitems') ||
         !!!localStorage.getItem(c.u + 'xpenses')

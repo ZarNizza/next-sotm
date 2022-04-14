@@ -24,6 +24,7 @@ export default function InitNewDB(dbPrefix: string) {
   fetchHandler(args)
     .then(() => {
       localStorage.setItem(dbPrefix + 'customers', JSON.stringify(''))
+
       args.apiSuffix = 'sys'
       args.body = JSON.stringify({
         mode: 'restore_Products',
@@ -31,6 +32,7 @@ export default function InitNewDB(dbPrefix: string) {
       })
       fetchHandler(args).then(() => {
         localStorage.setItem(dbPrefix + 'prod', JSON.stringify(''))
+
         args.apiSuffix = 'sys'
         args.body = JSON.stringify({
           mode: 'restore_Eitems',
@@ -38,6 +40,7 @@ export default function InitNewDB(dbPrefix: string) {
         })
         fetchHandler(args).then(() => {
           localStorage.setItem(dbPrefix + 'eitems', JSON.stringify(''))
+
           args.apiSuffix = 'sys'
           args.body = JSON.stringify({
             mode: 'restore_Sales',
