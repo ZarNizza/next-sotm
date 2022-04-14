@@ -275,26 +275,28 @@ const Home: NextPage = () => {
           <div className={styles.tips}>{c.t.toooWide}</div>
           <div className={styles.sysButtonsGroup}>
             <div className={styles.flexRowContainer}>
-              <button onClick={setTodayHandler}>Today</button>
-              <button onClick={setYesterdayHandler}>Yesterday</button>
-              <button onClick={setWeekHandler}>Week</button>
-              <button onClick={setThisMonthHandler}>this Month</button>
-              <button onClick={setFullMonthHandler}>Full Month</button>
-              <button onClick={setThisYearHandler}>this Year</button>
-              <button onClick={setFullYearHandler}>Full Year</button>
-              <button onClick={setAllHandler}>All</button>
+              <button onClick={setTodayHandler}>{c.t.today}</button>
+              <button onClick={setYesterdayHandler}>{c.t.yesterday}</button>
+              <button onClick={setWeekHandler}>{c.t.week}</button>
+              <button onClick={setThisMonthHandler}>{c.t.thisMonth}</button>
+              <button onClick={setFullMonthHandler}>{c.t.fullMonth}</button>
+              <button onClick={setThisYearHandler}>{c.t.thisYear}</button>
+              <button onClick={setFullYearHandler}>{c.t.fullYear}</button>
+              <button onClick={setAllHandler}>{c.t.all}</button>
             </div>
           </div>
           <div className={styles.orangeButtonsGroup}>
             <div className={styles.flexRowContainer}>
-              <button onClick={show_S_Handler}>Total S</button>
-              <button onClick={show_X_Handler}>Total X</button>
-              <button onClick={show_SX_Handler}>Total S + X</button>
-              <button onClick={show_S_Full_Handler}>S / days</button>
-              <button onClick={show_X_Full_Handler}>X / days</button>
-              <button onClick={show_SX_Full_Handler}>S + X / days</button>
-              <button onClick={show_CS_Full_Handler}>Sells / Customers</button>
-              <button onClick={show_C_History_Handler}>Customer History</button>
+              <button onClick={show_S_Handler}>{c.t.total_S}</button>
+              <button onClick={show_X_Handler}>{c.t.total_X}</button>
+              <button onClick={show_SX_Handler}>{c.t.total_SX}</button>
+              <button onClick={show_S_Full_Handler}>{c.t.S_days}</button>
+              <button onClick={show_X_Full_Handler}>{c.t.X_days}</button>
+              <button onClick={show_SX_Full_Handler}>{c.t.SX_days}</button>
+              <button onClick={show_CS_Full_Handler}>{c.t.sellsByCust}</button>
+              <button onClick={show_C_History_Handler}>
+                {c.t.custHistory}
+              </button>
             </div>
           </div>
           <Tabloid />

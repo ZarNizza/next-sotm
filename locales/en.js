@@ -59,5 +59,21 @@ export const en = {
   xCart: 'Xpense Cart',
   byIt: 'Xpense it!',
   authError: 'You Are Not Authorised',
-  toooWide: 'Long period may cause tooooo wide view'
+  toooWide: 'Long period may cause tooooo wide view',
+  today: 'Today',
+  yesterday: 'Yesterday',
+  week: 'Week',
+  thisMonth: 'this Month',
+  fullMonth: 'Full Month',
+  thisYear: 'this Year',
+  fullYear: 'Full Year',
+  all: 'All',
+  total_S: 'Σ Sales',
+  total_X: 'Σ Xpenses',
+  total_SX: 'Σ S&X',
+  S_days: 'S by days',
+  X_days: 'X by days',
+  SX_days: 'S + X by days',
+  sellsByCust: 'Sells by Customers',
+  custHistory: 'Customer History'
 }
