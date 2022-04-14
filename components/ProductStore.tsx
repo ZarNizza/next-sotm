@@ -1,7 +1,9 @@
-import { CheckBoxButton } from './CheckBoxButton'
+import { CheckBoxButton, CheckBoxNewButton } from './CheckBoxButton'
 import type { Product } from '../pages/plus'
 import styles from '../styles/Home.module.css'
 import { Dispatch, MutableRefObject, SetStateAction } from 'react'
+import { AppContext } from './AppContext'
+import { useContext } from 'react'
 
 interface ProductStoreProps {
   products: Product[]
@@ -10,10 +12,17 @@ interface ProductStoreProps {
   prodCostRef: MutableRefObject<Record<number, number>>
   prodCostDRef: MutableRefObject<Record<number, number>>
   setGross: Dispatch<SetStateAction<number>>
+  setNewFlag: Dispatch<SetStateAction<boolean>>
 }
 
 export default function ProductStore(props: ProductStoreProps) {
   //
+  const c = useContext(AppContext)
+
+  function newHandler() {
+    props.setNewFlag(true)
+  }
+
   const productCheckBoxesSet = props.products.map((item: Product) => {
     //
     function checkHandler() {
@@ -57,5 +66,13 @@ export default function ProductStore(props: ProductStoreProps) {
     )
   })
 
+  productCheckBoxesSet.push(
+    <CheckBoxNewButton
+      key="new!"
+      text={'+' + c.t.new}
+      onClick={newHandler}
+      checked={false}
+    />
+  )
   return <div className={styles.flexRowContainer}>{productCheckBoxesSet}</div>
 }

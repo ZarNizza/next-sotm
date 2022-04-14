@@ -4,6 +4,7 @@ import styles from '../styles/Home.module.css'
 import Init from '../components/Init'
 import ProductStore from '../components/ProductStore'
 import ProductCart from '../components/ProductCart'
+import ProductNew from '../components/ProductNew'
 import LiveSelect from '../components/LiveSelectCUSX'
 import { useEffect, useRef, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
@@ -62,6 +63,7 @@ const Home: NextPage = () => {
   const [gross, setGross] = useState<number>(0)
   const liveRef = useRef<HTMLInputElement>(null)
   const [searchWord, setSearchWord] = useState('')
+  const [newFlag, setNewFlag] = useState(false)
 
   useEffect(() => {
     console.log('plus - useEffect - init cust')
@@ -153,13 +155,12 @@ const Home: NextPage = () => {
             type="C"
             mode="new"
           />
-          <p>
-            <div className={styles.flexColumnContainer}>
-              <div className={styles.tips}>{c.t.plusTips1}</div>
-              <br />
-              <div className={styles.tips}>{c.t.plusTips2}</div>
-            </div>
-          </p>
+          <div className={styles.flexColumnContainer}>
+            <div className={styles.tips}>{c.t.plusTips1}</div>
+            <br />
+            <div className={styles.tips}>{c.t.plusTips2}</div>
+            <p> </p>
+          </div>
           <ProductStore
             products={products}
             setSelectedProducts={setSelectedProducts}
@@ -167,7 +168,17 @@ const Home: NextPage = () => {
             prodCostRef={prodCostRef}
             prodCostDRef={prodCostDRef}
             setGross={setGross}
-          />
+            setNewFlag={setNewFlag}
+          />{' '}
+          {newFlag ? (
+            <ProductNew
+              setItems={setProducts}
+              setNewFlag={setNewFlag}
+              setCurrItem={console.log}
+            />
+          ) : (
+            ''
+          )}
           <ProductCart
             setSelectedProducts={setSelectedProducts}
             selectedProducts={selectedProducts}
