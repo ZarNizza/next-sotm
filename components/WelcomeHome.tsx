@@ -47,7 +47,7 @@ export default function WelcomeHome() {
           <p>- {c.t.welcomeTips8} -</p>
         </button>
       ),
-      { id: 'toast01', duration: 10000 }
+      { id: 'toast01', duration: 30000 }
     )
   }
   //
