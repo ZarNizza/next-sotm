@@ -8,6 +8,23 @@ import { useContext } from 'react'
 
 const Home: NextPage = () => {
   const c = useContext(AppContext)
+  //
+  //   <Link href="/sys" passHref>
+  //   <div className={`${styles.square} ${styles.violet}`}>
+  //     <p> {c.t.system} </p>
+  //   </div>
+  // </Link>
+  //
+  // <div className={styles.squareRow}>
+  //   <div className={styles.squareWrapper}>
+  //     <Link href="/editUsers" passHref>
+  //       <div className={`${styles.halfsquare_top} ${styles.orange}`}>
+  //         <p> {c.t.users} </p>
+  //       </div>
+  //     </Link>
+  //   </div>
+  // </div>
+  //
   return (
     <>
       <Head>
@@ -20,11 +37,6 @@ const Home: NextPage = () => {
           <Link href="/editCustomers" passHref>
             <div className={`${styles.square} ${styles.orange}`}>
               <p> {c.t.customers} </p>
-            </div>
-          </Link>
-          <Link href="/sys" passHref>
-            <div className={`${styles.square} ${styles.violet}`}>
-              <p> {c.t.system} </p>
             </div>
           </Link>
         </div>
@@ -53,16 +65,6 @@ const Home: NextPage = () => {
               <p> {c.t.xpenses} </p>
             </div>
           </Link>
-        </div>
-
-        <div className={styles.squareRow}>
-          <div className={styles.squareWrapper}>
-            <Link href="/editUsers" passHref>
-              <div className={`${styles.halfsquare_top} ${styles.orange}`}>
-                <p> {c.t.users} </p>
-              </div>
-            </Link>
-          </div>
         </div>
       </main>
     </>

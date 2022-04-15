@@ -10,6 +10,17 @@ export default function Footer() {
   const c = useContext(AppContext)
   const { data: session } = useSession()
   //icon home = &#8962;
+  //   <span>
+  //   <Link href="/sys" passHref>
+  //     <a className={styles.footerLink}>
+  //       <span className={styles.rb_p}>
+  //         <div className={`${styles.footerLabel} ${styles.thinText}`}>
+  //           [Sys]
+  //         </div>
+  //       </span>
+  //     </a>
+  //   </Link>
+  // </span>
   // return session ? (
   return (
     <div className={styles.footer}>
@@ -69,17 +80,6 @@ export default function Footer() {
               <span className={styles.rb_pink}>
                 <div className={styles.footerLabel}>
                   <SVG_edit />
-                </div>
-              </span>
-            </a>
-          </Link>
-        </span>
-        <span>
-          <Link href="/sys" passHref>
-            <a className={styles.footerLink}>
-              <span className={styles.rb_p}>
-                <div className={`${styles.footerLabel} ${styles.thinText}`}>
-                  [Sys]
                 </div>
               </span>
             </a>
