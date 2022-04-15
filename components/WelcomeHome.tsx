@@ -6,7 +6,6 @@ import WelcomeStat from './WelcomeStat'
 import { AppContext } from './AppContext'
 import { useContext } from 'react'
 import { SVG_edit } from './SVG_edit'
-import { backgroundColor } from 'styled-system'
 
 export default function WelcomeHome() {
   const c = useContext(AppContext)
@@ -33,12 +32,19 @@ export default function WelcomeHome() {
             <br />
             {c.t.welcomeTips3}
             <br />
-            <br />
           </p>
-          <p>{c.t.welcomeTips4}</p>
-          <p>{c.t.welcomeTips5}</p>
+          <p>
+            {c.t.welcomeTips4}
+            <br />
+            {c.t.welcomeTips5}
+          </p>
+          <p>
+            {c.t.welcomeTips6}
+            <br />
+            {c.t.welcomeTips7}
+          </p>
           <p>. . .</p>
-          <p>- {c.t.welcomeTips6} -</p>
+          <p>- {c.t.welcomeTips8} -</p>
         </button>
       ),
       { id: 'toast01', duration: 10000 }
