@@ -38,12 +38,14 @@ export default function DBfullTable(props: TableProps) {
             {props.resData.map((item) => {
               return (
                 <tr key={Math.random()}>
-                  {Object.values(item).map((elem) => (
+                  {Object.values(item).map((elem, i) => (
                     <td
                       key={Math.random()}
                       className={
                         item.name === null || item.symbol === null
                           ? styles.gross
+                          : i === 0
+                          ? styles.alignLeft
                           : ''
                       }
                     >
@@ -54,7 +56,7 @@ export default function DBfullTable(props: TableProps) {
                         ? c.t.total
                         : elem === null
                         ? ' '
-                        : String(elem).slice(0, 20)}
+                        : String(elem).slice(0, 50)}
                     </td>
                   ))}
                 </tr>

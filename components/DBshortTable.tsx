@@ -34,10 +34,16 @@ export default function DBshortTable(props: TableProps) {
               const a = Object.values(item)
               return (
                 <tr key={Math.random()}>
-                  {Object.values(item).map((elem) => (
+                  {Object.values(item).map((elem, i) => (
                     <td
                       key={Math.random()}
-                      className={a[0] === null ? styles.gross : ''}
+                      className={
+                        a[0] === null
+                          ? styles.gross
+                          : i === 0
+                          ? styles.alignLeft
+                          : ''
+                      }
                     >
                       {typeof elem === 'number'
                         ? String(elem)
