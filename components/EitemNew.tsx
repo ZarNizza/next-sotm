@@ -70,11 +70,11 @@ export default function EitemNew(arg: newEitemArgs) {
   }
 
   function input_E_ChHandler(eName: string) {
-    setEitem(eName.replace(/[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi, ''))
+    setEitem(eName.replace(/[^a-zA-Zа-яА-Я\+\-\*\/\d\s\.\,\:\;\_]/gi, ''))
   }
 
   function input_Esymbol_ChHandler(eSymbol: string) {
-    setEsymbol(eSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi, ''))
+    setEsymbol(eSymbol.replace(/[^a-zA-Zа-яА-Я\+\-\*\/\d\s\.\,\:\;\_]/gi, ''))
   }
 
   function input_Eprice_ChHandler(ePrice: string) {
@@ -97,7 +97,7 @@ export default function EitemNew(arg: newEitemArgs) {
             value={eItem}
             onChange={(event) => input_E_ChHandler(event.target.value)}
             placeholder={c.t.descr}
-            pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
+            pattern="[a-zA-Zа-яА-Я\+\-\*\/\d\s\.,:;_]*"
             className={styles.inputP}
           />
         </p>
@@ -107,7 +107,7 @@ export default function EitemNew(arg: newEitemArgs) {
             value={eSymbol}
             onChange={(event) => input_Esymbol_ChHandler(event.target.value)}
             placeholder={c.t.shrtNam}
-            pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
+            pattern="[a-zA-Zа-яА-Я\+\-\*\/\d\s\.,:;_]*"
             className={styles.inputP}
           />
         </p>

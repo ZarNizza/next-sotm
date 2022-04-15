@@ -150,11 +150,14 @@ export default function EditForm(a: editFormArgs) {
           type="text"
           className={styles.inputCust}
           placeholder={c.t.name}
-          pattern="[a-zA-Zа-яА-Я\s\-\d]{1,50}"
+          pattern="[a-zA-Zа-яА-Я\+\-\*\/\d\s\.,:;_]{1,50}"
           value={newName || ''}
           onChange={(event) =>
             setNewName(
-              event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s\d]/gi, '')
+              event.target.value.replace(
+                /[^a-zA-Zа-яА-Я\+\-\*\/\d\s\.\,\:\;\_]/gi,
+                ''
+              )
             )
           }
         />
@@ -165,11 +168,14 @@ export default function EditForm(a: editFormArgs) {
           type="text"
           className={styles.inputCust}
           placeholder={c.t.symbol}
-          pattern="[a-zA-Zа-яА-Я\s\-\d]{1,7}"
+          pattern="[a-zA-Zа-яА-Я\+\-\*\/\d\s\.,:;_]{1,7}"
           value={newSymbol || ''}
           onChange={(event) =>
             setNewSymbol(
-              event.target.value.replace(/[^a-zA-Zа-яА-Я\-\s\d]/gi, '')
+              event.target.value.replace(
+                /[^a-zA-Zа-яА-Я\+\-\*\/\d\s\.\,\:\;\_]/gi,
+                ''
+              )
             )
           }
         />

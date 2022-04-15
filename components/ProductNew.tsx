@@ -69,11 +69,11 @@ export default function PitemNew(arg: newProductArgs) {
   }
 
   function input_P_ChHandler(pName: string) {
-    setPitem(pName.replace(/[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi, ''))
+    setPitem(pName.replace(/[^a-zA-Zа-яА-Я\+\-\*\/\d\s\.\,\:\;\_]/gi, ''))
   }
 
   function input_Psymbol_ChHandler(pSymbol: string) {
-    setPsymbol(pSymbol.replace(/[^a-zA-Zа-яА-Я\d\s\-\+\.\,\:\_]/gi, ''))
+    setPsymbol(pSymbol.replace(/[^a-zA-Zа-яА-Я\+\-\*\/\d\s\.\,\:\;\_]/gi, ''))
   }
 
   function input_Pprice_ChHandler(pPrice: string) {
@@ -96,7 +96,7 @@ export default function PitemNew(arg: newProductArgs) {
             value={pItem}
             onChange={(event) => input_P_ChHandler(event.target.value)}
             placeholder={c.t.descr}
-            pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
+            pattern="[a-zA-Zа-яА-Я\+\-\*\/\d\s\.,:;_]*"
             className={styles.inputP}
           />
         </p>
@@ -106,7 +106,7 @@ export default function PitemNew(arg: newProductArgs) {
             value={pSymbol}
             onChange={(event) => input_Psymbol_ChHandler(event.target.value)}
             placeholder={c.t.shrtNam}
-            pattern="[a-zA-Zа-яА-Я\d\s\-\+\.,:_]*"
+            pattern="[a-zA-Zа-яА-Я\+\-\*\/\d\s\.,:;_]*"
             className={styles.inputP}
           />
         </p>
