@@ -264,15 +264,19 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
               )
             })
             .map((item) => {
+              const goodDate =
+                item.date.slice(10, 11) === 'T'
+                  ? item.date.slice(0, 10) + ', ' + item.date.slice(11, 16)
+                  : item.date
               return (
                 <div
                   key={item.id}
                   onClick={() => setCurrS(item.id || 0)}
                   className={styles.csOpt}
                 >
-                  id={item.id}, c={item.cust}, p={item.prod}, sum={item.sum},
-                  +/-d=
-                  {item.sumd}, {item.date}
+                  id: {item.id}, {goodDate}
+                  <br /> c= {item.cust}, p= {item.prod}, sum=
+                  {item.sum} + {item.sumd}
                 </div>
               )
             })
@@ -288,13 +292,18 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
               )
             })
             .map((item) => {
+              const goodDate =
+                item.date.slice(10, 11) === 'T'
+                  ? item.date.slice(0, 10) + ', ' + item.date.slice(11, 16)
+                  : item.date
               return (
                 <div
                   key={item.id}
                   onClick={() => setCurrX(item.id || 0)}
                   className={styles.csOpt}
                 >
-                  id:{item.id}, xi={item.xitem}, sum={item.sum}, {item.date}
+                  id: {item.id}, {goodDate}
+                  <br /> xid= {item.xitem}, sum= {item.sum}
                 </div>
               )
             })

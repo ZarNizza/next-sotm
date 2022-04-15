@@ -31,13 +31,17 @@ type editFormArgs = {
 
 export default function EditForm(a: editFormArgs) {
   const c = useContext(AppContext)
+  const goodDate =
+    a.itemToEdit.date.slice(10, 11) === 'T'
+      ? a.itemToEdit.date.slice(0, 10) + ', ' + a.itemToEdit.date.slice(11, 16)
+      : a.itemToEdit.date
   const [newName, setNewName] = useState(a.itemToEdit.name || '')
   const [newPhone, setNewPhone] = useState(a.itemToEdit.phone || '')
   const [newGooid, setNewGooid] = useState(a.itemToEdit.gooid || '')
   const [newMD5, setNewMD5] = useState(a.itemToEdit.md5 || '')
   const [newSymbol, setNewSymbol] = useState(a.itemToEdit.symbol || '')
   const [newPrice, setNewPrice] = useState(a.itemToEdit.price || 0)
-  const [newDate, setNewDate] = useState(a.itemToEdit.date || '')
+  const [newDate, setNewDate] = useState(goodDate || '')
   const [newCust, setNewCust] = useState(a.itemToEdit.cust || 0)
   const [newProd, setNewProd] = useState(a.itemToEdit.prod || 0)
   const [newXitem, setNewXitem] = useState(a.itemToEdit.xitem || 0)
