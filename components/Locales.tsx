@@ -3,12 +3,16 @@ import styles from './Home.module.scss'
 
 export default function Locales() {
   return (
-    <div className={styles.squareRow}>
-      <Link href="/settings" locale="en">
-        <a className={styles.locale}>Eng</a>
-      </Link>
+    <div className={styles.squareWrapper}>
       <Link href="/settings" locale="ru">
-        <a className={styles.locale}>Рус</a>
+        <div className={`${styles.halfsquare_top} ${styles.violet}`}>
+          <p>Рус</p>
+        </div>
+      </Link>
+      <Link href="/settings" locale="en">
+        <div className={`${styles.halfsquare_bottom} ${styles.yellow}`}>
+          <p>Eng</p>
+        </div>
       </Link>
     </div>
   )

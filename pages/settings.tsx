@@ -32,13 +32,13 @@ const Home: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <h1>{c.t.settings}</h1>
-        <Locales />
         <div className={styles.squareRow}>
           <Link href="/editCustomers" passHref>
             <div className={`${styles.square} ${styles.orange}`}>
               <p> {c.t.customers} </p>
             </div>
           </Link>
+          <Locales />
         </div>
 
         <div className={styles.squareRow}>
