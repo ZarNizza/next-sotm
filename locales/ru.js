@@ -1,6 +1,6 @@
 export const ru = {
   appName: 'Про100 Успехов',
-  welcomeTitle: 'Про100, привет!',
+  welcomeTitle: 'Привет, это Про100!',
   plusTitle: 'Продажи',
   minusTitle: 'Закупки',
   statTitle: 'Статистика',
@@ -77,5 +77,16 @@ export const ru = {
   X_days: 'Закупки по дням',
   SX_days: 'П + З по дням',
   sellsByCust: 'Продажи/Клиенты',
-  custHistory: 'История Клиента'
+  custHistory: 'История Клиента',
+  welcomeTips1: 'У Вас в руках',
+  welcomeTips2: 'легковесное карманное решение',
+  welcomeTips3: 'для простого учёта расходов и доходов.',
+  welcomeTips4: 'Сперва в Настройках',
+  welcomeTips5: 'пропишите свои Продукты и Расходники.',
+  welcomeTips6: 'Для создания личной базы данных',
+  welcomeTips7: 'войдите под своим Гугл-аккаунтом.',
+  welcomeTips8: 'для начала - ткните сюда ;)',
+  welcomeTips9: '',
+  welcomeTips10: '',
+  welcomeTips11: ''
 }

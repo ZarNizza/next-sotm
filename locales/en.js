@@ -1,6 +1,6 @@
 export const en = {
   appName: 'Sales and Profit',
-  welcomeTitle: 'S&P Welcome Home!',
+  welcomeTitle: 'Welcome S&P!',
   plusTitle: 'Sales accounting',
   minusTitle: 'Сost accounting',
   statTitle: 'Profit Statistics',
@@ -75,5 +75,16 @@ export const en = {
   X_days: 'X by days',
   SX_days: 'S + X by days',
   sellsByCust: 'Sells by Customers',
-  custHistory: 'Customer History'
+  custHistory: 'Customer History',
+  welcomeTips1: 'This application use',
+  welcomeTips2: 'as light-n-fast pocket solution',
+  welcomeTips3: 'for simple Cost-and-Profit count.',
+  welcomeTips4: 'First, add Products and Costs',
+  welcomeTips5: 'at Settings.',
+  welcomeTips6: 'For use personal data base',
+  welcomeTips7: 'log in with your Google account.',
+  welcomeTips8: 'tap here to start',
+  welcomeTips9: '',
+  welcomeTips10: '',
+  welcomeTips11: ''
 }
