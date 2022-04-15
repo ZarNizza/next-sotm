@@ -135,7 +135,7 @@ export default async function sysHandler(
         //
         case 'show_X':
           sqlQuery =
-            "SELECT (e.symbol || ' = ' || e.name) AS name, SUM(CASE WHEN x.xitem = e.id THEN x.sum ELSE 0 END) AS Xgross FROM " +
+            "SELECT (e.symbol || ' = ' || e.name) AS name, SUM(CASE WHEN x.xitem = e.id THEN x.num ELSE 0 END) AS num, SUM(CASE WHEN x.xitem = e.id THEN x.sum ELSE 0 END) AS Xgross FROM " +
             dbPrefix +
             'eitems AS e' +
             ' LEFT JOIN ' +
@@ -241,7 +241,7 @@ export default async function sysHandler(
           sqlQuery =
             "SELECT (e.symbol || ' = ' || e.name) AS name, " +
             sqlDPSum +
-            ' SUM(CASE WHEN x.xitem = e.id THEN x.sum ELSE 0 END) AS sum FROM ' +
+            ' SUM(CASE WHEN x.xitem = e.id THEN x.num ELSE 0 END) AS num, SUM(CASE WHEN x.xitem = e.id THEN x.sum ELSE 0 END) AS sum FROM ' +
             dbPrefix +
             'eitems AS e' +
             ' LEFT JOIN ' +

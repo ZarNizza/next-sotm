@@ -17,7 +17,8 @@ const Home: NextPage = () => {
     id: 0,
     date: '',
     xitem: 0,
-    sum: 0
+    sum: 0,
+    num: 0
   }
   const [items, setItems] = useState<Xpense[] | []>([])
   const [currentItem, setCurrentItem] = useState<Xpense>(cust0)

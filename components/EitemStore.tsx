@@ -10,6 +10,7 @@ interface EitemsStoreArgs {
   setSelectedEitems: Dispatch<SetStateAction<number[]>>
   selectedEitems: number[]
   eCostRef: MutableRefObject<Record<number, number>>
+  eNumRef: MutableRefObject<Record<number, number>>
   setGross: Dispatch<SetStateAction<number>>
   setNewFlag: Dispatch<SetStateAction<boolean>>
 }
@@ -32,8 +33,10 @@ export default function EitemStore(arg: EitemsStoreArgs) {
           arg.eCostRef.current[item.id] === 0
         ) {
           delete arg.eCostRef.current[item.id]
+          delete arg.eNumRef.current[item.id]
         } else {
           arg.eCostRef.current[item.id] = item.price
+          arg.eNumRef.current[item.id] = 1
         }
         //
         arg.setGross(

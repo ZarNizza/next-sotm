@@ -1,16 +1,10 @@
 import styles from './ProductCart.module.scss'
 import stylesH from '../styles/Home.module.css'
-import Link from 'next/link'
-import {
-  ChangeEventHandler,
-  Dispatch,
-  FC,
-  MutableRefObject,
-  SetStateAction
-} from 'react'
+import { Dispatch, FC, MutableRefObject, SetStateAction } from 'react'
 import { Eitem } from '../pages/minus'
 import { AppContext } from './AppContext'
 import { useContext } from 'react'
+import Init from './Init'
 
 type SumProps = { id: number; value: number }
 
@@ -21,7 +15,9 @@ type XpenseCartProps = {
   gross: number
   setGross: Dispatch<SetStateAction<number>>
   eCostRef: MutableRefObject<Record<number, number>>
+  eNumRef: MutableRefObject<Record<number, number>>
   inputSumChangeHandler: FC<SumProps>
+  inputNumChangeHandler: FC<SumProps>
   dropButton_Handler: FC<number>
 }
 
@@ -29,6 +25,15 @@ export default function XpenseCart(props: XpenseCartProps) {
   const c = useContext(AppContext)
   const qqq = props.selectedEitems.map((id: Eitem['id']) => (
     <li key={id}>
+      <div className={styles.summSpan}>
+        {
+          (
+            props.eItems.find((item: Eitem) => item.id === id) ?? {
+              name: 'xxx'
+            }
+          ).name
+        }
+      </div>
       <div className={styles.inputSumRow}>
         <div className={styles.summSpan}>
           <input
@@ -44,13 +49,19 @@ export default function XpenseCart(props: XpenseCartProps) {
             placeholder={String(props.eCostRef.current[id])}
             pattern="^[\d]{0,6}"
           />
-          {
-            (
-              props.eItems.find((item: Eitem) => item.id === id) ?? {
-                name: 'xxx'
-              }
-            ).name
-          }
+          <input
+            type="text"
+            onChange={(event) =>
+              props.inputNumChangeHandler({
+                id: id,
+                value: Number(event.target.value.replace(/[^\d]/g, ''))
+              })
+            }
+            className={styles.inputSum}
+            style={{ flex: '0 0 auto' }}
+            placeholder={String(props.eNumRef.current[id]) || '0'}
+            pattern="^[\d]{0,6}"
+          />{' '}
         </div>
         <button
           value={id}
@@ -73,7 +84,8 @@ export default function XpenseCart(props: XpenseCartProps) {
           mode: 'new',
           dbPrefix: c.u,
           xitem: id,
-          sum: props.eCostRef.current[id]
+          sum: props.eCostRef.current[id],
+          num: props.eNumRef.current[id]
         }
         fetch('/api/xpenses', {
           method: 'POST',
@@ -85,10 +97,12 @@ export default function XpenseCart(props: XpenseCartProps) {
               console.log('--- eCart DB/api error: ' + res.error)
               alert(c.t.db_errX3 + '\n' + res.error)
             } else {
+              Init(console.log, 'xpenses', c.u, true)
               props.setSelectedEitems((prevSelectedEitems) =>
                 prevSelectedEitems.filter((eItem) => eItem !== Number(id))
               )
               delete props.eCostRef.current[id]
+              delete props.eNumRef.current[id]
             }
           })
           .catch((error) => {

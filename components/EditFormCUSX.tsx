@@ -1,7 +1,4 @@
 import { useState } from 'react'
-import { Customer, Product, Sale } from '../pages/plus'
-import { Eitem, Xpense } from '../pages/minus'
-import { User } from '../pages/editUsers'
 import styles from './Select.module.scss'
 import stylesH from '../styles/Home.module.css'
 import fetchHandler, { FetchArgs } from './fetchHandler'
@@ -26,6 +23,7 @@ type editFormArgs = {
 // prod?: number
 // xitem?: number
 // sum?: number
+// num?: number
 // sumD?: number
 // }
 
@@ -46,6 +44,7 @@ export default function EditForm(a: editFormArgs) {
   const [newProd, setNewProd] = useState(a.itemToEdit.prod || 0)
   const [newXitem, setNewXitem] = useState(a.itemToEdit.xitem || 0)
   const [newSum, setNewSum] = useState(a.itemToEdit.sum || 0)
+  const [newNum, setNewNum] = useState(a.itemToEdit.num || 0)
   const [newSumD, setNewSumD] = useState(a.itemToEdit.sumd || 0)
 
   function saveEditHandler() {
@@ -124,6 +123,7 @@ export default function EditForm(a: editFormArgs) {
           date: newDate,
           xitem: newXitem,
           sum: newSum,
+          num: newNum,
           id: a.itemToEdit.id
         })
         break
@@ -300,6 +300,19 @@ export default function EditForm(a: editFormArgs) {
           value={newSum || ''}
           onChange={(event) =>
             setNewSum(Number(event.target.value.replace(/[^\d]/g, '')))
+          }
+        />
+      </p>
+      <p hidden={a.type !== 'X'}>
+        Num:
+        <input
+          type="text"
+          className={styles.inputCust}
+          placeholder="xxxx"
+          pattern="^[\d]{0,20}"
+          value={newNum || ''}
+          onChange={(event) =>
+            setNewNum(Number(event.target.value.replace(/[^\d]/g, '')))
           }
         />
       </p>

@@ -4,6 +4,7 @@ import stylesH from '../styles/Home.module.css'
 import { Dispatch, FC, MutableRefObject, SetStateAction } from 'react'
 import { AppContext } from './AppContext'
 import { useContext } from 'react'
+import Init from './Init'
 
 type SumProps = { id: number; value: number }
 
@@ -100,6 +101,7 @@ export default function ProductCart(props: ProductCartProps) {
               console.log('--- prodCart DB/api error: ' + res.error)
               alert(c.t.db_errX3 + '\n' + res.error)
             } else {
+              Init(console.log, 'sales', c.u, true)
               props.setSelectedProducts((prevSelectedProducts) =>
                 prevSelectedProducts.filter((product) => product !== Number(id))
               )

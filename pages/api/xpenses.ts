@@ -43,11 +43,12 @@ export default function handler(
             sql =
               'UPDATE ' +
               dbPrefix +
-              'xpenses SET date=$1, xitem=$2, sum=$3 WHERE id=$4'
+              'xpenses SET date=$1, xitem=$2, sum=$3, num=$4 WHERE id=$5'
             params = [
               parsedReq.date,
               String(parsedReq.xitem),
               String(parsedReq.sum),
+              String(parsedReq.num),
               parsedReq.id
             ]
             break
@@ -57,8 +58,13 @@ export default function handler(
             sql =
               'INSERT INTO ' +
               dbPrefix +
-              'xpenses (date, xitem, sum) VALUES ($1, $2, $3)'
-            params = [sqlDate, String(parsedReq.xitem), String(parsedReq.sum)]
+              'xpenses (date, xitem, sum, num) VALUES ($1, $2, $3, $4)'
+            params = [
+              sqlDate,
+              String(parsedReq.xitem),
+              String(parsedReq.sum),
+              String(parsedReq.num)
+            ]
             console.log('--- new: ', sql, ', ', params)
             break
           case 'del':
@@ -83,6 +89,7 @@ export default function handler(
         console.log('! X - default.MODE api request')
         break
     }
+    //
     if (sql > '') {
       console.log('=== sql OK === ', sql)
       pool.connect().then((client: any) => {

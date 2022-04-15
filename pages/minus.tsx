@@ -21,6 +21,7 @@ export type Xpense = {
   date: string
   xitem: number
   sum: number
+  num: number
 }
 
 const Home: NextPage = () => {
@@ -28,6 +29,7 @@ const Home: NextPage = () => {
   const [eItems, setEitems] = useState<Eitem[]>([])
   const [selectedEitems, setSelectedEitems] = useState<Eitem['id'][]>([])
   const eCostRef = useRef<Record<Eitem['id'], number>>({})
+  const eNumRef = useRef<Record<Eitem['id'], number>>({})
   const [gross, setGross] = useState<number>(0)
   const [newFlag, setNewFlag] = useState(false)
 
@@ -38,7 +40,7 @@ const Home: NextPage = () => {
   type SumProps = { id: number; value: number }
 
   const inputSumCh_Handler: React.FC<SumProps> = ({ id, value }) => {
-    console.log('minus - id:', typeof id, id, typeof value, value)
+    console.log('minus Sum - id:', typeof id, id, typeof value, value)
     eCostRef.current[id] = value
     setGross(
       Object.values(eCostRef.current).reduce((prev, curr) => prev + curr, 0)
@@ -46,8 +48,15 @@ const Home: NextPage = () => {
     return null
   }
 
+  const inputNumCh_Handler: React.FC<SumProps> = ({ id, value }) => {
+    console.log('minus Num - id:', typeof id, id, typeof value, value)
+    eNumRef.current[id] = value
+    return null
+  }
+
   const dropButton_Handler: React.FC<number> = (id) => {
     delete eCostRef.current[id]
+    delete eNumRef.current[id]
     setGross(
       Object.values(eCostRef.current).reduce((prev, curr) => prev + curr, 0)
     )
@@ -77,6 +86,7 @@ const Home: NextPage = () => {
             setSelectedEitems={setSelectedEitems}
             selectedEitems={selectedEitems}
             eCostRef={eCostRef}
+            eNumRef={eNumRef}
             setGross={setGross}
             setNewFlag={setNewFlag}
           />{' '}
@@ -85,9 +95,11 @@ const Home: NextPage = () => {
             selectedEitems={selectedEitems}
             eItems={eItems}
             eCostRef={eCostRef}
+            eNumRef={eNumRef}
             gross={gross}
             setGross={setGross}
             inputSumChangeHandler={inputSumCh_Handler}
+            inputNumChangeHandler={inputNumCh_Handler}
             dropButton_Handler={dropButton_Handler}
           />
         </div>

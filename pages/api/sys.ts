@@ -77,7 +77,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         sql =
           'CREATE TABLE IF NOT EXISTS ' +
           dbPrefix +
-          'sales (id SERIAL PRIMARY KEY, date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, cust SMALLINT, prod SMALLINT, sum INT, sumd INT, del SMALLINT DEFAULT 0)'
+          'sales (id SERIAL PRIMARY KEY, date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, cust SMALLINT DEFAULT 0, prod SMALLINT DEFAULT 0, sum INT DEFAULT 0, sumd INT DEFAULT 0, del SMALLINT DEFAULT 0)'
         //CREATE INDEX s ON sales (cust, prod, date)
         err_prefix = 'restore_Sales'
         break
@@ -86,7 +86,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         sql =
           'CREATE TABLE IF NOT EXISTS ' +
           dbPrefix +
-          'xpenses (id SERIAL PRIMARY KEY, date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, xitem SMALLINT, sum INT, del SMALLINT DEFAULT 0)'
+          'xpenses (id SERIAL PRIMARY KEY, date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, xitem SMALLINT DEFAULT 0, sum INT DEFAULT 0, num SMALLINT DEFAULT 1, del SMALLINT DEFAULT 0)'
         //CREATE INDEX x ON xpenses (xitem, date)
         err_prefix = 'restore_Xpenses'
         break
@@ -136,7 +136,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
 
       case 'show_Tables':
         sql =
-          "SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' AND schemaname != 'information_schema' GROUP BY tablename"
+          "SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' AND schemaname != 'information_schema' ORDER BY tablename"
         err_prefix = 'show_Tables'
         retRes = true
         break
