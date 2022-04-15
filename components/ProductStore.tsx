@@ -23,48 +23,55 @@ export default function ProductStore(props: ProductStoreProps) {
     props.setNewFlag(true)
   }
 
-  const productCheckBoxesSet = props.products.map((item: Product) => {
-    //
-    function checkHandler() {
-      if (
-        props.prodCostRef.current[item.id] ||
-        props.prodCostRef.current[item.id] === 0
-      ) {
-        delete props.prodCostRef.current[item.id]
-        delete props.prodCostDRef.current[item.id]
-      } else {
-        props.prodCostRef.current[item.id] = Number(item.price)
-      }
+  let productCheckBoxesSet: any
+
+  if (props.products.length > 0) {
+    productCheckBoxesSet = props.products.map((item: Product) => {
       //
-      props.setGross(
-        Object.values(props.prodCostRef.current).reduce(
-          (prev, curr) => prev + curr,
-          0
-        ) +
-          Object.values(props.prodCostDRef.current).reduce(
+      function checkHandler() {
+        if (
+          props.prodCostRef.current[item.id] ||
+          props.prodCostRef.current[item.id] === 0
+        ) {
+          delete props.prodCostRef.current[item.id]
+          delete props.prodCostDRef.current[item.id]
+        } else {
+          props.prodCostRef.current[item.id] = Number(item.price)
+        }
+        //
+        props.setGross(
+          Object.values(props.prodCostRef.current).reduce(
             (prev, curr) => prev + curr,
             0
-          )
-      )
-      //
-      props.setSelectedProducts((prevSelectedProducts) => {
-        return prevSelectedProducts.includes(item.id)
-          ? prevSelectedProducts.filter(
-              (product: Product['id']) => product !== item.id
+          ) +
+            Object.values(props.prodCostDRef.current).reduce(
+              (prev, curr) => prev + curr,
+              0
             )
-          : [...prevSelectedProducts, item.id]
-      })
-    }
+        )
+        //
+        props.setSelectedProducts((prevSelectedProducts) => {
+          return prevSelectedProducts.includes(item.id)
+            ? prevSelectedProducts.filter(
+                (product: Product['id']) => product !== item.id
+              )
+            : [...prevSelectedProducts, item.id]
+        })
+      }
 
-    return (
-      <CheckBoxButton
-        key={item.id}
-        text={item.symbol}
-        onClick={checkHandler}
-        checked={props.selectedProducts.includes(item.id)}
-      />
-    )
-  })
+      return (
+        <CheckBoxButton
+          key={item.id}
+          text={item.symbol}
+          onClick={checkHandler}
+          checked={props.selectedProducts.includes(item.id)}
+        />
+      )
+    })
+    //
+  } else {
+    productCheckBoxesSet = []
+  }
 
   productCheckBoxesSet.push(
     <CheckBoxNewButton
