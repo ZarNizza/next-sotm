@@ -56,7 +56,7 @@ export const ru = {
   product: 'Продукт',
   products: 'Продукты',
   eitem: 'Сырьё',
-  eitems: 'Расходники',
+  eitems: 'Сырьё, Расходники',
   selItem: 'выберите Закупку',
   xCart: 'Список Закупок',
   byIt: 'Купить!',
