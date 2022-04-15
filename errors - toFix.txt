@@ -1,10 +1,11 @@
 ColorTheme select
 Delete Items handling
 CurrentCustomer last 3 visits list
-Minus - SAVE - update LS/state
-editX - format dateTime (drop T)
+
 
 Done:
+editX - format dateTime (drop T)
+Minus - SAVE - update LS/state
 Language select
 Generate DB tables for new User
 X-cart style
