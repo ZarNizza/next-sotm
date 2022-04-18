@@ -12,6 +12,14 @@ pool.on('error', (err: any, client: any) => {
   process.exit(-1)
 })
 
+//planetScale
+require('dotenv').config()
+const mysql = require('mysql2')
+const connection = mysql.createConnection(process.env.PLANETSCALE_DATABASE_URL)
+console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\nConnected to PlanetScale!')
+connection.end()
+//
+
 export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
   //
   let sql = ''
