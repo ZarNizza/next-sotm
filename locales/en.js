@@ -86,5 +86,7 @@ export const en = {
   welcomeTips8: 'tap here to start',
   welcomeTips9: '',
   welcomeTips10: '',
-  welcomeTips11: ''
+  welcomeTips11: '',
+  editSaleTips: 'Try enter Sale date or id, Product id or Customer id',
+  editXpenseTips: 'Try enter Xpense date or id, or expense Item id'
 }

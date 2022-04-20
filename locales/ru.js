@@ -88,5 +88,7 @@ export const ru = {
   welcomeTips8: 'для начала - ткните сюда ;)',
   welcomeTips9: '',
   welcomeTips10: '',
-  welcomeTips11: ''
+  welcomeTips11: '',
+  editSaleTips: 'Введите дату Продажи или её id, id Клиента, id Продукта',
+  editXpenseTips: 'Введите дату Закупки или её id, или id Расходника'
 }

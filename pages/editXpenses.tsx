@@ -59,6 +59,10 @@ const Home: NextPage = () => {
           <h2>
             {c.t.xpenses}: {items.length}
           </h2>
+          <div className={styles.tips}>
+            <br />
+            {c.t.editXpenseTips}:
+          </div>
           <Toaster />
           <LiveSelect
             items={items}
