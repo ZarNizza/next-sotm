@@ -84,8 +84,8 @@ export const en = {
   welcomeTips6: 'For use personal data base',
   welcomeTips7: 'log in with your Google account.',
   welcomeTips8: 'tap here to start',
-  welcomeTips9: '',
-  welcomeTips10: '',
+  welcomeTips9: 'We do not save your account data,',
+  welcomeTips10: 'do not store it, and do not sent anything outside.',
   welcomeTips11: '',
   editSaleTips: 'Try enter Sale date or id, Product id or Customer id',
   editXpenseTips: 'Try enter Xpense date or id, or expense Item id'

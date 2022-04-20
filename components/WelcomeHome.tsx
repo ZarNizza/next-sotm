@@ -43,8 +43,13 @@ export default function WelcomeHome() {
             <br />
             {c.t.welcomeTips7}
           </p>
+          <p>
+            {c.t.welcomeTips9}
+            <br />
+            {c.t.welcomeTips10}
+          </p>
           <p>. . .</p>
-          <p>- {c.t.welcomeTips8} -</p>
+          <p>{c.t.welcomeTips8}</p>
         </button>
       ),
       { id: 'toast01', duration: 30000 }

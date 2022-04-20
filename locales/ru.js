@@ -86,8 +86,8 @@ export const ru = {
   welcomeTips6: 'Для создания личной базы данных',
   welcomeTips7: 'войдите под своим Гугл-аккаунтом.',
   welcomeTips8: 'для начала - ткните сюда ;)',
-  welcomeTips9: '',
-  welcomeTips10: '',
+  welcomeTips9: 'Мы не интересуемся данными Вашего аккаунта,',
+  welcomeTips10: 'не храним их и никуда не передаём.',
   welcomeTips11: '',
   editSaleTips: 'Введите дату Продажи или её id, id Клиента, id Продукта',
   editXpenseTips: 'Введите дату Закупки или её id, или id Расходника'
