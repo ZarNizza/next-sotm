@@ -51,6 +51,8 @@ export const en = {
   saleIt: 'Sale it!',
   plusTips1: 'collect Products, set Costs',
   plusTips2: 'and submit Sale',
+  minusTips1: 'collect Products, set Total Cost & Quantity for each item',
+  minusTips2: 'and submit purchase',
   product: 'Product Item',
   products: 'Products',
   eitem: 'X-item',
