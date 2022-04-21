@@ -55,7 +55,7 @@ export default function ProductCart(props: ProductCartProps) {
             onChange={(event) =>
               props.inputSumDChangeHandler({
                 id: id,
-                value: Number(event.target.value.replace(/[^\d]/g, ''))
+                value: Number(event.target.value.replace(/[^\-\d]/g, ''))
               })
             }
             className={styles.inputSumD}
@@ -106,6 +106,7 @@ export default function ProductCart(props: ProductCartProps) {
                 prevSelectedProducts.filter((product) => product !== Number(id))
               )
               delete props.prodCostRef.current[id]
+              delete props.prodCostDRef.current[id]
             }
           })
           .catch((error) => {
