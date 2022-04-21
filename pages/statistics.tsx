@@ -290,17 +290,23 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className={styles.orangeButtonsGroup}>
-            <div className={styles.flexRowContainer}>
-              <button onClick={show_S_Handler}>{c.t.total_S}</button>
-              <button onClick={show_X_Handler}>{c.t.total_X}</button>
-              <button onClick={show_SX_Handler}>{c.t.total_SX}</button>
-              <button onClick={show_S_Full_Handler}>{c.t.S_days}</button>
-              <button onClick={show_X_Full_Handler}>{c.t.X_days}</button>
-              <button onClick={show_SX_Full_Handler}>{c.t.SX_days}</button>
-              <button onClick={show_CS_Full_Handler}>{c.t.sellsByCust}</button>
-              <button onClick={show_C_History_Handler}>
-                {c.t.custHistory}
-              </button>
+            <div className={styles.flexColumnContainer}>
+              <div className={styles.flexRowContainer}>
+                <button onClick={show_S_Handler}>{c.t.total_S}</button>
+                <button onClick={show_X_Handler}>{c.t.total_X}</button>
+                <button onClick={show_SX_Handler}>{c.t.total_SX}</button>
+                <button onClick={show_S_Full_Handler}>{c.t.S_days}</button>
+                <button onClick={show_X_Full_Handler}>{c.t.X_days}</button>
+                <button onClick={show_SX_Full_Handler}>{c.t.SX_days}</button>
+              </div>
+              <div className={styles.flexRowContainer}>
+                <button onClick={show_CS_Full_Handler}>
+                  {c.t.sellsByCust}
+                </button>
+                <button onClick={show_C_History_Handler}>
+                  {c.t.custHistory}
+                </button>
+              </div>
             </div>
           </div>
           <Tabloid />
