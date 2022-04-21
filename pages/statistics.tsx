@@ -132,25 +132,33 @@ const Home: NextPage = () => {
   }
 
   function show_CS_Full_Handler() {
-    const body = {
-      mode: 'show_CS_Full',
-      dbPrefix: c.u,
-      startDate: startDate,
-      finishDate: finishDate,
-      currentCustomer: currentCustomer
+    if (currentCustomer.id === 0) {
+      alert('Choose Customer!')
+    } else {
+      const body = {
+        mode: 'show_CS_Full',
+        dbPrefix: c.u,
+        startDate: startDate,
+        finishDate: finishDate,
+        currentCustomer: currentCustomer
+      }
+      fetch_Handler(body)
     }
-    fetch_Handler(body)
   }
 
   function show_C_History_Handler() {
-    const body = {
-      mode: 'show_C_History',
-      dbPrefix: c.u,
-      startDate: startDate,
-      finishDate: finishDate,
-      currentCustomer: currentCustomer
+    if (currentCustomer.id === 0) {
+      alert('Choose Customer!')
+    } else {
+      const body = {
+        mode: 'show_C_History',
+        dbPrefix: c.u,
+        startDate: startDate,
+        finishDate: finishDate,
+        currentCustomer: currentCustomer
+      }
+      fetch_Handler(body)
     }
-    fetch_Handler(body)
   }
 
   function startDateChangeHandler(startDate: string) {
