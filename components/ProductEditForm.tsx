@@ -69,11 +69,11 @@ export default function ProductEditForm(arg: editPitemArgs) {
   }
 
   function input_Pname_ChHandler(pName: string) {
-    setPitem(pName.replace(/[^a-zA-Zа-яА-Я\+\-\*\/\d\s\.\,\:\;\_]/gi, ''))
+    setPitem(pName.replace(/[^a-zA-Zа-яА-ЯёЁ\+\-\*\/\d\s\.\,\:\;\_]/gi, ''))
   }
 
   function input_Psymbol_ChHandler(pSymbol: string) {
-    setPsymbol(pSymbol.replace(/[^a-zA-Zа-яА-Я\+\-\*\/\d\s\.\,\:\;\_]/gi, ''))
+    setPsymbol(pSymbol.replace(/[^a-zA-Zа-яА-ЯёЁ\+\-\*\/\d\s\.\,\:\;\_]/gi, ''))
   }
 
   function input_Pprice_ChHandler(pPrice: string) {
@@ -94,7 +94,7 @@ export default function ProductEditForm(arg: editPitemArgs) {
             value={pName}
             onChange={(event) => input_Pname_ChHandler(event.target.value)}
             placeholder={c.t.descr}
-            pattern="[a-zA-Zа-яА-Я\+\-\*\/\d\s\.,:;_]*"
+            pattern="[a-zA-Zа-яА-ЯёЁ\+\-\*\/\d\s\.,:;_]*"
             className={styles.inputP}
           />
         </p>
@@ -104,7 +104,7 @@ export default function ProductEditForm(arg: editPitemArgs) {
             value={pSymbol}
             onChange={(event) => input_Psymbol_ChHandler(event.target.value)}
             placeholder={c.t.shrtNam}
-            pattern="[a-zA-Zа-яА-Я\+\-\*\/\d\s\.,:;_]*"
+            pattern="[a-zA-Zа-яА-ЯёЁ\+\-\*\/\d\s\.,:;_]*"
             className={styles.inputP}
           />
         </p>

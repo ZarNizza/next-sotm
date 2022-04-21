@@ -460,12 +460,12 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
               type="text"
               className={styles.inputCust}
               placeholder={c.t.name}
-              pattern="[a-zA-Zа-яА-Я\+\-\*\/\d\s\.,:;_]{1,50}"
+              pattern="[a-zA-Zа-яА-ЯёЁ\+\-\*\/\d\s\.,:;_]{1,50}"
               value={newName || ''}
               onChange={(event) =>
                 setNewName(
                   event.target.value.replace(
-                    /[^a-zA-Zа-яА-Я\+\-\*\/\d\s\.\,\:\;\_]/gi,
+                    /[^a-zA-Zа-яА-ЯёЁ\+\-\*\/\d\s\.\,\:\;\_]/gi,
                     ''
                   )
                 )
