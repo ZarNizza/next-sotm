@@ -7,6 +7,7 @@
   max-height: 80vh;
   overflow: scroll;
   margin: 1rem auto;
+  border-bottom: 1px solid #eaeaea;
 }
 .flexColumnContainer {
   display: flex;

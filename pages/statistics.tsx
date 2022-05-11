@@ -208,7 +208,11 @@ const Home: NextPage = () => {
   }
   function Tabloid() {
     if (resData === undefined || resData.length === 0)
-      return <p className={styles.tips}>{c.t.db_empty}</p>
+      return (
+        <div className={styles.tableScroll}>
+          <p className={styles.tips}>{c.t.db_empty}</p>
+        </div>
+      )
 
     switch (resSource) {
       case 'short': {
