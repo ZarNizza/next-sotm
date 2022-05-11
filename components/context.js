@@ -11,7 +11,7 @@ export default function MyContext({ children }) {
 
   const u =
     typeof session !== undefined && !!session && !!session.user
-      ? 'a' + md5(session.user.email) + '_'
+      ? 'a' + md5(session.user.email + process.env.DB_SALT) + '_'
       : ''
   //
   console.log('* * * start context u=', u)
