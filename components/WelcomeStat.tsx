@@ -23,7 +23,7 @@ export default function WelcomeStat() {
   }
 
   useEffect(() => {
-    const toast01 = toast.loading('Loading...')
+    if (c.u > '') toast.loading('Loading...')
     console.log('WelcomeStat dbPrefix:', c.u)
     fetch('/api/statistics', {
       method: 'POST',
@@ -57,7 +57,7 @@ export default function WelcomeStat() {
           bodyNow
         )
         alert('WelcomeStat ! catch-1 Error:' + error.message)
-        toast.remove()
+        if (c.u > '') toast.remove()
         toast.error('!Loading error: X3')
       })
 
@@ -83,7 +83,7 @@ export default function WelcomeStat() {
                 )
               : '0'
           })
-          toast.remove()
+          if (c.u > '') toast.remove()
         }
       })
       .catch((error) => {
@@ -94,7 +94,7 @@ export default function WelcomeStat() {
           bodyPrev
         )
         alert('WelcomeStat ! catch-2 Error:' + error.message)
-        toast.remove()
+        if (c.u > '') toast.remove()
         toast.error('!Loading error: X3')
       })
   }, [c.u])

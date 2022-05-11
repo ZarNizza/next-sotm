@@ -10,46 +10,53 @@ import { SVG_edit } from './SVG_edit'
 export default function WelcomeHome() {
   const c = useContext(AppContext)
   let toast01: any
-  if (c.u === '') {
-    toast01 = toast.custom(
-      (t) => (
-        <button
-          onClick={() => toast.remove('toast01')}
-          style={{
-            textAlign: 'center',
-            border: '1px solid #778864',
-            borderRadius: '1rem',
-            padding: '7rem 3rem',
-            marginTop: '7rem',
-            background: '#fff'
-          }}
-        >
-          <h1>{c.t.welcomeTitle}</h1>
-          <p>
-            {c.t.welcomeTips1}
-            <br />
-            {c.t.welcomeTips2}
-            <br />
-            {c.t.welcomeTips3}
-            <br />
-          </p>
-          <p>
-            {c.t.welcomeTips4}
-            <br />
-            {c.t.welcomeTips5}
-          </p>
-          <p>
-            {c.t.welcomeTips6}
-            <br />
-            {c.t.welcomeTips7}
-          </p>
-          <p>. . .</p>
-          <p>- {c.t.welcomeTips8} -</p>
-        </button>
-      ),
-      { id: 'toast01', duration: 30000 }
-    )
-  }
+  setTimeout(() => {
+    if (c.u === '') {
+      toast01 = toast.custom(
+        (t) => (
+          <button
+            onClick={() => toast.remove('toast01')}
+            style={{
+              textAlign: 'center',
+              border: '1px solid #778864',
+              borderRadius: '1rem',
+              padding: '7rem 3rem',
+              marginTop: '7rem',
+              background: '#fff'
+            }}
+          >
+            <h1>{c.t.welcomeTitle}</h1>
+            <p>
+              {c.t.welcomeTips1}
+              <br />
+              {c.t.welcomeTips2}
+              <br />
+              {c.t.welcomeTips3}
+              <br />
+            </p>
+            <p>
+              {c.t.welcomeTips4}
+              <br />
+              {c.t.welcomeTips5}
+            </p>
+            <p>
+              {c.t.welcomeTips6}
+              <br />
+              {c.t.welcomeTips7}
+            </p>
+            <p>
+              {c.t.welcomeTips9}
+              <br />
+              {c.t.welcomeTips10}
+            </p>
+            <p>. . .</p>
+            <p>{c.t.welcomeTips8}</p>
+          </button>
+        ),
+        { id: 'toast01', duration: 30000 }
+      )
+    }
+  }, 3000)
   //
   return (
     <>

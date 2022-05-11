@@ -30,7 +30,7 @@ type editFormArgs = {
 export default function EditForm(a: editFormArgs) {
   const c = useContext(AppContext)
   const goodDate =
-    a.itemToEdit.date.slice(10, 11) === 'T'
+    !!a.itemToEdit.date && a.itemToEdit.date.slice(10, 11) === 'T'
       ? a.itemToEdit.date.slice(0, 10) + ', ' + a.itemToEdit.date.slice(11, 16)
       : a.itemToEdit.date
   const [newName, setNewName] = useState(a.itemToEdit.name || '')

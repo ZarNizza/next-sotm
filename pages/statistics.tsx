@@ -132,25 +132,33 @@ const Home: NextPage = () => {
   }
 
   function show_CS_Full_Handler() {
-    const body = {
-      mode: 'show_CS_Full',
-      dbPrefix: c.u,
-      startDate: startDate,
-      finishDate: finishDate,
-      currentCustomer: currentCustomer
+    if (currentCustomer.id === 0) {
+      alert('Choose Customer!')
+    } else {
+      const body = {
+        mode: 'show_CS_Full',
+        dbPrefix: c.u,
+        startDate: startDate,
+        finishDate: finishDate,
+        currentCustomer: currentCustomer
+      }
+      fetch_Handler(body)
     }
-    fetch_Handler(body)
   }
 
   function show_C_History_Handler() {
-    const body = {
-      mode: 'show_C_History',
-      dbPrefix: c.u,
-      startDate: startDate,
-      finishDate: finishDate,
-      currentCustomer: currentCustomer
+    if (currentCustomer.id === 0) {
+      alert('Choose Customer!')
+    } else {
+      const body = {
+        mode: 'show_C_History',
+        dbPrefix: c.u,
+        startDate: startDate,
+        finishDate: finishDate,
+        currentCustomer: currentCustomer
+      }
+      fetch_Handler(body)
     }
-    fetch_Handler(body)
   }
 
   function startDateChangeHandler(startDate: string) {
@@ -244,6 +252,10 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <div className={styles.flexColumnContainer}>
           <h1>{c.t.statTitle}</h1>
+          <div className={styles.tips}>
+            <br />
+            {c.t.customer}:
+          </div>
           <Toaster />
           <LiveSelect
             items={customers}
@@ -286,17 +298,23 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className={styles.orangeButtonsGroup}>
-            <div className={styles.flexRowContainer}>
-              <button onClick={show_S_Handler}>{c.t.total_S}</button>
-              <button onClick={show_X_Handler}>{c.t.total_X}</button>
-              <button onClick={show_SX_Handler}>{c.t.total_SX}</button>
-              <button onClick={show_S_Full_Handler}>{c.t.S_days}</button>
-              <button onClick={show_X_Full_Handler}>{c.t.X_days}</button>
-              <button onClick={show_SX_Full_Handler}>{c.t.SX_days}</button>
-              <button onClick={show_CS_Full_Handler}>{c.t.sellsByCust}</button>
-              <button onClick={show_C_History_Handler}>
-                {c.t.custHistory}
-              </button>
+            <div className={styles.flexColumnContainer}>
+              <div className={styles.flexRowContainer}>
+                <button onClick={show_S_Handler}>{c.t.total_S}</button>
+                <button onClick={show_X_Handler}>{c.t.total_X}</button>
+                <button onClick={show_SX_Handler}>{c.t.total_SX}</button>
+                <button onClick={show_S_Full_Handler}>{c.t.S_days}</button>
+                <button onClick={show_X_Full_Handler}>{c.t.X_days}</button>
+                <button onClick={show_SX_Full_Handler}>{c.t.SX_days}</button>
+              </div>
+              <div className={styles.flexRowContainer}>
+                <button onClick={show_CS_Full_Handler}>
+                  {c.t.sellsByCust}
+                </button>
+                <button onClick={show_C_History_Handler}>
+                  {c.t.custHistory}
+                </button>
+              </div>
             </div>
           </div>
           <Tabloid />

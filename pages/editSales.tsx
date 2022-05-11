@@ -61,6 +61,10 @@ const Home: NextPage = () => {
             {c.t.sales}: {items.length}
           </h2>
           <Toaster />
+          <div className={styles.tips}>
+            <br />
+            {c.t.editSaleTips}:
+          </div>
           <LiveSelect
             items={items}
             currentItem={currentItem}

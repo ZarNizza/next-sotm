@@ -90,6 +90,12 @@ const Home: NextPage = () => {
             setGross={setGross}
             setNewFlag={setNewFlag}
           />{' '}
+          <p> </p>
+          <div className={styles.flexColumnContainer}>
+            <div className={styles.tips}>{c.t.minusTips1}</div>
+            <br />
+            <div className={styles.tips}>{c.t.minusTips2}</div>
+          </div>
           <XpenseCart
             setSelectedEitems={setSelectedEitems}
             selectedEitems={selectedEitems}
