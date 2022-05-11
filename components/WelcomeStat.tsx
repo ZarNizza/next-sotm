@@ -104,13 +104,13 @@ export default function WelcomeStat() {
       <Link href="/statistics" passHref>
         <div className={styles.welcomeStatRow}>
           <div>
-            {c.t.today} :&nbsp;&nbsp;
+            {c.t.todayStat} :&nbsp;&nbsp;
             <span>{statNow}</span>
           </div>
           <span>&nbsp;&nbsp;/&nbsp;&nbsp;</span>
           <div>
             <span>{statPrev}</span>
-            &nbsp;&nbsp;: {c.t.month}
+            &nbsp;&nbsp;: {c.t.monthStat}
           </div>
         </div>
       </Link>
