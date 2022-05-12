@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import styles from '../components/Home.module.scss'
 import Locales from '../components/Locales'
+import Init from '../components/Init'
 import { AppContext } from '../components/AppContext'
 import { useContext } from 'react'
 
@@ -25,6 +26,15 @@ const Home: NextPage = () => {
   //   </div>
   // </div>
   //
+  const dbSyncHandler = () => {
+    console.log('dbSyncHandler')
+    Init(console.log, 'customers', c.u, true)
+    Init(console.log, 'products', c.u, true)
+    Init(console.log, 'sales', c.u, true)
+    Init(console.log, 'eitems', c.u, true)
+    Init(console.log, 'xpenses', c.u, true)
+  }
+
   return (
     <>
       <Head>
@@ -65,6 +75,15 @@ const Home: NextPage = () => {
               <p> {c.t.xpenses} </p>
             </div>
           </Link>
+        </div>
+
+        <div className={styles.squareRow}>
+          <button
+            className={`${styles.doublesquare} ${styles.violet}`}
+            onClick={dbSyncHandler}
+          >
+            <p>{c.t.updateLocalDB}</p>
+          </button>
         </div>
       </main>
     </>

@@ -104,7 +104,7 @@ $separator: #ddd;
   margin: 1rem;
 }
 
-.square {
+.square, .doublesquare {
   display: flex;
   height: 8rem;
   width: 8rem;
@@ -113,6 +113,10 @@ $separator: #ddd;
   font-weight: 600;
   font-size: larger;
   background-color: white;
+}
+.doublesquare {
+  height: 5rem;
+  width: 18rem;
 }
 .halfsquare_top,
 .halfsquare_bottom {
@@ -129,12 +133,14 @@ $separator: #ddd;
   margin: 0.5rem 0 0 0;
 }
 .square:hover,
+.doublesquare:hover,
 .halfsquare_top:hover,
 .halfsquare_bottom:hover {
   cursor: pointer;
 }
 .square p,
 .square .pdiv,
+.doublesquare p,
 .halfsquare_top p,
 .halfsquare_bottom p {
   display: flex;

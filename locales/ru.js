@@ -40,6 +40,7 @@ export const ru = {
   descr: 'Описание',
   shrtNam: 'СокрНазв',
   update: 'Обновить',
+  updateLocalDB: 'Обновить\nданные',
   new: 'Нов.',
   date: 'Дата',
   custId: 'Кл.id',
