@@ -81,6 +81,7 @@ const Home: NextPage = () => {
           <button
             className={`${styles.doublesquare} ${styles.violet}`}
             onClick={dbSyncHandler}
+            title={c.t.syncDBtips}
           >
             <p>{c.t.updateLocalDB}</p>
           </button>

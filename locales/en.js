@@ -91,5 +91,6 @@ export const en = {
   welcomeTips10: 'do not store it, and do not sent anything outside.',
   welcomeTips11: '',
   editSaleTips: 'Try enter Sale date or id, Product id or Customer id',
-  editXpenseTips: 'Try enter Xpense date or id, or expense Item id'
+  editXpenseTips: 'Try enter Xpense date or id, or expense Item id',
+  syncDBtips: 'Sync local database to main cloud'
 }
