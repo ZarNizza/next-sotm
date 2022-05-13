@@ -124,7 +124,9 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
   }
 
   function liveSearch(e: ChangeEvent<HTMLInputElement>) {
-    const st = e.target.value.toLowerCase()
+    const st = e.target.value
+      .replace(/[^a-zA-Zа-яА-Я\+\-\*\/\d\s\.\,\:\;\_]/gi, '')
+      .toLowerCase()
     a.setSearchWord(() => st)
     a.setCurrentItem(item0)
   }
@@ -432,7 +434,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
           type="search"
           ref={a.liveRef}
           placeholder={c.t.startTyping}
-          pattern="[\+\-\*\/\d\s\.,:;_]{1,50}"
+          pattern="[a-zA-Zа-яА-Я\+\-\*\/\d\s\.,:;_]{1,50}"
           onChange={liveSearch}
           className={styles.inputCust}
         />
