@@ -1,9 +1,11 @@
 ColorTheme select
 Delete Items handling
-CurrentCustomer last 3 visits list
 
 
 Done:
+Stat - dateTime input pattern
+LiveSearch input pattern
+CurrentCustomer last visits list
 editX - format dateTime (drop T)
 Minus - SAVE - update LS/state
 Language select

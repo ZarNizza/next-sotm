@@ -208,11 +208,7 @@ const Home: NextPage = () => {
   }
   function Tabloid() {
     if (resData === undefined || resData.length === 0)
-      return (
-        <div className={styles.tableScroll}>
-          <p className={styles.tips}>{c.t.db_empty}</p>
-        </div>
-      )
+      return <p className={styles.tips}>{c.t.db_empty}</p>
 
     switch (resSource) {
       case 'short': {
@@ -275,7 +271,7 @@ const Home: NextPage = () => {
             <input
               type="text"
               placeholder="Start date"
-              pattern="^20\d\d[\.\-\/][01]\d[\.\-\/][0123]\d$"
+              pattern="^20\d\d[\.\-\/][01]\d[\.\-\/][0123]\d[\d\s:]{0,7}$"
               value={startDate}
               onChange={(event) => startDateChangeHandler(event.target.value)}
             />
@@ -283,7 +279,7 @@ const Home: NextPage = () => {
             <input
               type="text"
               placeholder="Finish date"
-              pattern="^20\d\d[\.\-\/][01]\d[\.\-\/][0123]\d$"
+              pattern="^20\d\d[\.\-\/][01]\d[\.\-\/][0123]\d[\d\s:]{0,7}$"
               value={finishDate}
               onChange={(event) => finishDateChangeHandler(event.target.value)}
             />
