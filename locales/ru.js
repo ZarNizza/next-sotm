@@ -40,7 +40,7 @@ export const ru = {
   descr: 'Описание',
   shrtNam: 'СокрНазв',
   update: 'Обновить',
-  updateLocalDB: 'Обновить\nданные',
+  updateLocalDB: `Обновить данные из облака`,
   new: 'Нов.',
   date: 'Дата',
   custId: 'Кл.id',

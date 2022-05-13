@@ -38,7 +38,7 @@ export const en = {
   descr: 'Item description',
   shrtNam: 'ShrtNam',
   update: 'Update',
-  updateLocalDB: 'Update data',
+  updateLocalDB: 'Update data from cloud',
   new: 'New',
   date: 'Date',
   custId: 'Cust',
