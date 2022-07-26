@@ -1,3 +1,5 @@
+/* Session wrapper for authorisation data
+ Context wrapper with state global variables */
 import '../styles/globals.css'
 import { SessionProvider } from 'next-auth/react'
 import Layout from '../components/layout'
