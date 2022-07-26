@@ -11,6 +11,9 @@ const Home: NextPage = () => {
   const c = useContext(AppContext)
   console.log('index - c.u="', c.u, '"')
 
+  /*
+  LocalStorage data copy init
+  */
   if (!!c.u) {
     try {
       console.log(

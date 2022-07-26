@@ -1,3 +1,5 @@
+/* Home page with navigation buttons and brief statistic data
+ */
 import Head from 'next/head'
 import styles from './Home.module.scss'
 import Link from 'next/link'
