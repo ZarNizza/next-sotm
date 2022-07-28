@@ -1,13 +1,13 @@
-##Sales and Profit
+<h2>Sales and Profit</h2>
 lite-n-fast pocket solution for simple Cost-and-Profit count.
 
 Private project, opened due GH politic reasons.
 
-###Unusual glossary:
+<h3>Unusual glossary:</h3>
 _Xpense_ — any expense,
 _Eitem_ (E-item) — unique expense item.
 
-###Structure:
+<h3>Structure:</h3>
 `components/`
 WelcomeHome.tsx — Home page
 
