@@ -13,8 +13,8 @@ WelcomeHome.tsx — Home page
 <br/></p>
 <p>
 <code>pages/</code><br/>
-plus.tsx — Sales register with add new product option. Select (add new and select) Customer, select Product, set product summ, enjoy.<br/>
-minus.tsx — Xpenses register with add new E-item option. Select (add new and select) E-item, set group cost, enjoy ).<br/>
+plus.tsx — Sales register with add new product option. Select (or add new) Customer, select/add Product, set product Summ, enjoy.<br/>
+minus.tsx — Xpenses register with add new E-item option. Select (add new) E-item, set group Cost, breathe out ))<br/>
 statistics.tsx — usefull tool for data slice.<br/>
 settings.tsx — admin options to manage database.<br/>
 </p>
