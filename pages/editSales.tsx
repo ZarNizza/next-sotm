@@ -6,7 +6,7 @@ import { Sale } from './plus'
 import Init from '../components/Init'
 import LiveSelect from '../components/LiveSelectCUSX'
 import EditForm from '../components/EditFormCUSX'
-import DBshortTable from '../components/DBshortTable'
+import DBshortTableED from '../components/DBshortTableED'
 import { Toaster } from 'react-hot-toast'
 import { AppContext } from '../components/AppContext'
 import { useContext } from 'react'
@@ -104,7 +104,7 @@ const Home: NextPage = () => {
                 <p>{c.t.db_empty}</p>
               ) : (
                 <div className={styles.tableScroll}>
-                  <DBshortTable resData={items} />
+                  <DBshortTableED resData={items} />
                 </div>
               )
             ) : (
