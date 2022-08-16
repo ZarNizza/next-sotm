@@ -42,12 +42,12 @@ export default function ProductCart(props: ProductCartProps) {
             onChange={(event) =>
               props.inputSumChangeHandler({
                 id: id,
-                value: Number(event.target.value.replace(/[^\d]/g, ''))
+                value: Number(event.target.value.replace(/[^-?\d]/g, ''))
               })
             }
             className={styles.inputSum}
             placeholder={String(props.prodCostRef.current[id])}
-            pattern="^[\d]{0,8}"
+            pattern="^-?[\d]{0,8}"
           />
           {'± '}
           <input
@@ -55,12 +55,12 @@ export default function ProductCart(props: ProductCartProps) {
             onChange={(event) =>
               props.inputSumDChangeHandler({
                 id: id,
-                value: Number(event.target.value.replace(/[^\-\d]/g, ''))
+                value: Number(event.target.value.replace(/[^-?\d]/g, ''))
               })
             }
             className={styles.inputSumD}
             placeholder="+/- d"
-            pattern="^[\d\+\-]{0,6}"
+            pattern="^[\+\-]?[\d]{0,6}"
           />
         </div>{' '}
         <button
