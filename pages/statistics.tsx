@@ -131,6 +131,16 @@ const Home: NextPage = () => {
     fetch_Handler(body)
   }
 
+  function show_CS_All_Full_Handler() {
+    const body = {
+      mode: 'show_CS_All_Full',
+      dbPrefix: c.u,
+      startDate: startDate,
+      finishDate: finishDate
+    }
+    fetch_Handler(body)
+  }
+
   function show_CS_Full_Handler() {
     if (currentCustomer.id === 0) {
       alert('Choose Customer!')
@@ -308,6 +318,9 @@ const Home: NextPage = () => {
                 <button onClick={show_SX_Full_Handler}>{c.t.SX_days}</button>
               </div>
               <div className={styles.flexRowContainer}>
+                <button onClick={show_CS_All_Full_Handler}>
+                  {c.t.sellsByCustAll}
+                </button>
                 <button onClick={show_CS_Full_Handler}>
                   {c.t.sellsByCust}
                 </button>

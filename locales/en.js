@@ -78,6 +78,7 @@ export const en = {
   X_days: 'X by days',
   SX_days: 'S + X by days',
   sellsByCust: 'Sells by Customers',
+  sellsByCustAll: 'All Sells by Customers',
   custHistory: 'Customer History',
   welcomeTips1: 'This application use',
   welcomeTips2: 'as light-n-fast pocket solution',

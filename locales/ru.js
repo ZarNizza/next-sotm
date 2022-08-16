@@ -81,6 +81,7 @@ export const ru = {
   X_days: 'Закупки по дням',
   SX_days: 'П + З по дням',
   sellsByCust: 'Продажи/Клиенты',
+  sellsByCustAll: 'Все Продажи / Все Клиенты',
   custHistory: 'История Клиента',
   welcomeTips1: 'У Вас в руках',
   welcomeTips2: 'легковесное карманное решение',
