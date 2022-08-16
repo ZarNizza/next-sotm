@@ -41,26 +41,26 @@ export default function XpenseCart(props: XpenseCartProps) {
             onChange={(event) =>
               props.inputSumChangeHandler({
                 id: id,
-                value: Number(event.target.value.replace(/[^\d]/g, ''))
+                value: Number(event.target.value.replace(/[^-?\d]/g, ''))
               })
             }
             className={styles.inputSum}
             style={{ flex: '0 0 auto' }}
             placeholder={String(props.eCostRef.current[id])}
-            pattern="^[\d]{0,6}"
+            pattern="^-?[\d]{0,6}"
           />
           <input
             type="text"
             onChange={(event) =>
               props.inputNumChangeHandler({
                 id: id,
-                value: Number(event.target.value.replace(/[^\d]/g, ''))
+                value: Number(event.target.value.replace(/[^-?\d]/g, ''))
               })
             }
             className={styles.inputSum}
             style={{ flex: '0 0 auto' }}
             placeholder={String(props.eNumRef.current[id]) || '0'}
-            pattern="^[\d]{0,6}"
+            pattern="^-?[\d]{0,6}"
           />{' '}
         </div>
         <button
