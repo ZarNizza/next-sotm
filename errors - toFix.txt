@@ -1,8 +1,8 @@
 ColorTheme select
 Settings/AllTable — lowLight the Deleted lines
-HomePage — 3-lines today/month stat: incomes, xpenses, total
 
 Done:
+HomePage — 3-lines today/month stat: incomes, xpenses, total
 Delete Items handling — Sales, Xpenses
 Stat - dateTime input pattern
 LiveSearch input pattern
