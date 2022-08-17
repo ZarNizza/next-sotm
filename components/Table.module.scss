@@ -23,5 +23,16 @@
 }
 .alignLeft {
   text-align: left !important;
-
+}
+.dropButtonTable {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  background-color: #faffea;
+  float: right;
+  flex: 0 0 auto;
+}
+.dropButtonTable:hover {
+  background-color: #ffaabb;
+  transition: 0.25s ease;
 }

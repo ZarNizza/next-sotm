@@ -85,6 +85,7 @@ export default function DBshortTableED(props: TableProps) {
               {keys.map((key) => (
                 <td key={Math.random()}>{key}</td>
               ))}
+              <td>X</td>
             </tr>
           </thead>
           <tbody>
@@ -119,7 +120,7 @@ export default function DBshortTableED(props: TableProps) {
                   ))}
                   <td className={styles.alignLeft}>
                     <button
-                      className={stylesH.dropButton}
+                      className={styles.dropButtonTable}
                       onClick={() =>
                         item.del ? resetDelFlag(a[0]) : setDelFlag(a[0])
                       }
