@@ -1,8 +1,9 @@
 ColorTheme select
-Delete Items handling
-
+Settings/AllTable — lowLight the Deleted lines
+HomePage — 3-lines today/month stat: incomes, xpenses, total
 
 Done:
+Delete Items handling — Sales, Xpenses
 Stat - dateTime input pattern
 LiveSearch input pattern
 CurrentCustomer last visits list
