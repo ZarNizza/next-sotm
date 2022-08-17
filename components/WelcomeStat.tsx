@@ -285,37 +285,37 @@ export default function WelcomeStat() {
     <>
       <Toaster />
       <Link href="/statistics" passHref>
-        <>
-          <div className={styles.welcomeStatRow1}>
-            <div>
-              {c.t.todayStat} :&nbsp;&nbsp;
-              <span>
-                {statNowS} - {statNowX} ={' '}
-                {String(
-                  new Intl.NumberFormat('ru').format(
-                    Number(statNowS.replace(/[^-?\d]/g, '')) -
-                      Number(statNowX.replace(/[^-?\d]/g, ''))
-                  )
-                )}
-              </span>
-            </div>
+        <div className={styles.welcomeStatRow1}>
+          <div>
+            {c.t.todayStat} :&nbsp;&nbsp;
+            <span>
+              {statNowS} - {statNowX} ={' '}
+              {String(
+                new Intl.NumberFormat('ru').format(
+                  Number(statNowS.replace(/[^-?\d]/g, '')) -
+                    Number(statNowX.replace(/[^-?\d]/g, ''))
+                )
+              )}
+            </span>
           </div>
+        </div>
+      </Link>
 
-          <div className={styles.welcomeStatRow}>
-            <div>
-              {c.t.monthStat} :&nbsp;&nbsp;
-              <span>
-                {statPrevS} - {statPrevX} ={' '}
-                {String(
-                  new Intl.NumberFormat('ru').format(
-                    Number(statPrevS.replace(/[^-?\d]/g, '')) -
-                      Number(statPrevX.replace(/[^-?\d]/g, ''))
-                  )
-                )}
-              </span>
-            </div>
+      <Link href="/statistics" passHref>
+        <div className={styles.welcomeStatRow}>
+          <div>
+            {c.t.monthStat} :&nbsp;&nbsp;
+            <span>
+              {statPrevS} - {statPrevX} ={' '}
+              {String(
+                new Intl.NumberFormat('ru').format(
+                  Number(statPrevS.replace(/[^-?\d]/g, '')) -
+                    Number(statPrevX.replace(/[^-?\d]/g, ''))
+                )
+              )}
+            </span>
           </div>
-        </>
+        </div>
       </Link>
     </>
   )

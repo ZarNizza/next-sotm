@@ -87,19 +87,15 @@ $separator: #ddd;
 }
 .welcomeStatRow{
   background-color: $v6;
-  // color: #1fbccc;
   color: white;
 }
 .welcomeStatRow1{
   margin-top: 2rem;
-  background-color: $gl6;
-  // color: #1fbccc;
+  margin-bottom: 1px;
+  background-color: $g6;
   color: white;
 }
-.welcomeStatRow2{
-  background-color: $og6;
-  color: #1fbccc;
-}
+
 .squareRow {
   display: flex;
   flex-direction: row;
