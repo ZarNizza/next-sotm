@@ -99,6 +99,8 @@ export default function DBshortTableED(props: TableProps) {
                       className={
                         a[0] === null
                           ? styles.gross
+                          : item.del
+                          ? styles.alignLeftLowLight
                           : i === 0
                           ? styles.alignLeft
                           : ''
@@ -118,14 +120,22 @@ export default function DBshortTableED(props: TableProps) {
                         : String(elem)}
                     </td>
                   ))}
-                  <td className={styles.alignLeft}>
+                  <td
+                    className={
+                      item.del ? styles.alignLeftLowLight : styles.alignLeft
+                    }
+                  >
                     <button
-                      className={styles.dropButtonTable}
+                      className={
+                        item.del
+                          ? styles.restoreButtonTable
+                          : styles.dropButtonTable
+                      }
                       onClick={() =>
                         item.del ? resetDelFlag(a[0]) : setDelFlag(a[0])
                       }
                     >
-                      X
+                      {item.del ? '^' : 'X'}
                     </button>
                   </td>
                 </tr>

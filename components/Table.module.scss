@@ -24,6 +24,11 @@
 .alignLeft {
   text-align: left !important;
 }
+.alignLeftLowLight {
+  text-align: left !important;
+  background-color: #ddd;
+  color: #aaa;
+}
 .dropButtonTable {
   height: 2rem;
   width: 2rem;
@@ -34,5 +39,17 @@
 }
 .dropButtonTable:hover {
   background-color: #ffaabb;
+  transition: 0.25s ease;
+}
+.restoreButtonTable {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  background-color: #faffea;
+  float: right;
+  flex: 0 0 auto;
+}
+.restoreButtonTable:hover {
+  background-color: #a3ff65;
   transition: 0.25s ease;
 }
