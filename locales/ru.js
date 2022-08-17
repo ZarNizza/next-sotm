@@ -18,7 +18,7 @@ export const ru = {
   customer: 'Клиент',
   customers: 'Клиенты',
   xpense: 'Закупка',
-  xpenses: 'Затраты',
+  xpenses: 'Расходы',
   sale: 'Продажа',
   sales: 'Продажи',
   user: 'Пользователь',
@@ -96,6 +96,6 @@ export const ru = {
   welcomeTips11: '',
   editSaleTips:
     'Введите дату Продажи или её сумму, id, id Клиента или id Продукта',
-  editXpenseTips: 'Введите дату Закупки или её сумму, id, или id Расходника',
+  editXpenseTips: 'Введите дату оплаты или её сумму, id, или id Расходника',
   syncDBtips: 'Обновить локальные данные из облачного хранилища'
 }
