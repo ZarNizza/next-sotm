@@ -110,6 +110,44 @@ export default async function sysHandler(
 
           break
         //
+        case 'get_stat_s':
+          sqlQuery =
+            'SELECT (SUM(s.sum) + SUM(s.sumd)) AS summa FROM ' +
+            dbPrefix +
+            'sales AS s ' +
+            ' WHERE (s.del = 0) AND (s.date BETWEEN ' +
+            startDate +
+            ' AND ' +
+            finishDate +
+            ') '
+          //
+          console.log('get-s-sum SQL:', sqlQuery)
+          //
+          source = 'short'
+
+          poolGetConnection(sqlQuery, source)
+
+          break
+        //
+        case 'get_stat_x':
+          sqlQuery =
+            'SELECT SUM(x.sum) AS summa FROM ' +
+            dbPrefix +
+            'xpenses AS x ' +
+            ' WHERE (x.del = 0) AND (x.date BETWEEN ' +
+            startDate +
+            ' AND ' +
+            finishDate +
+            ') '
+          //
+          console.log('get-x-sum SQL:', sqlQuery)
+          //
+          source = 'short'
+
+          poolGetConnection(sqlQuery, source)
+
+          break
+        //
         case 'show_S':
           sqlQuery =
             "SELECT (p.symbol || ' = ' || p.name) AS name, SUM(CASE WHEN s.prod = p.id THEN (s.sum + s.sumd) ELSE 0 END) AS gross FROM " +
