@@ -5,9 +5,11 @@ import stylesH from '../styles/Home.module.css'
 import styles from './Table.module.scss'
 import { AppContext } from './AppContext'
 import { useContext } from 'react'
+import fetchHandler, { FetchArgs } from './fetchHandler'
 
 type TableProps = {
   resData: Record<string, number | string | Date | null>[]
+  updateFunc: any
 }
 
 export default function DBshortTableED(props: TableProps) {
@@ -15,7 +17,55 @@ export default function DBshortTableED(props: TableProps) {
   const keys = Object.keys(props.resData[0])
 
   function setDelFlag(id: any) {
-    alert('try to delete item' + String(id))
+    let apiName: string = ''
+    let apiBody: string = ''
+    apiName = 'sales'
+    apiBody = JSON.stringify({
+      mode: 'delete',
+      dbPrefix: c.u,
+      id: String(id)
+    })
+
+    const args: FetchArgs = {
+      method: 'POST',
+      apiSuffix: apiName,
+      title: 'Delete',
+      body: apiBody,
+      setResData: console.log
+    }
+
+    fetchHandler(args)
+      .then(() => {
+        console.log('delete promise')
+        props.updateFunc()
+      })
+      .catch((err) => console.log('delete promise - ', err))
+  }
+
+  function resetDelFlag(id: any) {
+    let apiName: string = ''
+    let apiBody: string = ''
+    apiName = 'sales'
+    apiBody = JSON.stringify({
+      mode: 'restore',
+      dbPrefix: c.u,
+      id: String(id)
+    })
+
+    const args: FetchArgs = {
+      method: 'POST',
+      apiSuffix: apiName,
+      title: 'Restore',
+      body: apiBody,
+      setResData: console.log
+    }
+
+    fetchHandler(args)
+      .then(() => {
+        console.log('restore promise')
+        props.updateFunc()
+      })
+      .catch((err) => console.log('restore promise - ', err))
   }
 
   if (props.resData === undefined || props.resData.length === 0) {
@@ -69,7 +119,9 @@ export default function DBshortTableED(props: TableProps) {
                   <td className={styles.alignLeft}>
                     <button
                       className={stylesH.dropButton}
-                      onClick={() => setDelFlag(a[0])}
+                      onClick={() =>
+                        item.del ? resetDelFlag(a[0]) : setDelFlag(a[0])
+                      }
                     >
                       X
                     </button>
