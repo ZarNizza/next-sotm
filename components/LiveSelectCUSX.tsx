@@ -271,6 +271,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
                 String(item.id).includes(a.searchWord) ||
                 String(item.cust).includes(a.searchWord) ||
                 String(item.prod).includes(a.searchWord) ||
+                String(item.sum).includes(a.searchWord) ||
                 item.date.toLowerCase().includes(a.searchWord)
               )
             })
@@ -298,6 +299,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
             .filter((item) => {
               return (
                 String(item.id).includes(a.searchWord) ||
+                String(item.sum).includes(a.searchWord) ||
                 item.date.toLowerCase().includes(a.searchWord) ||
                 String(item.xitem).includes(a.searchWord)
               )
