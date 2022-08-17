@@ -290,8 +290,13 @@ export default function WelcomeStat() {
             <div>
               {c.t.todayStat} :&nbsp;&nbsp;
               <span>
-                {statNowS} - {statNowX}
-                {/* = {statDiffS} */}
+                {statNowS} - {statNowX} ={' '}
+                {String(
+                  new Intl.NumberFormat('ru').format(
+                    Number(statNowS.replace(/[^-?\d]/g, '')) -
+                      Number(statNowX.replace(/[^-?\d]/g, ''))
+                  )
+                )}
               </span>
             </div>
           </div>
@@ -300,8 +305,13 @@ export default function WelcomeStat() {
             <div>
               {c.t.monthStat} :&nbsp;&nbsp;
               <span>
-                {statPrevS} - {statPrevX}
-                {/* =  {Number(statPrevS) + Number(statPrevX)} */}
+                {statPrevS} - {statPrevX} ={' '}
+                {String(
+                  new Intl.NumberFormat('ru').format(
+                    Number(statPrevS.replace(/[^-?\d]/g, '')) -
+                      Number(statPrevX.replace(/[^-?\d]/g, ''))
+                  )
+                )}
               </span>
             </div>
           </div>
