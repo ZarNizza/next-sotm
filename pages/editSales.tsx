@@ -63,6 +63,7 @@ const Home: NextPage = () => {
           <Toaster />
           <div className={styles.tips}>
             <br />
+            <br />
             {c.t.editSaleTips}:
           </div>
           <LiveSelect

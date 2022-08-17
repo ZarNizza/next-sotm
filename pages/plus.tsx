@@ -150,6 +150,9 @@ const Home: NextPage = () => {
           <Toaster />
           <div className={styles.tips}>
             <br />
+            <br />
+            <br />
+            <br />
             {c.t.customer}:
           </div>
           <LiveSelect

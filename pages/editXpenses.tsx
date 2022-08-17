@@ -61,6 +61,7 @@ const Home: NextPage = () => {
           </h2>
           <div className={styles.tips}>
             <br />
+            <br />
             {c.t.editXpenseTips}:
           </div>
           <Toaster />
