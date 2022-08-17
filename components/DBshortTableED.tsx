@@ -10,6 +10,7 @@ import fetchHandler, { FetchArgs } from './fetchHandler'
 type TableProps = {
   resData: Record<string, number | string | Date | null>[]
   updateFunc: any
+  type: 'S' | 'X'
 }
 
 export default function DBshortTableED(props: TableProps) {
@@ -19,7 +20,7 @@ export default function DBshortTableED(props: TableProps) {
   function setDelFlag(id: any) {
     let apiName: string = ''
     let apiBody: string = ''
-    apiName = 'sales'
+    apiName = props.type === 'S' ? 'sales' : 'xpenses'
     apiBody = JSON.stringify({
       mode: 'delete',
       dbPrefix: c.u,
@@ -45,7 +46,7 @@ export default function DBshortTableED(props: TableProps) {
   function resetDelFlag(id: any) {
     let apiName: string = ''
     let apiBody: string = ''
-    apiName = 'sales'
+    apiName = props.type === 'S' ? 'sales' : 'xpenses'
     apiBody = JSON.stringify({
       mode: 'restore',
       dbPrefix: c.u,

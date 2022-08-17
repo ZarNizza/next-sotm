@@ -39,6 +39,14 @@ export default function handler(
               dbPrefix +
               'xpenses ORDER BY date DESC LIMIT 50'
             break
+          case 'delete':
+            sql = 'UPDATE ' + dbPrefix + 'xpenses SET del=1 WHERE id=$1'
+            params = [String(parsedReq.id)]
+            break
+          case 'restore':
+            sql = 'UPDATE ' + dbPrefix + 'xpenses SET del=0 WHERE id=$1'
+            params = [String(parsedReq.id)]
+            break
           case 'edit':
             sql =
               'UPDATE ' +

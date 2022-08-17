@@ -104,7 +104,11 @@ const Home: NextPage = () => {
                 <p>{c.t.db_empty}</p>
               ) : (
                 <div className={styles.tableScroll}>
-                  <DBshortTableED resData={items} updateFunc={updateFunc} />
+                  <DBshortTableED
+                    resData={items}
+                    updateFunc={updateFunc}
+                    type="S"
+                  />
                 </div>
               )
             ) : (
