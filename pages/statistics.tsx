@@ -37,7 +37,7 @@ const Home: NextPage = () => {
 
   const [resData, setResData] = useState<Sale[]>([])
   const [resSource, setResSource] = useState('')
-  const [startDate, setStartDate] = useState(myDate('today0'))
+  const [startDate, setStartDate] = useState(myDate('0M'))
   const [finishDate, setFinishDate] = useState(myDate('today'))
 
   useEffect(() => {
