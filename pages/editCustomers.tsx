@@ -56,6 +56,8 @@ const Home: NextPage = () => {
         <div className={styles.flexColumnContainer}>
           <h3>{c.t.settings}</h3>
           <h2>
+            <br />
+            <br />
             {c.t.customers}: {items.length}
           </h2>
           <Toaster />
