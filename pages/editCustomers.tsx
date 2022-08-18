@@ -57,8 +57,6 @@ const Home: NextPage = () => {
           <h3>{c.t.settings}</h3>
           <h2>
             <br />
-            <br />
-            <br />
             {c.t.customers}: {items.length}
           </h2>
           <Toaster />

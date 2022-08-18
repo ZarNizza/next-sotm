@@ -75,7 +75,7 @@
 .floatWrapper {
   position: absolute;
   // top: 16rem;
-  top: -2rem;
+  top: 0rem;
   z-index: 18;
 }
 .floatWrapperNew {
@@ -112,9 +112,9 @@
 .selectListForm {
   background-color: #d3ff58;
   margin: 2rem;
-  padding: 2rem 2rem;
+  padding: 0.4rem 0.4rem;
   border: 1px solid 1px solid #e9ffc3;;//limegreen;
-  border-radius: 10px;
+  border-radius: 0.2rem;
   box-shadow: 3px 3px 3px 0px #7cb305;
 }
 
