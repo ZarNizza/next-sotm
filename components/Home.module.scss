@@ -68,7 +68,7 @@ $separator: #ddd;
   width: 100%;
   height: 100%;
 }
-.welcomeStatRow, .welcomeStatRow1, .welcomeStatRow2 {
+.welcomeStatRow, .welcomeStatRow1 {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
@@ -166,12 +166,9 @@ $separator: #ddd;
   box-shadow: 3px 3px 3px 0px $o4;
   border: 1px solid #fff0e0;
   background: linear-gradient(-15deg, #ffe2c3 5%, #fffdfb 70%, #fff3dc);
-  // background-color: #fffaf3;
-  // border: 1px solid $o6;
   transition: 0.95s ease;
 }
 .orange:hover {
-  // background-color: $o6;
   background: linear-gradient(-15deg, $o6 5%, $o5 70%, $o2);
   color: white;
   cursor: pointer;
@@ -182,11 +179,9 @@ $separator: #ddd;
   box-shadow: 3px 3px 3px 0px $g4;
   border: 1px solid #dcffcb;//$g6;
 background: linear-gradient(-15deg, #cfffb7 5%, #fefffe 70%, #e2ffc9);
-  // background-color: #f4fff0;
   transition: 0.95s ease;
 }
 .green:hover {
-  // background: $g6;
   background: linear-gradient(-15deg, $g6 5%, $g5 70%, $g2);
   color: white;
   cursor: pointer;
@@ -197,11 +192,9 @@ background: linear-gradient(-15deg, #cfffb7 5%, #fefffe 70%, #e2ffc9);
   box-shadow: 3px 3px 3px 0px $y4;
   border: 1px solid #fffadb;//$y6;
   background: linear-gradient(-15deg, #fff6be 5%, #fff 70%, #ffffb8);
-  // background-color: #fdfff3;
   transition: 0.95s ease;
 }
 .yellow:hover {
-  // background: $y6;
   background: linear-gradient(-15deg, $y6 5%, $y5 70%, $y2);
   color: white;
   cursor: pointer;
@@ -212,12 +205,9 @@ background: linear-gradient(-15deg, #cfffb7 5%, #fefffe 70%, #e2ffc9);
   box-shadow: 3px 3px 3px 0px $b4;
   border: 1px solid #e1e7ff;
   background: linear-gradient(-15deg, #ecf0ff 5%, #fff 70%, #e3ecff);
-  // background-color: aliceblue;
-  // border: 1px solid $b6;
   transition: 0.95s ease;
 }
 .blue:hover {
-  // background: $b6;
   background: linear-gradient(-15deg, $b6 5%, $b5 70%, $b2);
   color: white;
   cursor: pointer;
@@ -228,11 +218,9 @@ background: linear-gradient(-15deg, #cfffb7 5%, #fefffe 70%, #e2ffc9);
   box-shadow: 3px 3px 3px 0px $v4;
   border: 1px solid #ede0ff; // $v6;
   background: linear-gradient(-15deg, #dcc3ff 5%, #fff 70%, #efdbff);
-  // background-color: #fbf4ff;
   transition: 0.95s ease;
 }
 .violet:hover {
-  // background: $v6;
   background: linear-gradient(-15deg, $v6 5%, $v5 70%, $v2);
   color: white;
   cursor: pointer;
@@ -243,11 +231,9 @@ background: linear-gradient(-15deg, #cfffb7 5%, #fefffe 70%, #e2ffc9);
   box-shadow: 3px 3px 3px 0px $p4;
   border: 1px solid #ffe8f4; //$p6;
   background: linear-gradient(-15deg, #ffc9e7 5%, #fffdfe 70%, #ffe8f4);
-  // background-color: #fff6fb;
   transition: 0.95s ease;
 }
 .pink:hover {
-  // background: $p6;
   background: linear-gradient(-15deg, $p6 5%, $p5 70%, $p2);
   color: white;
   cursor: pointer;
