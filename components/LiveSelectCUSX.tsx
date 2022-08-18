@@ -454,7 +454,7 @@ const LiveSelect: React.FC<SelectArgs> = (a: SelectArgs) => {
 
       <LiveSearchList />
 
-      <div className={styles.floatWrapper} hidden={flagNew === ''}>
+      <div className={styles.floatWrapperNew} hidden={flagNew === ''}>
         <div className={styles.newCust}>
           <p className={styles.title}>
             {c.t.new} {newTitle}
