@@ -18,3 +18,6 @@ minus.tsx — Xpenses register with add new E-item option. Select (add new) E-it
 statistics.tsx — usefull tool for data slice.<br/>
 settings.tsx — admin options to manage database.<br/>
 </p>
+
+<h3>For curiose reviewers</h3>
+Yes, I know, using <code>key=Math.random()</code> and some any tricks is not perfect idea, but in this app it suits me ))
