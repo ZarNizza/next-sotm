@@ -21,3 +21,4 @@ settings.tsx — admin options to manage database.<br/>
 
 <h3>For curiose reviewers</h3>
 Yes, I know, using <code>key=Math.random()</code> and some any tricks is not perfect idea, but in this app it suits me ))
+The same, about code comments and their absence ))
