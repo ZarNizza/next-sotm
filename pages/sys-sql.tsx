@@ -34,7 +34,7 @@ const Home: NextPage = () => {
   function localStorage_Sales_RequestHandler() {
     let items: string | null = localStorage.getItem(c.u + 'sales')
     if (items !== null && items !== '') {
-      setResData(() => JSON.parse('' + items))
+      setResLSData(() => JSON.parse('' + items))
     } else {
       alert('localStorage empty!')
     }
