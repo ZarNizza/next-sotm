@@ -39,6 +39,7 @@ export const en = {
   shrtNam: 'ShrtNam',
   update: 'Update',
   updateLocalDB: 'Update data from cloud',
+  updateCloudDB: 'Update Cloud data from Local',
   new: 'New',
   date: 'Date',
   custId: 'Cust',
@@ -93,5 +94,6 @@ export const en = {
   welcomeTips11: '',
   editSaleTips: 'Try enter Sale date or summ, id, Product id or Customer id',
   editXpenseTips: 'Try enter Xpense date or summ, id, or expense Item id',
-  syncDBtips: 'Sync local database to main cloud'
+  syncDBtips: 'Sync local database to main cloud',
+  syncCDBtips: 'Sync cloud database from local'
 }
