@@ -138,7 +138,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         sql =
           "SELECT setval(PG_GET_SERIAL_SEQUENCE('" +
           dbPrefix +
-          "'_users', 'id'), (SELECT MAX(id) FROM " +
+          "_users', 'id'), (SELECT MAX(id) FROM " +
           dbPrefix +
           '_users b)+1);'
         err_prefix = 'repair_id_Users'
@@ -148,7 +148,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         sql =
           "SELECT setval(PG_GET_SERIAL_SEQUENCE('" +
           dbPrefix +
-          "'_customers', 'id'), (SELECT MAX(id) FROM " +
+          "_customers', 'id'), (SELECT MAX(id) FROM " +
           dbPrefix +
           '_customers b)+1);'
         err_prefix = 'repair_id_Customers'
@@ -158,9 +158,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         sql =
           "SELECT setval(PG_GET_SERIAL_SEQUENCE('" +
           dbPrefix +
-          "'_products', 'id'), (SELECT MAX(id) FROM " +
+          "_prod', 'id'), (SELECT MAX(id) FROM " +
           dbPrefix +
-          '_products b)+1);'
+          '_prod b)+1);'
         err_prefix = 'repair_id_Products'
         break
 
@@ -168,7 +168,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         sql =
           "SELECT setval(PG_GET_SERIAL_SEQUENCE('" +
           dbPrefix +
-          "'_sales', 'id'), (SELECT MAX(id) FROM " +
+          "_sales', 'id'), (SELECT MAX(id) FROM " +
           dbPrefix +
           '_sales b)+1);'
         err_prefix = 'repair_id_Sales'
@@ -178,7 +178,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         sql =
           "SELECT setval(PG_GET_SERIAL_SEQUENCE('" +
           dbPrefix +
-          "'_xpenses', 'id'), (SELECT MAX(id) FROM " +
+          "_xpenses', 'id'), (SELECT MAX(id) FROM " +
           dbPrefix +
           '_xpenses b)+1);'
         err_prefix = 'repair_id_Xpenses'
@@ -188,7 +188,7 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         sql =
           "SELECT setval(PG_GET_SERIAL_SEQUENCE('" +
           dbPrefix +
-          "'_eitems', 'id'), (SELECT MAX(id) FROM " +
+          "_eitems', 'id'), (SELECT MAX(id) FROM " +
           dbPrefix +
           '_eitems b)+1);'
         err_prefix = 'repair_id_Eitems'
