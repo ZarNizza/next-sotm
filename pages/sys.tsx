@@ -89,6 +89,30 @@ const Home: NextPage = () => {
     sys_handler('index_Xpenses')
   }
 
+  function repair_id_U_handler() {
+    sys_handler('repair_id_Users')
+  }
+
+  function repair_id_C_handler() {
+    sys_handler('repair_id_Customers')
+  }
+
+  function repair_id_P_handler() {
+    sys_handler('repair_id_Products')
+  }
+
+  function repair_id_S_handler() {
+    sys_handler('repair_id_Sales')
+  }
+
+  function repair_id_X_handler() {
+    sys_handler('repair_id_Xpenses')
+  }
+
+  function repair_id_E_handler() {
+    sys_handler('repair_id_Eitems')
+  }
+
   function show_Tables_handler() {
     sys_handler('show_Tables')
   }
@@ -210,6 +234,14 @@ const Home: NextPage = () => {
             <button onClick={index_S_handler}>index S</button>
             <button onClick={index_X_handler}>index X</button>
             <button> - </button>
+          </div>
+          <div className={styles.sysButtonsGroup}>
+            <button onClick={repair_id_U_handler}>re_id U</button>
+            <button onClick={repair_id_C_handler}>re_id C</button>
+            <button onClick={repair_id_P_handler}>re_id P</button>
+            <button onClick={repair_id_S_handler}>re_id S</button>
+            <button onClick={repair_id_X_handler}>re_id X</button>
+            <button onClick={repair_id_E_handler}>re_id E</button>
           </div>
           <div className={styles.orangeButtonsGroup}>
             <button onClick={show_U_handler}>show U</button>

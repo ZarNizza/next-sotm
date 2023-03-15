@@ -134,6 +134,66 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         err_prefix = 'index_Xpenses'
         break
 
+      case 'repair_id_Users':
+        sql =
+          "SELECT setval(PG_GET_SERIAL_SEQUENCE('" +
+          dbPrefix +
+          "'_users', 'id'), (SELECT MAX(id) FROM " +
+          dbPrefix +
+          '_users b)+1);'
+        err_prefix = 'repair_id_Users'
+        break
+
+      case 'repair_id_Customers':
+        sql =
+          "SELECT setval(PG_GET_SERIAL_SEQUENCE('" +
+          dbPrefix +
+          "'_customers', 'id'), (SELECT MAX(id) FROM " +
+          dbPrefix +
+          '_customers b)+1);'
+        err_prefix = 'repair_id_Customers'
+        break
+
+      case 'repair_id_Products':
+        sql =
+          "SELECT setval(PG_GET_SERIAL_SEQUENCE('" +
+          dbPrefix +
+          "'_products', 'id'), (SELECT MAX(id) FROM " +
+          dbPrefix +
+          '_products b)+1);'
+        err_prefix = 'repair_id_Products'
+        break
+
+      case 'repair_id_Sales':
+        sql =
+          "SELECT setval(PG_GET_SERIAL_SEQUENCE('" +
+          dbPrefix +
+          "'_sales', 'id'), (SELECT MAX(id) FROM " +
+          dbPrefix +
+          '_sales b)+1);'
+        err_prefix = 'repair_id_Sales'
+        break
+
+      case 'repair_id_Xpenses':
+        sql =
+          "SELECT setval(PG_GET_SERIAL_SEQUENCE('" +
+          dbPrefix +
+          "'_xpenses', 'id'), (SELECT MAX(id) FROM " +
+          dbPrefix +
+          '_xpenses b)+1);'
+        err_prefix = 'repair_id_Xpenses'
+        break
+
+      case 'repair_id_Eitems':
+        sql =
+          "SELECT setval(PG_GET_SERIAL_SEQUENCE('" +
+          dbPrefix +
+          "'_eitems', 'id'), (SELECT MAX(id) FROM " +
+          dbPrefix +
+          '_eitems b)+1);'
+        err_prefix = 'repair_id_Eitems'
+        break
+
       case 'show_Tables':
         sql =
           "SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' AND schemaname != 'information_schema' ORDER BY tablename"
