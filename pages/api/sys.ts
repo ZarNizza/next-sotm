@@ -138,9 +138,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         sql =
           "SELECT setval(PG_GET_SERIAL_SEQUENCE('" +
           dbPrefix +
-          "_users', 'id'), (SELECT MAX(id) FROM " +
+          "users', 'id'), (SELECT MAX(id) FROM " +
           dbPrefix +
-          '_users b)+1);'
+          'users b)+1);'
         err_prefix = 'repair_id_Users'
         break
 
@@ -148,9 +148,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         sql =
           "SELECT setval(PG_GET_SERIAL_SEQUENCE('" +
           dbPrefix +
-          "_customers', 'id'), (SELECT MAX(id) FROM " +
+          "customers', 'id'), (SELECT MAX(id) FROM " +
           dbPrefix +
-          '_customers b)+1);'
+          'customers b)+1);'
         err_prefix = 'repair_id_Customers'
         break
 
@@ -158,9 +158,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         sql =
           "SELECT setval(PG_GET_SERIAL_SEQUENCE('" +
           dbPrefix +
-          "_prod', 'id'), (SELECT MAX(id) FROM " +
+          "prod', 'id'), (SELECT MAX(id) FROM " +
           dbPrefix +
-          '_prod b)+1);'
+          'prod b)+1);'
         err_prefix = 'repair_id_Products'
         break
 
@@ -168,9 +168,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         sql =
           "SELECT setval(PG_GET_SERIAL_SEQUENCE('" +
           dbPrefix +
-          "_sales', 'id'), (SELECT MAX(id) FROM " +
+          "sales', 'id'), (SELECT MAX(id) FROM " +
           dbPrefix +
-          '_sales b)+1);'
+          'sales b)+1);'
         err_prefix = 'repair_id_Sales'
         break
 
@@ -178,9 +178,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         sql =
           "SELECT setval(PG_GET_SERIAL_SEQUENCE('" +
           dbPrefix +
-          "_xpenses', 'id'), (SELECT MAX(id) FROM " +
+          "xpenses', 'id'), (SELECT MAX(id) FROM " +
           dbPrefix +
-          '_xpenses b)+1);'
+          'xpenses b)+1);'
         err_prefix = 'repair_id_Xpenses'
         break
 
@@ -188,9 +188,9 @@ export default function sysHandler(req: NextApiRequest, res: NextApiResponse) {
         sql =
           "SELECT setval(PG_GET_SERIAL_SEQUENCE('" +
           dbPrefix +
-          "_eitems', 'id'), (SELECT MAX(id) FROM " +
+          "eitems', 'id'), (SELECT MAX(id) FROM " +
           dbPrefix +
-          '_eitems b)+1);'
+          'eitems b)+1);'
         err_prefix = 'repair_id_Eitems'
         break
 
